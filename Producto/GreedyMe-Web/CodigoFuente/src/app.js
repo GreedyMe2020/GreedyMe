@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import CardInfo from "./CardInfo.js";
+import CardInfo from "./CardInfo";
 import { Router } from "@reach/router";
 
 const App = () => {
