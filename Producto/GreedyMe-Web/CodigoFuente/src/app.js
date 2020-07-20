@@ -1,12 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import CardInfo from "./CardInfo.js";
+import { Router } from "@reach/router";
 
 const App = () => {
-  return React.createElement(
-    "div",
-    {},
-    React.createElement("h1", {}, "Greedy Me!")
+  return (
+    <div>
+      <header>Hola</header>
+      <Router>
+        <CardInfo path="/" />
+      </Router>
+    </div>
   );
 };
-
-ReactDOM.render(React.createElement(App), document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
