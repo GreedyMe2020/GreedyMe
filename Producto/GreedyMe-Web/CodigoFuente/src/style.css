@@ -344,11 +344,18 @@ header {
 .btn-round {
   background-color: #f7941e;
   border-color: #f7941e;
-  border-radius: 10%;
+  border-radius: 2em;
   color: #ffffff !important;
 }
 
 .btn-round:hover {
   background-color: #f28910;
   border-color: #f28910;
+}
+
+.register-group .btn-round {
+  background-color: #05004e;
+  border-color: #05004e;
+  border-radius: 2em;
+  color: #ffffff !important;
 }

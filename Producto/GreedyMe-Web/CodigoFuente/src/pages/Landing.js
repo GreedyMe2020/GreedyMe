@@ -23,7 +23,7 @@ export function Landing() {
         <CardPlanes></CardPlanes>
       </div>
       <hr></hr>
-      <div>
+      <div className="register-group">
         <h1>
           Queres que tu comercio cuente con nuestro sistema de gestion de
           descuentos y promociones?
