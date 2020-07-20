@@ -9,7 +9,7 @@ export const ModalButton = ({ children }) => {
 
   return (
     <div>
-      <Button variant="primary" onClick={handleShow}>
+      <Button className="btn-round" variant="primary" onClick={handleShow}>
         {children}
       </Button>
       <Modal
