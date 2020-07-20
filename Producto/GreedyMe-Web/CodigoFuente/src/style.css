@@ -322,3 +322,33 @@ header {
     height: 60px;
   }
 }
+
+.cardPlanes {
+  border-color: #f7941e;
+  border-radius: 10%;
+}
+
+.cardPlanes:hover {
+  background-color: #f7941e;
+  color: #ffffff !important;
+}
+
+.cardPlanes:hover .cardText {
+  color: #ffffff !important;
+}
+
+.cardPlanes:hover .cardTitle {
+  color: #ffffff !important;
+}
+
+.btn-round {
+  background-color: #f7941e;
+  border-color: #f7941e;
+  border-radius: 10%;
+  color: #ffffff !important;
+}
+
+.btn-round:hover {
+  background-color: #f28910;
+  border-color: #f28910;
+}

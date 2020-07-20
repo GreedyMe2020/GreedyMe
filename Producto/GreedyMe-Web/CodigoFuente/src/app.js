@@ -1,16 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import CardInfo from "./CardInfo";
-import { Router } from "@reach/router";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
+import { Landing } from "./pages/Landing";
 
 const App = () => {
   return (
-    <div>
-      <header>Hola</header>
-      <Router>
-        <CardInfo path="/" />
-      </Router>
+    <div className="App">
+      <Switch>
+        <Route exact path="/" component={Landing} />
+      </Switch>
     </div>
   );
 };
-ReactDOM.render(<App />, document.getElementById("root"));
+
+ReactDOM.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
