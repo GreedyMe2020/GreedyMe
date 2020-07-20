@@ -1,5 +1,6 @@
 import React from "react";
 import { CardInfo, CardPlanes } from "../components/CardInfo";
+import { ModalButton } from "../components/modal-button";
 import { Button } from "react-bootstrap";
 
 export function Landing() {
@@ -27,7 +28,7 @@ export function Landing() {
           Queres que tu comercio cuente con nuestro sistema de gestion de
           descuentos y promociones?
         </h1>
-        <Button href="#">Registralo aca</Button>
+        <ModalButton>Registralo aca</ModalButton>
       </div>
       <hr></hr>
     </div>
