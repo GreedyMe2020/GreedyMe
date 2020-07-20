@@ -322,10 +322,10 @@ header {
     height: 60px;
   }
 }
-
+/*--------------------------------------------*/
 .cardPlanes {
   border-color: #f7941e;
-  border-radius: 10%;
+  border-radius: 20px;
 }
 
 .cardPlanes:hover {
