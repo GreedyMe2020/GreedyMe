@@ -1,77 +1,67 @@
 import React from "react";
-import { Card, CardDeck } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
-export function CardInfo() {
+export function CardInfo({ color, src, titulo, contenido }) {
   return (
-    <div>
-      <CardDeck>
-        <Card>
-          <Card.Img variant="top" src="holder.js/100px160" />
-          <Card.Body>
-            <Card.Title>AUTOGESTON</Card.Title>
-            <Card.Text>
-              Gestiona todos los descuentos y promociones con los que trabaja tu
-              comercio para mejorar y agilizar la experiecia comercio-cliente.
-            </Card.Text>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Img variant="top" src="holder.js/100px160" />
-          <Card.Body>
-            <Card.Title>ESTADISTICAS</Card.Title>
-            <Card.Text>
-              Obtene estadisticas sobre el comprtamiento de tus clientes que
-              ayudaran a tomar decisiones estrategicas sobre los descuentos.
-            </Card.Text>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Img variant="top" src="holder.js/100px160" />
-          <Card.Body>
-            <Card.Title>GREEDY POINTS</Card.Title>
-            <Card.Text>
-              Los clientes sumaran puntos por cada cupon de descuento que
-              utilicen en tu comercio y podran cangearlo por recompensas.
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </CardDeck>
+    <div className="cardInfo">
+      <Card className="cardI">
+        <Card.Img variant="top" className="circulo" id={color} />
+        <Card.Img variant="top" className="icono" src={src} />
+        <Card.Body>
+          <Card.Title className="tituloCard">{titulo}</Card.Title>
+          <Card.Text className="textoCard">{contenido}</Card.Text>
+        </Card.Body>
+      </Card>
     </div>
   );
 }
 
-export function CardPlanes() {
+export function CardPlanes({
+  titulo,
+  precio,
+  src1,
+  src2,
+  src3,
+  src4,
+  contenido1,
+  contenido2,
+  contenido3,
+  contenido4,
+}) {
   return (
-    <div>
-      <CardDeck>
-        <Card className="cardPlanes">
-          <Card.Body>
-            <Card.Title className="cardTitle">Prueba</Card.Title>
-            <Card.Text className="cardText" style={{ fontSize: "20px" }}>
-              Gratis
-            </Card.Text>
-            <Card.Text className="cardText">Acceso por 30 dias</Card.Text>
-          </Card.Body>
-        </Card>
-        <Card className="cardPlanes">
-          <Card.Body>
-            <Card.Title className="cardTitle">Base</Card.Title>
-            <Card.Text className="cardText" style={{ fontSize: "20px" }}>
-              $20
-            </Card.Text>
-            <Card.Text className="cardText">Blabla</Card.Text>
-          </Card.Body>
-        </Card>
-        <Card className="cardPlanes">
-          <Card.Body>
-            <Card.Title className="cardTitle">Premium</Card.Title>
-            <Card.Text className="cardText" style={{ fontSize: "20px" }}>
-              $35
-            </Card.Text>
-            <Card.Text className="cardText">Blabla</Card.Text>
-          </Card.Body>
-        </Card>
-      </CardDeck>
+    <div className="cardPlanes">
+      <Card id="cardP" className="hvr-float-shadow">
+        <Card.Body>
+          <Card.Title className="tituloCardP">{titulo}</Card.Title>
+          <Card.Text className="precioCardP">{precio}</Card.Text>
+          <div className="contTexto">
+            <div>
+              <Card.Img id="textoenlinea" className="iconoPlan" src={src1} />
+              <Card.Text id="textoenlinea" className="textoCardP">
+                {contenido1}
+              </Card.Text>
+            </div>
+            <div>
+              <Card.Img id="textoenlinea" className="iconoPlan" src={src2} />
+              <Card.Text id="textoenlinea" className="textoCardP">
+                {contenido2}
+              </Card.Text>
+            </div>
+            <div>
+              <Card.Img id="textoenlinea" className="iconoPlan" src={src3} />
+              <Card.Text id="textoenlinea" className="textoCardP">
+                {contenido3}
+              </Card.Text>
+            </div>
+            <div>
+              <Card.Img id="textoenlinea" className="iconoPlan" src={src4} />
+              <Card.Text id="textoenlinea" className="textoCardP">
+                {contenido4}
+              </Card.Text>
+            </div>
+          </div>
+        </Card.Body>
+      </Card>
     </div>
   );
 }
