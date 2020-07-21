@@ -1,41 +1,17 @@
 import React from "react";
 import { Card, CardDeck } from "react-bootstrap";
 
-export function CardInfo() {
+export function CardInfo({ color, src, titulo, contenido }) {
   return (
-    <div>
-      <CardDeck>
-        <Card>
-          <Card.Img variant="top" src="holder.js/100px160" />
-          <Card.Body>
-            <Card.Title>AUTOGESTON</Card.Title>
-            <Card.Text>
-              Gestiona todos los descuentos y promociones con los que trabaja tu
-              comercio para mejorar y agilizar la experiecia comercio-cliente.
-            </Card.Text>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Img variant="top" src="holder.js/100px160" />
-          <Card.Body>
-            <Card.Title>ESTADISTICAS</Card.Title>
-            <Card.Text>
-              Obtene estadisticas sobre el comprtamiento de tus clientes que
-              ayudaran a tomar decisiones estrategicas sobre los descuentos.
-            </Card.Text>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Img variant="top" src="holder.js/100px160" />
-          <Card.Body>
-            <Card.Title>GREEDY POINTS</Card.Title>
-            <Card.Text>
-              Los clientes sumaran puntos por cada cupon de descuento que
-              utilicen en tu comercio y podran cangearlo por recompensas.
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </CardDeck>
+    <div className="cardInfo">
+      <Card className="card">
+        <Card.Img variant="top" className="circulo" id={color} />
+        <Card.Img variant="top" className="icono" src={src} />
+        <Card.Body>
+          <Card.Title className="tituloCard">{titulo}</Card.Title>
+          <Card.Text className="textoCard">{contenido}</Card.Text>
+        </Card.Body>
+      </Card>
     </div>
   );
 }

@@ -1,13 +1,28 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+@font-face {
+  font-family: "GlacialIndifference-Regular";
+  src: url("../fonts/glacial-indifference/GlacialIndifference-Regular.otf");
+}
+@font-face {
+  font-family: "ProductSans-Thin";
+  src: url("../fonts/google-sans-cufonfonts-webfont/ProductSans-Thin.woff");
+}
+@font-face {
+  font-family: "ProductSans-Regular";
+  src: url("../fonts/google-sans-cufonfonts-webfont/ProductSans-Regular.woff");
+}
+@font-face {
+  font-family: "ProductSans-Bold";
+  src: url("../fonts/google-sans-cufonfonts-webfont/ProductSans-Bold.woff");
+}
+
 * {
   box-sizing: border-box;
   color: #333;
 }
 
 body {
-  background-color: #81a69b;
-  background-image: url(http://static.frontendmasters.com/resources/2019-05-02-complete-intro-react-v5/image-background.png);
   margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -322,7 +337,73 @@ header {
     height: 60px;
   }
 }
+
 /*--------------------------------------------*/
+
+.circulo {
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  padding: 50px;
+}
+#azul {
+  background-color: rgba(38, 34, 98, 1);
+  margin-top: -57px;
+  margin-left: 20px;
+}
+#celeste {
+  background-color: rgba(118, 179, 157, 1);
+  margin-top: -57px;
+  margin-left: 20px;
+}
+#naranja {
+  background-color: rgba(247, 148, 30, 1);
+  margin-top: -57px;
+  margin-left: 20px;
+}
+.icono {
+  width: 50px;
+  height: 50px;
+  margin-top: -73px;
+  margin-left: 45px;
+}
+
+.contenedorCardInfo {
+  width: 100%;
+  height: 450px;
+  margin-top: 90px;
+  text-align: center;
+}
+.cardInfo {
+  display: inline-block;
+  padding: 30px 20px;
+}
+.card {
+  width: 380px;
+  height: 280px;
+  padding: 8px;
+  border-radius: 0px;
+  border-color: white;
+  box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.161);
+}
+.tituloCard {
+  margin-top: 30px;
+  text-align: left;
+  font-family: "ProductSans-Bold";
+  font-size: 20px;
+  color: rgba(0, 0, 0, 1);
+  letter-spacing: 0.05px;
+}
+.textoCard {
+  margin-top: 15px;
+  text-align: left;
+  font-family: "ProductSans-Thin";
+  font-weight: bold;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 1);
+  letter-spacing: 0.05px;
+}
+
 .cardPlanes {
   border-color: #f7941e;
   border-radius: 20px;
