@@ -12,10 +12,29 @@ export function Landing() {
           Conoce mas
         </Button>
       </div>
-      <hr></hr>
-      <div>
-        <h1>Hay que ver el css y html de Lau para las cards con info</h1>
-        <CardInfo></CardInfo>
+
+      <div className="contenedorCardInfo">
+        <CardInfo
+          color="azul"
+          src={require("../../Multimedia/Landing/Iconos/price-tag.png")}
+          titulo="AUTOGESTIÓN"
+          contenido="Gestioná todos los descuentos y promociones con los que trabaja
+          tu comercio para mejorar y agilizar la experiencia comercio-cliente."
+        ></CardInfo>
+        <CardInfo
+          color="celeste"
+          src={require("../../Multimedia/Landing/Iconos/profits.png")}
+          titulo="ESTADÍSTICAS"
+          contenido="Obtene estadisticas sobre el comprtamiento de tus clientes que
+          ayudaran a tomar decisiones estrategicas sobre los descuentos."
+        ></CardInfo>
+        <CardInfo
+          color="naranja"
+          src={require("../../Multimedia/Landing/Iconos/star (1).png")}
+          titulo="GREEDY POINTS"
+          contenido="Los clientes sumaran puntos por cada cupon de descuento que
+          utilicen en tu comercio y podran cangearlo por recompensas."
+        ></CardInfo>
       </div>
       <hr></hr>
       <div>
