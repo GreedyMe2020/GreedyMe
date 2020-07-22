@@ -104,7 +104,7 @@ export class FormLanding extends Component {
   render() {
     const { errors, formValid } = this.state;
     return (
-      <form onSubmit={this.handleSubmit} noValidate>
+      <form className="form-contacto" onSubmit={this.handleSubmit} noValidate>
         <Row>
           <Col xs="12" md="6">
             <label htmlFor="nombre">Nombre</label>
@@ -243,7 +243,12 @@ export class FormLanding extends Component {
 
         <Row>
           <Col xs="12" md="12">
-            <Button name="submit" type="submit" style={{ float: "right" }}>
+            <Button
+              className="btn-round"
+              name="submit"
+              type="submit"
+              style={{ float: "right" }}
+            >
               Enviar
             </Button>
             {this.state.errorCount !== null ? (

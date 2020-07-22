@@ -641,6 +641,13 @@ header {
   color: #ffffff !important;
 }
 
+.form-contacto .btn-round {
+  background-color: #05004e;
+  border-color: #05004e;
+  border-radius: 2em;
+  color: #ffffff !important;
+}
+
 .form-validator {
   color: firebrick;
 }
