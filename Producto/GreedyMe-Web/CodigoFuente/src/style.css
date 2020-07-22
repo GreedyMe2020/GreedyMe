@@ -440,3 +440,7 @@ header {
   border-radius: 2em;
   color: #ffffff !important;
 }
+
+.form-validator {
+  color: firebrick;
+}
