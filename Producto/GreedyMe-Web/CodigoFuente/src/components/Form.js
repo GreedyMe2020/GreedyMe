@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Row, Button, Col } from "react-bootstrap";
 
 const validNameRegex = RegExp(
-  "^([a-zA-Z]{2,}s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}s?([a-zA-Z]{1,})?)"
+  "^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ']+[s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ'])+[s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ'])?$"
 );
 const validEmailRegex = RegExp(
   "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$"
