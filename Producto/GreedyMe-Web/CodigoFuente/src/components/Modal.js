@@ -1,13 +1,25 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+
+const ColorButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText("#262262"),
+    backgroundColor: "#262262",
+    width: "170px",
+    height: "50px",
+    borderRadius: "50px",
+    "&:hover": {
+      backgroundColor: "#1e1b4d",
+      color: "#FFFFFF",
+    },
+  },
+}))(Button);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,8 +33,9 @@ const useStyles = makeStyles((theme) => ({
 export default function FormDialog() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [email, setEmail] = React.useState();
-  const [password, setPassword] = React.useState();
+  //const [email, setEmail] = React.useState();
+  //const [password, setPassword] = React.useState();
+  const [formData, setFormData] = React.useState({ email: "", password: "" });
   const [submitted, setSubmitted] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -33,30 +46,30 @@ export default function FormDialog() {
     setOpen(false);
   };
 
-  // const handleChange = (event) => {
-  //   formData[event.target.name] = event.target.value;
-  //   setFormData({ formData });
-  // };
-
-  /*  const handleChangeEmail = (event) => {
-    const email = event.target.value;
-    setFormData({ email: email });
+  const handleChange = (event) => {
+    formData[event.target.name] = event.target.value;
+    setFormData({ formData });
   };
 
-  const handleChangePass = (event) => {
-    const password = event.target.value;
-    setFormData({ password: password });
+  /*   const handleChangeEmail = () => {
+    const email = event.value;
+    setEmail({ email });
+  };
+
+  const handleChangePass = () => {
+    const password = event.value;
+    setPassword({ password });
   }; */
 
-  const handleChange = (event) => {
-    const evento = event.target.value;
-    if (event.target.name === "email") {
-      setEmail({ evento });
-    }
-    if (event.target.name === "password") {
-      setPassword({ evento });
-    }
-  };
+  // const handleChange = (event) => {
+  //   const evento = event.target.value;
+  //   if (event.target.name === "email") {
+  //     setEmail({ evento });
+  //   }
+  //   if (event.target.name === "password") {
+  //     setPassword({ evento });
+  //   }
+  // };
 
   const handleSubmit = () => {
     setSubmitted({ submitted: true }, () => {
@@ -68,9 +81,16 @@ export default function FormDialog() {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Suscribirse
-      </Button>
+      <div id="botonRegistarse">
+        <ColorButton
+          variant="contained"
+          color="primary"
+          className={classes.margin}
+          onClick={handleClickOpen}
+        >
+          Registralo acá
+        </ColorButton>
+      </div>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -92,7 +112,7 @@ export default function FormDialog() {
               label="Email"
               onChange={handleChange}
               name="email"
-              value={email}
+              value={formData.email}
               validators={["required", "isEmail"]}
               errorMessages={["this field is required", "email is not valid"]}
             />
@@ -101,7 +121,7 @@ export default function FormDialog() {
               label="Password"
               onChange={handleChange}
               name="password"
-              value={password}
+              value={formData.password}
               validators={["required"]}
               errorMessages={["this field is required"]}
             />
