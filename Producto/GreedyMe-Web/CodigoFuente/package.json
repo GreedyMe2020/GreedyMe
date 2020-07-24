@@ -23,12 +23,16 @@
     "prettier": "^2.0.5"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "bootstrap": "^4.5.0",
     "firebase": "^7.16.1",
     "hover.css": "^2.3.2",
     "react": "^16.13.1",
     "react-bootstrap": "^1.2.2",
     "react-dom": "^16.13.1",
+    "react-form-validator-core": "^0.7.0",
+    "react-material-ui-form-validator": "^2.0.10",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0"
   }
 }
