@@ -48,7 +48,7 @@ export default function FormDialog() {
 
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
-    setFormData({ formData });
+    setFormData({ ...formData });
   };
 
   /*   const handleChangeEmail = () => {
@@ -81,7 +81,7 @@ export default function FormDialog() {
 
   return (
     <div>
-      <div id="botonRegistarse">
+      <div className="botonRegistarse">
         <ColorButton
           variant="contained"
           color="primary"

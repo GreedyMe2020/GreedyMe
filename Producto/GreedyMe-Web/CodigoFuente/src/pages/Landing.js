@@ -29,6 +29,7 @@ export function Landing() {
   const classes = useStyles();
   return (
     <div>
+      {/* -------------------------------PRINCIPAL------------------------------------------------------ */}
       <div className="principal">
         <Image
           className="imagenPrincipal"
@@ -109,7 +110,7 @@ export function Landing() {
           </div>
         </div>
       </div>
-
+      {/* -------------------------------CARACT SISTEMA------------------------------------------------------ */}
       <div className="caractSistema">
         <div className="contenedorCard">
           <CardInfo
@@ -135,7 +136,7 @@ export function Landing() {
           ></CardInfo>
         </div>
       </div>
-
+      {/* -------------------------------PLANES------------------------------------------------------ */}
       <div className="planes">
         <h1 className="tituloPlanes">Nuestros planes</h1>
         <div className="contenedorCard">
@@ -174,14 +175,53 @@ export function Landing() {
           ></CardPlanes>
         </div>
       </div>
-
+      {/* -------------------------------FORMULARIO------------------------------------------------------ */}
       <div className="formulario">
         <p className="introForm">
-          ¿Queres que tu comercio cuente con nuestro sistema
+          ¿Queres que tu comercio
           <br />
-          de gestion de descuentos y promociones?
+          cuente con nuestro sistema
+          <br />
+          de gestion de descuentos
+          <br />y promociones?
         </p>
         <FormDialog />
+      </div>
+      {/* -------------------------------DESCARGATE LA APP------------------------------------------------------ */}
+      <div className="descargaApp">
+        <div className="contenedorDescarga">
+          <p className="textoApp">
+            Proximamente podras descargarte la app en tu celular
+            <br /> y empezar a gestionar todos tus descuentos
+          </p>
+          <Image
+            className="icoApp"
+            src={require("../../Multimedia/Landing/Imagenes/googleplay1.png")}
+          />
+          <Image
+            className="icoApp"
+            src={require("../../Multimedia/Landing/Imagenes/appstore1.png")}
+          />
+        </div>
+        <div className="contenedorCel">
+          <Image
+            className="imgCelular"
+            src={require("../../Multimedia/Landing/Imagenes/celular.png")}
+          />
+        </div>
+      </div>
+      {/* -------------------------------FOOTER------------------------------------------------------ */}
+
+      <div className="footer">
+        <div className="textoFooter">
+          <p>Terminos y condiciones</p>
+          <p>Politica de privacidad</p>
+        </div>
+        <div className="logoFooter">
+          <span style={{ color: "rgb(255, 255, 255)" }}>g r e</span>
+          <span style={{ color: "#76B39D" }}> e d y</span>
+          <span style={{ color: "rgba(247,148,30,1)" }}> m e</span>
+        </div>
       </div>
     </div>
   );
