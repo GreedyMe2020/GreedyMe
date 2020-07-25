@@ -148,7 +148,7 @@ export default function FormDialog() {
 
   return (
     <div>
-      <div id="botonRegistarse">
+      <div className="botonRegistarse">
         <ColorButton
           variant="contained"
           color="primary"
