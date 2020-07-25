@@ -88,9 +88,9 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       width: "25ch",
     },
-    cont: {
-      flexGrow: 1,
-    },
+  },
+  cont: {
+    flexGrow: 1,
   },
 }));
 
