@@ -70,10 +70,10 @@ export function Principal() {
           </span>
         </div>
         <div id="contenedor_boton_conocermas">
-          <ButtonEj text="Conocer mas" style="botonConocerMas" />
+          <ButtonEj text="Conocer mas" style="botonConocerMas" onClick="" />
         </div>
       </div>
-      <ButtonEj text="Iniciar Sesion" style="btnOutliner" />
+      <ButtonEj text="Iniciar Sesion" style="btnIniciarSesion" onClick="" />
     </div>
   );
 }
