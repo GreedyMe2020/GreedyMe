@@ -6,7 +6,8 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
+import { ButtonEj } from "../components/Button";
 import {
   ValidatorForm,
   TextValidator,
@@ -81,20 +82,6 @@ const rubros = [
   },
 ];
 
-const ColorButton = withStyles((theme) => ({
-  root: {
-    color: theme.palette.getContrastText("#262262"),
-    backgroundColor: "#262262",
-    width: "170px",
-    height: "50px",
-    borderRadius: "50px",
-    "&:hover": {
-      backgroundColor: "#1e1b4d",
-      color: "#FFFFFF",
-    },
-  },
-}))(Button);
-
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -110,8 +97,6 @@ const useStyles = makeStyles((theme) => ({
 export default function FormDialog() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  //const [email, setEmail] = React.useState();
-  //const [password, setPassword] = React.useState();
   const [formData, setFormData] = React.useState({
     nombre: "",
     apellido: "",
@@ -149,14 +134,11 @@ export default function FormDialog() {
   return (
     <div>
       <div className="botonRegistarse">
-        <ColorButton
-          variant="contained"
-          color="primary"
-          className={classes.root.margin}
+        <ButtonEj
+          text="Registralo aca"
+          style="btnRegistro"
           onClick={handleClickOpen}
-        >
-          Registralo acá
-        </ColorButton>
+        ></ButtonEj>
       </div>
       <Dialog
         open={open}
