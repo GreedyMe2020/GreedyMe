@@ -1,30 +1,8 @@
 import React from "react";
 import { Image } from "react-bootstrap";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-
-const ColorButton = withStyles((theme) => ({
-  root: {
-    color: theme.palette.getContrastText("#F7941E"),
-    backgroundColor: "#F7941E",
-    width: "170px",
-    height: "50px",
-    borderRadius: "50px",
-    "&:hover": {
-      backgroundColor: "#FD5F00",
-      color: "#FFFFFF",
-    },
-  },
-}))(Button);
-
-const useStyles = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(1),
-  },
-}));
+import { ButtonEj } from "../Button";
 
 export function Principal() {
-  const classes = useStyles();
   return (
     <div className="principal">
       <Image
@@ -92,15 +70,10 @@ export function Principal() {
           </span>
         </div>
         <div id="contenedor_boton_conocermas">
-          <ColorButton
-            variant="contained"
-            color="primary"
-            className={classes.margin}
-          >
-            Conocer más
-          </ColorButton>
+          <ButtonEj text="Conocer mas" style="botonConocerMas" onClick="" />
         </div>
       </div>
+      <ButtonEj text="Iniciar Sesion" style="btnIniciarSesion" onClick="" />
     </div>
   );
 }
