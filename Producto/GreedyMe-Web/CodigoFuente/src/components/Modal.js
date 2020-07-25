@@ -101,9 +101,9 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       width: "25ch",
     },
-    cont: {
-      flexGrow: 1,
-    },
+  },
+  cont: {
+    flexGrow: 1,
   },
 }));
 
@@ -152,7 +152,7 @@ export default function FormDialog() {
         <ColorButton
           variant="contained"
           color="primary"
-          className={classes.margin}
+          className={classes.root.margin}
           onClick={handleClickOpen}
         >
           Registralo acá
