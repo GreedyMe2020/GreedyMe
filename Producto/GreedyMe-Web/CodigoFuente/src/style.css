@@ -85,19 +85,19 @@
   background-color: rgba(247, 148, 30, 1);
   border-color: rgba(247, 148, 30, 1);
   width: 170px;
-  height: 40px;
+  height: 45px;
   border-radius: 50px;
   text-align: center;
   font-family: "ProductSans-Regular", sans-serif;
   font-style: normal;
   font-size: 18px;
   color: rgba(249, 248, 235, 1);
+  letter-spacing: 0.5px;
+  text-transform: none;
 }
-#botonConocerMas:hover #botonConocerMas:focus {
+#botonConocerMas:hover #botonConocerMas:active {
   background-color: #fd5f00;
   border-color: #fd5f00;
-  color: white;
-  border-radius: 50px;
 }
 /*--------------CARACTERISTICAS DEL SISTEMA----------------------------*/
 .caractSistema {
@@ -474,4 +474,27 @@
   font-size: 30px;
   margin-top: 55px;
   letter-spacing: 1px;
+}
+
+.btnIniciarSesion {
+  width: 50%;
+  height: 80px;
+  margin-right: 10px;
+  float: right;
+  top: 0;
+}
+
+#btnOutliner {
+  width: 130px;
+  height: 40px;
+  float: right;
+  top: 25px;
+  right: 30px;
+  position: absolute;
+  border-color: #f7941e;
+  color: white;
+  font-size: 16px;
+  text-transform: none;
+  font-family: "ProductSans-Regular";
+  letter-spacing: 0.5px;
 }
