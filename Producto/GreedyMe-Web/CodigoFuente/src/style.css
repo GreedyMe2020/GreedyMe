@@ -20,12 +20,12 @@
 .principal {
   position: absolute;
   width: 100%;
-  height: 700px;
+  height: 600px;
 }
 .imagenPrincipal {
   position: absolute;
   width: 100%;
-  height: 600px;
+  height: 100%;
   top: 0px;
 }
 #fondo_degrade_blanco {
@@ -35,7 +35,7 @@
   position: absolute;
   overflow: visible;
   width: 100%;
-  height: 600px;
+  height: 100%;
   top: 0px;
 }
 #fondo_degrade_azul {
@@ -45,13 +45,13 @@
   position: absolute;
   overflow: visible;
   width: 100%;
-  height: 600px;
+  height: 100%;
   top: 0px;
 }
 #Titulo_principal {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 55%;
   top: 150px;
   text-align: center;
 }
@@ -77,34 +77,34 @@
   position: relative;
   width: 50%;
   height: 80px;
-  top: 80px;
+  top: 50px;
   display: inline-block;
 }
 #botonConocerMas {
   position: relative;
   background-color: rgba(247, 148, 30, 1);
   border-color: rgba(247, 148, 30, 1);
-  width: 170px;
-  height: 40px;
+  width: 150px;
+  height: 45px;
   border-radius: 50px;
   text-align: center;
   font-family: "ProductSans-Regular", sans-serif;
   font-style: normal;
   font-size: 18px;
   color: rgba(249, 248, 235, 1);
+  letter-spacing: 0.5px;
+  text-transform: none;
 }
-#botonConocerMas:hover #botonConocerMas:focus {
+#botonConocerMas:hover {
   background-color: #fd5f00;
   border-color: #fd5f00;
-  color: white;
-  border-radius: 50px;
 }
 /*--------------CARACTERISTICAS DEL SISTEMA----------------------------*/
 .caractSistema {
   position: absolute;
   width: 100%;
-  top: 750px;
-  height: 500px;
+  top: 600px;
+  height: 100%;
 }
 .circulo {
   width: 100px;
@@ -134,6 +134,7 @@
   margin-left: 45px;
 }
 .contenedorCard {
+  margin-top: 10%;
   width: 100%;
   height: 450px;
   text-align: center;
@@ -403,6 +404,22 @@
   text-align: center;
 }
 
+#btnRegistro {
+  background-color: #262262;
+  border-color: #262262;
+  border-radius: 50px;
+  color: white;
+  font-size: 16px;
+  text-transform: none;
+  font-family: "ProductSans-Regular";
+  letter-spacing: 0.5px;
+}
+#btnRegistro:hover {
+  background-color: #1e1b4d;
+  border-color: #1e1b4d;
+  border-radius: 50px;
+  color: white;
+}
 /*--------------DESCARGATE LA APP----------------------------*/
 .descargaApp {
   position: absolute;
@@ -474,4 +491,32 @@
   font-size: 30px;
   margin-top: 55px;
   letter-spacing: 1px;
+}
+
+.btnIniciarSesion {
+  width: 50%;
+  height: 80px;
+  margin-right: 10px;
+  float: right;
+  top: 0;
+}
+
+#btnIniciarSesion {
+  width: 130px;
+  height: 40px;
+  float: right;
+  top: 25px;
+  right: 30px;
+  position: absolute;
+  border-color: #f7941e;
+  color: white;
+  font-size: 16px;
+  text-transform: none;
+  font-family: "ProductSans-Regular";
+  letter-spacing: 0.5px;
+}
+#btnIniciarSesion:hover {
+  border-color: #f7941e;
+  color: white;
+  background-color: #f7af57;
 }
