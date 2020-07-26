@@ -2,9 +2,10 @@ import React from "react";
 import { CardInfo } from "../CardInfo";
 
 export function Caracteristicas() {
+  const divRef = React.useRef(null);
   return (
     <div className="caractSistema">
-      <div className="contenedorCard">
+      <div className="contenedorCard" id="contenedorCard" ref={divRef}>
         <CardInfo
           color="azul"
           src={require("../../../Multimedia/Landing/Iconos/price-tag.png")}
