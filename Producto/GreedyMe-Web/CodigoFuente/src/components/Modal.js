@@ -14,6 +14,7 @@ import {
   SelectValidator,
 } from "react-material-ui-form-validator";
 import Grid from "@material-ui/core/Grid";
+import { registrarSolicitud } from "../firebase/apiLanding";
 
 const rubros = [
   {
@@ -127,6 +128,12 @@ export default function FormDialog() {
     setSubmitted({ submitted: true }, () => {
       setTimeout(() => setSubmitted({ submitted: false }), 5000);
     });
+
+    mandarForm(formData);
+  };
+
+  const mandarForm = async (formData) => {
+    return await registrarSolicitud(formData);
   };
 
   const form = React.createRef();
