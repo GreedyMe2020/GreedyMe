@@ -13,73 +13,91 @@ import {
   SelectValidator,
 } from "react-material-ui-form-validator";
 import Grid from "@material-ui/core/Grid";
+import { db } from "../firebase/config";
 
-const rubros = [
+const rubros = [];
+const rubro = () => {
+  db.collection("rubros")
+    .orderBy("nombre")
+    .get()
+    .then((snapShots) => {
+      snapShots.forEach((doc) => {
+        const data = doc.data();
+        rubros.push({
+          ...data,
+          id: doc.id,
+        });
+      });
+    });
+};
+rubro();
+
+/*const rubros = [
   {
     value: "Belleza",
-    label: "Belleza",
+    nombre: "Belleza",
   },
   {
     value: "Deportes",
-    label: "Deportes",
+    nombre: "Deportes",
   },
   {
     value: "Entretenimiento",
-    label: "Entretenimiento",
+    nombre: "Entretenimiento",
   },
   {
     value: "Estetica",
-    label: "Estética",
+    nombre: "Estética",
   },
   {
     value: "Farmacia",
-    label: "Farmacia",
+    nombre: "Farmacia",
   },
   {
     value: "Gastronomia",
-    label: "Gastronomía",
+    nombre: "Gastronomía",
   },
   {
     value: "Hogar",
-    label: "Hogar",
+    nombre: "Hogar",
   },
   {
     value: "Indumentaria",
-    label: "Indumentaria",
+    nombre: "Indumentaria",
   },
   {
     value: "Librerias",
-    label: "Librerías",
+    nombre: "Librerías",
   },
   {
     value: "MueblesYDecoracion",
-    label: "Muebles y Decoración",
+    nombre: "Muebles y Decoración",
   },
   {
     value: "Niños",
-    label: "Niños",
+    nombre: "Niños",
   },
   {
     value: "Supermercados",
-    label: "Supermercados",
+    nombre: "Supermercados",
   },
   {
     value: "Tecnologia",
-    label: "Tecnologia",
+    nombre: "Tecnologia",
   },
   {
     value: "Turismo",
-    label: "Turismo",
+    nombre: "Turismo",
   },
   {
     value: "Vehiculos",
-    label: "Vehículos",
+    nombre: "Vehículos",
   },
   {
     value: "Otro",
-    label: "Otro",
+    nombre: "Otro",
   },
-];
+];*/
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -285,8 +303,8 @@ export default function FormDialog() {
                   errorMessages={["*Este campo es obligatorio"]}
                 >
                   {rubros.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
+                    <MenuItem key={option.nombre} value={option.nombre}>
+                      {option.nombre}
                     </MenuItem>
                   ))}
                 </SelectValidator>
