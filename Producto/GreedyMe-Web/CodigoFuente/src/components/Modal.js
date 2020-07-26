@@ -17,7 +17,7 @@ import Grid from "@material-ui/core/Grid";
 import { db } from "../firebase/config";
 import { registrarSolicitud } from "../firebase/apiLanding";
 
-const rubros = [];
+/*const rubros = [];
 const rubro = () => {
   db.collection("rubros")
     .orderBy("nombre")
@@ -32,9 +32,9 @@ const rubro = () => {
       });
     });
 };
-rubro();
+rubro();*/
 
-/*const rubros = [
+const rubros = [
   {
     value: "Belleza",
     nombre: "Belleza",
@@ -99,7 +99,7 @@ rubro();
     value: "Otro",
     nombre: "Otro",
   },
-];*/
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {
