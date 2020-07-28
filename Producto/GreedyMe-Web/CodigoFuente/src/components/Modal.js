@@ -8,13 +8,15 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles } from "@material-ui/core/styles";
 import { ButtonEj } from "../components/Button";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 import {
   ValidatorForm,
   TextValidator,
   SelectValidator,
 } from "react-material-ui-form-validator";
 import Grid from "@material-ui/core/Grid";
-import { db } from "../firebase/config";
+/* import { db } from "../firebase/config"; */
 import { registrarSolicitud } from "../firebase/apiLanding";
 
 /*const rubros = [];
@@ -111,6 +113,12 @@ const useStyles = makeStyles((theme) => ({
       flexGrow: 1,
     },
   },
+  cruz: {
+    position: "absolute",
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
 }));
 
 export default function FormDialog() {
@@ -170,10 +178,20 @@ export default function FormDialog() {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Suscribirse</DialogTitle>
-        <DialogContent>
+        <DialogTitle id="form-dialog-title">
+          Formulario de registro
+          <IconButton
+            aria-label="close"
+            id="btn"
+            className={classes.cruz}
+            onClick={handleClose}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
           <DialogContentText>
-            Esperemos que ande bien el form y se valide.
+            Llená los siguientes campos para participar en la App!
           </DialogContentText>
 
           <ValidatorForm
@@ -312,16 +330,17 @@ export default function FormDialog() {
                 />
               </Grid>
 
-              <Button
-                color="primary"
-                variant="contained"
-                className={classes.margin}
-                type="submit"
-                disabled={submitted}
-              >
-                {(submitted && "Your form is submitted!") ||
-                  (!submitted && "Submit")}
-              </Button>
+              <Grid item>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  className={classes.margin}
+                  type="submit"
+                  disabled={submitted}
+                >
+                  {(submitted && "Enviado!") || (!submitted && "Enviar")}
+                </Button>
+              </Grid>
             </Grid>
           </ValidatorForm>
         </DialogContent>
