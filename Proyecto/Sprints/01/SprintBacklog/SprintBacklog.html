@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<!-- saved from url=(0219)https://team-1585518999701.atlassian.net/sr/jira.issueviews:searchrequest-fullcontent/temp/SearchRequest.html?jqlQuery=issueKey+in+%28GREEDY-18%2CGREEDY-31%2CGREEDY-32%2CGREEDY-33%2CGREEDY-34%2CGREEDY-12%29&tempMax=1000 -->
+<html class="webkit chrome"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Jira</title>
+    
+            
+        <script>
+window.WRM=window.WRM||{};window.WRM._unparsedData=window.WRM._unparsedData||{};window.WRM._unparsedErrors=window.WRM._unparsedErrors||{};
+WRM._unparsedData["com.atlassian.plugins.atlassian-plugins-webresource-plugin:context-path.context-path"]="\"\"";
+WRM._unparsedData["com.atlassian.plugins.atlassian-plugins-webresource-rest:curl.cross-origin-resources"]="false";
+WRM._unparsedData["jira.webresources:feature-flags.feature-flag-data"]="{\"enabled-feature-keys\":[\"com.atlassian.jira.projects.issuenavigator\",\"connect.no-applinks\",\"nps.survey.inline.dialog\",\"atlassian.aui.raphael.disabled\",\"com.atlassian.jira.projects.ProjectCentricNavigation.Switch\"],\"feature-flag-states\":{\"jira.feature.flag.board.issue.modal.labs\":true,\"com.atlassian.jira.plugins.mail.internal\":false,\"com.atlassian.jira.feature.flag.for.TestFeatureFlagResource\":false,\"jira.instrumentation.laas\":false,\"jira.feature.rest.single.step.avatar.upload\":true,\"jira.ondemand.maintain.trusted.apps\":true}}";
+WRM._unparsedData["com.atlassian.jira.jira-client-analytics-plugin:analytics-context-provider.client-analytic-descriptors"]="{\"analyticsResource\":{\"jira-core\":{\"events\":{\"issue.comment.added\":{\"trigger\":\"click #issue-comment-add-submit\",\"properties\":{\"comment-length\":\"value.length #issue-comment-add #comment\"}}}}},\"tenantId\":\"18721f33-b8e9-4288-a3b1-4306683c0e98\",\"aid\":\"5e8d054630f7770b8433ad8c\",\"env\":\"prod\"}";
+WRM._unparsedData["jira.webresources:default-comment-security-level.DefaultCommentSecurityLevelHelpLink"]="{\"extraClasses\":\"default-comment-level-help\",\"title\":\"Commenting on an Issue\",\"url\":\"https://confluence.atlassian.com/display/JIRASOFTWARECLOUD/Editing+and+collaborating+on+issues#Editingandcollaboratingonissues-addcommentsCommentingonissues\",\"isLocal\":false}";
+WRM._unparsedData["jira.webresources:key-commands.shortcuts"]="[{\"moduleKey\":\"go-to-dashboard-kb-shortcut\",\"keys\":[[\"g\",\"d\"]],\"context\":\"global\",\"op\":\"goTo\",\"param\":\"/secure/Dashboard.jspa\"},{\"moduleKey\":\"greenhopper-gh-shortcut\",\"keys\":[[\"g\",\"h\"]],\"context\":\"global\",\"op\":\"execute\",\"param\":\"gh.app.globalkeyboardshortcuts.goToAgile();\"},{\"moduleKey\":\"browse-project-kb-shortcut\",\"keys\":[[\"g\",\"p\"]],\"context\":\"global\",\"op\":\"execute\",\"param\":\"var elem = jQuery(\\\"#browse_link\\\");\\n                if (elem.length \u003e 0) {\\n                    window.location.href = elem.attr(\\\"href\\\");\\n                }\"},{\"moduleKey\":\"greenhopper-agile-shortcut\",\"keys\":[[\"g\",\"a\"]],\"context\":\"global\",\"op\":\"execute\",\"param\":\"gh.app.globalkeyboardshortcuts.goToAgile();\"},{\"moduleKey\":\"issue-navigator-kb-shortcut\",\"keys\":[[\"g\",\"i\"]],\"context\":\"global\",\"op\":\"execute\",\"param\":\"var elem = jQuery(\\\"#find_link\\\");\\n                if (elem.length \u003e 0) {\\n                    window.location.href = elem.attr(\\\"href\\\");\\n                }\"},{\"moduleKey\":\"admin.quicksearch.dialog.shortcut\",\"keys\":[[\"g\",\"g\"]],\"context\":\"global\",\"op\":\"execute\",\"param\":\"JIRA.Shifter.show();\"},{\"moduleKey\":\"quicksearch\",\"keys\":[[\"/\"]],\"context\":\"global\",\"op\":\"moveToAndFocus\",\"param\":\"#quickSearchInput, #admin-quick-nav-field\"},{\"moduleKey\":\"create.issue\",\"keys\":[[\"c\"]],\"context\":\"global\",\"op\":\"moveToAndClick\",\"param\":\"#header .create-issue\"},{\"moduleKey\":\"shifter\",\"keys\":[[\".\"]],\"context\":\"global\",\"op\":\"execute\",\"param\":\"JIRA.Shifter.show();\"},{\"moduleKey\":\"help\",\"keys\":[[\"?\"]],\"context\":\"global\",\"op\":\"click\",\"param\":\"#keyshortscuthelp\"}]";
+if(window.WRM._dataArrived)window.WRM._dataArrived();</script>
+<link type="text/css" rel="stylesheet" href="./SprintBacklog_files/batch.css" data-wrm-key="_super" data-wrm-batch-type="context" media="all">
+<link type="text/css" rel="stylesheet" href="./SprintBacklog_files/com.atlassian.auiplugin_aui-labels.css" data-wrm-key="com.atlassian.auiplugin:aui-labels" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="./SprintBacklog_files/jira.webresources_theme-adg3.css" data-wrm-key="jira.webresources:theme-adg3" data-wrm-batch-type="resource" media="all">
+<link type="text/css" rel="stylesheet" href="./SprintBacklog_files/jira.webresources_global-static.css" data-wrm-key="jira.webresources:global-static" data-wrm-batch-type="resource" media="all">
+<script type="text/javascript" src="./SprintBacklog_files/batch.js.descarga" data-wrm-key="_super" data-wrm-batch-type="context" data-initially-rendered=""></script><style></style><style type="text/css"></style><style type="text/css"></style>
+
+        <style type="text/css">
+
+.tableBorder, .grid
+{
+    background-color: #fff;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tableBorder td, .grid td
+{
+    vertical-align: top;
+    padding: 2px;
+    border: 1px solid #ccc;
+}
+
+.noPadding
+{
+    padding: 0 !important;
+}
+
+h3 .subText
+{
+    font-size: 60%;
+    font-weight: normal;
+}
+
+.tabLabel
+{
+    font-weight: bold;
+    border: 1px solid #ccc;
+    border-bottom:none;
+    padding: 2px;
+    display: inline;
+}
+
+td.blank
+{
+    padding: 0;
+    margin: 0;
+}
+
+.blank td
+{
+    border: none;
+}
+
+#descriptionArea
+{
+    margin: 0;
+    padding: 2px;
+    border: 1px solid #ccc;
+}
+
+hr
+{
+    border-top:1px solid #aaa;
+}
+
+hr.fullcontent
+{
+  height: 15px;
+  padding: 10px 0;
+  background: #fff url('https://team-1585518999701.atlassian.net/images/icons/hr.gif') no-repeat scroll center;
+}
+
+</style>
+
+<script type="text/javascript" charset="utf-8" src="./SprintBacklog_files/batch.js(1).descarga"></script></head>
+<body data-aui-version="6.0.5">
+<header id="previous-view">
+    <nav class="aui-toolbar">
+        <div class="toolbar-split toolbar-split-right">
+            <ul class="toolbar-group">
+                <li class="toolbar-item">
+                    <a href="https://team-1585518999701.atlassian.net/issues/?jql=issueKey+in+%28GREEDY-18%2CGREEDY-31%2CGREEDY-32%2CGREEDY-33%2CGREEDY-34%2CGREEDY-12%29" class="toolbar-trigger">Volver a la vista previa</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<table class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+                            <h3 class="formtitle">
+                        [GREEDY-34]&nbsp;<a href="https://team-1585518999701.atlassian.net/browse/GREEDY-34">Prototipar interfaz web Comercio.</a>
+            <span class="subText">
+               Creada: 12/jul/20                   &nbsp;Actualizada: 20/jul/20
+
+                                                    &nbsp;Resuelta: 17/jul/20
+                            </span>
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Estado:</b></td>
+        <td width="80%">Finalizada</td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Proyecto:</b></td>
+        <td width="80%"><a href="https://team-1585518999701.atlassian.net/secure/BrowseProject.jspa?id=10000">GreedyMe</a></td>
+    </tr>
+
+        <tr>
+            <td><b>Componentes:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Versiones afectadas:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Versiones corregidas:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+    </tbody></table>
+
+<br>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td bgcolor="#f0f0f0" valign="top" width="20%">
+            <b>Tipo:</b>
+        </td>
+        <td bgcolor="#ffffff" valign="top" width="30%">
+            Historia
+        </td>
+
+                    <td bgcolor="#f0f0f0">
+                <b>Prioridad:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap="">
+                High
+            </td>
+            </tr>
+    <tr>
+                        <td bgcolor="#f0f0f0" valign="top" width="20%">
+                <b>Informador:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" width="30%">
+                                        
+                
+        
+            <a class="user-hover" rel="admin" id="word_reporter_admin" href="https://team-1585518999701.atlassian.net/secure/ViewProfile.jspa?accountId=5e811990467ac20c1d6f392e">
+                    Franca Duje
+                </a>
+
+                            </td>
+        
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Responsable:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap="" width="30%">
+                                        
+                
+        
+            <a class="user-hover" rel="mlauri1997" id="word_assignee_mlauri1997" href="https://team-1585518999701.atlassian.net/secure/ViewProfile.jspa?accountId=5e8d05451008ef0b7ee27ff5">
+                    Lau Vaca
+                </a>
+
+                            </td>
+            </tr>
+    	<tr>
+		<td bgcolor="#f0f0f0" width="20%">
+			<b>Resolución:</b>
+		</td>
+		<td bgcolor="#ffffff" valign="top" width="30%" nowrap="">
+                            Listo
+                    </td>
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Votos:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" width="30%" nowrap="">
+                0
+            </td>
+        
+    </tr>
+    
+        <tr>
+        <td bgcolor="#f0f0f0" width="20%">
+            <b>Etiquetas:</b>
+        </td>
+        <td id="labels-10033-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap="">
+                            Prototipado, Release-1                    </td>
+    </tr>
+    
+    	<tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Σ Estimación Restante:</b></td>
+        <td bgcolor="#ffffff" valign="top" nowrap="">
+                            Desconocido
+                    </td>
+        		<td bgcolor="#f0f0f0" width="20%"><b>Estimación Restante:</b></td>
+        <td bgcolor="#ffffff" valign="top" nowrap="">
+                            Desconocido
+            		</td>
+    </tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Σ Tiempo empleado:</b></td>
+        <td bgcolor="#ffffff" valign="top" nowrap="">
+                            Desconocido
+                    </td>
+                <td bgcolor="#f0f0f0" width="20%"><b>Tiempo Trabajado:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap="">
+                            Desconocido
+            		</td>
+	</tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Σ Estimación original:</b></td>
+        <td bgcolor="#ffffff" valign="top" nowrap="">
+                            Desconocido
+                    </td>
+                <td bgcolor="#f0f0f0" width="20%"><b>Estimación original:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap="">
+                            Desconocido
+            		</td>
+    </tr>
+    
+    </tbody></table>
+
+
+
+    <br>
+
+    	<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+            
+
+        
+            <tbody><tr>
+            <td bgcolor="#f0f0f0" width="20%" valign="top">
+                <b>Enlaces de incidencias:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" class="noPadding">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" class="blank">
+                                            <tbody><tr>
+                            <td colspan="4" bgcolor="#f0f0f0">
+                                <b>Cloners</b><br>
+                            </td>
+                        </tr>
+                                                                <tr>
+            <td>
+                is cloned by
+            </td>
+            <td>
+                <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-69">
+                     GREEDY-69                 </a>
+            </td>
+            <td>
+                Prototipar interfaz web Comercio - Pa...
+            </td>
+            <td>
+                Tareas por hacer
+            </td>
+        </tr>
+                                        </tbody></table>
+            </td>
+        </tr>
+    
+
+
+<tr><td bgcolor="#f0f0f0" width="20%" valign="top"><b>Subtareas:</b></td>
+    <td bgcolor="#ffffff" valign="top">
+        <table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+            <tbody><tr bgcolor="#f0f0f0">
+                <td>
+                    <b>Clave</b><br>
+                </td>
+                <td>
+                    <b>Resumen</b><br>
+                </td>
+                <td>
+                    <b>Tipo</b><br>
+                </td>
+                <td>
+                    <b>Estado</b><br>
+                </td>
+                <td>
+                    <b>Responsable</b><br>
+                </td>
+            </tr>
+                            <tr>
+                    <td>
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-35">GREEDY-35</a>
+                    </td>
+                    <td valign="top" width="25%">
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-35">Armado de Prototipo</a>
+                    </td>
+                    <td>
+                        Subtarea
+                    </td>
+                    <td>
+                        Finalizada
+                    </td>
+                    <td>
+                                                     Lau Vaca  &nbsp;
+                                            </td>
+                </tr>
+                            <tr>
+                    <td>
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-36">GREEDY-36</a>
+                    </td>
+                    <td valign="top" width="25%">
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-36">Validación e Iteración</a>
+                    </td>
+                    <td>
+                        Subtarea
+                    </td>
+                    <td>
+                        Finalizada
+                    </td>
+                    <td>
+                                                     &nbsp;
+                                            </td>
+                </tr>
+                            <tr>
+                    <td>
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-37">GREEDY-37</a>
+                    </td>
+                    <td valign="top" width="25%">
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-37">Historia lista para cerrar</a>
+                    </td>
+                    <td>
+                        Subtarea
+                    </td>
+                    <td>
+                        Finalizada
+                    </td>
+                    <td>
+                                                     &nbsp;
+                                            </td>
+                </tr>
+                    </tbody></table>
+    </td>
+</tr>
+
+                        <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Story Points:</b></td>
+                <td id="customfield_10024-10033-value" class="value" bgcolor="#ffffff" width="80%">    5
+</td>
+            </tr>
+                                <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Sprint:</b></td>
+                <td id="customfield_10020-10033-value" class="value" bgcolor="#ffffff" width="80%">GREEDY Sprint 1</td>
+            </tr>
+                                <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Epic Link:</b></td>
+                <td id="customfield_10014-10033-value" class="value" bgcolor="#ffffff" width="80%">
+    <a class="aui-label ghx-label-10" href="https://team-1585518999701.atlassian.net/browse/GREEDY-7">
+        UX/UI
+    </a>
+</td>
+            </tr>
+            </tbody></table>
+
+    <br>
+
+    <table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+    <tbody><tr>
+        <td bgcolor="#bbbbbb" width="1%" nowrap="" align="center">
+            &nbsp;<font color="#ffffff"><b>Descripción</b></font>&nbsp;
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    </tbody></table>
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td id="descriptionArea">
+            <h2><a name="Qu%C3%A9hacer%3A"></a>Qué hacer:</h2>
+
+<p>Armado de prototipo de la interfaz web asignada al Comercio con al menos las secciones de funcionalidades básicas definidas.</p>
+
+<h2><a name="Pruebasdeaceptaci%C3%B3n%3A"></a>Pruebas de aceptación:</h2>
+
+<ul>
+	<li>Validación.</li>
+	<li>Iteración.</li>
+</ul>
+
+            <br>
+        </td>
+    </tr>
+    </tbody></table>
+
+    <br>
+
+    <table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+    <tbody><tr>
+        <td bgcolor="#bbbbbb" width="1%" nowrap="" align="center">
+            &nbsp;<font color="#ffffff"><b>Comentarios</b></font>&nbsp;
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    </tbody></table>
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" class="grid" style="margin: 0;">
+                <tbody><tr id="comment-header-10001"><td bgcolor="#f0f0f0">
+              Comentado por
+                                                    
+                
+        
+            <a class="user-hover" rel="mlauri1997" id="word_commented_mlauri1997" href="https://team-1585518999701.atlassian.net/secure/ViewProfile.jspa?accountId=5e8d05451008ef0b7ee27ff5">
+                    Lau Vaca
+                </a>
+
+                                        <font size="-2">
+            [
+                <font color="#336699">17/jul/20</font>
+
+                            ]
+            </font>
+
+        </td></tr>
+        <tr id="comment-body-10001"><td bgcolor="#ffffff">
+            <p>Falta crear vista de Ayuda y soporte tecnico</p>
+        </td></tr>
+            </tbody></table>
+<hr class="fullcontent"><br><br style="page-break-before:always;"><br>
+<table class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+                            <h3 class="formtitle">
+                        [GREEDY-33]&nbsp;<a href="https://team-1585518999701.atlassian.net/browse/GREEDY-33">Descargar herramientas de trabajo.</a>
+            <span class="subText">
+               Creada: 12/jul/20                   &nbsp;Actualizada: 13/jul/20
+
+                                                    &nbsp;Resuelta: 13/jul/20
+                            </span>
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Estado:</b></td>
+        <td width="80%">Finalizada</td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Proyecto:</b></td>
+        <td width="80%"><a href="https://team-1585518999701.atlassian.net/secure/BrowseProject.jspa?id=10000">GreedyMe</a></td>
+    </tr>
+
+        <tr>
+            <td><b>Componentes:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Versiones afectadas:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Versiones corregidas:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+    </tbody></table>
+
+<br>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td bgcolor="#f0f0f0" valign="top" width="20%">
+            <b>Tipo:</b>
+        </td>
+        <td bgcolor="#ffffff" valign="top" width="30%">
+            Tarea
+        </td>
+
+                    <td bgcolor="#f0f0f0">
+                <b>Prioridad:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap="">
+                Medium
+            </td>
+            </tr>
+    <tr>
+                        <td bgcolor="#f0f0f0" valign="top" width="20%">
+                <b>Informador:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" width="30%">
+                                        
+                
+        
+            <a class="user-hover" rel="admin" id="word_reporter_admin" href="https://team-1585518999701.atlassian.net/secure/ViewProfile.jspa?accountId=5e811990467ac20c1d6f392e">
+                    Franca Duje
+                </a>
+
+                            </td>
+        
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Responsable:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap="" width="30%">
+                                        
+                
+        
+            <a class="user-hover" rel="yazimel_niclis" id="word_assignee_yazimel_niclis" href="https://team-1585518999701.atlassian.net/secure/ViewProfile.jspa?accountId=5e8d054630f7770b8433ad8c">
+                    Yazimel Niclis
+                </a>
+
+                            </td>
+            </tr>
+    	<tr>
+		<td bgcolor="#f0f0f0" width="20%">
+			<b>Resolución:</b>
+		</td>
+		<td bgcolor="#ffffff" valign="top" width="30%" nowrap="">
+                            Listo
+                    </td>
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Votos:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" width="30%" nowrap="">
+                0
+            </td>
+        
+    </tr>
+    
+        <tr>
+        <td bgcolor="#f0f0f0" width="20%">
+            <b>Etiquetas:</b>
+        </td>
+        <td id="labels-10032-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap="">
+                            Configuracion-Entornos, Release-1                    </td>
+    </tr>
+    
+    	<tr>
+        		<td bgcolor="#f0f0f0" width="20%"><b>Estimación Restante:</b></td>
+        <td bgcolor="#ffffff" valign="top" nowrap="" width="80%" colspan="3">
+                            1 day
+            		</td>
+    </tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Tiempo Trabajado:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap="" width="80%" colspan="3">
+                            Desconocido
+            		</td>
+	</tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Estimación original:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap="" width="80%" colspan="3">
+                            1 day
+            		</td>
+    </tr>
+    
+    </tbody></table>
+
+
+
+    <br>
+
+    	<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+            
+
+        
+    
+
+
+
+                        <tbody><tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Sprint:</b></td>
+                <td id="customfield_10020-10032-value" class="value" bgcolor="#ffffff" width="80%">GREEDY Sprint 1</td>
+            </tr>
+                                <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Epic Link:</b></td>
+                <td id="customfield_10014-10032-value" class="value" bgcolor="#ffffff" width="80%">
+    <a class="aui-label ghx-label-13" href="https://team-1585518999701.atlassian.net/browse/GREEDY-30">
+        DevOps
+    </a>
+</td>
+            </tr>
+            </tbody></table>
+
+    <br>
+
+    <table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+    <tbody><tr>
+        <td bgcolor="#bbbbbb" width="1%" nowrap="" align="center">
+            &nbsp;<font color="#ffffff"><b>Descripción</b></font>&nbsp;
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    </tbody></table>
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td id="descriptionArea">
+            <p>Descargar VSCode y GitBash en las máquinas involucradas.</p>
+            <br>
+        </td>
+    </tr>
+    </tbody></table>
+
+<hr class="fullcontent"><br><br style="page-break-before:always;"><br>
+<table class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+                            <h3 class="formtitle">
+                        [GREEDY-32]&nbsp;<a href="https://team-1585518999701.atlassian.net/browse/GREEDY-32">Armar Gestión de Configuración en repositorio.</a>
+            <span class="subText">
+               Creada: 12/jul/20                   &nbsp;Actualizada: 13/jul/20
+
+                                                    &nbsp;Resuelta: 13/jul/20
+                            </span>
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Estado:</b></td>
+        <td width="80%">Finalizada</td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Proyecto:</b></td>
+        <td width="80%"><a href="https://team-1585518999701.atlassian.net/secure/BrowseProject.jspa?id=10000">GreedyMe</a></td>
+    </tr>
+
+        <tr>
+            <td><b>Componentes:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Versiones afectadas:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Versiones corregidas:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+    </tbody></table>
+
+<br>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td bgcolor="#f0f0f0" valign="top" width="20%">
+            <b>Tipo:</b>
+        </td>
+        <td bgcolor="#ffffff" valign="top" width="30%">
+            Tarea
+        </td>
+
+                    <td bgcolor="#f0f0f0">
+                <b>Prioridad:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap="">
+                Medium
+            </td>
+            </tr>
+    <tr>
+                        <td bgcolor="#f0f0f0" valign="top" width="20%">
+                <b>Informador:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" width="30%">
+                                        
+                
+        
+            <a class="user-hover" rel="admin" id="word_reporter_admin" href="https://team-1585518999701.atlassian.net/secure/ViewProfile.jspa?accountId=5e811990467ac20c1d6f392e">
+                    Franca Duje
+                </a>
+
+                            </td>
+        
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Responsable:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap="" width="30%">
+                                        
+                
+        
+            <a class="user-hover" rel="yazimel_niclis" id="word_assignee_yazimel_niclis" href="https://team-1585518999701.atlassian.net/secure/ViewProfile.jspa?accountId=5e8d054630f7770b8433ad8c">
+                    Yazimel Niclis
+                </a>
+
+                            </td>
+            </tr>
+    	<tr>
+		<td bgcolor="#f0f0f0" width="20%">
+			<b>Resolución:</b>
+		</td>
+		<td bgcolor="#ffffff" valign="top" width="30%" nowrap="">
+                            Listo
+                    </td>
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Votos:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" width="30%" nowrap="">
+                0
+            </td>
+        
+    </tr>
+    
+        <tr>
+        <td bgcolor="#f0f0f0" width="20%">
+            <b>Etiquetas:</b>
+        </td>
+        <td id="labels-10031-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap="">
+                            Gestion-Configuracion, Release-1                    </td>
+    </tr>
+    
+    	<tr>
+        		<td bgcolor="#f0f0f0" width="20%"><b>Estimación Restante:</b></td>
+        <td bgcolor="#ffffff" valign="top" nowrap="" width="80%" colspan="3">
+                            30 minutes
+            		</td>
+    </tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Tiempo Trabajado:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap="" width="80%" colspan="3">
+                            1 day
+            		</td>
+	</tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Estimación original:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap="" width="80%" colspan="3">
+                            1 day, 30 minutes
+            		</td>
+    </tr>
+    
+    </tbody></table>
+
+
+
+    <br>
+
+    	<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+            
+
+        
+    
+
+
+
+                        <tbody><tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Sprint:</b></td>
+                <td id="customfield_10020-10031-value" class="value" bgcolor="#ffffff" width="80%">GREEDY Sprint 1</td>
+            </tr>
+                                <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Epic Link:</b></td>
+                <td id="customfield_10014-10031-value" class="value" bgcolor="#ffffff" width="80%">
+    <a class="aui-label ghx-label-13" href="https://team-1585518999701.atlassian.net/browse/GREEDY-30">
+        DevOps
+    </a>
+</td>
+            </tr>
+            </tbody></table>
+
+    <br>
+
+    <table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+    <tbody><tr>
+        <td bgcolor="#bbbbbb" width="1%" nowrap="" align="center">
+            &nbsp;<font color="#ffffff"><b>Descripción</b></font>&nbsp;
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    </tbody></table>
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td id="descriptionArea">
+            <p>Realizar el diagrama de gestión de configuración en GitHub y compartirlo a los miembros del equipo.<br>
+Documentarlo.</p>
+            <br>
+        </td>
+    </tr>
+    </tbody></table>
+
+<hr class="fullcontent"><br><br style="page-break-before:always;"><br>
+<table class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+                            <h3 class="formtitle">
+                        [GREEDY-31]&nbsp;<a href="https://team-1585518999701.atlassian.net/browse/GREEDY-31">Configurar entornos de desarrollo (VSCode).</a>
+            <span class="subText">
+               Creada: 12/jul/20                   &nbsp;Actualizada: 15/jul/20
+
+                                                    &nbsp;Resuelta: 15/jul/20
+                            </span>
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Estado:</b></td>
+        <td width="80%">Finalizada</td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Proyecto:</b></td>
+        <td width="80%"><a href="https://team-1585518999701.atlassian.net/secure/BrowseProject.jspa?id=10000">GreedyMe</a></td>
+    </tr>
+
+        <tr>
+            <td><b>Componentes:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Versiones afectadas:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Versiones corregidas:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+    </tbody></table>
+
+<br>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td bgcolor="#f0f0f0" valign="top" width="20%">
+            <b>Tipo:</b>
+        </td>
+        <td bgcolor="#ffffff" valign="top" width="30%">
+            Tarea
+        </td>
+
+                    <td bgcolor="#f0f0f0">
+                <b>Prioridad:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap="">
+                Medium
+            </td>
+            </tr>
+    <tr>
+                        <td bgcolor="#f0f0f0" valign="top" width="20%">
+                <b>Informador:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" width="30%">
+                                        
+                
+        
+            <a class="user-hover" rel="admin" id="word_reporter_admin" href="https://team-1585518999701.atlassian.net/secure/ViewProfile.jspa?accountId=5e811990467ac20c1d6f392e">
+                    Franca Duje
+                </a>
+
+                            </td>
+        
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Responsable:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap="" width="30%">
+                                        
+                
+        
+            <a class="user-hover" rel="yazimel_niclis" id="word_assignee_yazimel_niclis" href="https://team-1585518999701.atlassian.net/secure/ViewProfile.jspa?accountId=5e8d054630f7770b8433ad8c">
+                    Yazimel Niclis
+                </a>
+
+                            </td>
+            </tr>
+    	<tr>
+		<td bgcolor="#f0f0f0" width="20%">
+			<b>Resolución:</b>
+		</td>
+		<td bgcolor="#ffffff" valign="top" width="30%" nowrap="">
+                            Listo
+                    </td>
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Votos:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" width="30%" nowrap="">
+                0
+            </td>
+        
+    </tr>
+    
+        <tr>
+        <td bgcolor="#f0f0f0" width="20%">
+            <b>Etiquetas:</b>
+        </td>
+        <td id="labels-10030-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap="">
+                            Configuracion-Entornos, Release-1                    </td>
+    </tr>
+    
+    	<tr>
+        		<td bgcolor="#f0f0f0" width="20%"><b>Estimación Restante:</b></td>
+        <td bgcolor="#ffffff" valign="top" nowrap="" width="80%" colspan="3">
+                            2 days
+            		</td>
+    </tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Tiempo Trabajado:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap="" width="80%" colspan="3">
+                            Desconocido
+            		</td>
+	</tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Estimación original:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap="" width="80%" colspan="3">
+                            2 days
+            		</td>
+    </tr>
+    
+    </tbody></table>
+
+
+
+    <br>
+
+    	<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+            
+
+        
+    
+
+
+
+                        <tbody><tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Sprint:</b></td>
+                <td id="customfield_10020-10030-value" class="value" bgcolor="#ffffff" width="80%">GREEDY Sprint 1</td>
+            </tr>
+                                <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Epic Link:</b></td>
+                <td id="customfield_10014-10030-value" class="value" bgcolor="#ffffff" width="80%">
+    <a class="aui-label ghx-label-13" href="https://team-1585518999701.atlassian.net/browse/GREEDY-30">
+        DevOps
+    </a>
+</td>
+            </tr>
+            </tbody></table>
+
+    <br>
+
+    <table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+    <tbody><tr>
+        <td bgcolor="#bbbbbb" width="1%" nowrap="" align="center">
+            &nbsp;<font color="#ffffff"><b>Descripción</b></font>&nbsp;
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    </tbody></table>
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td id="descriptionArea">
+            <p>Configurar VSCode en todas las máquinas involucradas en el desarrollo del producto.</p>
+            <br>
+        </td>
+    </tr>
+    </tbody></table>
+
+<hr class="fullcontent"><br><br style="page-break-before:always;"><br>
+<table class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+                            <h3 class="formtitle">
+                        [GREEDY-18]&nbsp;<a href="https://team-1585518999701.atlassian.net/browse/GREEDY-18">Gestionar solicitudes de registro Comercio.</a>
+            <span class="subText">
+               Creada: 10/jul/20                   &nbsp;Actualizada: 20/jul/20
+
+                                                    &nbsp;Resuelta: 20/jul/20
+                            </span>
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Estado:</b></td>
+        <td width="80%">Finalizada</td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Proyecto:</b></td>
+        <td width="80%"><a href="https://team-1585518999701.atlassian.net/secure/BrowseProject.jspa?id=10000">GreedyMe</a></td>
+    </tr>
+
+        <tr>
+            <td><b>Componentes:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Versiones afectadas:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Versiones corregidas:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+    </tbody></table>
+
+<br>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td bgcolor="#f0f0f0" valign="top" width="20%">
+            <b>Tipo:</b>
+        </td>
+        <td bgcolor="#ffffff" valign="top" width="30%">
+            Historia
+        </td>
+
+                    <td bgcolor="#f0f0f0">
+                <b>Prioridad:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap="">
+                Low
+            </td>
+            </tr>
+    <tr>
+                        <td bgcolor="#f0f0f0" valign="top" width="20%">
+                <b>Informador:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" width="30%">
+                                        
+                
+        
+            <a class="user-hover" rel="admin" id="word_reporter_admin" href="https://team-1585518999701.atlassian.net/secure/ViewProfile.jspa?accountId=5e811990467ac20c1d6f392e">
+                    Franca Duje
+                </a>
+
+                            </td>
+        
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Responsable:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap="" width="30%">
+                                        
+                
+        
+            <a class="user-hover" rel="admin" id="word_assignee_admin" href="https://team-1585518999701.atlassian.net/secure/ViewProfile.jspa?accountId=5e811990467ac20c1d6f392e">
+                    Franca Duje
+                </a>
+
+                            </td>
+            </tr>
+    	<tr>
+		<td bgcolor="#f0f0f0" width="20%">
+			<b>Resolución:</b>
+		</td>
+		<td bgcolor="#ffffff" valign="top" width="30%" nowrap="">
+                            Listo
+                    </td>
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Votos:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" width="30%" nowrap="">
+                0
+            </td>
+        
+    </tr>
+    
+        <tr>
+        <td bgcolor="#f0f0f0" width="20%">
+            <b>Etiquetas:</b>
+        </td>
+        <td id="labels-10017-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap="">
+                            Registro-Comercio, Release-1                    </td>
+    </tr>
+    
+    	<tr>
+        		<td bgcolor="#f0f0f0" width="20%"><b>Estimación Restante:</b></td>
+        <td bgcolor="#ffffff" valign="top" nowrap="" width="80%" colspan="3">
+                            0 minutes
+            		</td>
+    </tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Tiempo Trabajado:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap="" width="80%" colspan="3">
+                            30 minutes
+            		</td>
+	</tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Estimación original:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap="" width="80%" colspan="3">
+                            Desconocido
+            		</td>
+    </tr>
+    
+    </tbody></table>
+
+
+
+    <br>
+
+    	<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+            
+
+                <tbody><tr>
+            <td bgcolor="#f0f0f0" width="20%" valign="top">
+                <b>Adjuntos:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top">
+                                    <img src="./SprintBacklog_files/image.gif" height="16" width="16" border="0" alt="Archivo PNG">
+                    Firma Gmail.png &nbsp;&nbsp;&nbsp;
+                                    <img src="./SprintBacklog_files/image.gif" height="16" width="16" border="0" alt="Archivo PNG">
+                    image-20200715-210103.png &nbsp;&nbsp;&nbsp;
+                            </td>
+        </tr>
+        
+    
+
+
+
+                        <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Story Points:</b></td>
+                <td id="customfield_10024-10017-value" class="value" bgcolor="#ffffff" width="80%">    1
+</td>
+            </tr>
+                                <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Sprint:</b></td>
+                <td id="customfield_10020-10017-value" class="value" bgcolor="#ffffff" width="80%">GREEDY Sprint 1</td>
+            </tr>
+                                <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Epic Link:</b></td>
+                <td id="customfield_10014-10017-value" class="value" bgcolor="#ffffff" width="80%">
+    <a class="aui-label ghx-label-13" href="https://team-1585518999701.atlassian.net/browse/GREEDY-1">
+        Gestión de usuarios
+    </a>
+</td>
+            </tr>
+            </tbody></table>
+
+    <br>
+
+    <table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+    <tbody><tr>
+        <td bgcolor="#bbbbbb" width="1%" nowrap="" align="center">
+            &nbsp;<font color="#ffffff"><b>Descripción</b></font>&nbsp;
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    </tbody></table>
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td id="descriptionArea">
+            <h2><a name="Descripci%C3%B3n%3A"></a>Descripción:</h2>
+
+<p>Como Administrador puedo gestionar las solicitudes de registro de Comercios para llevar un control de los interesados en la suscripción.<br>
+<em>Notas:</em> </p>
+
+<ul>
+	<li><em>Las solicitudes llegan a una casilla de correo de GreedyMe.</em></li>
+	<li><em>Se debe poder filtrar las solicitudes: Leídas, no leídas.</em></li>
+</ul>
+
+
+<h2><a name="Qu%C3%A9hacer%3A"></a>Qué hacer:</h2>
+
+<p>Crear una casilla de correo a la cual lleguen todas las solicitudes de Comercios derivadas del formulario de la landing page en un servicio que permita el filtrado de los mensajes.</p>
+
+<h2><a name="Pruebasdeaceptaci%C3%B3n%3A"></a>Pruebas de aceptación:</h2>
+
+<ul>
+	<li>Filtrar mensajes por no leídos: PASA.</li>
+	<li>Filtrar mensajes por leídos: PASA.</li>
+</ul>
+
+            <br>
+        </td>
+    </tr>
+    </tbody></table>
+
+    <br>
+
+    <table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+    <tbody><tr>
+        <td bgcolor="#bbbbbb" width="1%" nowrap="" align="center">
+            &nbsp;<font color="#ffffff"><b>Comentarios</b></font>&nbsp;
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    </tbody></table>
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" class="grid" style="margin: 0;">
+                <tbody><tr id="comment-header-10000"><td bgcolor="#f0f0f0">
+              Comentado por
+                                                    
+                
+        
+            <a class="user-hover" rel="admin" id="word_commented_admin" href="https://team-1585518999701.atlassian.net/secure/ViewProfile.jspa?accountId=5e811990467ac20c1d6f392e">
+                    Franca Duje
+                </a>
+
+                                        <font size="-2">
+            [
+                <font color="#336699">15/jul/20</font>
+
+                            ]
+            </font>
+
+        </td></tr>
+        <tr id="comment-body-10000"><td bgcolor="#ffffff">
+            <ul>
+	<li>Cree Tags para que sea mas fácil la organización de los mails.</li>
+	<li>Diseñe la firma de los mails.</li>
+	<li>Cambie la estética del mail.</li>
+</ul>
+
+        </td></tr>
+            </tbody></table>
+<hr class="fullcontent"><br><br style="page-break-before:always;"><br>
+<table class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+                            <h3 class="formtitle">
+                        [GREEDY-12]&nbsp;<a href="https://team-1585518999701.atlassian.net/browse/GREEDY-12">Enviar solicitud de registro Comercio.</a>
+            <span class="subText">
+               Creada: 10/jul/20                   &nbsp;Actualizada: 28/jul/20
+
+                                            </span>
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Estado:</b></td>
+        <td width="80%">Tareas por hacer</td>
+    </tr>
+    <tr>
+        <td width="20%"><b>Proyecto:</b></td>
+        <td width="80%"><a href="https://team-1585518999701.atlassian.net/secure/BrowseProject.jspa?id=10000">GreedyMe</a></td>
+    </tr>
+
+        <tr>
+            <td><b>Componentes:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Versiones afectadas:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+
+        <tr>
+            <td><b>Versiones corregidas:</b></td>
+            <td>
+                            Ninguno
+                </td>
+    </tr>
+    
+    </tbody></table>
+
+<br>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td bgcolor="#f0f0f0" valign="top" width="20%">
+            <b>Tipo:</b>
+        </td>
+        <td bgcolor="#ffffff" valign="top" width="30%">
+            Historia
+        </td>
+
+                    <td bgcolor="#f0f0f0">
+                <b>Prioridad:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap="">
+                Medium
+            </td>
+            </tr>
+    <tr>
+                        <td bgcolor="#f0f0f0" valign="top" width="20%">
+                <b>Informador:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" width="30%">
+                                        
+                
+        
+            <a class="user-hover" rel="admin" id="word_reporter_admin" href="https://team-1585518999701.atlassian.net/secure/ViewProfile.jspa?accountId=5e811990467ac20c1d6f392e">
+                    Franca Duje
+                </a>
+
+                            </td>
+        
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Responsable:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" nowrap="" width="30%">
+                                        
+                
+        
+            <a class="user-hover" rel="mlauri1997" id="word_assignee_mlauri1997" href="https://team-1585518999701.atlassian.net/secure/ViewProfile.jspa?accountId=5e8d05451008ef0b7ee27ff5">
+                    Lau Vaca
+                </a>
+
+                            </td>
+            </tr>
+    	<tr>
+		<td bgcolor="#f0f0f0" width="20%">
+			<b>Resolución:</b>
+		</td>
+		<td bgcolor="#ffffff" valign="top" width="30%" nowrap="">
+            				Sin resolver
+                    </td>
+                    <td bgcolor="#f0f0f0" width="20%">
+                <b>Votos:</b>
+            </td>
+            <td bgcolor="#ffffff" valign="top" width="30%" nowrap="">
+                0
+            </td>
+        
+    </tr>
+    
+        <tr>
+        <td bgcolor="#f0f0f0" width="20%">
+            <b>Etiquetas:</b>
+        </td>
+        <td id="labels-10011-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap="">
+                            Registro-Comercio, Release-1                    </td>
+    </tr>
+    
+    	<tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Σ Estimación Restante:</b></td>
+        <td bgcolor="#ffffff" valign="top" nowrap="">
+                            Desconocido
+                    </td>
+        		<td bgcolor="#f0f0f0" width="20%"><b>Estimación Restante:</b></td>
+        <td bgcolor="#ffffff" valign="top" nowrap="">
+                            Desconocido
+            		</td>
+    </tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Σ Tiempo empleado:</b></td>
+        <td bgcolor="#ffffff" valign="top" nowrap="">
+                            Desconocido
+                    </td>
+                <td bgcolor="#f0f0f0" width="20%"><b>Tiempo Trabajado:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap="">
+                            Desconocido
+            		</td>
+	</tr>
+    <tr>
+                <td bgcolor="#f0f0f0" width="20%"><b>Σ Estimación original:</b></td>
+        <td bgcolor="#ffffff" valign="top" nowrap="">
+                            Desconocido
+                    </td>
+                <td bgcolor="#f0f0f0" width="20%"><b>Estimación original:</b></td>
+		<td bgcolor="#ffffff" valign="top" nowrap="">
+                            Desconocido
+            		</td>
+    </tr>
+    
+    </tbody></table>
+
+
+
+    <br>
+
+    	<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+            
+
+        
+    
+
+
+<tbody><tr><td bgcolor="#f0f0f0" width="20%" valign="top"><b>Subtareas:</b></td>
+    <td bgcolor="#ffffff" valign="top">
+        <table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+            <tbody><tr bgcolor="#f0f0f0">
+                <td>
+                    <b>Clave</b><br>
+                </td>
+                <td>
+                    <b>Resumen</b><br>
+                </td>
+                <td>
+                    <b>Tipo</b><br>
+                </td>
+                <td>
+                    <b>Estado</b><br>
+                </td>
+                <td>
+                    <b>Responsable</b><br>
+                </td>
+            </tr>
+                            <tr>
+                    <td>
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-13">GREEDY-13</a>
+                    </td>
+                    <td valign="top" width="25%">
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-13">Confeccionar diseño de landing page.</a>
+                    </td>
+                    <td>
+                        Subtarea
+                    </td>
+                    <td>
+                        Finalizada
+                    </td>
+                    <td>
+                                                     Lau Vaca  &nbsp;
+                                            </td>
+                </tr>
+                            <tr>
+                    <td>
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-14">GREEDY-14</a>
+                    </td>
+                    <td valign="top" width="25%">
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-14">Crear casilla de correo de GreedyMe.</a>
+                    </td>
+                    <td>
+                        Subtarea
+                    </td>
+                    <td>
+                        Finalizada
+                    </td>
+                    <td>
+                                                     Franca Duje  &nbsp;
+                                            </td>
+                </tr>
+                            <tr>
+                    <td>
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-15">GREEDY-15</a>
+                    </td>
+                    <td valign="top" width="25%">
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-15">Programar funcionalidad de landing page.</a>
+                    </td>
+                    <td>
+                        Subtarea
+                    </td>
+                    <td>
+                        Finalizada
+                    </td>
+                    <td>
+                                                     Juan Pablo Zablosky  &nbsp;
+                                            </td>
+                </tr>
+                            <tr>
+                    <td>
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-16">GREEDY-16</a>
+                    </td>
+                    <td valign="top" width="25%">
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-16">Unit tests.</a>
+                    </td>
+                    <td>
+                        Subtarea
+                    </td>
+                    <td>
+                        En curso
+                    </td>
+                    <td>
+                                                     &nbsp;
+                                            </td>
+                </tr>
+                            <tr>
+                    <td>
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-17">GREEDY-17</a>
+                    </td>
+                    <td valign="top" width="25%">
+                        <a href="https://team-1585518999701.atlassian.net/browse/GREEDY-17">Historia lista para cerrarse.</a>
+                    </td>
+                    <td>
+                        Subtarea
+                    </td>
+                    <td>
+                        Tareas por hacer
+                    </td>
+                    <td>
+                                                     &nbsp;
+                                            </td>
+                </tr>
+                    </tbody></table>
+    </td>
+</tr>
+
+                        <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Story Points:</b></td>
+                <td id="customfield_10024-10011-value" class="value" bgcolor="#ffffff" width="80%">    3
+</td>
+            </tr>
+                                <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Sprint:</b></td>
+                <td id="customfield_10020-10011-value" class="value" bgcolor="#ffffff" width="80%">GREEDY Sprint 1, GREEDY Sprint 2</td>
+            </tr>
+                                <tr>
+                <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Epic Link:</b></td>
+                <td id="customfield_10014-10011-value" class="value" bgcolor="#ffffff" width="80%">
+    <a class="aui-label ghx-label-13" href="https://team-1585518999701.atlassian.net/browse/GREEDY-1">
+        Gestión de usuarios
+    </a>
+</td>
+            </tr>
+            </tbody></table>
+
+    <br>
+
+    <table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+    <tbody><tr>
+        <td bgcolor="#bbbbbb" width="1%" nowrap="" align="center">
+            &nbsp;<font color="#ffffff"><b>Descripción</b></font>&nbsp;
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+    </tbody></table>
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tbody><tr>
+        <td id="descriptionArea">
+            <h2><a name="Descripci%C3%B3n%3A"></a>Descripción:</h2>
+
+<p>Como Comercio puedo acceder a una landing page del producto para enviar una solicitud de registro y ser contactado por personal de GreedyMe.<br>
+<em>Notas:</em> </p>
+
+<ul>
+	<li><em>Se debe confeccionar una landing page del producto.</em></li>
+	<li><em>El interesado completa un formulario con sus datos personales: Nombre*, Apellido*, Teléfono*, Correo*, Nombre de Comercio*, Sitio Web, Sucursal, Rubro*, Comentarios.</em></li>
+	<li><em>Los rubros definidos son: Supermercados, Tecnología, Hogar, Farmacia, Indumentaria, Turismo, Deportes, Vehículos, Muebles y Decoración, Gastronomía, Niños, Librerías, Entretenimiento, Belleza y Estética, Otro.</em></li>
+	<li><em>La solicitud se envía a la casilla de correo de GreedyMe.</em></li>
+	<li><em>Se debe enviar un comprobante de solicitud al correo del interesado.</em></li>
+</ul>
+
+
+<h2><a name="Qu%C3%A9hacer%3A"></a>Qué hacer:</h2>
+
+<p>Confeccionar landing page del producto tanto en diseño como en funcionalidad, vinculando el formulario de esta con el mail creado para GreedyMe (greedyme.contacto@gmail.com).</p>
+
+<h2><a name="Pruebasdeaceptaci%C3%B3n%3A"></a>Pruebas de aceptación:</h2>
+
+<ul>
+	<li>Enviar formulario completo con datos en formato correcto: PASA.</li>
+	<li>Enviar formulario completo con datos en formato incorrecto: FALLA.</li>
+	<li>Enviar formulario con datos faltantes: FALLA.</li>
+</ul>
+
+            <br>
+        </td>
+    </tr>
+    </tbody></table>
+
+<hr class="fullcontent"><br><br style="page-break-before:always;"><br>Generado a las Tue Jul 28 19:35:35 UTC 2020 por Yazimel Niclis usando JIRA 1001.0.0-SNAPSHOT#100140-sha1:454f3ac261f1c4719eece8320fe16ef7b7041485.
+
+
+</body></html>
