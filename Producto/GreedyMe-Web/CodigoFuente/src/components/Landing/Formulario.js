@@ -5,11 +5,11 @@ export function Formulario() {
   return (
     <div className="formulario">
       <p className="introForm">
-        ¿Queres que tu comercio
+        ¿Querés que tu comercio
         <br />
         cuente con nuestro sistema
         <br />
-        de gestion de descuentos
+        de gestión de descuentos
         <br />y promociones?
       </p>
       <FormDialog />
