@@ -34,11 +34,7 @@ export function Footer() {
 
   return (
     <div className="footer">
-      <div className="textoFooter">
-        <p>Terminos y condiciones</p>
-        <p>Politica de privacidad</p>
-      </div>
-      <div>
+      <div className="scrollArriba">
         <IconButton
           variant="contained"
           aria-label="delete"
@@ -47,6 +43,10 @@ export function Footer() {
         >
           <KeyboardArrowUp />
         </IconButton>
+      </div>
+      <div className="textoFooter">
+        <p>Terminos y condiciones</p>
+        <p>Politica de privacidad</p>
       </div>
       <div className="logoFooter">
         <span style={{ color: "rgb(255, 255, 255)" }}>g r e</span>
