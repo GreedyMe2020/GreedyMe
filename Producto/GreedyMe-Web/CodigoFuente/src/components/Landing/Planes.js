@@ -28,25 +28,25 @@ export function Planes() {
               <Check />
             </IconButton>
           }
-          contenido1="Accedé a estadísticas base"
+          contenido1="Acceso a estadísticas base"
           src2={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido2="Envia notificaciones a tus clientes favoritos"
+          contenido2="Notificaciones a clientes favoritos"
           src3={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido3="Hasta 4 notificaciones por mes"
+          contenido3="4 notificaciones por mes"
           src4={""}
           src5={""}
         ></CardPlanes>
         <CardPlanes
-          titulo="ESTANDAR"
-          precio="$25"
+          titulo="ESTÁNDAR"
+          precio="US$ 25"
           src1={
             <IconButton id="btn" className={classes.root}>
               <Check />
@@ -70,17 +70,17 @@ export function Planes() {
               <Check />
             </IconButton>
           }
-          contenido4="Publicitá tu negocio dentro de la aplicación"
+          contenido4="Publicidad de tu negocio dentro de la aplicación"
           src5={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido5="Aparecé en búsquedas por geolocalización"
+          contenido5="Figurar en búsquedas por geolocalización"
         ></CardPlanes>
         <CardPlanes
           titulo="PREMIUM"
-          precio="$35"
+          precio="US$ 35"
           src1={
             <IconButton id="btn" className={classes.root}>
               <Check />
@@ -92,13 +92,13 @@ export function Planes() {
               <Check />
             </IconButton>
           }
-          contenido2="Exportá los reportes estadísticos"
+          contenido2="Exportación de reportes estadísticos"
           src3={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido3="Notificá a los usuarios que estén cerca de tu negocio "
+          contenido3="Notificación a los usuarios que estén cerca de tu negocio "
           src4={
             <IconButton id="btn" className={classes.root}>
               <Check />
@@ -110,15 +110,21 @@ export function Planes() {
               <Check />
             </IconButton>
           }
-          contenido5="Posicionate primero en la app "
+          contenido5="Mejor posicionamiento en la app "
           src6={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido6="Ofrece recompensas propias por GreedyPoints"
+          contenido6="Ofrecimiento de recompensas propias por GreedyPoints"
         ></CardPlanes>
       </div>
+      {/*  <div>
+        <span>
+          *Cualquier tipo de suscripción comienza con un periodo de prueba de 30
+          días del plan Premium
+        </span>
+      </div> */}
     </div>
   );
 }

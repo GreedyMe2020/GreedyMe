@@ -143,6 +143,7 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
+    setSubmitted(false);
   };
 
   const handleChange = (event) => {
@@ -191,7 +192,7 @@ export default function FormDialog() {
         </DialogTitle>
         <DialogContent dividers>
           <DialogContentText>
-            Llená los siguientes campos para participar en la App!
+            Completá los siguientes campos y formá parte de GreedyMe
           </DialogContentText>
 
           <ValidatorForm
