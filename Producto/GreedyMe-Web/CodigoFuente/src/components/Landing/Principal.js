@@ -114,15 +114,15 @@ export function Principal() {
             color="celeste"
             src={require("../../../Multimedia/Landing/Iconos/profits.png")}
             titulo="ESTADÍSTICAS"
-            contenido="Obtene estadisticas sobre el comprtamiento de tus clientes que
-          ayudaran a tomar decisiones estrategicas sobre los descuentos."
+            contenido="Obtené estadísticas sobre el comprtamiento de tus clientes que
+          ayudarán a tomar decisiones estratégicas sobre los descuentos."
           ></CardInfo>
           <CardInfo
             color="naranja"
             src={require("../../../Multimedia/Landing/Iconos/star (1).png")}
             titulo="GREEDY POINTS"
-            contenido="Los clientes sumaran puntos por cada cupon de descuento que
-          utilicen en tu comercio y podran cangearlo por recompensas."
+            contenido="Los clientes sumarán puntos por cada cupón de descuento que
+          utilicen en tu comercio y podrán cangearlo por recompensas."
           ></CardInfo>
         </div>
       </div>

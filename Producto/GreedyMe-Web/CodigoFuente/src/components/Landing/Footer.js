@@ -45,8 +45,8 @@ export function Footer() {
         </IconButton>
       </div>
       <div className="textoFooter">
-        <p>Terminos y condiciones</p>
-        <p>Politica de privacidad</p>
+        <p>Términos y condiciones</p>
+        <p>Política de privacidad</p>
       </div>
       <div className="logoFooter">
         <span style={{ color: "rgb(255, 255, 255)" }}>g r e</span>
