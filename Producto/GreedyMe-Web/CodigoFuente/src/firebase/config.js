@@ -1,7 +1,5 @@
 import firebase from "firebase";
-
 const firebaseConfig = { null };
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
