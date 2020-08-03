@@ -6,7 +6,7 @@ export function DescargarApp() {
     <div className="descargaApp">
       <div className="contenedorDescarga">
         <p className="textoApp">
-          Proximamente podras descargarte la app en tu celular
+          Próximamente podrás descargarte la app en tu celular
           <br /> y empezar a gestionar todos tus descuentos
         </p>
         <Image
