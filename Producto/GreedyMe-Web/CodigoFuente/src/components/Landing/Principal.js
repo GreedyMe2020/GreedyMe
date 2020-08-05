@@ -2,6 +2,9 @@ import React from "react";
 import { Image } from "react-bootstrap";
 import { ButtonEj } from "../Button";
 import { CardInfo } from "../CardInfo";
+import { Registro } from "../../pages/Registro";
+import { useHistory } from "react-router-dom";
+import { Link } from "@reach/router";
 
 /* var divRef = document.getElementById("contenedorCard"); */
 
@@ -12,7 +15,16 @@ export function Principal() {
       block: "center",
     }); */
 
+  const history = useHistory(); // ESTA FUNCION NOS SIRVE PARA ENRUTAR.
+
+  const routeChange = () => {
+    // ESTA FUNCION NOS SIRVE PARA ENRUTAR.
+    let path = `/login`; // ESTA FUNCION NOS SIRVE PARA ENRUTAR.
+    history.push(path); // ESTA FUNCION NOS SIRVE PARA ENRUTAR.
+  };
+
   const divRef = React.useRef(null);
+
   const onButtonClick = () => {
     divRef.current.scrollIntoView({
       behavior: "smooth",
@@ -99,7 +111,13 @@ export function Principal() {
             />
           </div>
         </div>
-        <ButtonEj text="Iniciar Sesion" style="btnIniciarSesion" onClick="" />
+        <Link to="/login">
+          <ButtonEj
+            text="Iniciar Sesión"
+            style="btnIniciarSesion"
+            onClick={""}
+          />
+        </Link>
       </div>
       <div className="caractSistema" ref={divRef}>
         <div className="contenedorCard" id="contenedorCard">

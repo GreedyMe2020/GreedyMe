@@ -1,14 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
+import { Route, BrowserRouter } from "react-router-dom";
 import { Landing } from "./pages/Landing";
+import { InicioSesion } from "./components/Registro/InicioSesion";
+import { Router } from "@reach/router";
+import { Registro } from "./pages/Registro";
 
 const App = () => {
   return (
     <div className="App">
-      <Switch>
-        <Route exact path="/" component={Landing} />
-      </Switch>
+      <Router>
+        <Landing path="/" />
+        <Registro path="/login" />
+      </Router>
     </div>
   );
 };

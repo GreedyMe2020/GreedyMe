@@ -1,5 +1,6 @@
 import firebase from "firebase";
-const firebaseConfig = { null };
+
+const firebaseConfig = {};
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
