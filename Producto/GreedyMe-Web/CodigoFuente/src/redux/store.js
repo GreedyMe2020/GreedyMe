@@ -1,5 +1,12 @@
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import authReducer from "./reducers/authReducer";
+import thunk from "redux-thunk";
+import promReducer from "./reducers/promReducer";
 
-const reducer = {};
+const reducer = combineReducers({
+  auth: authReducer,
+  promociones: promReducer,
+});
+const store = createStore(reducer, applyMiddleware(thunk));
 
-const store = createStore(reducer);
+export default store;
