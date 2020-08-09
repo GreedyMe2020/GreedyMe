@@ -115,7 +115,7 @@ export function Principal() {
           <ButtonEj
             text="Iniciar Sesión"
             style="btnIniciarSesion"
-            onClick={""}
+            onClick={null}
           />
         </Link>
       </div>
