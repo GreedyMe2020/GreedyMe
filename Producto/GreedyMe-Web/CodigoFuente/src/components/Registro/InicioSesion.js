@@ -5,6 +5,7 @@ import {
   SelectValidator,
 } from "react-material-ui-form-validator";
 //import { loginUsuario } from "../firebase/registroUsuario";
+import { Usuario } from "./Usuario";
 
 export function InicioSesion() {
   const [formData, setFormData] = React.useState({
@@ -27,6 +28,7 @@ export function InicioSesion() {
             type="submit"
             className="submit"
             value="Iniciar Sesión"
+            onSubmit={<Usuario />}
           ></input>
         </form>
       </div>
