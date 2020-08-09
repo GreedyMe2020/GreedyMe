@@ -1,4 +1,6 @@
 import React from "react";
+import { navigate } from "@reach/router"; //Utilizarlo para meter URL, navigate(url)
+import UseModal from "./useModal";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -137,6 +139,8 @@ export default function FormDialog() {
   });
   const [submitted, setSubmitted] = React.useState(false);
 
+  const [showModal, setModal] = React.useState(false);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -162,7 +166,16 @@ export default function FormDialog() {
     return await registrarSolicitud(formData);
   };
 
+  const toggleModal = () => {
+    setModal(!showModal);
+  };
+
   const form = React.createRef();
+
+  React.useEffect(() => {
+    //esto no corre en el primer render, se ejecuta luego del return
+    submitted ? toggleModal() : null; //Habilita a que se abra un modal de confirmacion de envio de mail.
+  }, [submitted, setSubmitted]); //lista de dependencias, cosa de que se refresque cuando esto cambia.
 
   return (
     <div>
@@ -336,15 +349,35 @@ export default function FormDialog() {
                   variant="contained"
                   className={classes.margin}
                   type="submit"
-                  disabled={submitted}
+                  onClick={handleClose}
+                  //onClick={handleClose} //se desactiva el modal.
                 >
-                  {(submitted && "Enviado!") || (!submitted && "Enviar")}
+                  Enviar
                 </Button>
               </Grid>
             </Grid>
           </ValidatorForm>
         </DialogContent>
       </Dialog>
+      {showModal ? (
+        <UseModal>
+          <div>
+            <h1>
+              Revisa la casilla de correo "No deseados", en la brevedad nos
+              contactaremos con usted. Muchas gracias!
+            </h1>
+            <Button
+              color="primary"
+              variant="contained"
+              className={classes.margin}
+              type="submit"
+              onClick={toggleModal}
+            >
+              Salir
+            </Button>
+          </div>
+        </UseModal>
+      ) : null}
     </div>
   );
 }

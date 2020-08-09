@@ -6,6 +6,7 @@ import {
 } from "react-material-ui-form-validator";
 import { connect } from "react-redux";
 import { signIn } from "../../redux/actions/authActions";
+import { Usuario } from "./Usuario";
 
 function InicioSesion(props) {
   const [formData, setFormData] = React.useState({
@@ -47,6 +48,7 @@ function InicioSesion(props) {
             type="submit"
             className="submit"
             value="Iniciar Sesión"
+            onSubmit={<Usuario />}
           ></input>
         </form>
         {props.authError ? (
