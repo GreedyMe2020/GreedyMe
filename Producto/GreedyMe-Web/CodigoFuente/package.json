@@ -35,8 +35,12 @@
     "react-dom": "^16.13.1",
     "react-form-validator-core": "^0.7.0",
     "react-material-ui-form-validator": "^2.0.10",
-    "react-redux": "^7.2.0",
-    "react-router-dom": "^5.2.0"
+    "react-redux": "^5.1.1",
+    "react-redux-firebase": "^2.2.4",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-firestore": "^0.13.0",
+    "redux-thunk": "^2.3.0"
   },
   "browserlist": [
     "last 2 Chrome versions",

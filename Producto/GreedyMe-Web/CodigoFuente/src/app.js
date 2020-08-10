@@ -2,10 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Route, BrowserRouter } from "react-router-dom";
 import { Landing } from "./pages/Landing";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 import { InicioSesion } from "./components/Registro/InicioSesion";
 import { Router } from "@reach/router";
 import { Registro } from "./pages/Registro";
 import { Principal } from "./pages/Principal";
+
 
 const App = () => {
   return (
@@ -21,9 +24,11 @@ const App = () => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

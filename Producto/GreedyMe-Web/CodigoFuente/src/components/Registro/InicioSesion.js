@@ -4,51 +4,69 @@ import {
   TextValidator,
   SelectValidator,
 } from "react-material-ui-form-validator";
-//import { loginUsuario } from "../firebase/registroUsuario";
-import { Usuario } from "./Usuario";
+import { connect } from "react-redux";
+import { signIn } from "../../redux/actions/authActions";
+import { Redirect } from "@reach/router";
 
-export function InicioSesion() {
+function InicioSesion(props) {
   const [formData, setFormData] = React.useState({
-    usuario: "",
+    email: "",
     contraseña: "",
   });
 
+  const handleChange = (event) => {
+    formData[event.target.name] = event.target.value;
+    setFormData({ ...formData });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.signIn(formData);
+  };
+
+  if (props.auth.uid) return <Redirect to={"/main/" + props.auth.uid} />;
   return (
     <div className="container">
       <div className="login-container">
         <h2>Registrarse</h2>
-        <form action="">
-          <input type="text" placeholder="Usuario" className="usuario"></input>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Email"
+            className="email"
+            name="email"
+            onChange={handleChange}
+          ></input>
           <input
             type="password"
             placeholder="Contraseña"
             className="contraseña"
+            name="contraseña"
+            onChange={handleChange}
           ></input>
           <input
             type="submit"
             className="submit"
             value="Iniciar Sesión"
-            onSubmit={<Usuario />}
           ></input>
         </form>
+        {props.authError ? <p>Le erraste en la contraseña o el mail</p> : null}
       </div>
     </div>
   );
 }
 
-/*const handleChange = (event) => {
-    loginData[event.target.name] = event.target.value;
-    setLoginData({ ...loginData });
+const mapStateToProps = (state) => {
+  return {
+    authError: state.auth.authError,
+    auth: state.firebase.auth,
   };
+};
 
-  const handleLogin = () => {
-    setLogin({ login: true }, () => {
-      setTimeout(() => setLogin({ login: false }), 5000);
-    });
-
-    validarLogin(loginData);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (user) => dispatch(signIn(user)),
   };
+};
 
-  const validarLogin = async (loginData) => {
-    return await ingresoLogin(loginData); //IMPORTAR DESDE FIREBASE VER.
-  };*/
+export default connect(mapStateToProps, mapDispatchToProps)(InicioSesion);
