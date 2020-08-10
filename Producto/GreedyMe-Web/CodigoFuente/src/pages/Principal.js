@@ -1,6 +1,6 @@
 import React from "react";
-import { mainPage } from "../components/Principal/mainPage";
+import MainPage from "../components/Principal/mainPage";
 
 export function Principal() {
-  return <mainPage />;
+  return <MainPage />;
 }

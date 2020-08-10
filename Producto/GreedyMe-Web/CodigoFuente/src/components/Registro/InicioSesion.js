@@ -6,7 +6,7 @@ import {
 } from "react-material-ui-form-validator";
 import { connect } from "react-redux";
 import { signIn } from "../../redux/actions/authActions";
-import { Usuario } from "./Usuario";
+import { Redirect } from "@reach/router";
 
 function InicioSesion(props) {
   const [formData, setFormData] = React.useState({
@@ -21,10 +21,10 @@ function InicioSesion(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     props.signIn(formData);
   };
 
+  if (props.auth.uid) return <Redirect to={"/main/" + props.auth.uid} />;
   return (
     <div className="container">
       <div className="login-container">
@@ -48,12 +48,9 @@ function InicioSesion(props) {
             type="submit"
             className="submit"
             value="Iniciar Sesión"
-            onSubmit={<Usuario />}
           ></input>
         </form>
-        {props.authError ? (
-          <p>Le erraste en la contra o el mail amigo</p>
-        ) : null}
+        {props.authError ? <p>Le erraste en la contraseña o el mail</p> : null}
       </div>
     </div>
   );
@@ -62,6 +59,7 @@ function InicioSesion(props) {
 const mapStateToProps = (state) => {
   return {
     authError: state.auth.authError,
+    auth: state.firebase.auth,
   };
 };
 

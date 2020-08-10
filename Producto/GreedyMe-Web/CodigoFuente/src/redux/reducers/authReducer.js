@@ -16,6 +16,9 @@ const authReducer = (state = initState, action) => {
         ...state,
         authError: null,
       };
+    case "SESION_CERRADA":
+      console.log("te fuiste");
+      return state;
     default:
       return state;
   }
