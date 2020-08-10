@@ -24,3 +24,18 @@ export const signOut = () => {
       });
   };
 };
+
+export const forgotPass = (usuario) => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+    firebase
+      .auth()
+      .sendPasswordResetEmail(usuario.email)
+      .then(() => {
+        dispatch({ type: "CONTRASEÑA_REESTABLECIDA" });
+      })
+      .catch((error) => {
+        dispatch({ type: "EMAIL_INVALIDO", error });
+      });
+  };
+};

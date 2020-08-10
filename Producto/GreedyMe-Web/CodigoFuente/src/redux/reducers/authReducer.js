@@ -1,5 +1,7 @@
 const initState = {
   authError: null,
+  mailError: null,
+  mandoMail: null,
 };
 
 const authReducer = (state = initState, action) => {
@@ -19,6 +21,20 @@ const authReducer = (state = initState, action) => {
     case "SESION_CERRADA":
       console.log("te fuiste");
       return state;
+    case "CONTRASEÑA_REESTABLECIDA":
+      console.log("se envio un mail");
+      return {
+        ...state,
+        mailError: null,
+        mandoMail: "mail enviado",
+      };
+    case "EMAIL_INVALIDO":
+      console.log("mal ahi man le erraste en el mail");
+      return {
+        ...state,
+        mailError: "email invalido",
+        mandoMail: null,
+      };
     default:
       return state;
   }

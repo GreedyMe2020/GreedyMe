@@ -8,7 +8,7 @@ import { InicioSesion } from "./components/Registro/InicioSesion";
 import { Router } from "@reach/router";
 import { Registro } from "./pages/Registro";
 import { Principal } from "./pages/Principal";
-
+import { OlvidoContraseña } from "./pages/OlvidoContraseña";
 
 const App = () => {
   return (
@@ -17,6 +17,7 @@ const App = () => {
         <Landing path="/" />
         <Registro path="/login" />
         <Principal path="/main/:id" />
+        <OlvidoContraseña path="/forgotpassword" />
       </Router>
     </div>
   );
