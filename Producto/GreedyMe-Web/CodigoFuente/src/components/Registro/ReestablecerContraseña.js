@@ -5,13 +5,12 @@ import {
   SelectValidator,
 } from "react-material-ui-form-validator";
 import { connect } from "react-redux";
-import { signIn } from "../../redux/actions/authActions";
-import { Redirect, Link } from "@reach/router";
+import { forgotPass } from "../../redux/actions/authActions";
+import { Redirect } from "@reach/router";
 
-function InicioSesion(props) {
+function ReestablecerContraseña(props) {
   const [formData, setFormData] = React.useState({
     email: "",
-    contraseña: "",
   });
 
   const handleChange = (event) => {
@@ -21,14 +20,14 @@ function InicioSesion(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.signIn(formData);
+    props.forgotPass(formData);
   };
 
-  if (props.auth.uid) return <Redirect to={"/main/" + props.auth.uid} />;
+  if (props.mandoMail) return <Redirect to="/login" />;
   return (
     <div className="container">
       <div className="login-container">
-        <h2>Inicia Sesion</h2>
+        <h2>Reestablece tu contraseña</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -38,36 +37,31 @@ function InicioSesion(props) {
             onChange={handleChange}
           ></input>
           <input
-            type="password"
-            placeholder="Contraseña"
-            className="contraseña"
-            name="contraseña"
-            onChange={handleChange}
-          ></input>
-          <input
             type="submit"
             className="submit"
-            value="Iniciar Sesión"
+            value="Reestablecer Contraseña"
           ></input>
         </form>
-        {props.authError ? <p>Le erraste en la contraseña o el mail</p> : null}
+        {props.mailError ? <p>Email invalido, ingresalo nuevamente</p> : null}
       </div>
-      <Link to="/forgotpassword">¿Olvidaste tu contraseña?</Link>
     </div>
   );
 }
 
 const mapStateToProps = (state) => {
   return {
-    authError: state.auth.authError,
-    auth: state.firebase.auth,
+    mailError: state.auth.mailError,
+    mandoMail: state.auth.mandoMail,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signIn: (user) => dispatch(signIn(user)),
+    forgotPass: (user) => dispatch(forgotPass(user)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InicioSesion);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ReestablecerContraseña);
