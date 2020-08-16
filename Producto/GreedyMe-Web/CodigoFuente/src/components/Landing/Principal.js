@@ -1,6 +1,9 @@
 import React from "react";
 import { ButtonEj } from "../Button";
 import { CardInfo } from "../CardInfo";
+import { Registro } from "../../pages/Registro";
+import { useHistory } from "react-router-dom";
+import { Link } from "@reach/router";
 
 /*var divRef = document.getElementById("contenedorCard");*/
 
@@ -11,7 +14,16 @@ export function Principal() {
       block: "center",
     });*/
 
+  const history = useHistory(); // ESTA FUNCION NOS SIRVE PARA ENRUTAR.
+
+  const routeChange = () => {
+    // ESTA FUNCION NOS SIRVE PARA ENRUTAR.
+    let path = `/login`; // ESTA FUNCION NOS SIRVE PARA ENRUTAR.
+    history.push(path); // ESTA FUNCION NOS SIRVE PARA ENRUTAR.
+  };
+
   const divRef = React.useRef(null);
+
   const onButtonClick = () => {
     divRef.current.scrollIntoView({
       behavior: "smooth",
@@ -24,11 +36,13 @@ export function Principal() {
       <main>
         <div className="principal">
           <div className="inicio">
-            <ButtonEj
-              text="Iniciar Sesión"
-              style="btnIniciarSesion"
-              onClick=""
-            />
+            <Link to="/login">
+              <ButtonEj
+                text="Iniciar Sesión"
+                style="btnIniciarSesion"
+                onClick={null}
+              />
+            </Link>
           </div>
           <div id="Titulo_principal">
             <div id="titulo">
@@ -66,6 +80,7 @@ export function Principal() {
                 src={require("../../../Multimedia/Landing/Iconos/profits.png")}
                 titulo="ESTADÍSTICAS"
                 contenido="Obtené estadísticas sobre el comportamiento de tus clientes que
+
           ayudarán a tomar decisiones estratégicas sobre los descuentos."
               ></CardInfo>
               <CardInfo
