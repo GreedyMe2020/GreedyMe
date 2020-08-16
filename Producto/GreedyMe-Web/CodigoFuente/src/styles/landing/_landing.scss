@@ -1,0 +1,616 @@
+//Google fonts
+@import url(http://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Raleway:wght@500;600&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Roboto&display=swap);
+
+//Inter (thin & bold 700)
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap);
+
+//Variables
+$logo-font: "Raleway", sans-serif;
+$text-font: "Inter", sans-serif;
+
+$white-color: #ffffff;
+$grey-color: #e1e1e1;
+$green-color: #76b39d;
+$logo-green-color: #78e3bc;
+$logo-blue-color: #262262;
+$dark-blue-color: #1e1b4d;
+$logo-orange-color: #f7941e;
+$dark-orange-color: #fd5f00;
+
+//Principal
+
+.principal {
+  background-image: url(../../Multimedia/Landing/Imagenes/principal04.jpg);
+  background-size: 100% 100%;
+}
+
+.inicio {
+  width: 90%;
+  margin: auto;
+  padding: 3rem 0rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  #btnIniciarSesion {
+    float: right;
+    border-color: #f7941e;
+    color: white;
+    font-size: 15px;
+    font-family: $text-font;
+    text-transform: none;
+    width: 140px;
+    height: 40px;
+    letter-spacing: 0.5px;
+  }
+}
+
+#Titulo_principal {
+  display: grid;
+  min-height: 82.3vh;
+  grid-template-columns: 10% 80% 10%;
+  grid-template-rows: 10% 1fr 0.5fr 1fr;
+
+  #titulo {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    justify-self: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    flex: 1;
+    margin: 1rem;
+    padding: 1rem;
+
+    h3 {
+      letter-spacing: 2rem;
+    }
+
+    .gre {
+      color: $white-color;
+    }
+
+    .edy {
+      color: $logo-green-color;
+    }
+
+    .me {
+      color: $logo-orange-color;
+    }
+  }
+
+  #subtitulo {
+    grid-column: 2/3;
+    grid-row: 3/4;
+    justify-self: center;
+    align-self: flex-start;
+    display: inline-block;
+    text-align: center;
+    width: 55%;
+    color: $white-color;
+    font-size: 2rem;
+  }
+
+  #contenedor_boton_conocermas {
+    grid-column: 2/3;
+    grid-row: 4/5;
+    justify-self: center;
+
+    #botonConocerMas {
+      background-color: rgba(247, 148, 30, 1);
+      border-color: rgba(247, 148, 30, 1);
+      width: 15.5rem;
+      height: 4.5rem;
+      border-radius: 50px;
+      margin-top: 1rem;
+      text-align: center;
+      font-family: "ProductSans-Regular", sans-serif;
+      font-style: normal;
+      font-size: 17px;
+      color: rgba(249, 248, 235, 1);
+      letter-spacing: 0.5px;
+      text-transform: none;
+    }
+
+    #botonConocerMas:hover {
+      background-color: #fd5f00;
+      border-color: #fd5f00;
+    }
+  }
+}
+
+@media only screen and (max-width: 830px) {
+  #Titulo_principal {
+    #subtitulo {
+      width: 75%;
+    }
+  }
+}
+
+@media only screen and (max-width: 630px) {
+  #Titulo_principal {
+    #titulo {
+      .gre {
+        font-size: 7.5rem;
+      }
+
+      .edy {
+        font-size: 7.5rem;
+      }
+
+      .me {
+        font-size: 7.5rem;
+      }
+    }
+
+    #subtitulo {
+      width: 100%;
+      font-size: 1.8rem;
+    }
+  }
+}
+
+.caractSistema {
+  margin: auto;
+  margin-bottom: 12.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .contenedorCard {
+    margin-top: 10%;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+  .cardInfo {
+    padding: 30px 30px;
+    margin: 20px;
+
+    .cardI {
+      width: 320px;
+      height: 280px;
+      padding: 7px;
+      border-radius: 0px;
+      border-color: white;
+      box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.161);
+
+      .circulo {
+        width: 100px;
+        height: 100px;
+        border-radius: 100px;
+        padding: 50px;
+      }
+
+      #azul {
+        background-color: rgba(38, 34, 98, 1);
+        margin-top: -57px;
+        margin-left: 20px;
+      }
+      #celeste {
+        background-color: rgba(118, 179, 157, 1);
+        margin-top: -57px;
+        margin-left: 20px;
+      }
+      #naranja {
+        background-color: rgba(247, 148, 30, 1);
+        margin-top: -57px;
+        margin-left: 20px;
+      }
+
+      .icono {
+        width: 50px;
+        height: 50px;
+        margin-top: -73px;
+        margin-left: 45px;
+      }
+
+      .tituloCard {
+        margin-top: 30px;
+        text-align: left;
+        font-family: $text-font;
+        font-weight: bold;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 1);
+        letter-spacing: 0.05px;
+      }
+
+      .textoCard {
+        margin-top: 15px;
+        text-align: left;
+        font-family: $text-font;
+        font-weight: lighter;
+        font-size: 18px;
+        color: rgba(0, 0, 0, 1);
+        letter-spacing: 0.05px;
+      }
+    }
+  }
+}
+
+.planes {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(255, 250, 255, 1);
+  background: -moz-linear-gradient(
+    top,
+    rgba(255, 250, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 252, 255, 1) 2%,
+    rgba(255, 250, 255, 1) 16%,
+    rgba(224, 224, 224, 1) 61%,
+    rgba(224, 224, 224, 1) 100%
+  );
+  background: -webkit-gradient(
+    left top,
+    left bottom,
+    color-stop(0%, rgba(255, 250, 255, 1)),
+    color-stop(0%, rgba(255, 255, 255, 1)),
+    color-stop(2%, rgba(255, 252, 255, 1)),
+    color-stop(16%, rgba(255, 250, 255, 1)),
+    color-stop(61%, rgba(224, 224, 224, 1)),
+    color-stop(100%, rgba(224, 224, 224, 1))
+  );
+  background: -webkit-linear-gradient(
+    top,
+    rgba(255, 250, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 252, 255, 1) 2%,
+    rgba(255, 250, 255, 1) 16%,
+    rgba(224, 224, 224, 1) 61%,
+    rgba(224, 224, 224, 1) 100%
+  );
+  background: -o-linear-gradient(
+    top,
+    rgba(255, 250, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 252, 255, 1) 2%,
+    rgba(255, 250, 255, 1) 16%,
+    rgba(224, 224, 224, 1) 61%,
+    rgba(224, 224, 224, 1) 100%
+  );
+  background: -ms-linear-gradient(
+    top,
+    rgba(255, 250, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 252, 255, 1) 2%,
+    rgba(255, 250, 255, 1) 16%,
+    rgba(224, 224, 224, 1) 61%,
+    rgba(224, 224, 224, 1) 100%
+  );
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 250, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 252, 255, 1) 2%,
+    rgba(255, 250, 255, 1) 16%,
+    rgba(224, 224, 224, 1) 61%,
+    rgba(224, 224, 224, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffaff', endColorstr='#e0e0e0', GradientType=0 );
+
+  .tituloPlanes {
+    text-align: center;
+    font-family: $text-font;
+    font-weight: bold;
+    font-size: 6rem;
+    color: rgba(5, 0, 78, 1);
+    letter-spacing: 0.05px;
+  }
+
+  .contenedorCard {
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+
+    margin-bottom: 13rem;
+
+    .cardPlanes {
+      padding: 10px 20px;
+
+      #cardP {
+        border-color: #f7941e;
+        border-radius: 20px;
+        width: 280px;
+        height: 470px;
+
+        .card-body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-flow: column;
+        }
+
+        .tituloCardP {
+          margin-top: 30px;
+          font-family: $text-font;
+          font-size: 25px;
+          color: rgba(0, 0, 0, 1);
+          letter-spacing: 2px;
+        }
+        .precioCardP {
+          margin-top: 30px;
+          font-family: $text-font;
+          font-weight: bold;
+          font-size: 25px;
+          color: #262262;
+          letter-spacing: 2px;
+        }
+        .contTexto {
+          margin-top: 2.5rem;
+          margin-bottom: 2rem;
+          display: flex;
+          flex-direction: column;
+          justify-items: center;
+
+          #textoenlinea {
+            position: relative;
+            display: inline-block;
+            text-align: center;
+            margin-bottom: 0.4rem;
+
+            .textoCardP {
+              position: relative;
+              display: inline;
+              text-align: center;
+              font-family: $text-font;
+              font-weight: thin;
+              font-size: 14px;
+              color: rgba(0, 0, 0, 1);
+              letter-spacing: 1px;
+            }
+          }
+        }
+      }
+
+      /* Float Shadow */
+      .hvr-float-shadow {
+        display: inline-block;
+        vertical-align: middle;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        position: relative;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        -webkit-transition-property: transform;
+        transition-property: transform;
+      }
+      .hvr-float-shadow:before {
+        pointer-events: none;
+        position: absolute;
+        z-index: -1;
+        content: "";
+        top: 100%;
+        left: 5%;
+        height: 10px;
+        width: 90%;
+        opacity: 0;
+        background: -webkit-radial-gradient(
+          center,
+          ellipse,
+          rgba(0, 0, 0, 0.35) 0%,
+          rgba(0, 0, 0, 0) 80%
+        );
+        background: radial-gradient(
+          ellipse at center,
+          rgba(0, 0, 0, 0.35) 0%,
+          rgba(0, 0, 0, 0) 80%
+        );
+        /* W3C */
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        -webkit-transition-property: transform, opacity;
+        transition-property: transform, opacity;
+      }
+      .hvr-float-shadow:hover,
+      .hvr-float-shadow:focus,
+      .hvr-float-shadow:active {
+        -webkit-transform: translateY(-5px);
+        transform: translateY(-5px);
+        background-color: #f7941e;
+        /* move the element up by 5px */
+      }
+      .hvr-float-shadow:hover:before,
+      .hvr-float-shadow:focus:before,
+      .hvr-float-shadow:active:before {
+        opacity: 1;
+        -webkit-transform: translateY(5px);
+        transform: translateY(5px);
+        /* move the element down by 5px (it will stay in place because it's attached to the element that also moves up 5px) */
+      }
+      .hvr-float-shadow:hover .tituloCardP {
+        color: #ffffff !important;
+      }
+      .hvr-float-shadow:hover .textoCardP {
+        color: #ffffff !important;
+      }
+      .hvr-float-shadow:hover #btn {
+        color: #ffffff !important;
+      }
+    }
+  }
+}
+
+.iconoPlan {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  margin-right: 5px;
+}
+
+/*--------------FORMULARIO----------------------------*/
+.formulario {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #e0e0e0;
+
+  .introForm {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    font-family: $text-font;
+    font-weight: bold;
+    font-size: 4rem;
+    color: rgba(5, 0, 78, 1);
+  }
+  .botonRegistarse {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 15rem;
+
+    #btnRegistro {
+      background-color: #262262;
+      border-color: #262262;
+      border-radius: 50px;
+      color: white;
+      font-size: 1.8rem;
+      text-transform: none;
+      font-family: $text-font;
+      letter-spacing: 0.5px;
+    }
+    #btnRegistro:hover {
+      background-color: #1e1b4d;
+      border-color: #1e1b4d;
+      border-radius: 50px;
+      color: white;
+    }
+  }
+}
+
+/*--------------DESCARGATE LA APP----------------------------*/
+
+.descargaApp {
+  width: 100%;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  display: grid;
+  grid-template-areas:
+    "textoApp"
+    "contenedorCel"
+    "contenedorDescarga";
+  background-color: white;
+
+  .textoApp {
+    grid-area: textoApp;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 2rem;
+    width: 100%;
+    font-family: $text-font;
+    font-weight: bold;
+    font-size: 30px;
+    color: rgba(5, 0, 78, 1);
+    letter-spacing: 2px;
+  }
+
+  .contenedorCel {
+    grid-area: contenedorCel;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-flow: row wrap;
+
+    .imgCelular {
+      width: 350px;
+      align-self: center;
+    }
+  }
+
+  .contenedorDescarga {
+    grid-area: contenedorDescarga;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+
+    .icoApp {
+      width: 150px;
+      height: 10rem;
+      padding-right: 10px;
+    }
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .descargaApp {
+    grid-template-columns: 5% 2fr 1fr;
+    grid-template-areas:
+      ". textoApp contenedorCel"
+      ". contenedorDescarga contenedorCel"
+      ". . .";
+
+    .contenedorCel {
+      justify-content: flex-start;
+      align-items: center;
+      .imgCelular {
+        justify-self: flex-start;
+      }
+    }
+
+    .contenedorDescarga {
+      justify-self: center;
+      align-self: flex-start;
+
+      .icoApp {
+        align-self: flex-start;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .descargaApp {
+    .textoApp {
+      margin-top: 3rem;
+      margin-bottom: -5rem !important;
+    }
+  }
+}
+
+/*--------------FOOTER----------------------------*/
+.footer {
+  background-color: #262262;
+
+  .scrollArriba {
+    position: relative;
+    float: right;
+    top: -3rem;
+    margin-right: 50px;
+  }
+
+  .footerContainer {
+    width: 90%;
+    margin: auto;
+    padding: 3rem 0rem;
+    min-height: 8vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .textoFooter {
+      display: inline-block;
+      color: white;
+      width: 74%;
+      margin-left: 50px;
+      font-size: 18px;
+      font-family: $text-font;
+      letter-spacing: 0.5px;
+    }
+    .logoFooter {
+      display: inline-block;
+      font-family: "GlacialIndifference-Regular";
+      font-size: 30px;
+      letter-spacing: 1px;
+    }
+  }
+}

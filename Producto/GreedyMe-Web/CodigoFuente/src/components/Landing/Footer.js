@@ -33,7 +33,7 @@ export function Footer() {
   };
 
   return (
-    <div className="footer">
+    <footer className="footer">
       <div className="scrollArriba">
         <IconButton
           variant="contained"
@@ -44,15 +44,17 @@ export function Footer() {
           <KeyboardArrowUp />
         </IconButton>
       </div>
-      <div className="textoFooter">
-        <p>Términos y condiciones</p>
-        <p>Política de privacidad</p>
+      <div className="footerContainer">
+        <div className="textoFooter">
+          <p>Términos y condiciones</p>
+          <p>Política de privacidad</p>
+        </div>
+        <div className="logoFooter">
+          <span style={{ color: "rgb(255, 255, 255)" }}>g r e</span>
+          <span style={{ color: "#76B39D" }}> e d y</span>
+          <span style={{ color: "rgba(247,148,30,1)" }}> m e</span>
+        </div>
       </div>
-      <div className="logoFooter">
-        <span style={{ color: "rgb(255, 255, 255)" }}>g r e</span>
-        <span style={{ color: "#76B39D" }}> e d y</span>
-        <span style={{ color: "rgba(247,148,30,1)" }}> m e</span>
-      </div>
-    </div>
+    </footer>
   );
 }
