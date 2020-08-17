@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
   cruz: {
     position: "absolute",
     right: theme.spacing(1),
-    top: theme.spacing(1),
+    top: theme.spacing(1.8),
     color: theme.palette.grey[500],
   },
 }));
@@ -147,6 +147,7 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
+    setSubmitted(false);
   };
 
   const handleChange = (event) => {
@@ -204,17 +205,19 @@ export default function FormDialog() {
         </DialogTitle>
         <DialogContent dividers>
           <DialogContentText>
-            Llená los siguientes campos para participar en la App!
+            Completá los siguientes campos y formá parte de GreedyMe
           </DialogContentText>
 
           <ValidatorForm
             className={classes.root}
             ref={form}
             onSubmit={handleSubmit}
+            id="validator-form"
           >
             <Grid container className={classes.cont} spacing={1}>
               <Grid item xs={12} md={6}>
                 <TextValidator
+                  id="textValidator"
                   label="Nombre"
                   variant="outlined"
                   onChange={handleChange}
@@ -335,7 +338,6 @@ export default function FormDialog() {
                   id="outlined-multiline-static"
                   label="Dudas"
                   multiline
-                  rows={4}
                   value={formData.dudas}
                   onChange={handleChange}
                   name="dudas"
