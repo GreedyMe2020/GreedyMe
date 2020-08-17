@@ -18,9 +18,6 @@ $logo-orange-color: #f7941e;
 $dark-orange-color: #fd5f00;
 
 //Styles
-html {
-  font-size: 62.5%;
-}
 * {
   box-sizing: border-box;
 }
@@ -29,16 +26,13 @@ body {
 }
 h1 {
   font-family: $text-font;
-  font-size: 2.5rem;
 }
 h2 {
   font-family: $text-font;
-  font-size: 4rem;
 }
 h3 {
   font-family: $logo-font;
   font-weight: "Semi-bold 600";
-  font-size: 8rem;
 }
 span {
   font-family: $text-font;
