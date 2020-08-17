@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import authReducer from "./reducers/authReducer";
 import thunk from "redux-thunk";
 import promReducer from "./reducers/promReducer";
+import comReducer from "./reducers/comReducer";
 import {
   firestoreReducer,
   reduxFirestore,
@@ -19,12 +20,17 @@ const reducer = combineReducers({
   promociones: promReducer,
   firestore: firestoreReducer,
   firebase: firebaseReducer,
+  comercio: comReducer,
 });
 const store = createStore(
   reducer,
   compose(
     applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
-    reactReduxFirebase(config), // redux binding for firebase
+    reactReduxFirebase(config, {
+      attachAuthIsReady: true,
+      useFirestoreForProfile: true,
+      userProfile: "usuarioComercio",
+    }), // redux binding for firebase
     reduxFirestore(config) // redux bindings for firestore
   )
 );

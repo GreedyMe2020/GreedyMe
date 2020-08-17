@@ -24,6 +24,7 @@ function ReestablecerContraseña(props) {
   };
 
   if (props.mandoMail) return <Redirect to="/login" />;
+  if (props.auth.uid) return <Redirect to={"/main/" + props.auth.uid} />;
   return (
     <div className="container">
       <div className="login-container">
@@ -52,6 +53,7 @@ const mapStateToProps = (state) => {
   return {
     mailError: state.auth.mailError,
     mandoMail: state.auth.mandoMail,
+    auth: state.firebase.auth,
   };
 };
 

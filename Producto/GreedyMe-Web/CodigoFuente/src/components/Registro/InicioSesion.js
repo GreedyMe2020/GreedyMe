@@ -23,8 +23,8 @@ function InicioSesion(props) {
     e.preventDefault();
     props.signIn(formData);
   };
-
-  if (props.auth.uid) return <Redirect to={"/main/" + props.auth.uid} />;
+  console.log(props.auth);
+  //if (props.auth.uid) return <Redirect to={"/main/" + props.auth.uid} />;
   return (
     <div className="container">
       <div className="login-container">
