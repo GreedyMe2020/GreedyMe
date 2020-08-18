@@ -19,6 +19,7 @@ import {
   Select,
   Grid,
 } from "@material-ui/core";
+import { crearPromocion } from "../../redux/actions/promActions";
 
 //pagina vacia
 
@@ -142,21 +143,12 @@ export default function CargaPromociones() {
       <h4>Cargar la promoción o el descuento que aplica en su comercio</h4>
       <Grid container className={classes.cont} spacing={1}>
         <Grid item md={6}>
-          <FormControl>
-            <InputLabel htmlFor="email">Email</InputLabel>
-            <Input id="email" type="email" aria-describedby="email-helper" />
-            <FormHelperText id="email-helper"> email personal </FormHelperText>
-          </FormControl>
-        </Grid>
-        <Grid item md={6}>
           <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">
-              Tipo de Promoción
-            </InputLabel>
+            <InputLabel id="demo-simple-select-label">Tipo promo</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={tipoPromo}
+              value={formData.tipoPromo}
               onChange={handleChange}
               className={classes.selectEmpty}
             >
@@ -177,7 +169,7 @@ export default function CargaPromociones() {
             <Select
               labelId="demo-simple-select-required-label"
               id="demo-simple-select-required"
-              value={proveedor}
+              value={formData.proveedor}
               onChange={handleChange}
               className={classes.selectEmpty}
             >
@@ -198,7 +190,7 @@ export default function CargaPromociones() {
             <Select
               labelId="demo-simple-select-required-label"
               id="demo-simple-select-required"
-              value={mesVigencia}
+              value={formData.mesVigencia}
               onChange={handleChange}
               className={classes.selectEmpty}
             >
@@ -219,7 +211,7 @@ export default function CargaPromociones() {
             <Select
               labelId="demo-simple-select-required-label"
               id="demo-simple-select-required"
-              value={diaVigencia}
+              value={formData.diaVigencia}
               onChange={handleChange}
               className={classes.selectEmpty}
             >

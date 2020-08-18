@@ -38,5 +38,6 @@ span {
   font-family: $text-font;
 }
 
+@import "modal/modal";
 @import "landing/landing";
 @import "principal/cargaPromociones";
