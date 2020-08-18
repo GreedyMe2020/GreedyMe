@@ -37,3 +37,21 @@ export const actulizarPromocion = (promocion) => {
       });
   };
 };
+
+export const eliminarPromocion = (promocion) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("usuarioComercio")
+      .doc(promocion.id)
+      .collection("promociones")
+      .doc(promocion.idProm)
+      .delete()
+      .then(() => {
+        dispatch({ type: "ELIMINAR_PROMOCION" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_ELIMINACION", error });
+      });
+  };
+};
