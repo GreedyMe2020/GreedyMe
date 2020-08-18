@@ -8,8 +8,10 @@ import { InicioSesion } from "./components/Registro/InicioSesion";
 import { Router } from "@reach/router";
 import { Registro } from "./pages/Registro";
 import { Principal } from "./pages/Principal";
+import { Promociones } from "./pages/Promociones";
 import { OlvidoContraseña } from "./pages/OlvidoContraseña";
 
+//<Promociones path="/main/:id/promociones" />
 const App = () => {
   return (
     <div className="App">
@@ -17,6 +19,7 @@ const App = () => {
         <Landing path="/" />
         <Registro path="/login" />
         <Principal path="/main/:id" />
+        <Promociones path="/main/:id/promociones" />
         <OlvidoContraseña path="/forgotpassword" />
       </Router>
     </div>
