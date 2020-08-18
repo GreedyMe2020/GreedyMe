@@ -88,7 +88,7 @@ export function Principal() {
                 src={require("../../../Multimedia/Landing/Iconos/star (1).png")}
                 titulo="GREEDY POINTS"
                 contenido="Los clientes sumarán puntos por cada cupón de descuento que
-          utilicen en tu comercio y podrán cangearlo por recompensas."
+          utilicen en tu comercio y podrán canjearlos por recompensas."
               ></CardInfo>
             </div>
           </div>
