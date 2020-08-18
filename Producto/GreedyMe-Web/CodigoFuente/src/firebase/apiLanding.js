@@ -1,5 +1,7 @@
-import { db } from "./config";
+import firebase from "./config";
 import "regenerator-runtime/runtime";
+
+const db = firebase.firestore();
 
 export const registrarSolicitud = async (data) => {
   try {
