@@ -10,11 +10,13 @@ const initState = {
 const promReducer = (state = initState, action) => {
   switch (action.type) {
     case "CREAR_PROMOCION":
+      console.log("Se creo la promo bro");
       return {
         ...state,
         promCreate: "se creo la promocion",
       };
     case "ERROR_PROMOCION":
+      console.log("no se creo bro");
       return {
         ...state,
         promError: "Ocurrio algun error en la creacion",

@@ -7,7 +7,10 @@ export const crearPromocion = (promocion) => {
       .collection("promociones")
       .doc()
       .set({
-        tipoPromocion: promocion.tipoPromocion,
+        tipoPromo: promocion.tipoPromo,
+        proveedor: promocion.proveedor,
+        diaVigencia: promocion.diaVigencia,
+        mesVigencia: promocion.mesVigencia,
       })
       .then(() => {
         dispatch({ type: "CREAR_PROMOCION" });
