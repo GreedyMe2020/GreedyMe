@@ -33,63 +33,79 @@ function InicioSesion(props) {
   if (props.auth.uid) return <Redirect to={"/main/" + props.auth.uid} />;
 
   return (
-    <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
-      <Card style={{ width: "18rem" }}>
-        <Card.Body>
-          <Card.Title>Iniciar Sesión</Card.Title>
-          <Grid item xs={12} md={6}>
-            <TextValidator
-              label="Email"
-              variant="standard"
-              onChange={handleChange}
-              name="email"
-              value={formData.email}
-              validators={["required", "isEmail"]}
-              errorMessages={[
-                "*Este campo es obligatorio",
-                "El email no es válido",
-              ]}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextValidator
-              label="Contraseña"
-              variant="standard"
-              type="password"
-              onChange={handleChange}
-              name="contraseña"
-              value={formData.contraseña}
-              validators={["required"]}
-              errorMessages={["*Este campo es obligatorio"]}
-            />
-          </Grid>
-          <Typography color="textSecondary" gutterBottom>
-            <Link to="/forgotpassword">Olvidé mi contraseña</Link>
-          </Typography>
-          <FormControlLabel
-            control={
-              <Checkbox
-                icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                checkedIcon={<CheckBoxIcon fontSize="small" />}
-                name="checkedI"
+    <div>
+      <div className="nav-container">
+        <nav>
+          <div id="titulo">
+            <h1 className="gre">gre</h1>
+            <h1 className="edy">edy</h1>
+            <h1 className="me">me</h1>
+          </div>
+        </nav>
+      </div>
+
+      <section className="contenedor-inicio">
+        <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
+          <Card id="inicio-sesion" style={{ width: "18rem" }}>
+            <Card.Body>
+              <Card.Title>Iniciar Sesión</Card.Title>
+              <Grid item xs={12} md={6}>
+                <TextValidator
+                  label="Email"
+                  variant="standard"
+                  onChange={handleChange}
+                  name="email"
+                  value={formData.email}
+                  validators={["required", "isEmail"]}
+                  errorMessages={[
+                    "*Este campo es obligatorio",
+                    "El email no es válido",
+                  ]}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextValidator
+                  label="Contraseña"
+                  variant="standard"
+                  type="password"
+                  onChange={handleChange}
+                  name="contraseña"
+                  value={formData.contraseña}
+                  validators={["required"]}
+                  errorMessages={["*Este campo es obligatorio"]}
+                />
+              </Grid>
+              <Typography color="textSecondary" gutterBottom>
+                <Link to="/forgotpassword">Olvidé mi contraseña</Link>
+              </Typography>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                    checkedIcon={<CheckBoxIcon fontSize="small" />}
+                    name="checkedI"
+                  />
+                }
+                label="Recuérdame"
               />
-            }
-            label="Recuérdame"
-          />
-          <Button
-            variant="outlined"
-            className="mt-3 text-right"
-            color="secondary"
-            onClick={handleSubmit}
-          >
-            Iniciar sesión
-          </Button>
-          {props.authError ? (
-            <p className="text-danger">Los datos ingresados son incorrectos</p>
-          ) : null}
-        </Card.Body>
-      </Card>
-    </ValidatorForm>
+              <Button
+                variant="outlined"
+                className="mt-3 text-right"
+                color="secondary"
+                onClick={handleSubmit}
+              >
+                Iniciar sesión
+              </Button>
+              {props.authError ? (
+                <p className="text-danger">
+                  Los datos ingresados son incorrectos
+                </p>
+              ) : null}
+            </Card.Body>
+          </Card>
+        </ValidatorForm>
+      </section>
+    </div>
   );
 }
 
