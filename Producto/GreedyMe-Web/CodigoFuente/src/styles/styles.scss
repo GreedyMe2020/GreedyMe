@@ -38,6 +38,7 @@ span {
   font-family: $text-font;
 }
 
+@import "modal/modal";
 @import "landing/landing";
 @import "./iniciar-sesion";
 @import "principal/cargaPromociones";

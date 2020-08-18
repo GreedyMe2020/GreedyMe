@@ -145,9 +145,27 @@ export default function FormDialog() {
     setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleClear = () => {
+    setFormData({
+      nombre: "",
+      apellido: "",
+      email: "",
+      comercio: "",
+      telefono: "",
+      web: "",
+      sucursal: "",
+      rubro: "",
+      dudas: "",
+    });
+  };
+
+  const handleSend = () => {
     setSubmitted(false);
+  };
+
+  const handleClose = () => {
+    handleClear();
+    setOpen(false);
   };
 
   const handleChange = (event) => {
@@ -159,8 +177,9 @@ export default function FormDialog() {
     setSubmitted({ submitted: true }, () => {
       setTimeout(() => setSubmitted({ submitted: false }), 5000);
     });
-
+    setOpen(false);
     mandarForm(formData);
+    handleClear();
   };
 
   const mandarForm = async (formData) => {
@@ -205,7 +224,8 @@ export default function FormDialog() {
         </DialogTitle>
         <DialogContent dividers>
           <DialogContentText>
-            Completá los siguientes campos y formá parte de GreedyMe
+            Completá el siguiente formulario y personal de GreedyMe te
+            contactará para seguir con tu registro.
           </DialogContentText>
 
           <ValidatorForm
@@ -294,13 +314,9 @@ export default function FormDialog() {
                   name="web"
                   value={formData.web}
                   validators={[
-                    "required",
                     "matchRegexp:^(http://www.|https://www.|http://|https://)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$",
                   ]}
-                  errorMessages={[
-                    "*Este campo es obligatorio",
-                    "La dirección no es válida",
-                  ]}
+                  errorMessages={["La dirección no es válida"]}
                 />
               </Grid>
 
@@ -351,8 +367,7 @@ export default function FormDialog() {
                   variant="contained"
                   className={classes.margin}
                   type="submit"
-                  onClick={handleClose}
-                  //onClick={handleClose} //se desactiva el modal.
+                  onClick={handleSend}
                 >
                   Enviar
                 </Button>
