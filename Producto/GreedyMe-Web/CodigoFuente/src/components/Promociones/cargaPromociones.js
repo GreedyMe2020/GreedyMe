@@ -144,6 +144,7 @@ function CargaPromociones(props) {
     <div className={classes.cruz}>
       <h1>Promociones</h1>
       <h4>Cargar la promoción o el descuento que aplica en su comercio</h4>
+
       <ValidatorForm
         className={classes.root}
         ref={form}
