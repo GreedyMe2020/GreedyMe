@@ -52,17 +52,124 @@ $dark-orange-color: #fd5f00;
 
 .contenedor-inicio {
   display: grid;
-  grid-template-rows: 10% 1fr 1fr;
+  grid-template-rows: 0.15fr 1fr 0.16fr;
   grid-template-columns: 20% 1fr 20%;
   width: 100%;
+  background-color: #ececec;
+  justify-items: center;
+  align-content: flex-start;
+}
+
+#validator-form {
+  grid-row: 2/3;
+  grid-column: 2/3;
+
+  #inicio-sesion {
+    border-radius: 15px;
+    height: 25rem;
+    width: 25rem !important;
+    margin: 0.5rem;
+    padding: auto;
+
+    #inicio-sesion-body {
+      padding: 2.8rem;
+      padding-top: 2.3rem;
+
+      #inicio-sesion-title {
+        font: $text-font;
+        font-size: 1.7rem;
+      }
+
+      .MuiFormControl-fullWidth {
+        margin-top: 1rem;
+      }
+
+      .check-container {
+        margin-top: 1rem;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-content: center;
+
+        #inicio-sesion-password {
+          display: inline-flex;
+          align-items: center;
+          justify-content: end;
+          font-size: 0.93rem;
+        }
+
+        #inicio-sesion-recuerdame {
+          .MuiCheckbox-colorSecondary.Mui-checked {
+            color: $dark-orange-color;
+          }
+
+          span {
+            font-size: 0.93rem;
+          }
+        }
+      }
+
+      .contenedor-submit {
+        display: flex;
+        flex-flow: column wrap;
+        justify-items: center;
+        align-items: center;
+        margin-top: 0.8rem;
+
+        #inicio-sesion-button {
+          color: $dark-orange-color;
+          border-color: $dark-orange-color;
+          width: 12rem;
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 560px) {
+  .contenedor-inicio {
+    grid-template-columns: 1fr;
+    align-content: center;
+  }
 
   #validator-form {
-    grid-row: 2/3;
-    grid-column: 2/3;
-
+    grid-column: 1/2;
     #inicio-sesion {
-      border-radius: 15px;
-      background-color: rgba(255, 255, 255, 1);
+      height: 30rem;
+      width: 20rem !important;
+
+      #inicio-sesion-body {
+        padding: 2rem;
+        padding-top: 2.3rem;
+
+        .contenedor-submit {
+          display: flex;
+          flex-flow: column wrap;
+          justify-items: center;
+          align-items: center;
+          margin-top: 0.8rem;
+
+          p {
+            display: inline-block;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  #validator-form {
+    #inicio-sesion {
+      width: 16rem !important;
+
+      #inicio-sesion-body {
+        .check-container {
+          justify-content: center;
+        }
+      }
     }
   }
 }
