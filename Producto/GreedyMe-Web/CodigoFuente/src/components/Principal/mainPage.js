@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { signOut } from "../../redux/actions/authActions";
 import { crearPromocion } from "../../redux/actions/promActions";
 import { NavBarSup } from "../../components/Principal/navBarSuperior";
+
 //pagina vacia
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -31,7 +32,6 @@ function MainPage(props) {
 const mapDispatchToProps = (dispatch) => {
   return {
     signOut: () => dispatch(signOut()),
-    crearPromocion: () => dispatch(crearPromocion()),
   };
 };
 
