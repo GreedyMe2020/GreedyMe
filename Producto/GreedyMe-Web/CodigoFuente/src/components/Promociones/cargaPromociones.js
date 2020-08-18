@@ -92,21 +92,21 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       width: "25ch",
     },
-    cont: {
+    /* cont: {
       flexGrow: 1,
-    },
+    }, */
   },
-  cruz: {
+  /*   cruz: {
     position: "absolute",
     top: theme.spacing(1.8),
-  },
-  formControl: {
+  }, */
+  /* formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
-  },
+  }, */
 }));
 
 export default function CargaPromociones() {
@@ -121,8 +121,9 @@ export default function CargaPromociones() {
     //fechaFin: "",
     //titulo: "",
     //descripcion: "",
-    mesVigencia: "",
+
     diaVigencia: "",
+    mesVigencia: "",
   });
 
   const handleSubmit = () => {
@@ -136,115 +137,90 @@ export default function CargaPromociones() {
     setFormData({ ...formData });
   };
 
+  const form = React.createRef();
+
   return (
     <div className={classes.cruz}>
       <h1>Promociones</h1>
       <h4>Cargar la promoción o el descuento que aplica en su comercio</h4>
-      <Grid container className={classes.cont} spacing={1}>
-        <Grid item md={6}>
-          <FormControl>
-            <InputLabel htmlFor="email">Email</InputLabel>
-            <Input id="email" type="email" aria-describedby="email-helper" />
-            <FormHelperText id="email-helper"> email personal </FormHelperText>
-          </FormControl>
-        </Grid>
-        <Grid item md={6}>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">
-              Tipo de Promoción
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={tipoPromo}
+      <ValidatorForm className={classes.root} ref={form}>
+        <Grid container className={classes.cont} spacing={1}>
+          <Grid md={6}>
+            <SelectValidator
+              label="Tipo de promoción"
               onChange={handleChange}
-              className={classes.selectEmpty}
+              name="tipoPromo"
+              value={formData.tipoPromo}
+              validators={["required"]}
+              errorMessages={["*Este campo es obligatorio"]}
             >
               {tipoPromo.map((option) => (
-                <MenuItem key={option.nombre} value={option.nombre}>
-                  {option.nombre}
+                <MenuItem key={option.value} value={option.value}>
+                  {option.value}
                 </MenuItem>
               ))}
-            </Select>
-            <FormHelperText>Required</FormHelperText>
-          </FormControl>
-        </Grid>
-        <Grid item md={6}>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-required-label">
-              Proveedor
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-required-label"
-              id="demo-simple-select-required"
-              value={proveedor}
+            </SelectValidator>
+          </Grid>
+          <Grid md={6}>
+            <SelectValidator
+              label="Proveedor de promoción"
               onChange={handleChange}
-              className={classes.selectEmpty}
+              name="proveedor"
+              value={formData.proveedor}
+              validators={["required"]}
+              errorMessages={["*Este campo es obligatorio"]}
             >
               {proveedor.map((option) => (
-                <MenuItem key={option.nombre} value={option.nombre}>
-                  {option.nombre}
+                <MenuItem key={option.value} value={option.value}>
+                  {option.value}
                 </MenuItem>
               ))}
-            </Select>
-            <FormHelperText>Required</FormHelperText>
-          </FormControl>
-        </Grid>
-        <Grid item md={6}>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-required-label">
-              Mes de Vigencia
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-required-label"
-              id="demo-simple-select-required"
-              value={mesVigencia}
+            </SelectValidator>
+          </Grid>
+          <Grid md={6}>
+            <SelectValidator
+              label="Dia de vigencia"
               onChange={handleChange}
-              className={classes.selectEmpty}
-            >
-              {mesVigencia.map((option) => (
-                <MenuItem key={option.nombre} value={option.nombre}>
-                  {option.nombre}
-                </MenuItem>
-              ))}
-            </Select>
-            <FormHelperText>Required</FormHelperText>
-          </FormControl>
-        </Grid>
-        <Grid item md={6}>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-required-label">
-              Días de Vigencia
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-required-label"
-              id="demo-simple-select-required"
-              value={diaVigencia}
-              onChange={handleChange}
-              className={classes.selectEmpty}
+              name="diaVigencia"
+              value={formData.diaVigencia}
+              validators={["required"]}
+              errorMessages={["*Este campo es obligatorio"]}
             >
               {diaVigencia.map((option) => (
-                <MenuItem key={option.nombre} value={option.nombre}>
-                  {option.nombre}
+                <MenuItem key={option.value} value={option.value}>
+                  {option.value}
                 </MenuItem>
               ))}
-            </Select>
-            <FormHelperText>Required</FormHelperText>
-          </FormControl>
+            </SelectValidator>
+          </Grid>
+          <Grid md={6}>
+            <SelectValidator
+              label="Mes de vigencia"
+              onChange={handleChange}
+              name="mesVigencia"
+              value={formData.mesVigencia}
+              validators={["required"]}
+              errorMessages={["*Este campo es obligatorio"]}
+            >
+              {mesVigencia.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.value}
+                </MenuItem>
+              ))}
+            </SelectValidator>
+          </Grid>
+          <Grid item>
+            <Button
+              color="primary"
+              variant="contained"
+              className={classes.margin}
+              type="submit"
+            >
+              Enviar
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Button
-            color="primary"
-            variant="contained"
-            className={classes.margin}
-            type="submit"
-            onClick={handleSubmit}
-            //onClick={handleClose} //se desactiva el modal.
-          >
-            Cargar Promoción
-          </Button>
-        </Grid>
-      </Grid>
+      </ValidatorForm>
     </div>
   );
 }
