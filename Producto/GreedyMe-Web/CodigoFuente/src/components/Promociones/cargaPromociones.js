@@ -110,11 +110,11 @@ const useStyles = makeStyles((theme) => ({
   }, */
 }));
 
-export default function CargaPromociones() {
+function CargaPromociones(props) {
   const classes = useStyles();
 
   const [formData, setFormData] = React.useState({
-    //idUsuario: "",
+    id: props.auth.uid,
     tipoPromo: "",
     proveedor: "",
     //imagenURL: "",
@@ -127,10 +127,10 @@ export default function CargaPromociones() {
     mesVigencia: "",
   });
 
-  const handleSubmit = () => {
-    setSubmitted({ submitted: true }, () => {
-      setTimeout(() => setSubmitted({ submitted: false }), 5000);
-    });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    props.crearPromocion(formData);
   };
 
   const handleChange = (event) => {
@@ -145,7 +145,11 @@ export default function CargaPromociones() {
       <h1>Promociones</h1>
       <h4>Cargar la promoción o el descuento que aplica en su comercio</h4>
 
-      <ValidatorForm className={classes.root} ref={form}>
+      <ValidatorForm
+        className={classes.root}
+        ref={form}
+        onSubmit={handleSubmit}
+      >
         <Grid container className={classes.cont} spacing={1}>
           <Grid md={6}>
             <SelectValidator
@@ -226,9 +230,17 @@ export default function CargaPromociones() {
     </div>
   );
 }
-/*const mapDispatchToProps = (dispatch) => {
+
+const mapStateToProps = (state) => {
   return {
-    null: () => dispatch(null),
+    auth: state.firebase.auth,
   };
 };
-*/
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    crearPromocion: (promocion) => dispatch(crearPromocion(promocion)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CargaPromociones);
