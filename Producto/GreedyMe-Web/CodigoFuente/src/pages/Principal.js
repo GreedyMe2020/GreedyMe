@@ -1,6 +1,11 @@
 import React from "react";
 import MainPage from "../components/Principal/mainPage";
+import cargaPromociones from "../components/Promociones/cargaPromociones";
 
 export function Principal() {
-  return <MainPage />;
+  return (
+    <div>
+      <MainPage />
+    </div>
+  );
 }
