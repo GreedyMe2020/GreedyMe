@@ -16,11 +16,12 @@ const App = () => {
   return (
     <div className="App">
       <Router>
-        <Landing path="/" />
+        {/* <Landing path="/" />
         <Registro path="/login" />
         <Principal path="/main/:id" />
         <Promociones path="/main/:id/promociones" />
-        <OlvidoContraseña path="/forgotpassword" />
+        <OlvidoContraseña path="/forgotpassword" /> */}
+        <Promociones path="/" />
       </Router>
     </div>
   );
