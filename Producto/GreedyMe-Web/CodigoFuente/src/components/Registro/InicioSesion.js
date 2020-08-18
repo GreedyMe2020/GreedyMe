@@ -1,14 +1,9 @@
 import React from "react";
-import {
-  ValidatorForm,
-  TextValidator,
-  SelectValidator,
-} from "react-material-ui-form-validator";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { connect } from "react-redux";
 import { signIn } from "../../redux/actions/authActions";
 import { Redirect, Link } from "@reach/router";
 import { Card } from "react-bootstrap";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -60,6 +55,7 @@ function InicioSesion(props) {
             <TextValidator
               label="Contraseña"
               variant="standard"
+              type="password"
               onChange={handleChange}
               name="contraseña"
               value={formData.contraseña}
