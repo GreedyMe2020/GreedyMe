@@ -36,7 +36,7 @@
     "react-bootstrap": "^1.2.2",
     "react-dom": "^16.13.1",
     "react-form-validator-core": "^0.7.0",
-    "react-material-ui-form-validator": "^2.0.10",
+    "react-material-ui-form-validator": "^2.1.1",
     "react-redux": "^5.1.1",
     "react-redux-firebase": "^2.2.4",
     "react-router-dom": "^5.2.0",

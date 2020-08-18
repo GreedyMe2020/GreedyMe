@@ -205,7 +205,8 @@ export default function FormDialog() {
         </DialogTitle>
         <DialogContent dividers>
           <DialogContentText>
-            Completá los siguientes campos y formá parte de GreedyMe
+            Completá el siguiente formulario y personal de GreedyMe te
+            contactará para seguir con tu registro.
           </DialogContentText>
 
           <ValidatorForm
