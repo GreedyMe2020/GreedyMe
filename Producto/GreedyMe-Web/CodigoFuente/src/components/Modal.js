@@ -379,10 +379,10 @@ export default function FormDialog() {
       {showModal ? (
         <UseModal>
           <div>
-            <h1>
+            <h5>
               Revisa la casilla de correo "No deseados", en la brevedad nos
               contactaremos con usted. Muchas gracias!
-            </h1>
+            </h5>
             <Button
               color="primary"
               variant="contained"
