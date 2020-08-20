@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { signOut } from "../../redux/actions/authActions";
 import { crearPromocion } from "../../redux/actions/promActions";
 import { NavBarSup } from "../../components/Principal/navBarSuperior";
-
+import { NavBarIzq } from "../../components/Principal/navBarIzquierda";
 //pagina vacia
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -19,6 +19,7 @@ function MainPage(props) {
   return (
     <div>
       <NavBarSup></NavBarSup>
+      <NavBarIzq />
       <h1>Pagina principal</h1>
       <Link to="/">
         <button onClick={props.signOut}>Cerrar Sesion</button>
