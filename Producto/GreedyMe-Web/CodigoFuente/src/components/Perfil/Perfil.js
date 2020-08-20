@@ -1,5 +1,5 @@
 import React from "react";
-import { NavBarSup } from "../../components/Principal/navBarSuperior";
+import NavBarSup from "../../components/Principal/navBarSuperior";
 import { Card } from "react-bootstrap";
 import {
   ValidatorForm,
@@ -126,53 +126,60 @@ function Perfil() {
           <Card>
             <Card.Body>
               <Grid container>
-                <Grid xs={4}>
-                  <Typography>Usuario</Typography>
-                </Grid>
                 <Grid xs={8}>
-                  <TextValidator
-                    label="Usuario"
-                    variant="outlined"
-                    fullWidth
-                    disabled
-                    name="usuario"
-                    value="Adidas"
-                    validators={["required"]}
-                    errorMessages={["*Este campo es obligatorio"]}
-                  />
+                  <Grid container>
+                    <Grid xs={4}>
+                      <Typography>Usuario</Typography>
+                    </Grid>
+                    <Grid xs={8}>
+                      <TextValidator
+                        label="Usuario"
+                        variant="outlined"
+                        fullWidth
+                        disabled
+                        name="usuario"
+                        value="Adidas"
+                        validators={["required"]}
+                        errorMessages={["*Este campo es obligatorio"]}
+                      />
+                    </Grid>
+                    <Grid className="mt-5" xs={4}>
+                      <Typography>Email</Typography>
+                    </Grid>
+                    <Grid className="mt-5" xs={8}>
+                      <TextValidator
+                        label="Email"
+                        variant="outlined"
+                        fullWidth
+                        disabled
+                        name="email"
+                        value="juanmanuelcerutti@gmail.com"
+                        validators={["required", "isEmail"]}
+                        errorMessages={[
+                          "*Este campo es obligatorio",
+                          "El email no es válido",
+                        ]}
+                      />
+                    </Grid>
+                    <Grid className="mt-5" xs={4}>
+                      <Typography>Contraseña</Typography>
+                    </Grid>
+                    <Grid className="mt-5" xs={8}>
+                      <TextValidator
+                        label="Contraseña"
+                        variant="outlined"
+                        fullWidth
+                        name="contraseña"
+                        disabled
+                        value="***********"
+                        validators={["required"]}
+                        errorMessages={["*Este campo es obligatorio"]}
+                      />
+                    </Grid>
+                  </Grid>
                 </Grid>
-                <Grid className="mt-5" xs={4}>
-                  <Typography>Email</Typography>
-                </Grid>
-                <Grid className="mt-5" xs={8}>
-                  <TextValidator
-                    label="Email"
-                    variant="outlined"
-                    fullWidth
-                    disabled
-                    name="email"
-                    value="juanmanuelcerutti@gmail.com"
-                    validators={["required", "isEmail"]}
-                    errorMessages={[
-                      "*Este campo es obligatorio",
-                      "El email no es válido",
-                    ]}
-                  />
-                </Grid>
-                <Grid className="mt-5" xs={4}>
-                  <Typography>Contraseña</Typography>
-                </Grid>
-                <Grid className="mt-5" xs={8}>
-                  <TextValidator
-                    label="Contraseña"
-                    variant="outlined"
-                    fullWidth
-                    name="contraseña"
-                    disabled
-                    value="***********"
-                    validators={["required"]}
-                    errorMessages={["*Este campo es obligatorio"]}
-                  />
+                <Grid xs={4}>
+                  <p>imagen perrona del usuario</p>
                 </Grid>
               </Grid>
             </Card.Body>
@@ -259,9 +266,12 @@ function Perfil() {
                     fullWidth
                     onChange={handleChange}
                     name="telefono"
-                    value={formData.sucursal}
-                    validators={["required"]}
-                    errorMessages={["*Este campo es obligatorio"]}
+                    value={formData.telefono}
+                    validators={["required", "matchRegexp:^([0-9 ]){2,20}$"]}
+                    errorMessages={[
+                      "*Este campo es obligatorio",
+                      "El teléfono no es válido",
+                    ]}
                   />
                 </Grid>
                 <Grid className="mt-5" xs={4}>
