@@ -27,6 +27,7 @@ $dark-orange-color: #fd5f00;
     margin: auto;
     padding: 1rem 0rem;
     display: flex;
+    flex-flow: row wrap;
     justify-content: flex-start;
     align-items: center;
 
@@ -48,5 +49,29 @@ $dark-orange-color: #fd5f00;
 }
 
 .divider {
-  padding: 10px 0;
+  padding: 7px 0;
+}
+
+@media only screen and (max-width: 560px) {
+  .nav-container {
+    #titulo {
+      margin-top: 0.2rem;
+      h1 {
+        font-size: 1.5rem;
+        letter-spacing: 0.5rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .nav-container {
+    #titulo {
+      margin-top: 0.5rem;
+      h1 {
+        font-size: 1rem;
+        letter-spacing: 0.5rem;
+      }
+    }
+  }
 }
