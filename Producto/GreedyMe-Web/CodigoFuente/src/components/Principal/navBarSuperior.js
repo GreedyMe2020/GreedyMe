@@ -15,6 +15,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import ImageIcon from "@material-ui/icons/Image";
+import { connect } from "react-redux";
+import { signOut } from "../../redux/actions/authActions";
+import { Link } from "@reach/router";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -40,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function NavBarSup() {
+function NavBarSup(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -84,15 +87,20 @@ export function NavBarSup() {
         </ListItemAvatar>
         <ListItemText primary="Nombre" />
       </ListItem>
+
       <Divider variant="middle" />
       <div className="divider">
-        <MenuItem onClick={handleMenuClose}>Mi perfil</MenuItem>
+        <Link to="./profile">
+          <MenuItem onClick={handleMenuClose}>Mi perfil</MenuItem>
+        </Link>
         <MenuItem onClick={handleMenuClose}>Suscripciones</MenuItem>
         <MenuItem onClick={handleMenuClose}>Ayuda y soporte técnico</MenuItem>
       </div>
       <Divider variant="middle" />
       <div className="divider">
-        <MenuItem onClick={handleMenuClose}>Cerrar sesión</MenuItem>
+        <Link to="/">
+          <MenuItem onClick={props.signOut}>Cerrar sesión</MenuItem>
+        </Link>
       </div>
     </Menu>
   );
@@ -198,6 +206,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import ImageIcon from "@material-ui/icons/Image";
+import { connect } from "react-redux";
+import { signOut } from "../../redux/actions/authActions";
+import { Link } from "@reach/router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -208,7 +219,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function NavBarSup() {
+export function NavBarSup(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -299,7 +310,10 @@ export function NavBarSup() {
                       </ListItem>
                       <Divider variant="middle" />
                       <div className="divider">
-                        <MenuItem onClick={handleClose}>Mi perfil</MenuItem>
+                        <Link to="./profile">
+                          <MenuItem onClick={handleClose}>Mi perfil</MenuItem>
+                        </Link>
+
                         <MenuItem onClick={handleClose}>Suscripciones</MenuItem>
                         <MenuItem onClick={handleClose}>
                           Ayuda y soporte técnico
@@ -307,7 +321,11 @@ export function NavBarSup() {
                       </div>
                       <Divider variant="middle" />
                       <div className="divider">
-                        <MenuItem onClick={handleClose}>Cerrar sesión</MenuItem>
+                        <Link to="/">
+                          <MenuItem onClick={props.signOut}>
+                            Cerrar sesión
+                          </MenuItem>
+                        </Link>
                       </div>
                     </MenuList>
                   </ClickAwayListener>
@@ -320,6 +338,14 @@ export function NavBarSup() {
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signOut: () => dispatch(signOut()),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(NavBarSup);
 
 /* 
 

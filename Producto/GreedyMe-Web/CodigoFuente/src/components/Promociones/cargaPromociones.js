@@ -3,7 +3,7 @@ import { Link } from "@reach/router";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
-import { NavBarSup } from "../../components/Principal/navBarSuperior";
+import NavBarSup from "../../components/Principal/navBarSuperior";
 import {
   MenuItem,
   FormControlLabel,
