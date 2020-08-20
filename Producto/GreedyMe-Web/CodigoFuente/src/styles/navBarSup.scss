@@ -19,29 +19,34 @@ $dark-blue-color: #1e1b4d;
 $logo-orange-color: #f7941e;
 $dark-orange-color: #fd5f00;
 
-.subtituloProm {
-  grid-row: row 1;
-  grid-column: 2;
+.nav-container {
+  background-color: $logo-blue-color;
+
+  #titulo {
+    width: 90%;
+    margin: auto;
+    padding: 1rem 0rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    h1 {
+      font-size: 2rem;
+      letter-spacing: 0.5rem;
+    }
+
+    .gre {
+      color: $white-color;
+    }
+    .edy {
+      color: $logo-green-color;
+    }
+    .me {
+      color: $logo-orange-color;
+    }
+  }
 }
 
-.contCargarProm {
-  grid-column: col 1 / span 2;
-  grid-row: row 2;
-  display: grid;
-  justify-content: center;
-  grid-gap: 10px;
-  grid-template-columns: 20% 1fr 1fr 20%;
-  .contenedorCol1 {
-    grid-column: 2;
-    grid-row: 2;
-  }
-  .contenedorCol2 {
-    grid-column: 3;
-    grid-row: 2;
-  }
-}
-
-.btnCargarProm {
-  grid-row: row 3;
-  grid-column: 2;
+.divider {
+  padding: 10px 0;
 }
