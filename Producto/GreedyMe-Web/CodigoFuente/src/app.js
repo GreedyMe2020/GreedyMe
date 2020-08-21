@@ -4,12 +4,12 @@ import { Route, BrowserRouter } from "react-router-dom";
 import { Landing } from "./pages/Landing";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import { InicioSesion } from "./components/Registro/InicioSesion";
 import { Router } from "@reach/router";
 import { Registro } from "./pages/Registro";
 import { Principal } from "./pages/Principal";
 import { Promociones } from "./pages/Promociones";
 import { OlvidoContraseña } from "./pages/OlvidoContraseña";
+import { PerfilComercio } from "./pages/PerfilComercio";
 
 //<Promociones path="/main/:id/promociones" />
 const App = () => {
@@ -21,6 +21,7 @@ const App = () => {
         <Principal path="/main/:id" />
         <Promociones path="/main/:id/promociones" />
         <OlvidoContraseña path="/forgotpassword" />
+        <PerfilComercio path="/main/:id/profile" />
       </Router>
     </div>
   );
