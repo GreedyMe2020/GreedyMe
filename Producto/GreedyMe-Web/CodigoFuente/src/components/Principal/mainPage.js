@@ -3,7 +3,7 @@ import { Link } from "@reach/router";
 import { connect } from "react-redux";
 import { signOut } from "../../redux/actions/authActions";
 import { crearPromocion } from "../../redux/actions/promActions";
-import { NavBarSup } from "../../components/Principal/navBarSuperior";
+import NavBarSup from "../../components/Principal/navBarSuperior";
 
 //pagina vacia
 
@@ -15,24 +15,16 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 //pruebas style
 
-function MainPage(props) {
+function MainPage() {
   return (
-    <div>
-      <NavBarSup></NavBarSup>
+    <>
+      <NavBarSup />
       <h1>Pagina principal</h1>
-      <Link to="/">
-        <button onClick={props.signOut}>Cerrar Sesion</button>
-      </Link>
       <Link to="./promociones">
-        <button onClick={props.crearPromocion}>Cargar promoción</button>
+        <button>Cargar promoción</button>
       </Link>
-    </div>
+    </>
   );
 }
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signOut: () => dispatch(signOut()),
-  };
-};
 
-export default connect(null, mapDispatchToProps)(MainPage);
+export default MainPage;
