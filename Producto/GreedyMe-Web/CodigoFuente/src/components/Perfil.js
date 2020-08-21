@@ -14,6 +14,10 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ExitToAppRounded from "@material-ui/icons/ExitToAppRounded";
 import AccountCircleRounded from "@material-ui/icons/AccountCircleRounded";
+import { signOut } from "../redux/actions/authActions";
+import { connect } from "react-redux";
+import { Link } from "@reach/router";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -21,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Perfil() {
+function Perfil(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -92,7 +96,9 @@ export function Perfil() {
               </div>
               <Divider variant="middle" />
               <div className="divider">
-                <MenuItem onClick={handleClose}>Mi perfil</MenuItem>
+                <Link to="./profile">
+                  <MenuItem onClick={handleClose}>Mi perfil</MenuItem>
+                </Link>
                 <MenuItem onClick={handleClose}>Suscripciones</MenuItem>
                 <MenuItem onClick={handleClose}>
                   Ayuda y soporte técnico
@@ -104,7 +110,12 @@ export function Perfil() {
                   <ListItemIcon>
                     <ExitToAppRounded />
                   </ListItemIcon>
-                  <ListItemText onClick={handleClose} primary="Cerrar sesión" />
+                  <Link to="/">
+                    <ListItemText
+                      onClick={props.signOut}
+                      primary="Cerrar sesión"
+                    />
+                  </Link>
                 </ListItem>
               </div>
             </MenuList>
@@ -114,3 +125,11 @@ export function Perfil() {
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signOut: () => dispatch(signOut()),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Perfil);

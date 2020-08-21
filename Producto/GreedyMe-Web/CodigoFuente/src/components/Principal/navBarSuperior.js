@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { Notificaciones } from "../Notificaciones";
-import { Perfil } from "../Perfil";
+import Perfil from "../Perfil";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,12 +31,4 @@ export function NavBarSup(props) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signOut: () => dispatch(signOut()),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(NavBarSup);
-
-
+export default NavBarSup;
