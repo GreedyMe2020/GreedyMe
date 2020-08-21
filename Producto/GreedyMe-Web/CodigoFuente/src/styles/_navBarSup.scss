@@ -50,6 +50,19 @@ $dark-orange-color: #fd5f00;
 
 .divider {
   padding: 7px 0;
+  .MuiListItemIcon-root {
+    min-width: 35px;
+  }
+}
+
+.dividerNotif {
+  padding: 2px 0;
+  .MuiSvgIcon-root {
+    font-size: 1.7rem;
+  }
+  .MuiListItemIcon-root {
+    min-width: 38px;
+  }
 }
 
 @media only screen and (max-width: 560px) {
