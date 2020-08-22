@@ -177,6 +177,7 @@ export function NavBarSup() {
 } */
 
 import React from "react";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
@@ -193,18 +194,44 @@ import Menu from "@material-ui/core/Menu";
 import Divider from "@material-ui/core/Divider";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import ImageIcon from "@material-ui/icons/Image";
+import Drawer from "@material-ui/core/Drawer";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import MailIcon from "@material-ui/icons/Mail";
+import ListItemCustom from "../ListItemCustom";
+
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
   paper: {
     marginRight: theme.spacing(2),
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  drawerContainer: {
+    overflow: "auto",
+    marginTop: "40px",
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
   },
 }));
 
@@ -244,7 +271,8 @@ export function NavBarSup() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <CssBaseline />
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className="nav-container">
           <div id="titulo">
             <h1 className="gre">gre</h1>
@@ -317,6 +345,50 @@ export function NavBarSup() {
           </Popper>
         </Toolbar>
       </AppBar>
+
+      <Drawer
+        className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <Toolbar />
+        <div className={classes.drawerContainer}>
+          <List>
+            <ListItemCustom
+              text="Inicio"
+              src={require("../../../Multimedia/Sistema-svg/home-grey.svg")}
+            />
+          </List>
+          <Divider variant="middle" />
+          <List>
+            <ListItemCustom
+              text="Cargar cupón"
+              src={require("../../../Multimedia/Sistema-svg/promo-grey.svg")}
+            />
+            <ListItemCustom
+              text="Cargar promoción"
+              src={require("../../../Multimedia/Sistema-svg/percentage-grey.svg")}
+            />
+          </List>
+          <Divider />
+          <List>
+            <ListItemCustom
+              text="Mis promociones"
+              src={require("../../../Multimedia/Sistema-svg/coupon-grey.svg")}
+            />
+            <ListItemCustom
+              text="Estadísticas"
+              src={require("../../../Multimedia/Sistema-svg/statistics-grey.svg")}
+            />
+            <ListItemCustom
+              text="Notificaciones"
+              src={require("../../../Multimedia/Sistema-svg/bell-grey.svg")}
+            />
+          </List>
+        </div>
+      </Drawer>
     </div>
   );
 }

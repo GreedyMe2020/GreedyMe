@@ -19,14 +19,14 @@ function MainPage(props) {
   return (
     <div>
       <NavBarSup></NavBarSup>
-      <NavBarIzq />
-      <h1>Pagina principal</h1>
+      {/* <NavBarIzq /> */}
+      {/* <h1>Pagina principal</h1>
       <Link to="/">
         <button onClick={props.signOut}>Cerrar Sesion</button>
       </Link>
       <Link to="./promociones">
         <button onClick={props.crearPromocion}>Cargar promoción</button>
-      </Link>
+      </Link> */}
     </div>
   );
 }
