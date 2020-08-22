@@ -153,6 +153,7 @@ function Perfil() {
                         label="Email"
                         variant="outlined"
                         fullWidth
+                        disabled
                         name="email"
                         value="juanmanuelcerutti@gmail.com"
                         validators={["required", "isEmail"]}
