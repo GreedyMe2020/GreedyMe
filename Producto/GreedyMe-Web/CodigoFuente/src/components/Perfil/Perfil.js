@@ -10,6 +10,9 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
+import Button from "@material-ui/core/Button";
+import classes from "../../components/Modal";
+
 /* import { db } from "../firebase/config"; */
 
 /*const rubros = [];
@@ -170,7 +173,6 @@ function Perfil(props) {
                         variant="outlined"
                         fullWidth
                         name="contraseña"
-                        disabled
                         value="***********"
                         validators={["required"]}
                         errorMessages={["*Este campo es obligatorio"]}
@@ -215,8 +217,10 @@ function Perfil(props) {
                     onChange={handleChange}
                     name="sitioWeb"
                     value={formData.sitioWeb}
-                    validators={["required"]}
-                    errorMessages={["*Este campo es obligatorio"]}
+                    validators={[
+                      "matchRegexp:^(http://www.|https://www.|http://|https://)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$",
+                    ]}
+                    errorMessages={["La dirección no es válida"]}
                   />
                 </Grid>
                 <Grid className="mt-5" xs={4}>
@@ -230,8 +234,8 @@ function Perfil(props) {
                     onChange={handleChange}
                     name="sucursal"
                     value={formData.sucursal}
-                    validators={["required"]}
-                    errorMessages={["*Este campo es obligatorio"]}
+                    validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                    errorMessages={["La sucursal no es válida"]}
                   />
                 </Grid>
                 <Grid className="mt-5" xs={4}>
@@ -266,11 +270,8 @@ function Perfil(props) {
                     onChange={handleChange}
                     name="telefono"
                     value={formData.telefono}
-                    validators={["required", "matchRegexp:^([0-9 ]){2,20}$"]}
-                    errorMessages={[
-                      "*Este campo es obligatorio",
-                      "El teléfono no es válido",
-                    ]}
+                    validators={["matchRegexp:^([0-9 ]){2,20}$"]}
+                    errorMessages={["El teléfono no es válido"]}
                   />
                 </Grid>
                 <Grid className="mt-5" xs={4}>
@@ -284,8 +285,8 @@ function Perfil(props) {
                     onChange={handleChange}
                     name="redesSociales"
                     value={formData.redesSociales}
-                    validators={["required"]}
-                    errorMessages={["*Este campo es obligatorio"]}
+                    validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                    errorMessages={["El usuario no es válido"]}
                   />
                 </Grid>
                 <Grid className="mt-5" xs={4}>
@@ -305,6 +306,18 @@ function Perfil(props) {
                 </Grid>
                 <Grid className="mt-5" xs={12}>
                   <p>IMAGEN DEL MAPA CON LA DIRECCION BIEN PERRONA</p>
+                </Grid>
+
+                <Grid item>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    className={classes.margin}
+                    type="submit"
+                    /*onClick={handleSubmit}*/
+                  >
+                    Guardar cambios
+                  </Button>
                 </Grid>
               </Grid>
             </Card.Body>
