@@ -12,7 +12,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import classes from "../../components/Modal";
-
+import { editarDatos } from "../../redux/actions/comActions";
 /* import { db } from "../firebase/config"; */
 
 /*const rubros = [];
@@ -101,8 +101,8 @@ const rubros = [
 
 function Perfil(props) {
   const [formData, setFormData] = React.useState({
-    //contraseña: "",
-    sitioWeb: props.profile.web,
+    id: props.auth.uid,
+    web: props.profile.web,
     sucursal: props.profile.sucursal,
     rubro: props.profile.rubro,
     telefono: props.profile.telefono,
@@ -117,7 +117,7 @@ function Perfil(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    return;
+    props.editarDatos(formData);
   };
   const form = React.createRef();
 
@@ -151,12 +151,11 @@ function Perfil(props) {
                     </Grid>
                     <Grid className="mt-5" xs={8}>
                       <TextValidator
-                        label="Email"
                         variant="outlined"
                         fullWidth
                         disabled
                         name="email"
-                        value="juanmanuelcerutti@gmail.com"
+                        value={props.auth.email}
                         validators={["required", "isEmail"]}
                         errorMessages={[
                           "*Este campo es obligatorio",
@@ -169,9 +168,9 @@ function Perfil(props) {
                     </Grid>
                     <Grid className="mt-5" xs={8}>
                       <TextValidator
-                        label="Contraseña"
                         variant="outlined"
                         fullWidth
+                        disabled
                         name="contraseña"
                         value="***********"
                         validators={["required"]}
@@ -197,7 +196,6 @@ function Perfil(props) {
                 </Grid>
                 <Grid xs={8}>
                   <TextValidator
-                    label="CUIT"
                     variant="outlined"
                     fullWidth
                     disabled
@@ -216,7 +214,7 @@ function Perfil(props) {
                     fullWidth
                     onChange={handleChange}
                     name="sitioWeb"
-                    value={formData.sitioWeb}
+                    value={formData.web}
                     validators={[
                       "matchRegexp:^(http://www.|https://www.|http://|https://)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$",
                     ]}
@@ -228,7 +226,6 @@ function Perfil(props) {
                 </Grid>
                 <Grid className="mt-5" xs={8}>
                   <TextValidator
-                    label="Sucursal"
                     variant="outlined"
                     fullWidth
                     onChange={handleChange}
@@ -243,7 +240,6 @@ function Perfil(props) {
                 </Grid>
                 <Grid className="mt-5" xs={8}>
                   <SelectValidator
-                    label="Rubro"
                     variant="outlined"
                     onChange={handleChange}
                     name="rubro"
@@ -264,7 +260,6 @@ function Perfil(props) {
                 </Grid>
                 <Grid className="mt-5" xs={8}>
                   <TextValidator
-                    label="Teléfono"
                     variant="outlined"
                     fullWidth
                     onChange={handleChange}
@@ -279,7 +274,6 @@ function Perfil(props) {
                 </Grid>
                 <Grid className="mt-5" xs={8}>
                   <TextValidator
-                    label="Redes sociales"
                     variant="outlined"
                     fullWidth
                     onChange={handleChange}
@@ -294,7 +288,6 @@ function Perfil(props) {
                 </Grid>
                 <Grid className="mt-5" xs={8}>
                   <TextValidator
-                    label="Dirección"
                     variant="outlined"
                     fullWidth
                     onChange={handleChange}
@@ -314,7 +307,7 @@ function Perfil(props) {
                     variant="contained"
                     className={classes.margin}
                     type="submit"
-                    /*onClick={handleSubmit}*/
+                    onClick={handleSubmit}
                   >
                     Guardar cambios
                   </Button>
@@ -329,10 +322,16 @@ function Perfil(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     profile: state.firebase.profile,
+    auth: state.firebase.auth,
   };
 };
 
-export default connect(mapStateToProps)(Perfil);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    editarDatos: (datos) => dispatch(editarDatos(datos)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Perfil);
