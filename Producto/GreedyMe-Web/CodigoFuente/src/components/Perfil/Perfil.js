@@ -9,6 +9,7 @@ import {
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
+import { connect } from "react-redux";
 /* import { db } from "../firebase/config"; */
 
 /*const rubros = [];
@@ -95,7 +96,7 @@ const rubros = [
   },
 ];
 
-function Perfil() {
+function Perfil(props) {
   const [formData, setFormData] = React.useState({
     //contraseña: "",
     sitioWeb: "",
@@ -133,12 +134,11 @@ function Perfil() {
                     </Grid>
                     <Grid xs={8}>
                       <TextValidator
-                        label="Usuario"
                         variant="outlined"
                         fullWidth
                         disabled
                         name="usuario"
-                        value="Adidas"
+                        value={props.profile.nombreComercio}
                         validators={["required"]}
                         errorMessages={["*Este campo es obligatorio"]}
                       />
@@ -200,7 +200,7 @@ function Perfil() {
                     fullWidth
                     disabled
                     name="cuit"
-                    value="24-40247604-5"
+                    value={props.profile.CUIT}
                     validators={["required"]}
                     errorMessages={["*Este campo es obligatorio"]}
                   />
@@ -215,7 +215,7 @@ function Perfil() {
                     fullWidth
                     onChange={handleChange}
                     name="sitioWeb"
-                    value={formData.sitioWeb}
+                    value={props.profile.web}
                     validators={["required"]}
                     errorMessages={["*Este campo es obligatorio"]}
                   />
@@ -230,7 +230,7 @@ function Perfil() {
                     fullWidth
                     onChange={handleChange}
                     name="sucursal"
-                    value={formData.sucursal}
+                    value={props.profile.sucursal}
                     validators={["required"]}
                     errorMessages={["*Este campo es obligatorio"]}
                   />
@@ -245,7 +245,7 @@ function Perfil() {
                     onChange={handleChange}
                     name="rubro"
                     fullWidth
-                    value={formData.rubro}
+                    value={props.profile.rubro}
                     validators={["required"]}
                     errorMessages={["*Este campo es obligatorio"]}
                   >
@@ -266,7 +266,7 @@ function Perfil() {
                     fullWidth
                     onChange={handleChange}
                     name="telefono"
-                    value={formData.telefono}
+                    value={props.profile.telefono}
                     validators={["required", "matchRegexp:^([0-9 ]){2,20}$"]}
                     errorMessages={[
                       "*Este campo es obligatorio",
@@ -284,7 +284,7 @@ function Perfil() {
                     fullWidth
                     onChange={handleChange}
                     name="redesSociales"
-                    value={formData.redesSociales}
+                    value={props.profile.redesSociales}
                     validators={["required"]}
                     errorMessages={["*Este campo es obligatorio"]}
                   />
@@ -299,7 +299,7 @@ function Perfil() {
                     fullWidth
                     onChange={handleChange}
                     name="direccion"
-                    value={formData.direccion}
+                    value={props.profile.direccion}
                     validators={["required"]}
                     errorMessages={["*Este campo es obligatorio"]}
                   />
@@ -316,4 +316,11 @@ function Perfil() {
   );
 }
 
-export default Perfil;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    profile: state.firebase.profile,
+  };
+};
+
+export default connect(mapStateToProps)(Perfil);
