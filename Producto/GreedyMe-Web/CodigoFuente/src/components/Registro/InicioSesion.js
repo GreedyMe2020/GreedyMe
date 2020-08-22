@@ -11,21 +11,39 @@ import Checkbox from "@material-ui/core/Checkbox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputLabel from "@material-ui/core/InputLabel";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import FormControl from "@material-ui/core/FormControl";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 function InicioSesion(props) {
-  const [formData, setFormData] = React.useState({
+  const [values, setValues] = React.useState({
+    amount: "",
     email: "",
-    contraseña: "",
+    password: "",
+    weight: "",
+    weightRange: "",
+    showPassword: false,
   });
 
-  const handleChange = (event) => {
-    formData[event.target.name] = event.target.value;
-    setFormData({ ...formData });
+  const handleChangePass = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.signIn(formData);
+    props.signIn(values);
   };
 
   const form = React.createRef();
@@ -51,12 +69,13 @@ function InicioSesion(props) {
               <Card.Title id="inicio-sesion-title">Iniciar Sesión</Card.Title>
               <Grid item xs={12} md={12}>
                 <TextValidator
+                  required
                   label="Email"
-                  variant="standard"
+                  variant="outlined"
                   fullWidth
-                  onChange={handleChange}
+                  onChange={handleChangePass("email")}
                   name="email"
-                  value={formData.email}
+                  value={values.email}
                   validators={["required", "isEmail"]}
                   errorMessages={[
                     "*Este campo es obligatorio",
@@ -65,18 +84,43 @@ function InicioSesion(props) {
                 />
               </Grid>
               <Grid item xs={12} md={12}>
-                <TextValidator
+                <FormControl
                   id="inicio-sesion-contraseña"
                   label="Contraseña"
-                  variant="standard"
+                  variant="outlined"
                   type="password"
                   fullWidth
-                  onChange={handleChange}
                   name="contraseña"
-                  value={formData.contraseña}
                   validators={["required"]}
                   errorMessages={["*Este campo es obligatorio"]}
-                />
+                >
+                  <InputLabel htmlFor="outlined-adornment-password">
+                    Contraseña
+                  </InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-password"
+                    type={values.showPassword ? "text" : "password"}
+                    value={values.password}
+                    onChange={handleChangePass("password")}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {values.showPassword ? (
+                            <Visibility />
+                          ) : (
+                            <VisibilityOff />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    labelWidth={85}
+                  />
+                </FormControl>
               </Grid>
               <div className="check-container">
                 <FormControlLabel

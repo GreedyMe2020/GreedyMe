@@ -127,6 +127,10 @@ $dark-orange-color: #fd5f00;
   }
 }
 
+.text-danger {
+  font-size: 0.9rem;
+}
+
 @media only screen and (max-width: 560px) {
   .contenedor-inicio {
     grid-template-columns: 1fr;
