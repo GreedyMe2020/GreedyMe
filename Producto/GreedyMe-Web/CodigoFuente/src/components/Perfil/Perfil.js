@@ -99,12 +99,12 @@ const rubros = [
 function Perfil(props) {
   const [formData, setFormData] = React.useState({
     //contraseña: "",
-    sitioWeb: "",
-    sucursal: "",
-    rubro: "",
-    telefono: "",
-    redesSociales: "",
-    direccion: "",
+    sitioWeb: props.profile.web,
+    sucursal: props.profile.sucursal,
+    rubro: props.profile.rubro,
+    telefono: props.profile.telefono,
+    redesSociales: props.profile.redesSociales,
+    direccion: props.profile.direccion,
   });
 
   const handleChange = (event) => {
@@ -210,12 +210,11 @@ function Perfil(props) {
                 </Grid>
                 <Grid className="mt-5" xs={8}>
                   <TextValidator
-                    label="Sitio web"
                     variant="outlined"
                     fullWidth
                     onChange={handleChange}
                     name="sitioWeb"
-                    value={props.profile.web}
+                    value={formData.sitioWeb}
                     validators={["required"]}
                     errorMessages={["*Este campo es obligatorio"]}
                   />
@@ -230,7 +229,7 @@ function Perfil(props) {
                     fullWidth
                     onChange={handleChange}
                     name="sucursal"
-                    value={props.profile.sucursal}
+                    value={formData.sucursal}
                     validators={["required"]}
                     errorMessages={["*Este campo es obligatorio"]}
                   />
@@ -245,7 +244,7 @@ function Perfil(props) {
                     onChange={handleChange}
                     name="rubro"
                     fullWidth
-                    value={props.profile.rubro}
+                    value={formData.rubro}
                     validators={["required"]}
                     errorMessages={["*Este campo es obligatorio"]}
                   >
@@ -266,7 +265,7 @@ function Perfil(props) {
                     fullWidth
                     onChange={handleChange}
                     name="telefono"
-                    value={props.profile.telefono}
+                    value={formData.telefono}
                     validators={["required", "matchRegexp:^([0-9 ]){2,20}$"]}
                     errorMessages={[
                       "*Este campo es obligatorio",
@@ -284,7 +283,7 @@ function Perfil(props) {
                     fullWidth
                     onChange={handleChange}
                     name="redesSociales"
-                    value={props.profile.redesSociales}
+                    value={formData.redesSociales}
                     validators={["required"]}
                     errorMessages={["*Este campo es obligatorio"]}
                   />
@@ -299,7 +298,7 @@ function Perfil(props) {
                     fullWidth
                     onChange={handleChange}
                     name="direccion"
-                    value={props.profile.direccion}
+                    value={formData.direccion}
                     validators={["required"]}
                     errorMessages={["*Este campo es obligatorio"]}
                   />
