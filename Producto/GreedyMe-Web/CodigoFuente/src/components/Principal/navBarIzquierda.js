@@ -1,72 +1,110 @@
-import React from "react";
+import * as React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import Toolbar from "@material-ui/core/Toolbar";
+import Divider from "@material-ui/core/Divider";
+import List from "@material-ui/core/List";
+import Drawer from "@material-ui/core/Drawer";
+import ListItemCustom from "../ListItemCustom";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
+    backgroundColor: "#d8d8d8",
   },
   drawerPaper: {
     width: drawerWidth,
   },
   drawerContainer: {
     overflow: "auto",
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+    marginTop: "40px",
   },
 }));
 
-export default function NavBarIzq() {
+export default function NavBarIzq({ seleccionado, setSeleccionado }) {
   const classes = useStyles();
+
   return (
-    <div className="drawer-container">
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <Toolbar />
-        <div className={classes.drawerContainer}>
-          <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-        </div>
-      </Drawer>
-    </div>
+    <Drawer
+      className={classes.drawer}
+      variant="permanent"
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+    >
+      <Toolbar />
+      <div className={classes.drawerContainer}>
+        <List>
+          <ListItemCustom
+            id="listItemCustom"
+            text="Inicio"
+            src1={require("../../../Multimedia/Sistema-svg/home-grey.svg")}
+            src2={require("../../../Multimedia/Sistema-svg/home-run-orange.svg")}
+            className="inicio-img"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={0}
+          />
+        </List>
+        <Divider variant="middle" />
+        <List>
+          <ListItemCustom
+            id="listItemCustom"
+            text="Cargar cupón"
+            src1={require("../../../Multimedia/Sistema-svg/promo-grey.svg")}
+            src2={require("../../../Multimedia/Sistema-svg/promo-naranja.svg")}
+            className="cargar-cupon"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={1}
+          />
+          <ListItemCustom
+            id="listItemCustom"
+            text="Cargar promoción"
+            src1={require("../../../Multimedia/Sistema-svg/percentage-grey.svg")}
+            src2={require("../../../Multimedia/Sistema-svg/percent-orange.svg")}
+            className="cargar-promo"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={2}
+          />
+        </List>
+        <Divider variant="middle" />
+        <List>
+          <ListItemCustom
+            id="listItemCustom"
+            text="Mis promociones"
+            src1={require("../../../Multimedia/Sistema-svg/coupon-grey.svg")}
+            src2={require("../../../Multimedia/Sistema-svg/coupon-orange.svg")}
+            className="mis-promociones"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={3}
+          />
+          <ListItemCustom
+            id="listItemCustom"
+            text="Estadísticas"
+            src1={require("../../../Multimedia/Sistema-svg/statistics-grey.svg")}
+            src2={require("../../../Multimedia/Sistema-svg/statistics-orange.svg")}
+            className="estadisticas"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={4}
+          />
+          <ListItemCustom
+            id="listItemCustom"
+            text="Notificaciones"
+            src1={require("../../../Multimedia/Sistema-svg/bell-grey.svg")}
+            src2={require("../../../Multimedia/Sistema-svg/notification-orange.svg")}
+            className="notificaciones"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={5}
+          />
+        </List>
+      </div>
+    </Drawer>
   );
 }

@@ -109,7 +109,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      width: "25ch",
     },
     cont: {
       flexGrow: 1,
@@ -118,8 +117,12 @@ const useStyles = makeStyles((theme) => ({
   cruz: {
     position: "absolute",
     right: theme.spacing(1),
-    top: theme.spacing(1.8),
+    top: "8px",
     color: theme.palette.grey[500],
+  },
+  submitButton: {
+    float: "right",
+    marginRight: "-5px",
   },
 }));
 
@@ -201,7 +204,7 @@ export default function FormDialog() {
     <div>
       <div className="botonRegistarse">
         <ButtonEj
-          text="Registralo aca"
+          text="Contactanos acá"
           style="btnRegistro"
           onClick={handleClickOpen}
         ></ButtonEj>
@@ -212,7 +215,7 @@ export default function FormDialog() {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">
-          Formulario de registro
+          Formulario de contacto
           <IconButton
             aria-label="close"
             id="btn"
@@ -232,7 +235,6 @@ export default function FormDialog() {
             className={classes.root}
             ref={form}
             onSubmit={handleSubmit}
-            id="validator-form"
           >
             <Grid container className={classes.cont} spacing={1}>
               <Grid item xs={12} md={6}>
@@ -241,6 +243,7 @@ export default function FormDialog() {
                   label="Nombre"
                   variant="outlined"
                   onChange={handleChange}
+                  fullWidth
                   name="nombre"
                   value={formData.nombre}
                   validators={["required", "matchRegexp:^([a-zA-Z ]){2,30}$"]}
@@ -255,6 +258,7 @@ export default function FormDialog() {
                   label="Apellido"
                   variant="outlined"
                   onChange={handleChange}
+                  fullWidth
                   name="apellido"
                   value={formData.apellido}
                   validators={["required", "matchRegexp:^([a-zA-Z ]){2,30}$"]}
@@ -270,6 +274,7 @@ export default function FormDialog() {
                   label="Email"
                   variant="outlined"
                   onChange={handleChange}
+                  fullWidth
                   name="email"
                   value={formData.email}
                   validators={["required", "isEmail"]}
@@ -285,6 +290,7 @@ export default function FormDialog() {
                   label="Teléfono"
                   variant="outlined"
                   onChange={handleChange}
+                  fullWidth
                   name="telefono"
                   value={formData.telefono}
                   validators={["required", "matchRegexp:^([0-9 ]){2,20}$"]}
@@ -300,6 +306,7 @@ export default function FormDialog() {
                   label="Nombre del comercio"
                   variant="outlined"
                   onChange={handleChange}
+                  fullWidth
                   name="comercio"
                   value={formData.comercio}
                   validators={["required"]}
@@ -311,6 +318,7 @@ export default function FormDialog() {
                   label="Sitio web"
                   variant="outlined"
                   onChange={handleChange}
+                  fullWidth
                   name="web"
                   value={formData.web}
                   validators={[
@@ -325,6 +333,7 @@ export default function FormDialog() {
                   label="Sucursal"
                   variant="outlined"
                   onChange={handleChange}
+                  fullWidth
                   name="sucursal"
                   value={formData.sucursal}
                   validators={["required"]}
@@ -336,6 +345,7 @@ export default function FormDialog() {
                   label="Rubro"
                   variant="outlined"
                   onChange={handleChange}
+                  fullWidth
                   name="rubro"
                   value={formData.rubro}
                   validators={["required"]}
@@ -356,21 +366,24 @@ export default function FormDialog() {
                   multiline
                   value={formData.dudas}
                   onChange={handleChange}
+                  fullWidth
                   name="dudas"
                   variant="outlined"
                 />
               </Grid>
 
-              <Grid item>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  className={classes.margin}
-                  type="submit"
-                  onClick={handleSend}
-                >
-                  Enviar
-                </Button>
+              <Grid item md={12} xs={12}>
+                <div>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    className={classes.submitButton}
+                    type="submit"
+                    onClick={handleSend}
+                  >
+                    Enviar
+                  </Button>
+                </div>
               </Grid>
             </Grid>
           </ValidatorForm>
