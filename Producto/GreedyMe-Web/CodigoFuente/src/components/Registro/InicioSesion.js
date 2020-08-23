@@ -48,7 +48,7 @@ function InicioSesion(props) {
   if (props.auth.uid) return <Redirect to={"/main/" + props.auth.uid} />;
 
   return (
-    <div>
+    <div className="inicio-sesion-container">
       <div className="nav-container">
         <nav>
           <div id="titulo">
