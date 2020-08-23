@@ -42,6 +42,10 @@ function Perfil(props) {
     setOpen(false);
   };
 
+  const handleCloseSesion = () => {
+    props.signOut();
+  };
+
   function handleListKeyDown(event) {
     if (event.key === "Tab") {
       event.preventDefault();
@@ -91,7 +95,7 @@ function Perfil(props) {
                   <ListItemIcon>
                     <AccountCircleRounded fontSize="large" />
                   </ListItemIcon>
-                  <ListItemText primary="Nombre" />
+                  <ListItemText primary={props.profile.nombreComercio} />
                 </ListItem>
               </div>
               <Divider variant="middle" />
@@ -118,13 +122,10 @@ function Perfil(props) {
                   <ListItemIcon>
                     <ExitToAppRounded />
                   </ListItemIcon>
-                  <Link to="/" className="link">
-                    <ListItemText
-                      className="link"
-                      onClick={props.signOut}
-                      primary="Cerrar sesión"
-                    />
-                  </Link>
+                  <ListItemText className="link"
+                    onClick={handleCloseSesion}
+                    primary="Cerrar sesión"
+                  />
                 </ListItem>
               </div>
             </MenuList>
@@ -135,10 +136,17 @@ function Perfil(props) {
   );
 }
 
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    profile: state.firebase.profile,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     signOut: () => dispatch(signOut()),
   };
 };
 
-export default connect(null, mapDispatchToProps)(Perfil);
+export default connect(mapStateToProps, mapDispatchToProps)(Perfil);

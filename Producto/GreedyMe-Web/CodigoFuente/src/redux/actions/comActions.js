@@ -6,8 +6,12 @@ export const editarDatos = (datos) => {
       .collection("usuarioComercio")
       .doc(datos.id)
       .update({
-        nombreComercio: datos.nombre,
-        //demas campos hay que verlos
+        web: datos.web,
+        sucursal: datos.sucursal,
+        rubro: datos.rubro,
+        telefono: datos.telefono,
+        redesSociales: datos.redesSociales,
+        direccion: datos.direccion,
       })
       .then(() => {
         dispatch({ type: "EDITAR_DATOS" });

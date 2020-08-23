@@ -4,6 +4,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { Notificaciones } from "../Notificaciones";
 import Perfil from "../Perfil";
+import { Link } from "@reach/router";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,11 +20,12 @@ export function NavBarSup(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className="nav-container">
-          <div id="titulo">
+          <a id="titulo">
             <h1 className="gre">gre</h1>
             <h1 className="edy">edy</h1>
             <h1 className="me">me</h1>
-          </div>
+          </a>
+
           <Notificaciones />
           <Perfil />
         </Toolbar>
@@ -31,4 +34,10 @@ export function NavBarSup(props) {
   );
 }
 
-export default NavBarSup;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+  };
+};
+
+export default connect(mapStateToProps)(NavBarSup);
