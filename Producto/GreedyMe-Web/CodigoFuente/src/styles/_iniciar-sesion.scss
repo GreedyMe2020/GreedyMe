@@ -67,133 +67,124 @@ html {
     font-size: 0.9rem;
   }
 
-  @media only screen and (max-width: 560px) {
-    .contenedor-inicio {
-      display: grid;
-      grid-template-rows: 1fr 6.5fr 1fr;
-      grid-template-columns: 20% 1fr 20%;
-      height: 100%;
-      width: 100%;
-      background-color: #ececec;
-      justify-items: center;
-      align-content: flex-start;
-    }
-
-    #validator-form {
-      grid-row: 2/3;
-      grid-column: 2/3;
-
-      #inicio-sesion {
-        border-radius: 15px;
-        height: 25rem;
-        width: 25rem !important;
-        margin: 0.5rem;
-        padding: auto;
-        box-shadow: 0px 10px 10px 0px #707070;
-
-        #inicio-sesion-body {
-          padding: 2.8rem;
-          padding-top: 2.3rem;
-
-          #inicio-sesion-title {
-            font: $text-font;
-            font-size: 1.7rem;
-          }
-
-          .MuiFormControl-fullWidth {
-            margin-top: 1rem;
-          }
-
-          .check-container {
-            margin-top: 1rem;
-            display: flex;
-            flex-flow: row wrap;
-            justify-content: space-between;
-            align-content: center;
-
-            #inicio-sesion-password {
-              display: inline-flex;
-              align-items: center;
-              justify-content: end;
-              font-size: 0.93rem;
-            }
-
-            #inicio-sesion-recuerdame {
-              .MuiCheckbox-colorSecondary.Mui-checked {
-                color: $dark-orange-color;
-              }
-
-              span {
-                font-size: 0.93rem;
-              }
-            }
-          }
-
-          .contenedor-submit {
-            display: flex;
-            flex-flow: column wrap;
-            justify-items: center;
-            align-items: center;
-            margin-top: 0.8rem;
-
-            #inicio-sesion-button {
-              color: $dark-orange-color;
-              border-color: $dark-orange-color;
-              width: 12rem;
-              margin-bottom: 0.5rem;
-            }
-          }
-        }
-      }
-    }
+  .contenedor-inicio {
+    display: grid;
+    grid-template-rows: 1fr 6.5fr 1fr;
+    grid-template-columns: 20% 1fr 20%;
+    height: 100%;
+    width: 100%;
+    background-color: #ececec;
+    justify-items: center;
+    align-content: flex-start;
   }
 
-  @media only screen and (max-width: 560px) {
-    .inicio-sesion-container {
-      .contenedor-inicio {
-        grid-template-columns: 1fr;
+  #inicio-sesion {
+    grid-row: 2/3;
+    grid-column: 2/3;
+    border-radius: 15px;
+    height: 25rem;
+    width: 25rem !important;
+    margin: 0.5rem;
+    padding: auto;
+    box-shadow: 0px 5px 10px 0px #c5c5c5;
+
+    #inicio-sesion-body {
+      padding: 2.8rem;
+      padding-top: 2.3rem;
+
+      #inicio-sesion-title {
+        font: $text-font;
+        font-size: 1.7rem;
+      }
+
+      .MuiFormControl-fullWidth {
+        margin-top: 1rem;
+      }
+
+      .check-container {
+        margin-top: 1rem;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
         align-content: center;
+
+        #inicio-sesion-password {
+          display: inline-flex;
+          align-items: center;
+          justify-content: end;
+          font-size: 0.93rem;
+        }
+
+        #inicio-sesion-recuerdame {
+          .MuiCheckbox-colorSecondary.Mui-checked {
+            color: $dark-orange-color;
+          }
+
+          span {
+            font-size: 0.93rem;
+          }
+        }
       }
 
-      #validator-form {
-        grid-column: 1/2;
-        #inicio-sesion {
-          height: 30rem;
-          width: 20rem !important;
+      .contenedor-submit {
+        display: flex;
+        flex-flow: column wrap;
+        justify-items: center;
+        align-items: center;
+        margin-top: 0.8rem;
 
-          #inicio-sesion-body {
-            padding: 2rem;
-            padding-top: 2.3rem;
+        #inicio-sesion-button {
+          color: $dark-orange-color;
+          border-color: $dark-orange-color;
+          width: 12rem;
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+  }
+}
 
-            .contenedor-submit {
-              display: flex;
-              flex-flow: column wrap;
-              justify-items: center;
-              align-items: center;
-              margin-top: 0.8rem;
+@media only screen and (max-width: 560px) {
+  .inicio-sesion-container {
+    .contenedor-inicio {
+      grid-template-columns: 1fr;
+      align-content: center;
+    }
 
-              p {
-                display: inline-block;
-                text-align: center;
-              }
-            }
+    #inicio-sesion {
+      grid-column: 1/2;
+      height: 30rem;
+      width: 20rem !important;
+
+      #inicio-sesion-body {
+        padding: 2rem;
+        padding-top: 2.3rem;
+
+        .contenedor-submit {
+          display: flex;
+          flex-flow: column wrap;
+          justify-items: center;
+          align-items: center;
+          margin-top: 0.8rem;
+
+          p {
+            display: inline-block;
+            text-align: center;
           }
         }
       }
     }
   }
+}
 
-  @media only screen and (max-width: 425px) {
-    .inicio-sesion-container {
-      #validator-form {
-        #inicio-sesion {
-          width: 16rem !important;
+@media only screen and (max-width: 425px) {
+  .inicio-sesion-container {
+    #inicio-sesion {
+      width: 16rem !important;
 
-          #inicio-sesion-body {
-            .check-container {
-              justify-content: center;
-            }
-          }
+      #inicio-sesion-body {
+        .check-container {
+          justify-content: center;
         }
       }
     }
