@@ -21,11 +21,8 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 function InicioSesion(props) {
   const [values, setValues] = React.useState({
-    amount: "",
     email: "",
     password: "",
-    weight: "",
-    weightRange: "",
     showPassword: false,
   });
 
@@ -154,7 +151,7 @@ function InicioSesion(props) {
                 </Button>
                 {props.authError ? (
                   <p className="text-danger">
-                    Los datos ingresados son incorrectos
+                    Todos los campos deben ser completados
                   </p>
                 ) : null}
               </div>
