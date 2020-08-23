@@ -9,6 +9,8 @@ import Drawer from "@material-ui/core/Drawer";
 import ListItemCustom from "../ListItemCustom";
 import { Notificaciones } from "../Notificaciones";
 import Perfil from "../Perfil";
+import { Link } from "@reach/router";
+import { connect } from "react-redux";
 
 const drawerWidth = 240;
 
@@ -49,11 +51,12 @@ export function NavBarSup(props) {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className="nav-container">
-          <div id="titulo">
+          <a id="titulo">
             <h1 className="gre">gre</h1>
             <h1 className="edy">edy</h1>
             <h1 className="me">me</h1>
-          </div>
+          </a>
+
           <Notificaciones />
           <Perfil />
         </Toolbar>
@@ -142,4 +145,10 @@ export function NavBarSup(props) {
   );
 }
 
-export default NavBarSup;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+  };
+};
+
+export default connect(mapStateToProps)(NavBarSup);

@@ -3,7 +3,7 @@ export const signIn = (usuario) => {
     const firebase = getFirebase();
     firebase
       .auth()
-      .signInWithEmailAndPassword(usuario.email, usuario.contraseña)
+      .signInWithEmailAndPassword(usuario.email, usuario.password)
       .then(() => {
         dispatch({ type: "INICIO_CORRECTO" });
       })
@@ -36,6 +36,26 @@ export const forgotPass = (usuario) => {
       })
       .catch((error) => {
         dispatch({ type: "EMAIL_INVALIDO", error });
+      });
+  };
+};
+
+export const signUp = (nuevoUsuario) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+    firebase.auth
+      .createUserWithEmailAndPassword(nuevoUsuario.email, nuevoUsuario.password)
+      .then((resp) => {
+        return firestore.collection("usuarioComercio").doc(resp.user.uid).set({
+          //datos adentro de la base de datos
+        });
+      })
+      .then(() => {
+        dispatch({ type: "USUARIO_CREADO" });
+      })
+      .catch((error) => {
+        dispatch({ type: "FALLO_CREACION", error });
       });
   };
 };
