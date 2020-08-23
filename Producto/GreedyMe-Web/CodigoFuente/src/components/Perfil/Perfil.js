@@ -9,8 +9,10 @@ import {
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
+import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import classes from "../../components/Modal";
+import { editarDatos } from "../../redux/actions/comActions";
 /* import { db } from "../firebase/config"; */
 
 /*const rubros = [];
@@ -97,15 +99,15 @@ const rubros = [
   },
 ];
 
-function Perfil() {
+function Perfil(props) {
   const [formData, setFormData] = React.useState({
-    //contraseña: "",
-    sitioWeb: "",
-    sucursal: "",
-    rubro: "",
-    telefono: "",
-    redesSociales: "",
-    direccion: "",
+    id: props.auth.uid,
+    web: props.profile.web,
+    sucursal: props.profile.sucursal,
+    rubro: props.profile.rubro,
+    telefono: props.profile.telefono,
+    redesSociales: props.profile.redesSociales,
+    direccion: props.profile.direccion,
   });
 
   const handleChange = (event) => {
@@ -115,7 +117,7 @@ function Perfil() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    return;
+    props.editarDatos(formData);
   };
   const form = React.createRef();
 
@@ -135,12 +137,11 @@ function Perfil() {
                     </Grid>
                     <Grid xs={8}>
                       <TextValidator
-                        label="Usuario"
                         variant="outlined"
                         fullWidth
                         disabled
                         name="usuario"
-                        value="GM36-Adidas"
+                        value={props.profile.nombreComercio}
                         validators={["required"]}
                         errorMessages={["*Este campo es obligatorio"]}
                       />
@@ -150,12 +151,11 @@ function Perfil() {
                     </Grid>
                     <Grid className="mt-5" xs={8}>
                       <TextValidator
-                        label="Email"
                         variant="outlined"
                         fullWidth
                         disabled
                         name="email"
-                        value="juanmanuelcerutti@gmail.com"
+                        value={props.auth.email}
                         validators={["required", "isEmail"]}
                         errorMessages={[
                           "*Este campo es obligatorio",
@@ -168,9 +168,9 @@ function Perfil() {
                     </Grid>
                     <Grid className="mt-5" xs={8}>
                       <TextValidator
-                        label="Contraseña"
                         variant="outlined"
                         fullWidth
+                        disabled
                         name="contraseña"
                         value="***********"
                         validators={["required"]}
@@ -196,12 +196,11 @@ function Perfil() {
                 </Grid>
                 <Grid xs={8}>
                   <TextValidator
-                    label="CUIT"
                     variant="outlined"
                     fullWidth
                     disabled
                     name="cuit"
-                    value="24-40247604-5"
+                    value={props.profile.CUIT}
                     validators={["required"]}
                     errorMessages={["*Este campo es obligatorio"]}
                   />
@@ -211,12 +210,11 @@ function Perfil() {
                 </Grid>
                 <Grid className="mt-5" xs={8}>
                   <TextValidator
-                    label="Sitio web"
                     variant="outlined"
                     fullWidth
                     onChange={handleChange}
                     name="sitioWeb"
-                    value={formData.sitioWeb}
+                    value={formData.web}
                     validators={[
                       "matchRegexp:^(http://www.|https://www.|http://|https://)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$",
                     ]}
@@ -228,7 +226,6 @@ function Perfil() {
                 </Grid>
                 <Grid className="mt-5" xs={8}>
                   <TextValidator
-                    label="Sucursal"
                     variant="outlined"
                     fullWidth
                     onChange={handleChange}
@@ -243,7 +240,6 @@ function Perfil() {
                 </Grid>
                 <Grid className="mt-5" xs={8}>
                   <SelectValidator
-                    label="Rubro"
                     variant="outlined"
                     onChange={handleChange}
                     name="rubro"
@@ -264,7 +260,6 @@ function Perfil() {
                 </Grid>
                 <Grid className="mt-5" xs={8}>
                   <TextValidator
-                    label="Teléfono"
                     variant="outlined"
                     fullWidth
                     onChange={handleChange}
@@ -279,7 +274,6 @@ function Perfil() {
                 </Grid>
                 <Grid className="mt-5" xs={8}>
                   <TextValidator
-                    label="Redes sociales"
                     variant="outlined"
                     fullWidth
                     onChange={handleChange}
@@ -294,7 +288,6 @@ function Perfil() {
                 </Grid>
                 <Grid className="mt-5" xs={8}>
                   <TextValidator
-                    label="Dirección"
                     variant="outlined"
                     fullWidth
                     onChange={handleChange}
@@ -314,7 +307,7 @@ function Perfil() {
                     variant="contained"
                     className={classes.margin}
                     type="submit"
-                    /*onClick={handleSubmit}*/
+                    onClick={handleSubmit}
                   >
                     Guardar cambios
                   </Button>
@@ -328,4 +321,17 @@ function Perfil() {
   );
 }
 
-export default Perfil;
+const mapStateToProps = (state) => {
+  return {
+    profile: state.firebase.profile,
+    auth: state.firebase.auth,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    editarDatos: (datos) => dispatch(editarDatos(datos)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Perfil);
