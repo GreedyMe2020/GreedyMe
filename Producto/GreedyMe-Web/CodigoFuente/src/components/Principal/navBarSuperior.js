@@ -1,25 +1,10 @@
-import React from "react";
+import * as React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-import MenuList from "@material-ui/core/MenuList";
-import IconButton from "@material-ui/core/IconButton";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
 import Divider from "@material-ui/core/Divider";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import MoreIcon from "@material-ui/icons/MoreVert";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Drawer from "@material-ui/core/Drawer";
 import ListItemCustom from "../ListItemCustom";
 import { Notificaciones } from "../Notificaciones";
@@ -40,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
+    backgroundColor: "#d8d8d8",
   },
   drawerPaper: {
     width: drawerWidth,
@@ -56,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function NavBarSup(props) {
   const classes = useStyles();
+  const [seleccionado, setSeleccionado] = React.useState(0);
 
   return (
     <div className={classes.root}>
@@ -83,34 +70,70 @@ export function NavBarSup(props) {
         <div className={classes.drawerContainer}>
           <List>
             <ListItemCustom
+              id="listItemCustom"
               text="Inicio"
-              src={require("../../../Multimedia/Sistema-svg/home-grey.svg")}
+              src1={require("../../../Multimedia/Sistema-svg/home-grey.svg")}
+              src2={require("../../../Multimedia/Sistema-svg/home-run-orange.svg")}
+              className="inicio-img"
+              seleccionado={seleccionado}
+              setSeleccionado={setSeleccionado}
+              elementIndex={0}
             />
           </List>
           <Divider variant="middle" />
           <List>
             <ListItemCustom
+              id="listItemCustom"
               text="Cargar cupón"
-              src={require("../../../Multimedia/Sistema-svg/promo-grey.svg")}
+              src1={require("../../../Multimedia/Sistema-svg/promo-grey.svg")}
+              src2={require("../../../Multimedia/Sistema-svg/promo-naranja.svg")}
+              className="cargar-cupon"
+              seleccionado={seleccionado}
+              setSeleccionado={setSeleccionado}
+              elementIndex={1}
             />
             <ListItemCustom
+              id="listItemCustom"
               text="Cargar promoción"
-              src={require("../../../Multimedia/Sistema-svg/percentage-grey.svg")}
+              src1={require("../../../Multimedia/Sistema-svg/percentage-grey.svg")}
+              src2={require("../../../Multimedia/Sistema-svg/percent-orange.svg")}
+              className="cargar-promo"
+              seleccionado={seleccionado}
+              setSeleccionado={setSeleccionado}
+              elementIndex={2}
             />
           </List>
-          <Divider />
+          <Divider variant="middle" />
           <List>
             <ListItemCustom
+              id="listItemCustom"
               text="Mis promociones"
-              src={require("../../../Multimedia/Sistema-svg/coupon-grey.svg")}
+              src1={require("../../../Multimedia/Sistema-svg/coupon-grey.svg")}
+              src2={require("../../../Multimedia/Sistema-svg/coupon-orange.svg")}
+              className="mis-promociones"
+              seleccionado={seleccionado}
+              setSeleccionado={setSeleccionado}
+              elementIndex={3}
             />
             <ListItemCustom
+              id="listItemCustom"
               text="Estadísticas"
-              src={require("../../../Multimedia/Sistema-svg/statistics-grey.svg")}
+              src1={require("../../../Multimedia/Sistema-svg/statistics-grey.svg")}
+              src2={require("../../../Multimedia/Sistema-svg/statistics-orange.svg")}
+              className="estadisticas"
+              seleccionado={seleccionado}
+              setSeleccionado={setSeleccionado}
+              elementIndex={4}
             />
             <ListItemCustom
+              id="listItemCustom"
               text="Notificaciones"
-              src={require("../../../Multimedia/Sistema-svg/bell-grey.svg")}
+              src1={require("../../../Multimedia/Sistema-svg/bell-grey.svg")}
+              src2={require("../../../Multimedia/Sistema-svg/notification-orange.svg")}
+              className="notificaciones"
+              seleccionado={seleccionado}
+              setSeleccionado={setSeleccionado}
+              elementIndex={5}
             />
           </List>
         </div>
