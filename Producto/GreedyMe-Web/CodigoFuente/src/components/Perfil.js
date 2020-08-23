@@ -100,13 +100,21 @@ function Perfil(props) {
               </div>
               <Divider variant="middle" />
               <div className="divider">
-                <Link to="./profile">
-                  <MenuItem onClick={handleClose}>Mi perfil</MenuItem>
+                <Link to="./profile" className="link">
+                  <MenuItem className="link" onClick={handleClose}>
+                    Mi perfil
+                  </MenuItem>
                 </Link>
-                <MenuItem onClick={handleClose}>Suscripciones</MenuItem>
-                <MenuItem onClick={handleClose}>
-                  Ayuda y soporte técnico
-                </MenuItem>
+                <Link to="" className="link">
+                  <MenuItem className="link" onClick={handleClose}>
+                    Suscripciones
+                  </MenuItem>
+                </Link>
+                <Link to="" className="link">
+                  <MenuItem className="link" onClick={handleClose}>
+                    Ayuda y soporte técnico
+                  </MenuItem>
+                </Link>
               </div>
               <Divider variant="middle" />
               <div className="divider">
@@ -114,8 +122,7 @@ function Perfil(props) {
                   <ListItemIcon>
                     <ExitToAppRounded />
                   </ListItemIcon>
-
-                  <ListItemText
+                  <ListItemText className="link"
                     onClick={handleCloseSesion}
                     primary="Cerrar sesión"
                   />
