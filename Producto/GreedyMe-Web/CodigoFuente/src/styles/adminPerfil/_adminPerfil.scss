@@ -1,0 +1,25 @@
+.cardAdminCuenta {
+  width: 800px;
+  margin-top: 20px;
+  margin-left: 300px;
+  box-shadow: 0 5px 5px 0 #ececec;
+  background-color: #fff;
+  border: 0px;
+  border-radius: 10px;
+  .contCardPerfil1 {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 5fr 2fr;
+  }
+  .inputPerfil {
+    margin-top: 20px;
+    grid-column: 1/2;
+  }
+  .imagenPerfil {
+    grid-column: 2/3;
+    grid-row: 2 / span 3;
+  }
+}
+
+.tituloCard {
+}
