@@ -6,7 +6,7 @@ import Perfil from "../Perfil";
 import { Link } from "@reach/router";
 import { connect } from "react-redux";
 
-export function NavBarSup({ appBar }) {
+export function NavBarSup({ appBar, seleccionado, setSeleccionado }) {
   return (
     <AppBar position="fixed" className={appBar}>
       <Toolbar className="nav-container">
@@ -17,7 +17,7 @@ export function NavBarSup({ appBar }) {
         </a>
 
         <Notificaciones />
-        <Perfil />
+        <Perfil seleccionado={seleccionado} setSeleccionado={setSeleccionado} />
       </Toolbar>
     </AppBar>
   );
