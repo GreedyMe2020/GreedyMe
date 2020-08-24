@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NavBarSup from "../../components/Principal/navBarSuperior";
 import { Card } from "react-bootstrap";
 import {
@@ -13,6 +13,8 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import classes from "../../components/Modal";
 import { editarDatos } from "../../redux/actions/comActions";
+import { subirFoto } from "../../redux/actions/comActions";
+import FotoPerfil from "./FotoPerfil";
 /* import { db } from "../firebase/config"; */
 
 /*const rubros = [];
@@ -181,6 +183,9 @@ function Perfil(props) {
                 </Grid>
                 <Grid xs={4}>
                   <p>imagen perrona del usuario</p>
+                  <p>imagen perrona del usuario</p>
+                  <p>imagen perrona del usuario</p>
+                  <FotoPerfil type="file" />
                 </Grid>
               </Grid>
             </Card.Body>
@@ -331,6 +336,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     editarDatos: (datos) => dispatch(editarDatos(datos)),
+    subirFoto: (file) => dispatch(subirFoto(file)),
   };
 };
 

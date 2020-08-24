@@ -100,7 +100,10 @@ function Perfil(props) {
               </div>
               <Divider variant="middle" />
               <div className="divider">
-                <Link to="./profile" className="link">
+                <Link
+                  to={"/main/" + props.auth.uid + "/profile"}
+                  className="link"
+                >
                   <MenuItem className="link" onClick={handleClose}>
                     Mi perfil
                   </MenuItem>
@@ -122,7 +125,8 @@ function Perfil(props) {
                   <ListItemIcon>
                     <ExitToAppRounded />
                   </ListItemIcon>
-                  <ListItemText className="link"
+                  <ListItemText
+                    className="link"
                     onClick={handleCloseSesion}
                     primary="Cerrar sesión"
                   />
@@ -140,6 +144,7 @@ const mapStateToProps = (state) => {
   console.log(state);
   return {
     profile: state.firebase.profile,
+    auth: state.firebase.auth,
   };
 };
 

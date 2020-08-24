@@ -1,6 +1,8 @@
 const initState = {
   editData: null,
   dataError: null,
+  foto: null,
+  fotoErro: null,
 };
 
 const comReducer = (state = initState, action) => {
@@ -16,6 +18,18 @@ const comReducer = (state = initState, action) => {
       return {
         ...state,
         dataError: "Ocurrio algun error",
+      };
+    case "SUBIR_FOTO":
+      console.log("se subio la foto");
+      return {
+        ...state,
+        foto: "se subio la foto",
+      };
+    case "ERROR_FOTO":
+      console.log("no se subio la foto");
+      return {
+        ...state,
+        fotoError: "Ocurrio algun error en al foto",
       };
     default:
       return state;
