@@ -124,57 +124,55 @@ function Perfil(props) {
 
   return (
     <div>
-      <NavBarSup></NavBarSup>
-      <section className="contenedor-inicio">
-        <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
-          <p className="tituloCard">Información de inicio de sesión</p>
-          <Card className="cardAdminCuenta">
-            <Card.Body className="contCardPerfil1">
-              <div className="inputPerfil">
-                <TextField
-                  disabled
-                  fullWidth
-                  id="outlined-disabled"
-                  label="Usuario"
-                  defaultValue={props.profile.nombreComercio}
-                  variant="outlined"
-                  name="usuario"
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
-                />
-              </div>
-              <div className="inputPerfil">
-                <TextField
-                  id="outlined-disabled"
-                  label="Email"
-                  fullWidth
-                  disabled
-                  defaultValue={props.auth.email}
-                  variant="outlined"
-                  name="email"
-                  validators={["required", "isEmail"]}
-                  errorMessages={[
-                    "*Este campo es obligatorio",
-                    "El email no es válido",
-                  ]}
-                />
-              </div>
-              <div className="inputPerfil">
-                <TextValidator
-                  id="outlined-password-input"
-                  label="Contraseña"
-                  type="password"
-                  autoComplete="current-password"
-                  variant="outlined"
-                  //defaultValue={props.auth.contraseña}
-                  name="contraseña"
-                  fullWidth
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
-                />
-              </div>
+      <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
+        <h4 className="tituloCardAdminP1">Información de inicio de sesión</h4>
+        <Card className="cardAdminCuenta">
+          <Card.Body className="contCardPerfil1">
+            <div className="inputPerfil">
+              <TextField
+                disabled
+                fullWidth
+                id="outlined-disabled"
+                label="Usuario"
+                defaultValue={props.profile.nombreComercio}
+                variant="outlined"
+                name="usuario"
+                validators={["required"]}
+                errorMessages={["*Este campo es obligatorio"]}
+              />
+            </div>
+            <div className="inputPerfil">
+              <TextField
+                id="outlined-disabled"
+                label="Email"
+                fullWidth
+                disabled
+                defaultValue={props.auth.email}
+                variant="outlined"
+                name="email"
+                validators={["required", "isEmail"]}
+                errorMessages={[
+                  "*Este campo es obligatorio",
+                  "El email no es válido",
+                ]}
+              />
+            </div>
+            <div className="inputPerfil">
+              <TextValidator
+                id="outlined-password-input"
+                label="Contraseña"
+                type="password"
+                autoComplete="current-password"
+                variant="outlined"
+                //defaultValue={props.auth.contraseña}
+                name="contraseña"
+                fullWidth
+                validators={["required"]}
+                errorMessages={["*Este campo es obligatorio"]}
+              />
+            </div>
 
-              {/* <TextValidator
+            {/* <TextValidator
                 variant="outlined"
                 fullWidth
                 disabled
@@ -206,48 +204,63 @@ function Perfil(props) {
                 validators={["required"]}
                 errorMessages={["*Este campo es obligatorio"]}
               /> */}
-              <div className="imagenPerfil">Deposite aca lo de la foto</div>
-            </Card.Body>
-          </Card>
-          <Typography>Información general</Typography>
-          <Typography>(algunos de los campos son opcionales)</Typography>
-          <Card className="cardAdminCuenta">
-            <Card.Body className="contCardPerfil2">
+            <div className="imagenPerfil">Deposite aca lo de la foto</div>
+          </Card.Body>
+        </Card>
+        <div className="tituloCardAdminP2">
+          <h4 className="tituloCardAdminP">Información general</h4>
+          <p className="opcional">(algunos campos son opcionales)</p>
+        </div>
+        <Card className="cardAdminCuenta">
+          <Card.Body className="contCardPerfil2">
+            <div className="inputPerfil2">
               <TextValidator
                 variant="outlined"
+                id="outlined-disabled"
                 fullWidth
                 disabled
                 name="cuit"
-                value={props.profile.CUIT}
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
+                defaultValue={props.profile.CUIT}
+                label="CUIT"
               />
+            </div>
+            <div className="inputPerfil2">
               <TextValidator
+                id="outlined-basic"
                 variant="outlined"
                 fullWidth
                 onChange={handleChange}
                 name="sitioWeb"
-                value={formData.web}
+                label="Sitio web"
+                defaultValue={formData.web}
                 validators={[
                   "matchRegexp:^(http://www.|https://www.|http://|https://)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$",
                 ]}
                 errorMessages={["La dirección no es válida"]}
               />
+            </div>
+            <div className="inputPerfil2">
               <TextValidator
                 variant="outlined"
+                label="Sucursal"
+                id="outlined-basic"
                 fullWidth
                 onChange={handleChange}
                 name="sucursal"
-                value={formData.sucursal}
+                defaultValue={formData.sucursal}
                 validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
                 errorMessages={["La sucursal no es válida"]}
               />
+            </div>
+            <div className="inputPerfil2">
               <SelectValidator
                 variant="outlined"
+                id="outlined-basic"
+                label="Rubro"
                 onChange={handleChange}
                 name="rubro"
                 fullWidth
-                value={formData.rubro}
+                defaultValue={formData.rubro}
                 validators={["required"]}
                 errorMessages={["*Este campo es obligatorio"]}
               >
@@ -257,47 +270,59 @@ function Perfil(props) {
                   </MenuItem>
                 ))}
               </SelectValidator>
+            </div>
+            <div className="inputPerfil2">
               <TextValidator
                 variant="outlined"
+                id="outlined-basic"
+                label="Teléfono"
                 fullWidth
                 onChange={handleChange}
                 name="telefono"
-                value={formData.telefono}
+                defaultValue={formData.telefono}
                 validators={["matchRegexp:^([0-9 ]){2,20}$"]}
                 errorMessages={["El teléfono no es válido"]}
               />
+            </div>
+            <div className="inputPerfil2">
               <TextValidator
                 variant="outlined"
+                id="outlined-basic"
+                label="Redes sociales"
                 fullWidth
                 onChange={handleChange}
                 name="redesSociales"
-                value={formData.redesSociales}
+                defaultValue={formData.redesSociales}
                 validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
                 errorMessages={["El usuario no es válido"]}
               />
+            </div>
+            <div className="inputPerfil2">
               <TextValidator
                 variant="outlined"
+                id="outlined-basic"
+                label="Dirección"
                 fullWidth
                 onChange={handleChange}
                 name="direccion"
-                value={formData.direccion}
+                defaultValue={formData.direccion}
                 validators={["required"]}
                 errorMessages={["*Este campo es obligatorio"]}
               />
-              <p>IMAGEN DEL MAPA CON LA DIRECCION BIEN PERRONA</p>
-              <Button
-                color="primary"
-                variant="contained"
-                className={classes.margin}
-                type="submit"
-                onClick={handleSubmit}
-              >
-                Guardar cambios
-              </Button>
-            </Card.Body>
-          </Card>
-        </ValidatorForm>
-      </section>
+            </div>
+            <p>IMAGEN DEL MAPA CON LA DIRECCION BIEN PERRONA</p>
+            <Button
+              color="primary"
+              variant="contained"
+              className={classes.margin}
+              type="submit"
+              onClick={handleSubmit}
+            >
+              Guardar cambios
+            </Button>
+          </Card.Body>
+        </Card>
+      </ValidatorForm>
     </div>
   );
 }
