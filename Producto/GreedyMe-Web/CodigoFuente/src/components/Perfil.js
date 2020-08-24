@@ -29,16 +29,29 @@ function Perfil(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
+  /*  const [color, setColor] = React.useState(false);
+
+  React.useEffect(() => {
+    if (seleccionado === elementIndex) {
+      setColor(true);
+    } else {
+      setColor(false);
+    }
+  }, [seleccionado]);
+
+  const fontstyles = {
+    color: color ? "#fd5f00" : "#868686",
+  }; */
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event) => {
+  const handleClose = (elementIndex) => (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
+    props.setSeleccionado(elementIndex);
     setOpen(false);
   };
 
@@ -100,21 +113,21 @@ function Perfil(props) {
               </div>
               <Divider variant="middle" />
               <div className="divider">
-                <Link to="./profile" className="link">
-                  <MenuItem className="link" onClick={handleClose}>
-                    Mi perfil
-                  </MenuItem>
-                </Link>
-                <Link to="" className="link">
-                  <MenuItem className="link" onClick={handleClose}>
-                    Suscripciones
-                  </MenuItem>
-                </Link>
-                <Link to="" className="link">
-                  <MenuItem className="link" onClick={handleClose}>
-                    Ayuda y soporte técnico
-                  </MenuItem>
-                </Link>
+                {/* <Link to="./profile" className="link"> */}
+                <MenuItem className="link" onClick={handleClose(6)}>
+                  Mi perfil
+                </MenuItem>
+                {/*  </Link> */}
+                {/* <Link to="" className="link"> */}
+                <MenuItem className="link" onClick={handleClose(7)}>
+                  Suscripciones
+                </MenuItem>
+                {/*  </Link>
+                <Link to="" className="link"> */}
+                <MenuItem className="link" onClick={handleClose(8)}>
+                  Ayuda y soporte técnico
+                </MenuItem>
+                {/* </Link> */}
               </div>
               <Divider variant="middle" />
               <div className="divider">
