@@ -26,40 +26,51 @@ function ReestablecerContraseña(props) {
   if (props.mandoMail) return <Redirect to="/login" />;
   if (props.auth.uid) return <Redirect to={"/main/" + props.auth.uid} />;
   return (
-    <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
-      <Card style={{ width: "18rem" }}>
-        <Card.Body>
-          <Card.Title>Reestablece tu Contraseña</Card.Title>
-          <Grid item xs={12} md={6}>
-            <TextValidator
-              label="Email"
-              variant="standard"
-              onChange={handleChange}
-              name="email"
-              value={formData.email}
-              validators={["required", "isEmail"]}
-              errorMessages={[
-                "*Este campo es obligatorio",
-                "El email no es válido",
-              ]}
-            />
-            <Button
-              variant="outlined"
-              className="mt-3 text-right"
-              color="secondary"
-              onClick={handleSubmit}
-            >
-              Reestablece tu contraseña
-            </Button>
-            {props.mailError ? (
-              <p className="text-danger">
-                Email invalido, ingresalo nuevamente
-              </p>
-            ) : null}
-          </Grid>
-        </Card.Body>
-      </Card>
-    </ValidatorForm>
+    <>
+      <div className="nav-container">
+        <nav>
+          <div id="titulo">
+            <h1 className="gre">gre</h1>
+            <h1 className="edy">edy</h1>
+            <h1 className="me">me</h1>
+          </div>
+        </nav>
+      </div>
+      <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
+        <Card style={{ width: "18rem" }}>
+          <Card.Body>
+            <Card.Title>Reestablece tu Contraseña</Card.Title>
+            <Grid item xs={12} md={6}>
+              <TextValidator
+                label="Email"
+                variant="standard"
+                onChange={handleChange}
+                name="email"
+                value={formData.email}
+                validators={["required", "isEmail"]}
+                errorMessages={[
+                  "*Este campo es obligatorio",
+                  "El email no es válido",
+                ]}
+              />
+              <Button
+                variant="outlined"
+                className="mt-3 text-right"
+                color="secondary"
+                onClick={handleSubmit}
+              >
+                Reestablece tu contraseña
+              </Button>
+              {props.mailError ? (
+                <p className="text-danger">
+                  Email invalido, ingresalo nuevamente
+                </p>
+              ) : null}
+            </Grid>
+          </Card.Body>
+        </Card>
+      </ValidatorForm>
+    </>
   );
 }
 
