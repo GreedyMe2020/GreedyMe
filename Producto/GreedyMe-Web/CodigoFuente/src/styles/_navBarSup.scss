@@ -1,0 +1,98 @@
+//Google fonts
+@import url(http://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Raleway:wght@500;600&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Roboto&display=swap);
+
+//Inter (thin & bold 700)
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap);
+
+//Variables
+$logo-font: "Raleway", sans-serif;
+$text-font: "Inter", sans-serif;
+
+$white-color: #ffffff;
+$grey-color: #e1e1e1;
+$green-color: #76b39d;
+$logo-green-color: #78e3bc;
+$logo-blue-color: #262262;
+$dark-blue-color: #1e1b4d;
+$logo-orange-color: #f7941e;
+$dark-orange-color: #fd5f00;
+
+.nav-container {
+  background-color: $logo-blue-color;
+
+  #titulo {
+    width: 90%;
+    margin: auto;
+    padding: 1rem 0rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    h1 {
+      font-size: 2rem;
+      letter-spacing: 0.5rem;
+    }
+
+    .gre {
+      color: $white-color;
+    }
+    .edy {
+      color: $logo-green-color;
+    }
+    .me {
+      color: $logo-orange-color;
+    }
+  }
+}
+
+.divider {
+  padding: 7px 0;
+  .MuiListItemIcon-root {
+    min-width: 35px;
+  }
+}
+
+.dividerNotif {
+  padding: 2px 0;
+  .MuiSvgIcon-root {
+    font-size: 1.7rem;
+  }
+  .MuiListItemIcon-root {
+    min-width: 38px;
+  }
+}
+
+.link,
+.link:hover {
+  color: black;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 560px) {
+  .nav-container {
+    #titulo {
+      margin-top: 0.2rem;
+      h1 {
+        font-size: 1.5rem;
+        letter-spacing: 0.5rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .nav-container {
+    #titulo {
+      margin-top: 0.5rem;
+      h1 {
+        font-size: 1rem;
+        letter-spacing: 0.5rem;
+      }
+    }
+  }
+}
+
+
