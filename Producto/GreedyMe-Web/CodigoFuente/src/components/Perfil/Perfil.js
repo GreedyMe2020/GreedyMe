@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NavBarSup from "../../components/Principal/navBarSuperior";
 import { Card } from "react-bootstrap";
 import {
@@ -15,6 +15,8 @@ import Button from "@material-ui/core/Button";
 import classes from "../../components/Modal";
 import { editarDatos } from "../../redux/actions/comActions";
 import Map from "../Map/Map";
+import { subirFoto } from "../../redux/actions/comActions";
+import firebase from "../../firebase/config";
 /* import { db } from "../firebase/config"; */
 
 /*const rubros = [];
@@ -114,15 +116,53 @@ function Perfil(props) {
     lng: props.profile.direccion[1].Pa,
   });
 
+  const [picture, setPicture] = useState(props.profile.photoURL);
+
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
+  };
+
+  const handleUpload = (event) => {
+    const file = event.target.files[0];
+    const storageRef = firebase
+      .storage()
+      .ref(`/fotosUsuariosComercios/${file.name}`);
+    const task = storageRef.put(file);
+    task.on(
+      "state_changed",
+      function (snapshot) {
+        switch (snapshot.state) {
+          case firebase.storage.TaskState.PAUSED: // or 'paused'
+            console.log("Upload is paused");
+            break;
+          case firebase.storage.TaskState.RUNNING: // or 'running'
+            console.log("Upload is running");
+            break;
+        }
+      },
+      function (error) {
+        console.log(error);
+      },
+      function () {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          setPicture(downloadURL);
+          props.subirFoto({
+            id: props.auth.uid,
+            url: downloadURL,
+          });
+        });
+      }
+    );
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     props.editarDatos(formData);
   };
+
   const form = React.createRef();
 
   return (
@@ -166,8 +206,9 @@ function Perfil(props) {
                 label="Contraseña"
                 type="password"
                 autoComplete="current-password"
+                disabled
                 variant="outlined"
-                //defaultValue={props.auth.contraseña}
+                defaultValue="***********"
                 name="contraseña"
                 fullWidth
                 validators={["required"]}
@@ -207,7 +248,14 @@ function Perfil(props) {
                 validators={["required"]}
                 errorMessages={["*Este campo es obligatorio"]}
               /> */}
-            <div className="imagenPerfil">Deposite aca lo de la foto</div>
+            <div className="imagenPerfil">
+              <img
+                src={picture}
+                style={{ height: 200 + "px" }}
+                alt="imagen usuario"
+              ></img>
+              <input type="file" onChange={handleUpload}></input>
+            </div>
           </Card.Body>
         </Card>
         <div className="tituloCardAdminP2">
@@ -340,6 +388,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     editarDatos: (datos) => dispatch(editarDatos(datos)),
+    subirFoto: (downloadURL) => dispatch(subirFoto(downloadURL)),
   };
 };
 
