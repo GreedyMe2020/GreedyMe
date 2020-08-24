@@ -6,7 +6,7 @@ import { crearPromocion } from "../../redux/actions/promActions";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
 import CargaPromociones from "../Promociones/cargaPromociones";
-
+import Perfil from "../Perfil/Perfil";
 import NavBarSup from "../../components/Principal/navBarSuperior";
 import NavBarIzq from "../../components/Principal/navBarIzquierda";
 
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 function MainPage() {
   const classes = useStyles();
   const [seleccionado, setSeleccionado] = React.useState(0);
+  const [opcion, setOpcion] = React.useState(0);
 
   const getOpcionSeleccionada = (seleccionado) => {
     if (seleccionado === 0) {
@@ -56,13 +57,26 @@ function MainPage() {
     if (seleccionado === 5) {
       return <h1>y aca las notificaciones</h1>;
     }
+    if (seleccionado === 6) {
+      return <Perfil />;
+    }
+    if (seleccionado === 7) {
+      return <h1>Suscripciones</h1>;
+    }
+    if (seleccionado === 8) {
+      return <h1>Ayuda y soporte</h1>;
+    }
   };
 
   return (
     <div className="main-container">
       <div className={classes.root}>
         <CssBaseline />
-        <NavBarSup appBar={classes.appBar} />
+        <NavBarSup
+          appBar={classes.appBar}
+          seleccionado={seleccionado}
+          setSeleccionado={setSeleccionado}
+        />
         <NavBarIzq
           seleccionado={seleccionado}
           setSeleccionado={setSeleccionado}
