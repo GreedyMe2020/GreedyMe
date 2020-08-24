@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NavBarSup from "../../components/Principal/navBarSuperior";
 import { Card } from "react-bootstrap";
 import {
@@ -6,6 +6,7 @@ import {
   TextValidator,
   SelectValidator,
 } from "react-material-ui-form-validator";
+import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -13,6 +14,8 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import classes from "../../components/Modal";
 import { editarDatos } from "../../redux/actions/comActions";
+import { subirFoto } from "../../redux/actions/comActions";
+import firebase from "../../firebase/config";
 /* import { db } from "../firebase/config"; */
 
 /*const rubros = [];
@@ -110,213 +113,264 @@ function Perfil(props) {
     direccion: props.profile.direccion,
   });
 
+  const [picture, setPicture] = useState(props.profile.photoURL);
+
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
+  };
+
+  const handleUpload = (event) => {
+    const file = event.target.files[0];
+    const storageRef = firebase
+      .storage()
+      .ref(`/fotosUsuariosComercios/${file.name}`);
+    const task = storageRef.put(file);
+    task.on(
+      "state_changed",
+      function (snapshot) {
+        switch (snapshot.state) {
+          case firebase.storage.TaskState.PAUSED: // or 'paused'
+            console.log("Upload is paused");
+            break;
+          case firebase.storage.TaskState.RUNNING: // or 'running'
+            console.log("Upload is running");
+            break;
+        }
+      },
+      function (error) {
+        console.log(error);
+      },
+      function () {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          setPicture(downloadURL);
+          props.subirFoto({
+            id: props.auth.uid,
+            url: downloadURL,
+          });
+        });
+      }
+    );
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     props.editarDatos(formData);
   };
+
   const form = React.createRef();
 
   return (
     <div>
-      <NavBarSup></NavBarSup>
-      <section className="contenedor-inicio">
-        <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
-          <Typography>Información de inicio de sesión</Typography>
-          <Card>
-            <Card.Body>
-              <Grid container>
-                <Grid xs={8}>
-                  <Grid container>
-                    <Grid xs={4}>
-                      <Typography>Usuario</Typography>
-                    </Grid>
-                    <Grid xs={8}>
-                      <TextValidator
-                        variant="outlined"
-                        fullWidth
-                        disabled
-                        name="usuario"
-                        value={props.profile.nombreComercio}
-                        validators={["required"]}
-                        errorMessages={["*Este campo es obligatorio"]}
-                      />
-                    </Grid>
-                    <Grid className="mt-5" xs={4}>
-                      <Typography>Email</Typography>
-                    </Grid>
-                    <Grid className="mt-5" xs={8}>
-                      <TextValidator
-                        variant="outlined"
-                        fullWidth
-                        disabled
-                        name="email"
-                        value={props.auth.email}
-                        validators={["required", "isEmail"]}
-                        errorMessages={[
-                          "*Este campo es obligatorio",
-                          "El email no es válido",
-                        ]}
-                      />
-                    </Grid>
-                    <Grid className="mt-5" xs={4}>
-                      <Typography>Contraseña</Typography>
-                    </Grid>
-                    <Grid className="mt-5" xs={8}>
-                      <TextValidator
-                        variant="outlined"
-                        fullWidth
-                        disabled
-                        name="contraseña"
-                        value="***********"
-                        validators={["required"]}
-                        errorMessages={["*Este campo es obligatorio"]}
-                      />
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid xs={4}>
-                  <p>imagen perrona del usuario</p>
-                </Grid>
-              </Grid>
-            </Card.Body>
-          </Card>
-          <Typography>Información general</Typography>
+      <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
+        <h4 className="tituloCardAdminP1">Información de inicio de sesión</h4>
+        <Card className="cardAdminCuenta">
+          <Card.Body className="contCardPerfil1">
+            <div className="inputPerfil">
+              <TextField
+                disabled
+                fullWidth
+                id="outlined-disabled"
+                label="Usuario"
+                defaultValue={props.profile.nombreComercio}
+                variant="outlined"
+                name="usuario"
+                validators={["required"]}
+                errorMessages={["*Este campo es obligatorio"]}
+              />
+            </div>
+            <div className="inputPerfil">
+              <TextField
+                id="outlined-disabled"
+                label="Email"
+                fullWidth
+                disabled
+                defaultValue={props.auth.email}
+                variant="outlined"
+                name="email"
+                validators={["required", "isEmail"]}
+                errorMessages={[
+                  "*Este campo es obligatorio",
+                  "El email no es válido",
+                ]}
+              />
+            </div>
+            <div className="inputPerfil">
+              <TextValidator
+                id="outlined-password-input"
+                label="Contraseña"
+                type="password"
+                autoComplete="current-password"
+                disabled
+                variant="outlined"
+                defaultValue="***********"
+                name="contraseña"
+                fullWidth
+                validators={["required"]}
+                errorMessages={["*Este campo es obligatorio"]}
+              />
+            </div>
 
-          <Typography>(algunos de los campos son opcionales)</Typography>
-          <Card>
-            <Card.Body>
-              <Grid container>
-                <Grid xs={4}>
-                  <Typography>CUIT</Typography>
-                </Grid>
-                <Grid xs={8}>
-                  <TextValidator
-                    variant="outlined"
-                    fullWidth
-                    disabled
-                    name="cuit"
-                    value={props.profile.CUIT}
-                    validators={["required"]}
-                    errorMessages={["*Este campo es obligatorio"]}
-                  />
-                </Grid>
-                <Grid className="mt-5" xs={4}>
-                  <Typography>Sitio web</Typography>
-                </Grid>
-                <Grid className="mt-5" xs={8}>
-                  <TextValidator
-                    variant="outlined"
-                    fullWidth
-                    onChange={handleChange}
-                    name="sitioWeb"
-                    value={formData.web}
-                    validators={[
-                      "matchRegexp:^(http://www.|https://www.|http://|https://)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$",
-                    ]}
-                    errorMessages={["La dirección no es válida"]}
-                  />
-                </Grid>
-                <Grid className="mt-5" xs={4}>
-                  <Typography>Sucursal</Typography>
-                </Grid>
-                <Grid className="mt-5" xs={8}>
-                  <TextValidator
-                    variant="outlined"
-                    fullWidth
-                    onChange={handleChange}
-                    name="sucursal"
-                    value={formData.sucursal}
-                    validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
-                    errorMessages={["La sucursal no es válida"]}
-                  />
-                </Grid>
-                <Grid className="mt-5" xs={4}>
-                  <Typography>Rubro</Typography>
-                </Grid>
-                <Grid className="mt-5" xs={8}>
-                  <SelectValidator
-                    variant="outlined"
-                    onChange={handleChange}
-                    name="rubro"
-                    fullWidth
-                    value={formData.rubro}
-                    validators={["required"]}
-                    errorMessages={["*Este campo es obligatorio"]}
-                  >
-                    {rubros.map((option) => (
-                      <MenuItem key={option.nombre} value={option.nombre}>
-                        {option.nombre}
-                      </MenuItem>
-                    ))}
-                  </SelectValidator>
-                </Grid>
-                <Grid className="mt-5" xs={4}>
-                  <Typography>Teléfono</Typography>
-                </Grid>
-                <Grid className="mt-5" xs={8}>
-                  <TextValidator
-                    variant="outlined"
-                    fullWidth
-                    onChange={handleChange}
-                    name="telefono"
-                    value={formData.telefono}
-                    validators={["matchRegexp:^([0-9 ]){2,20}$"]}
-                    errorMessages={["El teléfono no es válido"]}
-                  />
-                </Grid>
-                <Grid className="mt-5" xs={4}>
-                  <Typography>Redes sociales</Typography>
-                </Grid>
-                <Grid className="mt-5" xs={8}>
-                  <TextValidator
-                    variant="outlined"
-                    fullWidth
-                    onChange={handleChange}
-                    name="redesSociales"
-                    value={formData.redesSociales}
-                    validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
-                    errorMessages={["El usuario no es válido"]}
-                  />
-                </Grid>
-                <Grid className="mt-5" xs={4}>
-                  <Typography>Dirección</Typography>
-                </Grid>
-                <Grid className="mt-5" xs={8}>
-                  <TextValidator
-                    variant="outlined"
-                    fullWidth
-                    onChange={handleChange}
-                    name="direccion"
-                    value={formData.direccion}
-                    validators={["required"]}
-                    errorMessages={["*Este campo es obligatorio"]}
-                  />
-                </Grid>
-                <Grid className="mt-5" xs={12}>
-                  <p>IMAGEN DEL MAPA CON LA DIRECCION BIEN PERRONA</p>
-                </Grid>
-
-                <Grid item>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    className={classes.margin}
-                    type="submit"
-                    onClick={handleSubmit}
-                  >
-                    Guardar cambios
-                  </Button>
-                </Grid>
-              </Grid>
-            </Card.Body>
-          </Card>
-        </ValidatorForm>
-      </section>
+            {/* <TextValidator
+                variant="outlined"
+                fullWidth
+                disabled
+                name="usuario"
+                value={props.profile.nombreComercio}
+                validators={["required"]}
+                errorMessages={["*Este campo es obligatorio"]}
+              />
+              <Typography>Email</Typography>
+              <TextValidator
+                variant="outlined"
+                fullWidth
+                disabled
+                name="email"
+                value={props.auth.email}
+                validators={["required", "isEmail"]}
+                errorMessages={[
+                  "*Este campo es obligatorio",
+                  "El email no es válido",
+                ]}
+              />
+              <Typography>Contraseña</Typography>
+              <TextValidator
+                variant="outlined"
+                fullWidth
+                disabled
+                name="contraseña"
+                value="***********"
+                validators={["required"]}
+                errorMessages={["*Este campo es obligatorio"]}
+              /> */}
+            <div className="imagenPerfil">
+              <img
+                src={picture}
+                style={{ height: 200 + "px" }}
+                alt="imagen usuario"
+              ></img>
+              <input type="file" onChange={handleUpload}></input>
+            </div>
+          </Card.Body>
+        </Card>
+        <div className="tituloCardAdminP2">
+          <h4 className="tituloCardAdminP">Información general</h4>
+          <p className="opcional">(algunos campos son opcionales)</p>
+        </div>
+        <Card className="cardAdminCuenta">
+          <Card.Body className="contCardPerfil2">
+            <div className="inputPerfil2">
+              <TextValidator
+                variant="outlined"
+                id="outlined-disabled"
+                fullWidth
+                disabled
+                name="cuit"
+                defaultValue={props.profile.CUIT}
+                label="CUIT"
+              />
+            </div>
+            <div className="inputPerfil2">
+              <TextValidator
+                id="outlined-basic"
+                variant="outlined"
+                fullWidth
+                onChange={handleChange}
+                name="sitioWeb"
+                label="Sitio web"
+                defaultValue={formData.web}
+                validators={[
+                  "matchRegexp:^(http://www.|https://www.|http://|https://)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$",
+                ]}
+                errorMessages={["La dirección no es válida"]}
+              />
+            </div>
+            <div className="inputPerfil2">
+              <TextValidator
+                variant="outlined"
+                label="Sucursal"
+                id="outlined-basic"
+                fullWidth
+                onChange={handleChange}
+                name="sucursal"
+                defaultValue={formData.sucursal}
+                validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                errorMessages={["La sucursal no es válida"]}
+              />
+            </div>
+            <div className="inputPerfil2">
+              <SelectValidator
+                variant="outlined"
+                id="outlined-basic"
+                label="Rubro"
+                onChange={handleChange}
+                name="rubro"
+                fullWidth
+                defaultValue={formData.rubro}
+                validators={["required"]}
+                errorMessages={["*Este campo es obligatorio"]}
+              >
+                {rubros.map((option) => (
+                  <MenuItem key={option.nombre} value={option.nombre}>
+                    {option.nombre}
+                  </MenuItem>
+                ))}
+              </SelectValidator>
+            </div>
+            <div className="inputPerfil2">
+              <TextValidator
+                variant="outlined"
+                id="outlined-basic"
+                label="Teléfono"
+                fullWidth
+                onChange={handleChange}
+                name="telefono"
+                defaultValue={formData.telefono}
+                validators={["matchRegexp:^([0-9 ]){2,20}$"]}
+                errorMessages={["El teléfono no es válido"]}
+              />
+            </div>
+            <div className="inputPerfil2">
+              <TextValidator
+                variant="outlined"
+                id="outlined-basic"
+                label="Redes sociales"
+                fullWidth
+                onChange={handleChange}
+                name="redesSociales"
+                defaultValue={formData.redesSociales}
+                validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                errorMessages={["El usuario no es válido"]}
+              />
+            </div>
+            <div className="inputPerfil2">
+              <TextValidator
+                variant="outlined"
+                id="outlined-basic"
+                label="Dirección"
+                fullWidth
+                onChange={handleChange}
+                name="direccion"
+                defaultValue={formData.direccion}
+                validators={["required"]}
+                errorMessages={["*Este campo es obligatorio"]}
+              />
+            </div>
+            <p>IMAGEN DEL MAPA CON LA DIRECCION BIEN PERRONA</p>
+            <Button
+              color="primary"
+              variant="contained"
+              className={classes.margin}
+              type="submit"
+              onClick={handleSubmit}
+            >
+              Guardar cambios
+            </Button>
+          </Card.Body>
+        </Card>
+      </ValidatorForm>
     </div>
   );
 }
@@ -331,6 +385,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     editarDatos: (datos) => dispatch(editarDatos(datos)),
+    subirFoto: (downloadURL) => dispatch(subirFoto(downloadURL)),
   };
 };
 

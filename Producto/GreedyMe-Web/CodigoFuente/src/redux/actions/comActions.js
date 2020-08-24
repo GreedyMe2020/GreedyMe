@@ -21,3 +21,21 @@ export const editarDatos = (datos) => {
       });
   };
 };
+
+export const subirFoto = (downloadURL) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("usuarioComercio")
+      .doc(downloadURL.id)
+      .update({
+        photoURL: downloadURL.url,
+      })
+      .then(() => {
+        dispatch({ type: "SUBIR_FOTO" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_FOTO", error });
+      });
+  };
+};
