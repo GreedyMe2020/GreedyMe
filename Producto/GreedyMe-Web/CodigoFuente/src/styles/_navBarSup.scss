@@ -30,10 +30,10 @@ $dark-orange-color: #fd5f00;
     flex-flow: row wrap;
     justify-content: flex-start;
     align-items: center;
-
     h1 {
       font-size: 2rem;
       letter-spacing: 0.5rem;
+      font-family: $logo-font !important;
     }
 
     .gre {
@@ -61,7 +61,7 @@ $dark-orange-color: #fd5f00;
     font-size: 1.7rem;
   }
   .MuiListItemIcon-root {
-    min-width: 38px;
+    min-width: 30px;
   }
 }
 
@@ -94,5 +94,3 @@ $dark-orange-color: #fd5f00;
     }
   }
 }
-
-

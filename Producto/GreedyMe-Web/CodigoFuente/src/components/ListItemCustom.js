@@ -38,7 +38,8 @@ export default function ListItemCustom({
   };
 
   const fontstyles = {
-    color: color ? "#fd5f00" : "#868686",
+    color: color ? "#f7941e" : "#868686",
+    borderLeft: color ? "5px solid #f7941e" : "5px solid #ececec",
   };
 
   return (
