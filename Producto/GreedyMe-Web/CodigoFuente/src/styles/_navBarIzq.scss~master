@@ -1,0 +1,111 @@
+.MuiListItem-gutters {
+  padding-left: 33px !important;
+}
+
+.MuiListItemIcon-root {
+  min-width: 40px !important;
+}
+
+#listItemCustom {
+  color: #868686;
+
+  :hover {
+    color: #fd5f00;
+  }
+}
+
+.cargar-cupon-grey {
+  .image-t {
+    display: none;
+  }
+
+  :hover {
+    .image-t {
+      display: block !important;
+    }
+
+    .image-o {
+      display: none;
+    }
+  }
+}
+
+.inicio-img-grey {
+  .image-t {
+    display: none;
+  }
+
+  :hover {
+    .image-t {
+      display: block;
+    }
+
+    .image-o {
+      display: none;
+    }
+  }
+}
+
+.cargar-promo-grey {
+  .image-t {
+    display: none;
+  }
+
+  :hover {
+    .image-t {
+      display: block;
+    }
+
+    .image-o {
+      display: none;
+    }
+  }
+}
+
+.mis-promociones-grey {
+  .image-t {
+    display: none;
+  }
+
+  :hover {
+    .image-t {
+      display: block;
+    }
+
+    .image-o {
+      display: none;
+    }
+  }
+}
+
+.estadisticas-grey {
+  .image-t {
+    display: none;
+  }
+
+  :hover {
+    .image-t {
+      display: block;
+    }
+
+    .image-o {
+      display: none;
+    }
+  }
+}
+
+.notificaciones-grey {
+  .image-t {
+    display: none;
+  }
+
+  :hover {
+    .image-t {
+      display: block;
+    }
+
+    .image-o {
+      display: none;
+    }
+  }
+}
