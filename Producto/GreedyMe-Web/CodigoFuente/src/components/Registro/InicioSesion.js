@@ -21,11 +21,8 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 function InicioSesion(props) {
   const [values, setValues] = React.useState({
-    amount: "",
     email: "",
     password: "",
-    weight: "",
-    weightRange: "",
     showPassword: false,
   });
 
@@ -51,7 +48,7 @@ function InicioSesion(props) {
   if (props.auth.uid) return <Redirect to={"/main/" + props.auth.uid} />;
 
   return (
-    <div>
+    <div className="inicio-sesion-container">
       <div className="nav-container">
         <nav>
           <div id="titulo">
@@ -63,13 +60,12 @@ function InicioSesion(props) {
       </div>
 
       <section className="contenedor-inicio">
-        <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
-          <Card id="inicio-sesion">
-            <Card.Body id="inicio-sesion-body">
-              <Card.Title id="inicio-sesion-title">Iniciar Sesión</Card.Title>
+        <Card id="inicio-sesion">
+          <Card.Body id="inicio-sesion-body">
+            <Card.Title id="inicio-sesion-title">Iniciar Sesión</Card.Title>
+            <ValidatorForm ref={form} onSubmit={handleSubmit}>
               <Grid item xs={12} md={12}>
                 <TextValidator
-                  required
                   label="Email"
                   variant="outlined"
                   fullWidth
@@ -154,13 +150,13 @@ function InicioSesion(props) {
                 </Button>
                 {props.authError ? (
                   <p className="text-danger">
-                    Los datos ingresados son incorrectos
+                    Todos los campos deben ser completados
                   </p>
                 ) : null}
               </div>
-            </Card.Body>
-          </Card>
-        </ValidatorForm>
+            </ValidatorForm>
+          </Card.Body>
+        </Card>
       </section>
     </div>
   );
