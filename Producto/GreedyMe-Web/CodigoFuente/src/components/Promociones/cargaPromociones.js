@@ -91,7 +91,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      width: "25ch",
     },
   },
 }));
@@ -149,16 +148,17 @@ function CargaPromociones(props) {
 
   return (
     <div>
-      <NavBarSup />
       <div className="contenedorTodo">
-        <h1>Promociones</h1>
+        <div className="prom-title-container">
+          <h1>Promociones</h1>
+        </div>
         <Card className="cardPromo">
           <CardContent className="cardContentePromo">
             <div className="contenedorPromo">
               <div className="subtituloProm">
-                <h4>
+                <h5>
                   Cargar la promoción o el descuento que aplica en su comercio
-                </h4>
+                </h5>
               </div>
 
               <ValidatorForm
@@ -169,10 +169,12 @@ function CargaPromociones(props) {
                 <div className="contCargarProm">
                   <div className="contenedorCol1">
                     <SelectValidator
+                      fullWidth
                       label="Tipo de promoción"
                       onChange={handleChange}
                       name="tipoPromo"
                       value={formData.tipoPromo}
+                      variant="outlined"
                       validators={["required"]}
                       errorMessages={["*Este campo es obligatorio"]}
                     >
@@ -184,10 +186,12 @@ function CargaPromociones(props) {
                     </SelectValidator>
 
                     <SelectValidator
+                      fullWidth
                       label="Proveedor de promoción"
                       onChange={handleChange}
                       name="proveedor"
                       value={formData.proveedor}
+                      variant="outlined"
                       validators={["required"]}
                       errorMessages={["*Este campo es obligatorio"]}
                     >
@@ -199,10 +203,12 @@ function CargaPromociones(props) {
                     </SelectValidator>
 
                     <SelectValidator
+                      fullWidth
                       label="Dia de vigencia"
                       onChange={handleChange}
                       name="diaVigencia"
                       value={formData.diaVigencia}
+                      variant="outlined"
                       validators={["required"]}
                       errorMessages={["*Este campo es obligatorio"]}
                     >
@@ -213,10 +219,12 @@ function CargaPromociones(props) {
                       ))}
                     </SelectValidator>
                     <SelectValidator
+                      fullWidth
                       label="Mes de vigencia"
                       onChange={handleChange}
                       name="mesVigencia"
                       value={formData.mesVigencia}
+                      variant="outlined"
                       validators={["required"]}
                       errorMessages={["*Este campo es obligatorio"]}
                     >
@@ -328,6 +336,8 @@ function CargaPromociones(props) {
                     >
                       <div>
                         <TextField
+                          fullWidth
+                          variant="outlined"
                           id="standard-textarea"
                           label="Descripción (opcional)"
                           placeholder="Descripción (opcional)"

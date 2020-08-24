@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import classes from "../../components/Modal";
 import { editarDatos } from "../../redux/actions/comActions";
+import Map from "../Map/Map";
 /* import { db } from "../firebase/config"; */
 
 /*const rubros = [];
@@ -108,7 +109,9 @@ function Perfil(props) {
     rubro: props.profile.rubro,
     telefono: props.profile.telefono,
     redesSociales: props.profile.redesSociales,
-    direccion: props.profile.direccion,
+    direccion: props.profile.direccion[0],
+    lat: props.profile.direccion[1].Ra,
+    lng: props.profile.direccion[1].Pa,
   });
 
   const handleChange = (event) => {
@@ -306,11 +309,11 @@ function Perfil(props) {
                 onChange={handleChange}
                 name="direccion"
                 defaultValue={formData.direccion}
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
+                validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                errorMessages={["La dirección no es válida"]}
               />
             </div>
-            <p>IMAGEN DEL MAPA CON LA DIRECCION BIEN PERRONA</p>
+
             <Button
               color="primary"
               variant="contained"

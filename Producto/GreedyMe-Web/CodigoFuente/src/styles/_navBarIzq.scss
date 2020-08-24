@@ -1,35 +1,111 @@
-@import url(http://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Raleway:wght@500;600&display=swap);
-@import url(https://fonts.googleapis.com/css2?family=Roboto&display=swap);
+.MuiListItem-gutters {
+  padding-left: 33px !important;
+}
 
-//Inter (thin & bold 700)
-@import url(https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap);
-@import url(https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap);
-
-//Variables
-$logo-font: "Raleway", sans-serif;
-$text-font: "Inter", sans-serif;
-
-$white-color: #ffffff;
-$grey-color: #e1e1e1;
-$green-color: #76b39d;
-$logo-green-color: #78e3bc;
-$logo-blue-color: #262262;
-$dark-blue-color: #1e1b4d;
-$logo-orange-color: #f7941e;
-$dark-orange-color: #fd5f00;
-
-.MuiPaper-root {
-  background-color: #ececec !important;
+.MuiListItemIcon-root {
+  min-width: 40px !important;
 }
 
 #listItemCustom {
   color: #868686;
+
+  :hover {
+    color: #fd5f00;
+  }
 }
 
-.image-o {
-  margin-left: 10px;
+.cargar-cupon-grey {
+  .image-t {
+    display: none;
+  }
+
+  :hover {
+    .image-t {
+      display: block !important;
+    }
+
+    .image-o {
+      display: none;
+    }
+  }
 }
 
-.image-t {
-  margin-left: 10px;
+.inicio-img-grey {
+  .image-t {
+    display: none;
+  }
+
+  :hover {
+    .image-t {
+      display: block;
+    }
+
+    .image-o {
+      display: none;
+    }
+  }
+}
+
+.cargar-promo-grey {
+  .image-t {
+    display: none;
+  }
+
+  :hover {
+    .image-t {
+      display: block;
+    }
+
+    .image-o {
+      display: none;
+    }
+  }
+}
+
+.mis-promociones-grey {
+  .image-t {
+    display: none;
+  }
+
+  :hover {
+    .image-t {
+      display: block;
+    }
+
+    .image-o {
+      display: none;
+    }
+  }
+}
+
+.estadisticas-grey {
+  .image-t {
+    display: none;
+  }
+
+  :hover {
+    .image-t {
+      display: block;
+    }
+
+    .image-o {
+      display: none;
+    }
+  }
+}
+
+.notificaciones-grey {
+  .image-t {
+    display: none;
+  }
+
+  :hover {
+    .image-t {
+      display: block;
+    }
+
+    .image-o {
+      display: none;
+    }
+  }
 }
