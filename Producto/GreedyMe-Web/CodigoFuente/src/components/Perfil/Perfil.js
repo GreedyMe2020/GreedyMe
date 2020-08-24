@@ -13,7 +13,6 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import classes from "../../components/Modal";
 import { editarDatos } from "../../redux/actions/comActions";
-import { subirFoto } from "../../redux/actions/comActions";
 import FotoPerfil from "./FotoPerfil";
 /* import { db } from "../firebase/config"; */
 
@@ -112,6 +111,8 @@ function Perfil(props) {
     direccion: props.profile.direccion,
   });
 
+  const [picture, setPicture] = useState(props.auth.photoURL);
+
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
@@ -120,6 +121,8 @@ function Perfil(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.editarDatos(formData);
+    setPicture(props.auth.photoURL);
+    console.log(picture);
   };
   const form = React.createRef();
 
@@ -182,10 +185,7 @@ function Perfil(props) {
                   </Grid>
                 </Grid>
                 <Grid xs={4}>
-                  <p>imagen perrona del usuario</p>
-                  <p>imagen perrona del usuario</p>
-                  <p>imagen perrona del usuario</p>
-                  <FotoPerfil type="file" />
+                  <FotoPerfil src={picture} type="file" />
                 </Grid>
               </Grid>
             </Card.Body>
@@ -336,7 +336,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     editarDatos: (datos) => dispatch(editarDatos(datos)),
-    subirFoto: (file) => dispatch(subirFoto(file)),
   };
 };
 

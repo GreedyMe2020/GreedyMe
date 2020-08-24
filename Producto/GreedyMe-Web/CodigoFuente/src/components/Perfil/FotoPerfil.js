@@ -3,28 +3,19 @@ import { connect } from "react-redux";
 import { subirFoto } from "../../redux/actions/comActions";
 
 function FotoPerfil(props) {
-  const [picture, setPicture] = useState(props.auth.photoURL);
-
-  useEffect(() => {
-    console.log("cambie la foto bro");
-  }, [picture]);
-
   const handleUpload = (event) => {
-    event.preventDefault();
     const file = event.target.files[0];
-    props.subirFoto(file).then(() => {
-      setPicture(props.auth.photoURL);
-    });
+    props.subirFoto(file);
   };
 
   return (
     <div>
-      <input type="file" onChange={handleUpload}></input>
       <img
-        src={picture}
-        style={{ height: 30 + "px" }}
+        src={props.picture}
+        style={{ height: 200 + "px" }}
         alt="imagen usuario"
       ></img>
+      <input type="file" onChange={handleUpload}></input>
     </div>
   );
 }
