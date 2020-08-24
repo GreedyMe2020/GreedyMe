@@ -12,10 +12,10 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    backgroundColor: "#d8d8d8",
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: "#ececec",
   },
   drawerContainer: {
     overflow: "auto",
