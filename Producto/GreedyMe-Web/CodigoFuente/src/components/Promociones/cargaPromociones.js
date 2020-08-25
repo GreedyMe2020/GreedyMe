@@ -375,6 +375,7 @@ function CargaPromociones(props) {
               <Button
                 variant="contained"
                 className={classes.margin}
+                onClick={handleSubmit}
                 id="cargar-promo-submit"
                 type="submit"
               >
