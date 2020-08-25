@@ -9,6 +9,7 @@
 //Variables
 $logo-font: "Raleway", sans-serif;
 $text-font: "Inter", sans-serif;
+$text-font-dos: "Montserrat", sans-serif;
 
 $white-color: #ffffff;
 $grey-color: #e1e1e1;
@@ -39,11 +40,14 @@ $dark-orange-color: #fd5f00;
     border-color: #f7941e;
     color: white;
     font-size: 0.9rem;
-    font-family: $text-font;
     text-transform: none;
     width: 140px;
     height: 40px;
     letter-spacing: 0.5px;
+
+    span {
+      font-family: $text-font-dos !important;
+    }
   }
 }
 
@@ -95,6 +99,10 @@ $dark-orange-color: #fd5f00;
     width: 55%;
     color: $white-color;
     font-size: 1.25rem;
+
+    span {
+      font-family: $text-font-dos !important;
+    }
   }
 
   #contenedor_boton_conocermas {
@@ -116,6 +124,10 @@ $dark-orange-color: #fd5f00;
       color: rgba(249, 248, 235, 1);
       letter-spacing: 0.5px;
       text-transform: none;
+
+      span {
+        font-family: $text-font-dos !important;
+      }
     }
 
     #botonConocerMas:hover {
@@ -607,9 +619,14 @@ $dark-orange-color: #fd5f00;
       color: white;
       width: 74%;
       margin-left: 50px;
-      font-size: 18px;
+      font-size: 15px;
       font-family: $text-font;
       letter-spacing: 0.5px;
+
+      p {
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+      }
     }
     .logoFooter {
       display: inline-block;
