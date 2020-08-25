@@ -156,9 +156,7 @@ function CargaPromociones(props) {
           <CardContent className="cardContentePromo">
             <div className="contenedorPromo">
               <div className="subtituloProm">
-                <h5>
-                  Cargue la promoción o el descuento que aplica en su comercio
-                </h5>
+                <h5>Cargue un nuevo beneficio</h5>
               </div>
 
               <ValidatorForm
