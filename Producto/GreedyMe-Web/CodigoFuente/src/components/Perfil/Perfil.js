@@ -16,6 +16,8 @@ import classes from "../../components/Modal";
 import { editarDatos } from "../../redux/actions/comActions";
 import { subirFoto } from "../../redux/actions/comActions";
 import firebase from "../../firebase/config";
+import UseModal from "../useModal";
+
 /* import { db } from "../firebase/config"; */
 
 /*const rubros = [];
@@ -114,6 +116,8 @@ function Perfil(props) {
   });
 
   const [picture, setPicture] = useState(props.profile.photoURL);
+  const [submitted, setSubmitted] = React.useState(false);
+  const [showModal, setModal] = React.useState(false);
 
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
@@ -158,9 +162,20 @@ function Perfil(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.editarDatos(formData);
+    setSubmitted({ submitted: true }, () => {
+      setTimeout(() => setSubmitted({ submitted: false }), 5000);
+    });
+  };
+
+  const toggleModal = () => {
+    setModal(!showModal);
   };
 
   const form = React.createRef();
+
+  React.useEffect(() => {
+    submitted ? toggleModal() : null;
+  }, [submitted, setSubmitted]);
 
   return (
     <div>
@@ -177,8 +192,6 @@ function Perfil(props) {
                 defaultValue={props.profile.nombreComercio}
                 variant="outlined"
                 name="usuario"
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
               />
             </div>
             <div className="inputPerfil">
@@ -190,11 +203,6 @@ function Perfil(props) {
                 defaultValue={props.auth.email}
                 variant="outlined"
                 name="email"
-                validators={["required", "isEmail"]}
-                errorMessages={[
-                  "*Este campo es obligatorio",
-                  "El email no es válido",
-                ]}
               />
             </div>
             <div className="inputPerfil">
@@ -371,6 +379,22 @@ function Perfil(props) {
           </Card.Body>
         </Card>
       </ValidatorForm>
+      {showModal ? (
+        <UseModal>
+          <div>
+            <h5>Tus datos han sido actualizados.</h5>
+            <Button
+              color="primary"
+              variant="contained"
+              className={classes.margin}
+              type="submit"
+              onClick={toggleModal}
+            >
+              Salir
+            </Button>
+          </div>
+        </UseModal>
+      ) : null}
     </div>
   );
 }
