@@ -43,12 +43,6 @@ function InicioSesion(props) {
     props.signIn(values);
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      handleSubmit(e);
-    }
-  };
-
   const form = React.createRef();
 
   if (props.auth.uid) return <Redirect to={"/main/" + props.auth.uid} />;
@@ -104,7 +98,6 @@ function InicioSesion(props) {
                     type={values.showPassword ? "text" : "password"}
                     value={values.password}
                     onChange={handleChangePass("password")}
-                    onKeyDown={handleKeyDown}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton

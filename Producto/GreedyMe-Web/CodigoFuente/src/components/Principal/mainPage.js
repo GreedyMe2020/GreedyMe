@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+    backgroundColor: "#ececec",
   },
 }));
 
@@ -40,31 +41,31 @@ function MainPage() {
 
   const getOpcionSeleccionada = (seleccionado) => {
     if (seleccionado === 0) {
-      return <h1>Pagina principal</h1>;
+      return <h3>Pagina principal</h3>;
     }
     if (seleccionado === 1) {
-      return <h1>En esta pagina iria lo de Carga cupón</h1>;
+      return <h3>En esta pagina iria lo de Carga cupón</h3>;
     }
     if (seleccionado === 2) {
       return <CargaPromociones />;
     }
     if (seleccionado === 3) {
-      return <h1>Aca van Mis promociones</h1>;
+      return <h3>Aca van Mis promociones</h3>;
     }
     if (seleccionado === 4) {
-      return <h1>Aca las estadisticas</h1>;
+      return <h3>Aca las estadisticas</h3>;
     }
     if (seleccionado === 5) {
-      return <h1>y aca las notificaciones</h1>;
+      return <h3>y aca las notificaciones</h3>;
     }
     if (seleccionado === 6) {
       return <Perfil />;
     }
     if (seleccionado === 7) {
-      return <h1>Suscripciones</h1>;
+      return <h3>Suscripciones</h3>;
     }
     if (seleccionado === 8) {
-      return <h1>Ayuda y soporte</h1>;
+      return <h3>Ayuda y soporte</h3>;
     }
   };
 
