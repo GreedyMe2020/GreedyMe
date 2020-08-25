@@ -359,8 +359,8 @@ function CargaPromociones(props) {
                           variant="outlined"
                           id="standard-textarea"
                           label="Descripción (opcional)"
-                          value={formData.descripcion}
-                          onChange={handleChange}
+                          //value={formData.descripcion}
+                          //onChange={handleChange}
                           placeholder="Descripción (opcional)"
                           multiline
                           rows={2}
@@ -379,6 +379,7 @@ function CargaPromociones(props) {
                 className={classes.margin}
                 id="cargar-promo-submit"
                 type="submit"
+                onClick={handleSubmit}
               >
                 Cargar promoción
               </Button>
