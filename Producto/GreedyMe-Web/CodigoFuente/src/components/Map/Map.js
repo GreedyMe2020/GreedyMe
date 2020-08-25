@@ -21,17 +21,17 @@ const options = {
   zoomControl: true,
 };
 
-export default function Map(props) {
+export default function Map() {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyBMSuKle9DYdzJxk9t2GPxL98Ms296DgLU",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
 
-  const [mapData, setMapData] = React.useState({
+  /*const [mapData, setMapData] = React.useState({
     address: props.direccion,
     lat: props.lat,
     lng: props.lng,
-  });
+  });*/
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map;
@@ -51,11 +51,11 @@ export default function Map(props) {
       <GoogleMap
         id="map"
         zoom={14}
-        center={{ lat: mapData.lat, lng: mapData.lng }}
+        center={{ lat: -31.4214431, lng: -64.1961064 }}
         options={options}
         onLoad={onMapLoad}
       >
-        <Marker position={{ lat: mapData.lat, lng: mapData.lng }} />
+        <Marker position={{ lat: -31.4214431, lng: -64.1961064 }} />
       </GoogleMap>
     </div>
   );

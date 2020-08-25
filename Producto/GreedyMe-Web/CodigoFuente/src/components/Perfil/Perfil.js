@@ -124,14 +124,15 @@ function Perfil(props) {
     sucursal: props.profile.sucursal,
     rubro: props.profile.rubro,
     telefono: props.profile.telefono,
-    redesSociales: props.profile.redesSociales,
-    direccion: props.profile.direccion[0],
+    instagram: props.profile.instagram,
+    facebook: props.profile.facebook,
+    direccion: props.profile.direccion,
   });
 
-  const [ubicacion, setUbicacion] = React.useState({
+  /*const [ubicacion, setUbicacion] = React.useState({
     lat: props.profile.direccion[1].Ra,
     lng: props.profile.direccion[1].Pa,
-  });
+  });*/
   const [picture, setPicture] = useState(props.profile.photoURL);
   const [submitted, setSubmitted] = React.useState(false);
   const [showModal, setModal] = React.useState(false);
@@ -350,20 +351,33 @@ function Perfil(props) {
                   ))}
                 </SelectValidator>
               </Grid>
-              <Grid className="inputPerfil2" item xs={12} md={6}>
+              <Grid className="inputPerfil2" item xs={12} md={3}>
                 <TextValidator
                   variant="outlined"
                   id="outlined-basic"
-                  label="Redes sociales"
+                  label="Instagram"
                   fullWidth
                   onChange={handleChange}
-                  name="redesSociales"
-                  defaultValue={formData.redesSociales}
+                  name="instagram"
+                  defaultValue={formData.instagram}
                   validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
                   errorMessages={["El usuario no es válido"]}
                 />
               </Grid>
-              <Grid className="inputPerfil2" item xs={12} md={6}>
+              <Grid className="inputPerfil2" item xs={12} md={3}>
+                <TextValidator
+                  variant="outlined"
+                  id="outlined-basic"
+                  label="Facebook"
+                  fullWidth
+                  onChange={handleChange}
+                  name="facebook"
+                  defaultValue={formData.facebook}
+                  validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                  errorMessages={["El usuario no es válido"]}
+                />
+              </Grid>
+              <Grid className="inputPerfil2" item xs={12} md={12}>
                 <TextValidator
                   variant="outlined"
                   id="outlined-basic"
@@ -377,11 +391,7 @@ function Perfil(props) {
                 />
               </Grid>
               <Grid item xs={12} md={12}>
-                <Map
-                  direccion={formData.direccion}
-                  lat={ubicacion.lat}
-                  lng={ubicacion.lng}
-                />
+                <Map />
               </Grid>
             </Grid>
           </Card.Body>

@@ -10,8 +10,9 @@ export const editarDatos = (datos) => {
         sucursal: datos.sucursal,
         rubro: datos.rubro,
         telefono: datos.telefono,
-        redesSociales: datos.redesSociales,
-        direccion: datos.direccion[0],
+        instagram: datos.instagram,
+        facebook: datos.facebook,
+        direccion: datos.direccion,
       })
       .then(() => {
         dispatch({ type: "EDITAR_DATOS" });

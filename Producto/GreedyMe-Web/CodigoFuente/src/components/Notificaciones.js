@@ -64,7 +64,7 @@ export function Notificaciones() {
         color="inherit"
         aria-label="show 1 new notifications"
       >
-        <Badge badgeContent={1} color="secondary">
+        <Badge badgeContent={0} color="secondary">
           <NotificationsIcon />
         </Badge>
       </IconButton>

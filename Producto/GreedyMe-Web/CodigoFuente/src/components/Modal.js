@@ -204,7 +204,7 @@ export default function FormDialog() {
     <div>
       <div className="botonRegistarse">
         <ButtonEj
-          text="Contactanos acá"
+          text="Contactanos"
           style="btnRegistro"
           onClick={handleClickOpen}
         ></ButtonEj>
