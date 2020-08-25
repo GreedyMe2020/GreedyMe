@@ -157,7 +157,7 @@ function CargaPromociones(props) {
             <div className="contenedorPromo">
               <div className="subtituloProm">
                 <h5>
-                  Cargar la promoción o el descuento que aplica en su comercio
+                  Cargue la promoción o el descuento que aplica en su comercio
                 </h5>
               </div>
 
@@ -184,7 +184,6 @@ function CargaPromociones(props) {
                         </MenuItem>
                       ))}
                     </SelectValidator>
-
                     <SelectValidator
                       fullWidth
                       label="Proveedor de promoción"
@@ -201,7 +200,6 @@ function CargaPromociones(props) {
                         </MenuItem>
                       ))}
                     </SelectValidator>
-
                     <SelectValidator
                       fullWidth
                       label="Dia de vigencia"
@@ -235,6 +233,7 @@ function CargaPromociones(props) {
                       ))}
                     </SelectValidator>
                     <FormControlLabel
+                      id="cargar-promo-checkbox"
                       label="Efectivo"
                       control={
                         <CelesteCheckbox
@@ -246,89 +245,111 @@ function CargaPromociones(props) {
                     />
                   </div>
                   <Divider className="dividerVertical" orientation="vertical" />
+                  <Divider className="dividerHorizontal" />
                   <div className="contenedorCol2">
                     <p>¿Qué días aplica la promoción?</p>
-                    <FormControlLabel
-                      control={
-                        <CelesteCheckbox
-                          checked={state.checkedTD}
-                          onChange={handleChange}
-                          name="checkedTD"
-                        />
-                      }
-                      label="Todos los días"
-                    />
-                    <FormControlLabel
-                      control={
-                        <CelesteCheckbox
-                          checked={state.checkedL}
-                          onChange={handleChange}
-                          name="checkedL"
-                        />
-                      }
-                      label="Lunes"
-                    />
-                    <FormControlLabel
-                      control={
-                        <CelesteCheckbox
-                          checked={state.checkedM}
-                          onChange={handleChange}
-                          name="checkedM"
-                        />
-                      }
-                      label="Martes"
-                    />
-                    <FormControlLabel
-                      control={
-                        <CelesteCheckbox
-                          checked={state.checkedMi}
-                          onChange={handleChange}
-                          name="checkedMi"
-                        />
-                      }
-                      label="Miércoles"
-                    />
-                    <FormControlLabel
-                      control={
-                        <CelesteCheckbox
-                          checked={state.checkedJ}
-                          onChange={handleChange}
-                          name="checkedJ"
-                        />
-                      }
-                      label="Jueves"
-                    />
-                    <FormControlLabel
-                      control={
-                        <CelesteCheckbox
-                          checked={state.checkedV}
-                          onChange={handleChange}
-                          name="checkedV"
-                        />
-                      }
-                      label="Viernes"
-                    />
-                    <FormControlLabel
-                      control={
-                        <CelesteCheckbox
-                          checked={state.checkedS}
-                          onChange={handleChange}
-                          name="checkedS"
-                        />
-                      }
-                      label="Sábado"
-                    />
-                    <FormControlLabel
-                      control={
-                        <CelesteCheckbox
-                          checked={state.checkedD}
-                          onChange={handleChange}
-                          name="checkedD"
-                        />
-                      }
-                      label="Domingo"
-                    />
-                    <p>Agregar descripción</p>
+                    <div className="cargar-promo-check-group">
+                      <FormControlLabel
+                        id="cargar-promo-checkbox"
+                        className="cargar-promo-checkbox-1"
+                        control={
+                          <CelesteCheckbox
+                            checked={state.checkedL}
+                            onChange={handleChange}
+                            name="checkedL"
+                          />
+                        }
+                        label="Lunes"
+                      />
+
+                      <FormControlLabel
+                        id="cargar-promo-checkbox"
+                        className="cargar-promo-checkbox-2"
+                        control={
+                          <CelesteCheckbox
+                            checked={state.checkedM}
+                            onChange={handleChange}
+                            name="checkedM"
+                          />
+                        }
+                        label="Martes"
+                      />
+                      <FormControlLabel
+                        id="cargar-promo-checkbox"
+                        className="cargar-promo-checkbox-3"
+                        control={
+                          <CelesteCheckbox
+                            checked={state.checkedMi}
+                            onChange={handleChange}
+                            name="checkedMi"
+                          />
+                        }
+                        label="Miércoles"
+                      />
+
+                      <FormControlLabel
+                        id="cargar-promo-checkbox"
+                        className="cargar-promo-checkbox-4"
+                        control={
+                          <CelesteCheckbox
+                            checked={state.checkedJ}
+                            onChange={handleChange}
+                            name="checkedJ"
+                          />
+                        }
+                        label="Jueves"
+                      />
+                      <FormControlLabel
+                        id="cargar-promo-checkbox"
+                        className="cargar-promo-checkbox-5"
+                        control={
+                          <CelesteCheckbox
+                            checked={state.checkedV}
+                            onChange={handleChange}
+                            name="checkedV"
+                          />
+                        }
+                        label="Viernes"
+                      />
+
+                      <FormControlLabel
+                        id="cargar-promo-checkbox"
+                        className="cargar-promo-checkbox-6"
+                        control={
+                          <CelesteCheckbox
+                            checked={state.checkedS}
+                            onChange={handleChange}
+                            name="checkedS"
+                          />
+                        }
+                        label="Sábado"
+                      />
+                      <FormControlLabel
+                        id="cargar-promo-checkbox"
+                        className="cargar-promo-checkbox-7"
+                        control={
+                          <CelesteCheckbox
+                            checked={state.checkedD}
+                            onChange={handleChange}
+                            name="checkedD"
+                          />
+                        }
+                        label="Domingo"
+                      />
+                      <FormControlLabel
+                        id="cargar-promo-checkbox"
+                        className="cargar-promo-checkbox-8"
+                        control={
+                          <CelesteCheckbox
+                            checked={state.checkedTD}
+                            onChange={handleChange}
+                            name="checkedTD"
+                          />
+                        }
+                        label="Todos los días"
+                      />
+                    </div>
+                    <p className="cargar-promo-desc">Agregar descripción</p>
                     <form
                       className={classes.root}
                       noValidate
@@ -351,16 +372,15 @@ function CargaPromociones(props) {
               </ValidatorForm>
             </div>
           </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-            <div className="btnCargarProm">
+          <CardActions className="cargar-promo-buttons-container">
+            <div className="btn-cargar-prom">
               <Button
-                color="primary"
                 variant="contained"
                 className={classes.margin}
+                id="cargar-promo-submit"
                 type="submit"
               >
-                Enviar
+                Cargar promoción
               </Button>
             </div>
           </CardActions>
