@@ -17,6 +17,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { editarDatos } from "../../redux/actions/comActions";
 import { subirFoto } from "../../redux/actions/comActions";
 import firebase from "../../firebase/config";
+import UseModal from "../useModal";
 import { makeStyles } from "@material-ui/core/styles";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import SaveIcon from "@material-ui/icons/Save";
@@ -126,6 +127,8 @@ function Perfil(props) {
   });
 
   const [picture, setPicture] = useState(props.profile.photoURL);
+  const [submitted, setSubmitted] = React.useState(false);
+  const [showModal, setModal] = React.useState(false);
 
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
@@ -170,9 +173,20 @@ function Perfil(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.editarDatos(formData);
+    setSubmitted({ submitted: true }, () => {
+      setTimeout(() => setSubmitted({ submitted: false }), 5000);
+    });
+  };
+
+  const toggleModal = () => {
+    setModal(!showModal);
   };
 
   const form = React.createRef();
+
+  React.useEffect(() => {
+    submitted ? toggleModal() : null;
+  }, [submitted, setSubmitted]);
 
   return (
     <div>
@@ -366,6 +380,22 @@ function Perfil(props) {
           </Button>
         </div>
       </ValidatorForm>
+      {showModal ? (
+        <UseModal>
+          <div>
+            <h5>Tus datos han sido actualizados.</h5>
+            <Button
+              color="primary"
+              variant="contained"
+              className={classes.margin}
+              type="submit"
+              onClick={toggleModal}
+            >
+              Salir
+            </Button>
+          </div>
+        </UseModal>
+      ) : null}
     </div>
   );
 }
