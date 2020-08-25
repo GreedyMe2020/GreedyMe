@@ -361,6 +361,8 @@ function CargaPromociones(props) {
                           variant="outlined"
                           id="standard-textarea"
                           label="Descripción (opcional)"
+                          value={formData.descripcion}
+                          onChange={handleChange}
                           placeholder="Descripción (opcional)"
                           multiline
                           rows={2}
