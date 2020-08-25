@@ -13,13 +13,15 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import classes from "../../components/Modal";
+import Avatar from "@material-ui/core/Avatar";
 import { editarDatos } from "../../redux/actions/comActions";
-import Map from "../Map/Map";
 import { subirFoto } from "../../redux/actions/comActions";
 import firebase from "../../firebase/config";
+import UseModal from "../useModal";
+import { makeStyles } from "@material-ui/core/styles";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import SaveIcon from "@material-ui/icons/Save";
 /* import { db } from "../firebase/config"; */
-
-import "@reach/combobox/styles.css";
 
 /*const rubros = [];
 const rubro = () => {
@@ -105,10 +107,16 @@ const rubros = [
     nombre: "Otro",
   },
 ];
-const libraries = ["places"];
-Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
+
+const useStyles = makeStyles((theme) => ({
+  input: {
+    display: "none",
+  },
+}));
 
 function Perfil(props) {
+  const classes = useStyles();
+
   const [formData, setFormData] = React.useState({
     id: props.auth.uid,
     web: props.profile.web,
@@ -116,12 +124,12 @@ function Perfil(props) {
     rubro: props.profile.rubro,
     telefono: props.profile.telefono,
     redesSociales: props.profile.redesSociales,
-    direccion: props.profile.direccion[0],
-    lat: props.profile.direccion[1].Ra,
-    lng: props.profile.direccion[1].Pa,
+    direccion: props.profile.direccion,
   });
 
   const [picture, setPicture] = useState(props.profile.photoURL);
+  const [submitted, setSubmitted] = React.useState(false);
+  const [showModal, setModal] = React.useState(false);
 
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
@@ -166,11 +174,20 @@ function Perfil(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.editarDatos(formData);
+    setSubmitted({ submitted: true }, () => {
+      setTimeout(() => setSubmitted({ submitted: false }), 5000);
+    });
+  };
+
+  const toggleModal = () => {
+    setModal(!showModal);
   };
 
   const form = React.createRef();
 
-  //MAPA*************************************************************************************************
+  React.useEffect(() => {
+    submitted ? toggleModal() : null;
+  }, [submitted, setSubmitted]);
 
   const getCoords = () => {
     Geocode.fromAddress(formData.direccion).then((response) => {
@@ -183,19 +200,17 @@ function Perfil(props) {
     <div>
       <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
         <h4 className="tituloCardAdminP1">Información de inicio de sesión</h4>
-        <Card className="cardAdminCuenta">
+        <Card id="cardAdminCuenta">
           <Card.Body className="contCardPerfil1">
             <div className="inputPerfil">
               <TextField
                 disabled
                 fullWidth
                 id="outlined-disabled"
-                label="Usuario"
+                label="Nombre del comercio"
                 defaultValue={props.profile.nombreComercio}
                 variant="outlined"
                 name="usuario"
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
               />
             </div>
             <div className="inputPerfil">
@@ -207,11 +222,6 @@ function Perfil(props) {
                 defaultValue={props.auth.email}
                 variant="outlined"
                 name="email"
-                validators={["required", "isEmail"]}
-                errorMessages={[
-                  "*Este campo es obligatorio",
-                  "El email no es válido",
-                ]}
               />
             </div>
             <div className="inputPerfil">
@@ -229,46 +239,30 @@ function Perfil(props) {
                 errorMessages={["*Este campo es obligatorio"]}
               />
             </div>
-
-            {/* <TextValidator
-                variant="outlined"
-                fullWidth
-                disabled
-                name="usuario"
-                value={props.profile.nombreComercio}
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
-              />
-              <Typography>Email</Typography>
-              <TextValidator
-                variant="outlined"
-                fullWidth
-                disabled
-                name="email"
-                value={props.auth.email}
-                validators={["required", "isEmail"]}
-                errorMessages={[
-                  "*Este campo es obligatorio",
-                  "El email no es válido",
-                ]}
-              />
-              <Typography>Contraseña</Typography>
-              <TextValidator
-                variant="outlined"
-                fullWidth
-                disabled
-                name="contraseña"
-                value="***********"
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
-              /> */}
             <div className="imagenPerfil">
-              <img
+              <Avatar
+                className="contImgSubir"
                 src={picture}
-                style={{ height: 200 + "px" }}
                 alt="imagen usuario"
-              ></img>
-              <input type="file" onChange={handleUpload}></input>
+              ></Avatar>
+              <input
+                accept="image/*"
+                className={classes.input}
+                id="contained-button-file"
+                multiple
+                type="file"
+                onChange={handleUpload}
+              />
+              <label htmlFor="contained-button-file">
+                <Button
+                  variant="contained"
+                  className="btnCargarImg"
+                  component="span"
+                  startIcon={<PhotoCamera />}
+                >
+                  Cargar imagen
+                </Button>
+              </label>
             </div>
           </Card.Body>
         </Card>
@@ -276,123 +270,140 @@ function Perfil(props) {
           <h4 className="tituloCardAdminP">Información general</h4>
           <p className="opcional">(algunos campos son opcionales)</p>
         </div>
-        <Card className="cardAdminCuenta">
+        <Card id="cardAdminCuenta">
           <Card.Body className="contCardPerfil2">
-            <div className="inputPerfil2">
-              <TextValidator
-                variant="outlined"
-                id="outlined-disabled"
-                fullWidth
-                disabled
-                name="cuit"
-                defaultValue={props.profile.CUIT}
-                label="CUIT"
-              />
-            </div>
-            <div className="inputPerfil2">
-              <TextValidator
-                id="outlined-basic"
-                variant="outlined"
-                fullWidth
-                onChange={handleChange}
-                name="sitioWeb"
-                label="Sitio web"
-                defaultValue={formData.web}
-                validators={[
-                  "matchRegexp:^(http://www.|https://www.|http://|https://)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$",
-                ]}
-                errorMessages={["La dirección no es válida"]}
-              />
-            </div>
-            <div className="inputPerfil2">
-              <TextValidator
-                variant="outlined"
-                label="Sucursal"
-                id="outlined-basic"
-                fullWidth
-                onChange={handleChange}
-                name="sucursal"
-                defaultValue={formData.sucursal}
-                validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
-                errorMessages={["La sucursal no es válida"]}
-              />
-            </div>
-            <div className="inputPerfil2">
-              <SelectValidator
-                variant="outlined"
-                id="outlined-basic"
-                label="Rubro"
-                onChange={handleChange}
-                name="rubro"
-                fullWidth
-                defaultValue={formData.rubro}
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
-              >
-                {rubros.map((option) => (
-                  <MenuItem key={option.nombre} value={option.nombre}>
-                    {option.nombre}
-                  </MenuItem>
-                ))}
-              </SelectValidator>
-            </div>
-            <div className="inputPerfil2">
-              <TextValidator
-                variant="outlined"
-                id="outlined-basic"
-                label="Teléfono"
-                fullWidth
-                onChange={handleChange}
-                name="telefono"
-                defaultValue={formData.telefono}
-                validators={["matchRegexp:^([0-9 ]){2,20}$"]}
-                errorMessages={["El teléfono no es válido"]}
-              />
-            </div>
-            <div className="inputPerfil2">
-              <TextValidator
-                variant="outlined"
-                id="outlined-basic"
-                label="Redes sociales"
-                fullWidth
-                onChange={handleChange}
-                name="redesSociales"
-                defaultValue={formData.redesSociales}
-                validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
-                errorMessages={["El usuario no es válido"]}
-              />
-            </div>
-            <div className="inputPerfil2">
-              <TextValidator
-                variant="outlined"
-                id="outlined-basic"
-                label="Dirección"
-                fullWidth
-                onChange={handleChange}
-                onBlur={getCoords}
-                name="direccion"
-                defaultValue={formData.direccion}
-                validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
-                errorMessages={["El usuario no es válido"]}
-              />
-            </div>
-            <Map
-              direccion={formData.direccion}
-              lat={formData.lat}
-              lng={formData.lng}
-            />
+            <Grid container spacing={1}>
+              <Grid className="inputPerfil2" item xs={12} md={6}>
+                <TextValidator
+                  variant="outlined"
+                  id="outlined-disabled"
+                  fullWidth
+                  disabled
+                  name="cuit"
+                  defaultValue={props.profile.CUIT}
+                  label="CUIT"
+                />
+              </Grid>
+              <Grid className="inputPerfil2" item xs={12} md={6}>
+                <TextValidator
+                  id="outlined-basic"
+                  variant="outlined"
+                  fullWidth
+                  onChange={handleChange}
+                  name="sitioWeb"
+                  label="Sitio web"
+                  defaultValue={formData.web}
+                  validators={[
+                    "matchRegexp:^(http://www.|https://www.|http://|https://)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$",
+                  ]}
+                  errorMessages={["La dirección no es válida"]}
+                />
+              </Grid>
+
+              <Grid className="inputPerfil2" item xs={12} md={6}>
+                <TextValidator
+                  variant="outlined"
+                  label="Sucursal"
+                  id="outlined-basic"
+                  fullWidth
+                  onChange={handleChange}
+                  name="sucursal"
+                  defaultValue={formData.sucursal}
+                  validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                  errorMessages={["La sucursal no es válida"]}
+                />
+              </Grid>
+              <Grid className="inputPerfil2" item xs={12} md={6}>
+                <TextValidator
+                  variant="outlined"
+                  id="outlined-basic"
+                  label="Teléfono"
+                  fullWidth
+                  onChange={handleChange}
+                  name="telefono"
+                  defaultValue={formData.telefono}
+                  validators={["matchRegexp:^([0-9 ]){2,20}$"]}
+                  errorMessages={["El teléfono no es válido"]}
+                />
+              </Grid>
+              <Grid className="inputPerfil2" item xs={12} md={6}>
+                <SelectValidator
+                  variant="outlined"
+                  id="outlined-basic"
+                  label="Rubro"
+                  onChange={handleChange}
+                  name="rubro"
+                  fullWidth
+                  defaultValue={formData.rubro}
+                  validators={["required"]}
+                  errorMessages={["*Este campo es obligatorio"]}
+                >
+                  {rubros.map((option) => (
+                    <MenuItem key={option.nombre} value={option.nombre}>
+                      {option.nombre}
+                    </MenuItem>
+                  ))}
+                </SelectValidator>
+              </Grid>
+              <Grid className="inputPerfil2" item xs={12} md={6}>
+                <TextValidator
+                  variant="outlined"
+                  id="outlined-basic"
+                  label="Redes sociales"
+                  fullWidth
+                  onChange={handleChange}
+                  name="redesSociales"
+                  defaultValue={formData.redesSociales}
+                  validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                  errorMessages={["El usuario no es válido"]}
+                />
+              </Grid>
+              <Grid className="inputPerfil2" item xs={12} md={12}>
+                <TextValidator
+                  variant="outlined"
+                  id="outlined-basic"
+                  label="Dirección"
+                  fullWidth
+                  onChange={handleChange}
+                  name="direccion"
+                  defaultValue={formData.direccion}
+                  validators={["required"]}
+                  errorMessages={["*Este campo es obligatorio"]}
+                />
+              </Grid>
+              <p>IMAGEN DEL MAPA CON LA DIRECCION BIEN PERRONA</p>
+            </Grid>
+          </Card.Body>
+        </Card>
+        <div className="btnCont">
+          <Button
+            variant="contained"
+            id="btnAdminPerfil"
+            className="btnAdminPerfil"
+            type="submit"
+            onClick={handleSubmit}
+            startIcon={<SaveIcon />}
+          >
+            Guardar cambios
+          </Button>
+        </div>
+      </ValidatorForm>
+      {showModal ? (
+        <UseModal>
+          <div>
+            <h5>Tus datos han sido actualizados.</h5>
             <Button
               color="primary"
               variant="contained"
               className={classes.margin}
               type="submit"
-              onClick={handleSubmit}
+              onClick={toggleModal}
             >
-              Guardar cambios
+              Salir
             </Button>
-          </Card.Body>
-        </Card>
-      </ValidatorForm>
+          </div>
+        </UseModal>
+      ) : null}
     </div>
   );
 }
@@ -412,46 +423,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Perfil);
-
-//---------------------------FUNCIONES PARA EL MAPA
-/*
-function Map(props) {
-  const mapRef = React.useRef();
-  const onMapLoad = React.useCallback((map) => {
-    mapRef.current = map;
-  }, []);
-
-  const panTo = React.useCallback(({ address, lat, lng }) => {
-    mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(14);
-    setMapData({ address, lat, lng });
-  }, []);
-
-  if (loadError) return "Error";
-  if (!isLoaded) return "Loading...";
-
-  return (
-    <div>
-      <Search panTo={panTo} />
-      <GoogleMap
-        id="map"
-        zoom={14}
-        center={{
-          lat: mapData.lat,
-          lng: mapData.lng,
-        }}
-        options={options}
-        onLoad={onMapLoad}
-      >
-        {mapData.lat ? (
-          <Marker position={{ lat: mapData.lat, lng: mapData.lng }} />
-        ) : null}
-      </GoogleMap>
-    </div>
-  );
-}
-
-function Search({ panTo }, { direccion }) {
-  return <div></div>;
-}
-*/
