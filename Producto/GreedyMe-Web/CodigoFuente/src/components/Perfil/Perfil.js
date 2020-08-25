@@ -37,6 +37,7 @@ const rubro = () => {
     });
 };
 rubro();*/
+import Geocode from "react-geocode";
 
 const rubros = [
   {
@@ -105,6 +106,7 @@ const rubros = [
   },
 ];
 const libraries = ["places"];
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
 
 function Perfil(props) {
   const [formData, setFormData] = React.useState({
@@ -169,6 +171,13 @@ function Perfil(props) {
   const form = React.createRef();
 
   //MAPA*************************************************************************************************
+
+  const getCoords = () => {
+    Geocode.fromAddress(formData.direccion).then((response) => {
+      const { lat, lng } = response.results[0].geometry.location;
+      setFormData({ ...formData, lat: lat, lng: lng });
+    });
+  };
 
   return (
     <div>

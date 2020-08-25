@@ -11,7 +11,9 @@ export const editarDatos = (datos) => {
         rubro: datos.rubro,
         telefono: datos.telefono,
         redesSociales: datos.redesSociales,
-        direccion: datos.direccion,
+        direccion: datos.direccion[0],
+        lat: props.profile.direccion[1].Ra,
+        lng: props.profile.direccion[1].Pa,
       })
       .then(() => {
         dispatch({ type: "EDITAR_DATOS" });
