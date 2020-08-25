@@ -204,7 +204,7 @@ export default function FormDialog() {
     <div>
       <div className="botonRegistarse">
         <ButtonEj
-          text="Contactanos"
+          text="QUIERO SABER MÁS"
           style="btnRegistro"
           onClick={handleClickOpen}
         ></ButtonEj>
@@ -246,6 +246,7 @@ export default function FormDialog() {
                   fullWidth
                   name="nombre"
                   value={formData.nombre}
+                  required
                   validators={["required", "matchRegexp:^([a-zA-Z ]){2,30}$"]}
                   errorMessages={[
                     "*Este campo es obligatorio",
@@ -261,6 +262,7 @@ export default function FormDialog() {
                   fullWidth
                   name="apellido"
                   value={formData.apellido}
+                  required
                   validators={["required", "matchRegexp:^([a-zA-Z ]){2,30}$"]}
                   errorMessages={[
                     "*Este campo es obligatorio",
@@ -277,6 +279,7 @@ export default function FormDialog() {
                   fullWidth
                   name="email"
                   value={formData.email}
+                  required
                   validators={["required", "isEmail"]}
                   errorMessages={[
                     "*Este campo es obligatorio",
@@ -293,6 +296,7 @@ export default function FormDialog() {
                   fullWidth
                   name="telefono"
                   value={formData.telefono}
+                  required
                   validators={["required", "matchRegexp:^([0-9 ]){2,20}$"]}
                   errorMessages={[
                     "*Este campo es obligatorio",
@@ -309,6 +313,7 @@ export default function FormDialog() {
                   fullWidth
                   name="comercio"
                   value={formData.comercio}
+                  required
                   validators={["required"]}
                   errorMessages={["*Este campo es obligatorio"]}
                 />
@@ -348,6 +353,7 @@ export default function FormDialog() {
                   fullWidth
                   name="rubro"
                   value={formData.rubro}
+                  required
                   validators={["required"]}
                   errorMessages={["*Este campo es obligatorio"]}
                 >
