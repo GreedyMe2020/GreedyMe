@@ -21,6 +21,7 @@ import UseModal from "../useModal";
 import { makeStyles } from "@material-ui/core/styles";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import SaveIcon from "@material-ui/icons/Save";
+import Map from "../Map/Map";
 /* import { db } from "../firebase/config"; */
 
 /*const rubros = [];
@@ -124,9 +125,13 @@ function Perfil(props) {
     rubro: props.profile.rubro,
     telefono: props.profile.telefono,
     redesSociales: props.profile.redesSociales,
-    direccion: props.profile.direccion,
+    direccion: props.profile.direccion[0],
   });
 
+  const [ubicacion, setUbicacion] = React.useState({
+    lat: props.profile.direccion[1].Ra,
+    lng: props.profile.direccion[1].Pa,
+  });
   const [picture, setPicture] = useState(props.profile.photoURL);
   const [submitted, setSubmitted] = React.useState(false);
   const [showModal, setModal] = React.useState(false);
@@ -188,14 +193,14 @@ function Perfil(props) {
   React.useEffect(() => {
     submitted ? toggleModal() : null;
   }, [submitted, setSubmitted]);
-
+  /*
   const getCoords = () => {
     Geocode.fromAddress(formData.direccion).then((response) => {
       const { lat, lng } = response.results[0].geometry.location;
       setFormData({ ...formData, lat: lat, lng: lng });
     });
   };
-
+*/
   return (
     <div>
       <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
@@ -358,7 +363,7 @@ function Perfil(props) {
                   errorMessages={["El usuario no es válido"]}
                 />
               </Grid>
-              <Grid className="inputPerfil2" item xs={12} md={12}>
+              <Grid className="inputPerfil2" item xs={12} md={6}>
                 <TextValidator
                   variant="outlined"
                   id="outlined-basic"
@@ -367,11 +372,17 @@ function Perfil(props) {
                   onChange={handleChange}
                   name="direccion"
                   defaultValue={formData.direccion}
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
+                  validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                  errorMessages={["El usuario no es válido"]}
                 />
               </Grid>
-              <p>IMAGEN DEL MAPA CON LA DIRECCION BIEN PERRONA</p>
+              <Grid item xs={12} md={12}>
+                <Map
+                  direccion={formData.direccion}
+                  lat={ubicacion.lat}
+                  lng={ubicacion.lng}
+                />
+              </Grid>
             </Grid>
           </Card.Body>
         </Card>
