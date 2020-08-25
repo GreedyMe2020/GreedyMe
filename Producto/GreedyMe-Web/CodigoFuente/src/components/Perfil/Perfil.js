@@ -18,18 +18,6 @@ import Map from "../Map/Map";
 import { subirFoto } from "../../redux/actions/comActions";
 import firebase from "../../firebase/config";
 /* import { db } from "../firebase/config"; */
-import { useLoadScript } from "@react-google-maps/api";
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox";
 
 import "@reach/combobox/styles.css";
 
@@ -181,45 +169,6 @@ function Perfil(props) {
   const form = React.createRef();
 
   //MAPA*************************************************************************************************
-  const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries,
-  });
-
-  const {
-    //VARIABLES QUE DEVUELVE "usePlacesAutocomplete"
-    value,
-    suggestions: { status, data }, //Opciones que devuelve la api de google
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
-    requestOptions: {
-      location: { lat: () => -31.4058194, lng: () => -64.1967167 }, //BUSCA LUGARES CERCA DE ESTAS COORDENADAS (CENTRO DE CORDOBA)
-      radius: 100 * 1000, //100 metros * 1000 = 100 kilometros.
-    },
-  });
-
-  const handleInput = (e) => {
-    setValue(e.target.value);
-  };
-
-  const handleSelect = async (address) => {
-    //Agarra este address y lo pasa por parametro a getgeocode. es el resultado del onSelect
-    //"address se recibe segun lo que el usuario selecciona."
-    setValue(address, false); // Cambia el valor de address
-    clearSuggestions(); //Limpia el combo box.
-    //setFormData((direccion = value));
-
-    try {
-      const results = await getGeocode({ address }); //nos devuelve muchso resultados, pero nos interesa el primero.
-      const { lat, lng } = await getLatLng(results[0]); //Llamamos la funcion getLatLng y le pasamos el primer resultado.
-      setFormData({ lat: lat, lng: lng });
-    } catch (error) {
-      console.log("Error: ", error);
-    }
-  };
-  if (loadError) return "Error";
-  if (!isLoaded) return "Loading...";
 
   return (
     <div>
@@ -411,6 +360,7 @@ function Perfil(props) {
                 label="Dirección"
                 fullWidth
                 onChange={handleChange}
+                onBlur={getCoords}
                 name="direccion"
                 defaultValue={formData.direccion}
                 validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
