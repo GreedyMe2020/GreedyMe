@@ -55,6 +55,33 @@ $dark-orange-color: #fd5f00;
   }
 }
 
+.icoPerfil {
+  margin-top: -5px !important;
+  .MuiListItem-root {
+    padding-top: 8px;
+    min-width: 50px;
+    padding-bottom: 8px;
+  }
+  .MuiSvgIcon-fontSizeLarge {
+    font-size: 2.7rem;
+  }
+  .iconPerfil {
+    margin-top: 8px;
+  }
+  .contNombrePlanUS {
+    display: block;
+    .nombreComerc {
+      padding-top: 0px !important;
+    }
+    .planPrem {
+      font-size: 12px !important;
+      font-style: italic;
+      margin-bottom: 0 !important;
+      margin-top: -3px;
+    }
+  }
+}
+
 .dividerNotif {
   padding: 2px 0;
   .MuiSvgIcon-root {
