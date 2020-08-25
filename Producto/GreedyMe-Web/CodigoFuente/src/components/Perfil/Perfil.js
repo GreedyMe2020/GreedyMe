@@ -14,9 +14,24 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import classes from "../../components/Modal";
 import { editarDatos } from "../../redux/actions/comActions";
+import Map from "../Map/Map";
 import { subirFoto } from "../../redux/actions/comActions";
 import firebase from "../../firebase/config";
 /* import { db } from "../firebase/config"; */
+import { useLoadScript } from "@react-google-maps/api";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
+
+import "@reach/combobox/styles.css";
 
 /*const rubros = [];
 const rubro = () => {
@@ -101,6 +116,7 @@ const rubros = [
     nombre: "Otro",
   },
 ];
+const libraries = ["places"];
 
 function Perfil(props) {
   const [formData, setFormData] = React.useState({
@@ -110,7 +126,9 @@ function Perfil(props) {
     rubro: props.profile.rubro,
     telefono: props.profile.telefono,
     redesSociales: props.profile.redesSociales,
-    direccion: props.profile.direccion,
+    direccion: props.profile.direccion[0],
+    lat: props.profile.direccion[1].Ra,
+    lng: props.profile.direccion[1].Pa,
   });
 
   const [picture, setPicture] = useState(props.profile.photoURL);
@@ -161,6 +179,47 @@ function Perfil(props) {
   };
 
   const form = React.createRef();
+
+  //MAPA*************************************************************************************************
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries,
+  });
+
+  const {
+    //VARIABLES QUE DEVUELVE "usePlacesAutocomplete"
+    value,
+    suggestions: { status, data }, //Opciones que devuelve la api de google
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      location: { lat: () => -31.4058194, lng: () => -64.1967167 }, //BUSCA LUGARES CERCA DE ESTAS COORDENADAS (CENTRO DE CORDOBA)
+      radius: 100 * 1000, //100 metros * 1000 = 100 kilometros.
+    },
+  });
+
+  const handleInput = (e) => {
+    setValue(e.target.value);
+  };
+
+  const handleSelect = async (address) => {
+    //Agarra este address y lo pasa por parametro a getgeocode. es el resultado del onSelect
+    //"address se recibe segun lo que el usuario selecciona."
+    setValue(address, false); // Cambia el valor de address
+    clearSuggestions(); //Limpia el combo box.
+    //setFormData((direccion = value));
+
+    try {
+      const results = await getGeocode({ address }); //nos devuelve muchso resultados, pero nos interesa el primero.
+      const { lat, lng } = await getLatLng(results[0]); //Llamamos la funcion getLatLng y le pasamos el primer resultado.
+      setFormData({ lat: lat, lng: lng });
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+  if (loadError) return "Error";
+  if (!isLoaded) return "Loading...";
 
   return (
     <div>
@@ -354,11 +413,15 @@ function Perfil(props) {
                 onChange={handleChange}
                 name="direccion"
                 defaultValue={formData.direccion}
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
+                validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                errorMessages={["El usuario no es válido"]}
               />
             </div>
-            <p>IMAGEN DEL MAPA CON LA DIRECCION BIEN PERRONA</p>
+            <Map
+              direccion={formData.direccion}
+              lat={formData.lat}
+              lng={formData.lng}
+            />
             <Button
               color="primary"
               variant="contained"
@@ -390,3 +453,46 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Perfil);
+
+//---------------------------FUNCIONES PARA EL MAPA
+/*
+function Map(props) {
+  const mapRef = React.useRef();
+  const onMapLoad = React.useCallback((map) => {
+    mapRef.current = map;
+  }, []);
+
+  const panTo = React.useCallback(({ address, lat, lng }) => {
+    mapRef.current.panTo({ lat, lng });
+    mapRef.current.setZoom(14);
+    setMapData({ address, lat, lng });
+  }, []);
+
+  if (loadError) return "Error";
+  if (!isLoaded) return "Loading...";
+
+  return (
+    <div>
+      <Search panTo={panTo} />
+      <GoogleMap
+        id="map"
+        zoom={14}
+        center={{
+          lat: mapData.lat,
+          lng: mapData.lng,
+        }}
+        options={options}
+        onLoad={onMapLoad}
+      >
+        {mapData.lat ? (
+          <Marker position={{ lat: mapData.lat, lng: mapData.lng }} />
+        ) : null}
+      </GoogleMap>
+    </div>
+  );
+}
+
+function Search({ panTo }, { direccion }) {
+  return <div></div>;
+}
+*/
