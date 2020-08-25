@@ -10,7 +10,7 @@ const initState = {
 const promReducer = (state = initState, action) => {
   switch (action.type) {
     case "CREAR_PROMOCION":
-      console.log("Se creo la promo bro");
+      console.log("Se creo la promo");
       return {
         ...state,
         promCreate: "se creo la promocion",
