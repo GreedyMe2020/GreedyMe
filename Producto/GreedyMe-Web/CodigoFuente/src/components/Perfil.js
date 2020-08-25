@@ -105,10 +105,16 @@ function Perfil(props) {
             >
               <div className="icoPerfil">
                 <ListItem>
-                  <ListItemIcon>
+                  <ListItemIcon className="iconPerfil">
                     <AccountCircleRounded fontSize="large" />
                   </ListItemIcon>
-                  <ListItemText primary={props.profile.nombreComercio} />
+                  <div className="contNombrePlanUS">
+                    <ListItemText
+                      className="nombreComerc"
+                      primary={props.profile.nombreComercio}
+                    />
+                    <p className="planPrem">Plan Premium</p>
+                  </div>
                 </ListItem>
               </div>
               <Divider variant="middle" />
