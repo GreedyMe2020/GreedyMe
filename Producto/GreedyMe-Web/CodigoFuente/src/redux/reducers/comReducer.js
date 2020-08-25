@@ -2,7 +2,9 @@ const initState = {
   editData: null,
   dataError: null,
   foto: null,
-  fotoErro: null,
+  fotoError: null,
+  contraseña: null,
+  contraseñaError: null,
 };
 
 const comReducer = (state = initState, action) => {
@@ -30,6 +32,18 @@ const comReducer = (state = initState, action) => {
       return {
         ...state,
         fotoError: "Ocurrio algun error en al foto",
+      };
+    case "CAMBIO_CONTRASEÑA":
+      console.log("se subio la foto");
+      return {
+        ...state,
+        contraseña: "se cambio la contraseña",
+      };
+    case "ERROR_CONTRASEÑA":
+      console.log("no se subio la foto");
+      return {
+        ...state,
+        contraseñaError: "Ocurrio algun error al cambiar la contraseña",
       };
     default:
       return state;
