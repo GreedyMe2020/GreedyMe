@@ -58,9 +58,15 @@ $background-color: #ececec;
         grid-column: 1;
         width: 100%;
         display: inline-block;
-        text-align: center;
+        text-align: left;
         margin-bottom: 15px;
-        margin-top: 10px;
+        margin-top: 15px;
+        margin-left: 53px;
+
+        h5 {
+          font-family: $text-font !important;
+          font-weight: 300;
+        }
       }
       .contCargarProm {
         grid-column: col 1 / span 2;
