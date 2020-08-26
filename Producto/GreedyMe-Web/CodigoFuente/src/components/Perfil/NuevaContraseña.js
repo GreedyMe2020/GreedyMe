@@ -95,6 +95,12 @@ function NuevaContraseña(props) {
     }
   };
 
+  ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
+    if (value !== formData.nuevaContraseña) {
+      return false;
+    }
+    return true;
+  });
   const form = React.createRef();
 
   return (
@@ -117,7 +123,8 @@ function NuevaContraseña(props) {
                   type="password"
                   autoComplete="current-password"
                   variant="outlined"
-                  defaultValue={formData.contraseñaActual}
+                  required
+                  value={formData.contraseñaActual}
                   onChange={handleChange}
                   name="contraseñaActual"
                   fullWidth
@@ -132,7 +139,8 @@ function NuevaContraseña(props) {
                   type="password"
                   autoComplete="current-password"
                   variant="outlined"
-                  defaultValue={formData.nuevaContraseña}
+                  required
+                  value={formData.nuevaContraseña}
                   onChange={handleChange}
                   name="nuevaContraseña"
                   fullWidth
@@ -147,12 +155,16 @@ function NuevaContraseña(props) {
                   type="password"
                   autoComplete="current-password"
                   variant="outlined"
-                  defaultValue={formData.repeticion}
+                  required
+                  value={formData.repeticion}
                   onChange={handleChange}
                   name="repeticion"
                   fullWidth
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
+                  validators={["isPasswordMatch", "required"]}
+                  errorMessages={[
+                    "Las contraseñas deben ser iguales",
+                    "*Este campo es obligatorio",
+                  ]}
                 />
               </div>
             </div>
@@ -164,7 +176,6 @@ function NuevaContraseña(props) {
             id="btnAdminPerfil"
             className="btnAdminPerfil"
             type="submit"
-            onClick={handleSubmit}
             startIcon={<SaveIcon />}
           >
             Guardar cambios
