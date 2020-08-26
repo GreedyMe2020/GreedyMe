@@ -40,3 +40,18 @@ export const subirFoto = (downloadURL) => {
       });
   };
 };
+
+export const cambiarConrtaseña = (nuevaContraseña) => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+    var user = firebase.auth().currentUser;
+    user
+      .updatePassword(nuevaContraseña)
+      .then(function () {
+        dispatch({ type: "CAMBIO_CONTRASEÑA" });
+      })
+      .catch(function (error) {
+        dispatch({ type: "ERROR_CONTRASEÑA", error });
+      });
+  };
+};
