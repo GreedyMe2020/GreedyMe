@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import NavBarSup from "../../components/Principal/navBarSuperior";
+import { Link } from "@reach/router";
 import { Card } from "react-bootstrap";
 import {
   ValidatorForm,
@@ -14,8 +14,11 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import classes from "../../components/Modal";
 import Avatar from "@material-ui/core/Avatar";
-import { editarDatos } from "../../redux/actions/comActions";
-import { subirFoto } from "../../redux/actions/comActions";
+import {
+  editarDatos,
+  subirFoto,
+  eliminarFoto,
+} from "../../redux/actions/comActions";
 import firebase from "../../firebase/config";
 import UseModal from "../useModal";
 import { makeStyles } from "@material-ui/core/styles";
@@ -177,6 +180,11 @@ function Perfil(props) {
     );
   };
 
+  const handleDelete = () => {
+    setPicture(null);
+    props.eliminarFoto({ id: props.auth.uid });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     props.editarDatos(formData);
@@ -245,6 +253,9 @@ function Perfil(props) {
                 errorMessages={["*Este campo es obligatorio"]}
               />
             </div>
+            <Link to={"/main/" + props.auth.uid + "/newpassword"}>
+              Cambiar contraseña
+            </Link>
             <div className="imagenPerfil">
               <Avatar
                 className="contImgSubir"
@@ -269,6 +280,7 @@ function Perfil(props) {
                   Cargar imagen
                 </Button>
               </label>
+              <a onClick={handleDelete}>Eliminar imagen</a>
             </div>
           </Card.Body>
         </Card>
@@ -440,6 +452,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     editarDatos: (datos) => dispatch(editarDatos(datos)),
     subirFoto: (downloadURL) => dispatch(subirFoto(downloadURL)),
+    eliminarFoto: (downloadURL) => dispatch(eliminarFoto(downloadURL)),
   };
 };
 

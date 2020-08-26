@@ -40,3 +40,41 @@ export const subirFoto = (downloadURL) => {
       });
   };
 };
+
+export const eliminarFoto = (id) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("usuarioComercio")
+      .doc(id.id)
+      .update({
+        photoURL: null,
+      })
+      .then(() => {
+        dispatch({ type: "ELIMINAR_FOTO" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_ELIMINAR", error });
+      });
+  };
+};
+
+export const cambiarContraseña = (nuevaContraseña) => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        user
+          .updatePassword(nuevaContraseña.nuevaContraseña)
+          .then(function () {
+            dispatch({ type: "CAMBIO_CONTRASEÑA" });
+          })
+          .catch(function (error) {
+            dispatch({ type: "ERROR_CONTRASEÑA", error });
+          });
+      } else {
+        // No user is signed in.
+      }
+    });
+  };
+};
