@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "@reach/router";
+import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
@@ -125,9 +127,12 @@ function CargaPromociones(props) {
     tipoPromo: "",
     proveedor: "",
     descripcion: "",
-    diaVigencia: "",
-    mesVigencia: "",
+    desdeVigencia: new Date(),
+    hastaVigencia: new Date(),
   });
+
+  const [desdeVigencia, handleDesdeVigencia] = React.useState(new Date()); //Estados para cada datePicker
+  const [hastaVigencia, handleHastaVigencia] = React.useState(new Date());
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -202,38 +207,35 @@ function CargaPromociones(props) {
                         </MenuItem>
                       ))}
                     </SelectValidator>
-                    <SelectValidator
-                      fullWidth
-                      label="Dia de vigencia"
-                      onChange={handleChange}
-                      name="diaVigencia"
-                      value={formData.diaVigencia}
-                      variant="outlined"
-                      validators={["required"]}
-                      errorMessages={["*Este campo es obligatorio"]}
-                    >
-                      {diaVigencia.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.value}
-                        </MenuItem>
-                      ))}
-                    </SelectValidator>
-                    <SelectValidator
-                      fullWidth
-                      label="Mes de vigencia"
-                      onChange={handleChange}
-                      name="mesVigencia"
-                      value={formData.mesVigencia}
-                      variant="outlined"
-                      validators={["required"]}
-                      errorMessages={["*Este campo es obligatorio"]}
-                    >
-                      {mesVigencia.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.value}
-                        </MenuItem>
-                      ))}
-                    </SelectValidator>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <DatePicker
+                        autoOk
+                        disableToolbar
+                        fullWidth
+                        inputVariant="outlined"
+                        name="desdeVigencia"
+                        label="Disponible desde el"
+                        minDate={new Date()}
+                        format="dd/MM/yyyy"
+                        value={formData.desdeVigencia}
+                        variant="inline"
+                        onChange={(data) => handleDesdeVigencia(data)}
+                      />
+                      <DatePicker
+                        autoOk
+                        disableToolbar
+                        fullWidth
+                        inputVariant="outlined"
+                        name="hastaVigencia"
+                        label="Disponible hasta el"
+                        format="dd/MM/yyyy"
+                        minDate={desdeVigencia}
+                        minDateMessage="*La fecha no puede ser menor al 'desde'"
+                        value={hastaVigencia}
+                        variant="inline"
+                        onChange={(data) => handleHastaVigencia(data)}
+                      ></DatePicker>
+                    </MuiPickersUtilsProvider>
                     <FormControlLabel
                       id="cargar-promo-checkbox"
                       label="Efectivo"
