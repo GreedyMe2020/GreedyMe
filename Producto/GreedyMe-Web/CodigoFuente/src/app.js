@@ -10,6 +10,7 @@ import Principal from "./pages/Principal";
 import Promociones from "./pages/Promociones";
 import { OlvidoContraseña } from "./pages/OlvidoContraseña";
 import PerfilComercio from "./pages/PerfilComercio";
+import CambiarContraseña from "./pages/CambiarContraseña";
 
 //<Promociones path="/main/:id/promociones" />
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
         <Promociones path="/main/:id/promociones" />
         <OlvidoContraseña path="/forgotpassword" />
         <PerfilComercio path="/main/:id/profile" />
+        <CambiarContraseña path="/main/:id/newpassword" />
       </Router>
     </div>
   );

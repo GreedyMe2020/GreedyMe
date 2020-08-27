@@ -11,6 +11,7 @@ export const crearPromocion = (promocion) => {
         proveedor: promocion.proveedor,
         diaVigencia: promocion.diaVigencia,
         mesVigencia: promocion.mesVigencia,
+        //descripcion: promocion.descripcion,
       })
       .then(() => {
         dispatch({ type: "CREAR_PROMOCION" });
