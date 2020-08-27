@@ -1,4 +1,4 @@
-export const crearPromocion = (promocion) => {
+export const crearPromocion = (promocion, dias, efectivo) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     firestore
@@ -11,7 +11,10 @@ export const crearPromocion = (promocion) => {
         proveedor: promocion.proveedor,
         diaVigencia: promocion.diaVigencia,
         mesVigencia: promocion.mesVigencia,
-        //descripcion: promocion.descripcion,
+        visible: false,
+        descripcion: promocion.descripcion,
+        diaAplicacion: dias,
+        efectivo: efectivo.efectivo,
       })
       .then(() => {
         dispatch({ type: "CREAR_PROMOCION" });

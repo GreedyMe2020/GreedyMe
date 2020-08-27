@@ -107,27 +107,7 @@ const CelesteCheckbox = withStyles({
 
 function CargaPromociones(props) {
   const classes = useStyles();
-  const [formData, setFormData] = React.useState({
-    id: props.auth.uid,
-    tipoPromo: "",
-    proveedor: "",
-    //imagenURL: "",
-    //fechaInicio: "", //VER EL ID DE USUARIO COMO ES EN REALIDAD.
-    //fechaFin: "",
-    //titulo: "",
-    descripcion: "",
-    diaVigencia: "",
-    mesVigencia: "",
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    props.crearPromocion(formData);
-  };
-
   const [state, setState] = React.useState({
-    checkedEfectivo: false,
     checkedTD: false,
     checkedL: false,
     checkedM: false,
@@ -138,12 +118,36 @@ function CargaPromociones(props) {
     checkedD: false,
   });
 
+  const [efectivo, setEfectivo] = React.useState({ efectivo: false });
+
+  const [formData, setFormData] = React.useState({
+    id: props.auth.uid,
+    tipoPromo: "",
+    proveedor: "",
+    descripcion: "",
+    diaVigencia: "",
+    mesVigencia: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.crearPromocion(formData, state, efectivo);
+  };
+
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
-    setState({ ...state, [event.target.name]: event.target.checked });
   };
 
+  const handleChangec = (event) => {
+    state[event.target.name] = event.target.checked;
+    setState({ ...state });
+  };
+
+  const handleChangee = (event) => {
+    efectivo[event.target.name] = event.target.checked;
+    setEfectivo({ ...efectivo });
+  };
   const form = React.createRef();
 
   return (
@@ -235,9 +239,9 @@ function CargaPromociones(props) {
                       label="Efectivo"
                       control={
                         <CelesteCheckbox
-                          checked={state.checkedEfectivo}
-                          onChange={handleChange}
-                          name="checkedEfectivo"
+                          checked={efectivo.efectivo}
+                          onChange={handleChangee}
+                          name="efectivo"
                         />
                       }
                     />
@@ -253,7 +257,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedL}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedL"
                           />
                         }
@@ -266,7 +270,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedM}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedM"
                           />
                         }
@@ -278,7 +282,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedMi}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedMi"
                           />
                         }
@@ -291,7 +295,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedJ}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedJ"
                           />
                         }
@@ -303,7 +307,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedV}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedV"
                           />
                         }
@@ -316,7 +320,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedS}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedS"
                           />
                         }
@@ -328,7 +332,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedD}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedD"
                           />
                         }
@@ -340,7 +344,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedTD}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedTD"
                           />
                         }
@@ -358,7 +362,9 @@ function CargaPromociones(props) {
                           fullWidth
                           variant="outlined"
                           id="standard-textarea"
+                          name="descripcion"
                           label="Descripción (opcional)"
+                          value={formData.descripcion}
                           onChange={handleChange}
                           placeholder="Descripción (opcional)"
                           multiline
@@ -398,7 +404,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    crearPromocion: (promocion) => dispatch(crearPromocion(promocion)),
+    crearPromocion: (promocion, dias, efectivo) =>
+      dispatch(crearPromocion(promocion, dias, efectivo)),
   };
 };
 
