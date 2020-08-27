@@ -211,8 +211,8 @@ function Perfil(props) {
   };
 */
   return (
-    <div>
-      <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
+    <div className="perfil-validator-form">
+      <ValidatorForm ref={form} onSubmit={handleSubmit}>
         <h4 className="tituloCardAdminP1">Información de inicio de sesión</h4>
         <Card id="cardAdminCuenta">
           <Card.Body className="contCardPerfil1">
@@ -280,7 +280,9 @@ function Perfil(props) {
                   Cargar imagen
                 </Button>
               </label>
-              <a onClick={handleDelete}>Eliminar imagen</a>
+              <a className="eliminar-img" onClick={handleDelete}>
+                Eliminar imagen
+              </a>
             </div>
           </Card.Body>
         </Card>
