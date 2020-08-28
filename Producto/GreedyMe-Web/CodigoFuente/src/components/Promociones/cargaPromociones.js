@@ -134,13 +134,37 @@ function CargaPromociones(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.crearPromocion(
-      formData,
-      state,
-      efectivo,
-      desdeVigencia,
-      hastaVigencia
-    );
+    if (
+      state.checkedTD === false &&
+      state.checkedL === false &&
+      state.checkedM === false &&
+      state.checkedMi === false &&
+      state.checkedJ === false &&
+      state.checkedV === false &&
+      state.checkedS === false &&
+      state.checkedD === false
+    ) {
+      alert("che perri pone un check");
+    } else if (
+      state.checkedTD === true &&
+      (state.checkedL === true ||
+        state.checkedM === true ||
+        state.checkedMi === true ||
+        state.checkedJ === true ||
+        state.checkedV === true ||
+        state.checkedS === true ||
+        state.checkedD === true)
+    ) {
+      alert("che perraco hay inconsistencia en los cheks ponete las pilas bro");
+    } else {
+      props.crearPromocion(
+        formData,
+        state,
+        efectivo,
+        desdeVigencia,
+        hastaVigencia
+      );
+    }
   };
 
   const handleChange = (event) => {
@@ -166,17 +190,17 @@ function CargaPromociones(props) {
           <h1>Promociones</h1>
         </div>
         <Card className="cardPromo">
-          <CardContent className="cardContentePromo">
-            <div className="contenedorPromo">
-              <div className="subtituloProm">
-                <h5>Cargue un nuevo beneficio</h5>
-              </div>
+          <ValidatorForm
+            className={classes.root}
+            ref={form}
+            onSubmit={handleSubmit}
+          >
+            <CardContent className="cardContentePromo">
+              <div className="contenedorPromo">
+                <div className="subtituloProm">
+                  <h5>Cargue un nuevo beneficio</h5>
+                </div>
 
-              <ValidatorForm
-                className={classes.root}
-                ref={form}
-                onSubmit={handleSubmit}
-              >
                 <div className="contCargarProm">
                   <div className="contenedorCol1">
                     <SelectValidator
@@ -380,22 +404,21 @@ function CargaPromociones(props) {
                     </form>
                   </div>
                 </div>
-              </ValidatorForm>
-            </div>
-          </CardContent>
-          <CardActions className="cargar-promo-buttons-container">
-            <div className="btn-cargar-prom">
-              <Button
-                variant="contained"
-                className={classes.margin}
-                onClick={handleSubmit}
-                id="cargar-promo-submit"
-                type="submit"
-              >
-                Cargar promoción
-              </Button>
-            </div>
-          </CardActions>
+              </div>
+            </CardContent>
+            <CardActions className="cargar-promo-buttons-container">
+              <div className="btn-cargar-prom">
+                <Button
+                  variant="contained"
+                  className={classes.margin}
+                  id="cargar-promo-submit"
+                  type="submit"
+                >
+                  Cargar promoción
+                </Button>
+              </div>
+            </CardActions>
+          </ValidatorForm>
         </Card>
       </div>
     </div>
