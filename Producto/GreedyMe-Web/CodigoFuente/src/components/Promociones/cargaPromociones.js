@@ -109,31 +109,8 @@ const CelesteCheckbox = withStyles({
 
 function CargaPromociones(props) {
   const classes = useStyles();
-  const [formData, setFormData] = React.useState({
-    id: props.auth.uid,
-    tipoPromo: "",
-    proveedor: "",
-    //imagenURL: "",
-    //fechaInicio: "", //VER EL ID DE USUARIO COMO ES EN REALIDAD.
-    //fechaFin: "",
-    //titulo: "",
-    descripcion: "",
-    desdeVigencia: new Date(),
-    hastaVigencia: new Date(),
-  });
-
-  const [desdeVigencia, handleDesdeVigencia] = React.useState(new Date()); //Estados para cada datePicker
-  const [hastaVigencia, handleHastaVigencia] = React.useState(new Date());
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    props.crearPromocion(formData);
-  };
-
   const [state, setState] = React.useState({
-    checkedEfectivo: false,
-    checkedTD: false,
+    checkedTD: true,
     checkedL: false,
     checkedM: false,
     checkedMi: false,
@@ -143,12 +120,67 @@ function CargaPromociones(props) {
     checkedD: false,
   });
 
+  const [efectivo, setEfectivo] = React.useState({ efectivo: false });
+
+  const [formData, setFormData] = React.useState({
+    id: props.auth.uid,
+    tipoPromo: "",
+    proveedor: "",
+    descripcion: "",
+  });
+
+  const [desdeVigencia, handleDesdeVigencia] = React.useState(new Date()); //Estados para cada datePicker
+  const [hastaVigencia, handleHastaVigencia] = React.useState(new Date());
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      state.checkedTD === false &&
+      state.checkedL === false &&
+      state.checkedM === false &&
+      state.checkedMi === false &&
+      state.checkedJ === false &&
+      state.checkedV === false &&
+      state.checkedS === false &&
+      state.checkedD === false
+    ) {
+      alert("che perri pone un check");
+    } else if (
+      state.checkedTD === true &&
+      (state.checkedL === true ||
+        state.checkedM === true ||
+        state.checkedMi === true ||
+        state.checkedJ === true ||
+        state.checkedV === true ||
+        state.checkedS === true ||
+        state.checkedD === true)
+    ) {
+      alert("che perraco hay inconsistencia en los cheks ponete las pilas bro");
+    } else {
+      props.crearPromocion(
+        formData,
+        state,
+        efectivo,
+        desdeVigencia,
+        hastaVigencia
+      );
+    }
+  };
+
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
-    setState({ ...state, [event.target.name]: event.target.checked });
   };
 
+  const handleChangec = (event) => {
+    state[event.target.name] = event.target.checked;
+    setState({ ...state });
+  };
+
+  const handleChangee = (event) => {
+    efectivo[event.target.name] = event.target.checked;
+    setEfectivo({ ...efectivo });
+  };
   const form = React.createRef();
 
   return (
@@ -158,17 +190,17 @@ function CargaPromociones(props) {
           <h1>Promociones</h1>
         </div>
         <Card className="cardPromo">
-          <CardContent className="cardContentePromo">
-            <div className="contenedorPromo">
-              <div className="subtituloProm">
-                <h5>Cargue un nuevo beneficio</h5>
-              </div>
+          <ValidatorForm
+            className={classes.root}
+            ref={form}
+            onSubmit={handleSubmit}
+          >
+            <CardContent className="cardContentePromo">
+              <div className="contenedorPromo">
+                <div className="subtituloProm">
+                  <h5>Cargue un nuevo beneficio</h5>
+                </div>
 
-              <ValidatorForm
-                className={classes.root}
-                ref={form}
-                onSubmit={handleSubmit}
-              >
                 <div className="contCargarProm">
                   <div className="contenedorCol1">
                     <SelectValidator
@@ -213,7 +245,7 @@ function CargaPromociones(props) {
                         label="Disponible desde el"
                         minDate={new Date()}
                         format="dd/MM/yyyy"
-                        value={formData.desdeVigencia}
+                        value={desdeVigencia}
                         variant="inline"
                         onChange={(data) => handleDesdeVigencia(data)}
                       />
@@ -237,9 +269,9 @@ function CargaPromociones(props) {
                       label="Efectivo"
                       control={
                         <CelesteCheckbox
-                          checked={state.checkedEfectivo}
-                          onChange={handleChange}
-                          name="checkedEfectivo"
+                          checked={efectivo.efectivo}
+                          onChange={handleChangee}
+                          name="efectivo"
                         />
                       }
                     />
@@ -255,7 +287,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedL}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedL"
                           />
                         }
@@ -268,7 +300,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedM}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedM"
                           />
                         }
@@ -280,7 +312,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedMi}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedMi"
                           />
                         }
@@ -293,7 +325,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedJ}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedJ"
                           />
                         }
@@ -305,7 +337,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedV}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedV"
                           />
                         }
@@ -318,7 +350,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedS}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedS"
                           />
                         }
@@ -330,7 +362,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedD}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedD"
                           />
                         }
@@ -342,7 +374,7 @@ function CargaPromociones(props) {
                         control={
                           <CelesteCheckbox
                             checked={state.checkedTD}
-                            onChange={handleChange}
+                            onChange={handleChangec}
                             name="checkedTD"
                           />
                         }
@@ -360,7 +392,9 @@ function CargaPromociones(props) {
                           fullWidth
                           variant="outlined"
                           id="standard-textarea"
+                          name="descripcion"
                           label="Descripción (opcional)"
+                          value={formData.descripcion}
                           onChange={handleChange}
                           placeholder="Descripción (opcional)"
                           multiline
@@ -370,22 +404,21 @@ function CargaPromociones(props) {
                     </form>
                   </div>
                 </div>
-              </ValidatorForm>
-            </div>
-          </CardContent>
-          <CardActions className="cargar-promo-buttons-container">
-            <div className="btn-cargar-prom">
-              <Button
-                variant="contained"
-                className={classes.margin}
-                onClick={handleSubmit}
-                id="cargar-promo-submit"
-                type="submit"
-              >
-                Cargar promoción
-              </Button>
-            </div>
-          </CardActions>
+              </div>
+            </CardContent>
+            <CardActions className="cargar-promo-buttons-container">
+              <div className="btn-cargar-prom">
+                <Button
+                  variant="contained"
+                  className={classes.margin}
+                  id="cargar-promo-submit"
+                  type="submit"
+                >
+                  Cargar promoción
+                </Button>
+              </div>
+            </CardActions>
+          </ValidatorForm>
         </Card>
       </div>
     </div>
@@ -400,7 +433,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    crearPromocion: (promocion) => dispatch(crearPromocion(promocion)),
+    crearPromocion: (promocion, dias, efectivo, desdeVigencia, hastaVigencia) =>
+      dispatch(
+        crearPromocion(promocion, dias, efectivo, desdeVigencia, hastaVigencia)
+      ),
   };
 };
 

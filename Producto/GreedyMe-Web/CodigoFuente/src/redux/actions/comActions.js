@@ -59,22 +59,3 @@ export const eliminarFoto = (id) => {
   };
 };
 
-export const cambiarContraseña = (nuevaContraseña) => {
-  return (dispatch, getState, { getFirebase }) => {
-    const firebase = getFirebase();
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        user
-          .updatePassword(nuevaContraseña.nuevaContraseña)
-          .then(function () {
-            dispatch({ type: "CAMBIO_CONTRASEÑA" });
-          })
-          .catch(function (error) {
-            dispatch({ type: "ERROR_CONTRASEÑA", error });
-          });
-      } else {
-        // No user is signed in.
-      }
-    });
-  };
-};
