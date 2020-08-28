@@ -6,7 +6,6 @@ import { Card } from "react-bootstrap";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import { connect } from "react-redux";
-import { cambiarContraseña } from "../../redux/actions/comActions";
 import firebase from "../../firebase/config";
 
 const useStyles = makeStyles((theme) => ({
@@ -55,6 +54,7 @@ function NuevaContraseña(props) {
           })
           .then(() => {
             setCambio(true);
+            console.log(cambio);
           })
           .catch(function (error) {
             setCambio(false);
@@ -192,10 +192,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    cambiarContraseña: (password) => dispatch(cambiarContraseña(password)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NuevaContraseña);
+export default connect(mapStateToProps)(NuevaContraseña);
