@@ -1,4 +1,10 @@
-export const crearPromocion = (promocion, dias, efectivo) => {
+export const crearPromocion = (
+  promocion,
+  dias,
+  efectivo,
+  desdeVigencia,
+  hastaVigencia
+) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     firestore
@@ -9,8 +15,8 @@ export const crearPromocion = (promocion, dias, efectivo) => {
       .set({
         tipoPromo: promocion.tipoPromo,
         proveedor: promocion.proveedor,
-        diaVigencia: promocion.diaVigencia,
-        mesVigencia: promocion.mesVigencia,
+        desdeVigencia: desdeVigencia,
+        hastaVigencia: hastaVigencia,
         visible: false,
         descripcion: promocion.descripcion,
         diaAplicacion: dias,

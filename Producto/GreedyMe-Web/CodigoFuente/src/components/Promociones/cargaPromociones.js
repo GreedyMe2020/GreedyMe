@@ -110,7 +110,7 @@ const CelesteCheckbox = withStyles({
 function CargaPromociones(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
-    checkedTD: false,
+    checkedTD: true,
     checkedL: false,
     checkedM: false,
     checkedMi: false,
@@ -127,8 +127,6 @@ function CargaPromociones(props) {
     tipoPromo: "",
     proveedor: "",
     descripcion: "",
-    desdeVigencia: new Date(),
-    hastaVigencia: new Date(),
   });
 
   const [desdeVigencia, handleDesdeVigencia] = React.useState(new Date()); //Estados para cada datePicker
@@ -136,7 +134,13 @@ function CargaPromociones(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.crearPromocion(formData, state, efectivo);
+    props.crearPromocion(
+      formData,
+      state,
+      efectivo,
+      desdeVigencia,
+      hastaVigencia
+    );
   };
 
   const handleChange = (event) => {
@@ -217,7 +221,7 @@ function CargaPromociones(props) {
                         label="Disponible desde el"
                         minDate={new Date()}
                         format="dd/MM/yyyy"
-                        value={formData.desdeVigencia}
+                        value={desdeVigencia}
                         variant="inline"
                         onChange={(data) => handleDesdeVigencia(data)}
                       />
@@ -406,8 +410,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    crearPromocion: (promocion, dias, efectivo) =>
-      dispatch(crearPromocion(promocion, dias, efectivo)),
+    crearPromocion: (promocion, dias, efectivo, desdeVigencia, hastaVigencia) =>
+      dispatch(
+        crearPromocion(promocion, dias, efectivo, desdeVigencia, hastaVigencia)
+      ),
   };
 };
 
