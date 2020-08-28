@@ -114,7 +114,7 @@ function CargaPromociones(props) {
     tipoPromo: "",
     proveedor: "",
     //imagenURL: "",
-    //fechaInicio: "", //VER EL ID DE USUARIO COMO ES EN REALIDAD. agrego esto
+    //fechaInicio: "", //VER EL ID DE USUARIO COMO ES EN REALIDAD.
     //fechaFin: "",
     //titulo: "",
     descripcion: "",
