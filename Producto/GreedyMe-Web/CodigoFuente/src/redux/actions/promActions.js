@@ -31,7 +31,11 @@ export const crearPromocion = (
   };
 };
 
-export const actulizarPromocion = (promocion) => {
+export const actulizarPromocion = (promocion,
+  dias,
+  efectivo,
+  desdeVigencia,
+  hastaVigencia) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     firestore
@@ -40,7 +44,13 @@ export const actulizarPromocion = (promocion) => {
       .collection("promociones")
       .doc()
       .update({
-        tipoPromocion: promocion.tipoPromocion,
+        tipoPromo: promocion.tipoPromo,
+        proveedor: promocion.proveedor,
+        desdeVigencia: desdeVigencia,
+        hastaVigencia: hastaVigencia,
+        descripcion: promocion.descripcion,
+        diaAplicacion: dias,
+        efectivo: efectivo.efectivo,
       })
       .then(() => {
         dispatch({ type: "ACTUALIZAR_PROMOCION", promocion });
@@ -68,3 +78,22 @@ export const eliminarPromocion = (promocion) => {
       });
   };
 };
+
+export const cambiarVisibilidad = (promocion) => {
+  return (dispatch, getState, {getFirestore}) => {
+    const firestore = getFirestore()
+    firestore
+      .collection("usuarioComercio")
+      .doc(promocion.id)
+      .collection("promociones")
+      .doc(promocion.idProm)
+      .update({
+        visible = !promocion.visible
+      }).then(() => {
+        dispatch({ type: "CAMBIAR_VISIBILIDAD" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_VISIBILIDAD", error });
+      });
+  }
+}

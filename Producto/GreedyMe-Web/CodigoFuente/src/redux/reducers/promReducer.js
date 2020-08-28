@@ -5,6 +5,8 @@ const initState = {
   actualError: null,
   promElim: null,
   elimError: null,
+  visibilidadCambiada: null,
+  visibilidadError: null,
 };
 
 const promReducer = (state = initState, action) => {
@@ -40,6 +42,16 @@ const promReducer = (state = initState, action) => {
       return {
         ...state,
         elimError: "Ocurrio algun error en la eliminacion",
+      };
+    case "CAMBIAR_VISIBILIDAD":
+      return {
+        ...state,
+        visibilidadCambiada: "se cambio la visibilidad",
+      };
+    case "ERROR_VISIBILIDAD":
+      return {
+        ...state,
+        visibilidadError: "Ocurrio algun error en la visibilidad",
       };
     default:
       return state;
