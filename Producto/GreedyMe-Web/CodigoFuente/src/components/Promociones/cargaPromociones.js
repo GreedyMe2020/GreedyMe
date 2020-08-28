@@ -185,10 +185,10 @@ function CargaPromociones(props) {
 
   return (
     <div>
+      <div className="prom-title-container">
+        <h1>Promociones</h1>
+      </div>
       <div className="contenedorTodo">
-        <div className="prom-title-container">
-          <h1>Promociones</h1>
-        </div>
         <Card className="cardPromo">
           <ValidatorForm
             className={classes.root}
@@ -196,213 +196,207 @@ function CargaPromociones(props) {
             onSubmit={handleSubmit}
           >
             <CardContent className="cardContentePromo">
-              <div className="contenedorPromo">
-                <div className="subtituloProm">
-                  <h5>Cargue un nuevo beneficio</h5>
-                </div>
+              <div className="subtituloProm">
+                <h5>Cargue un nuevo beneficio</h5>
+              </div>
 
-                <div className="contCargarProm">
-                  <div className="contenedorCol1">
-                    <SelectValidator
+              <div className="contCargarProm">
+                <div className="contenedorCol1">
+                  <SelectValidator
+                    fullWidth
+                    label="Tipo de promoción"
+                    onChange={handleChange}
+                    name="tipoPromo"
+                    value={formData.tipoPromo}
+                    variant="outlined"
+                    validators={["required"]}
+                    errorMessages={["*Este campo es obligatorio"]}
+                  >
+                    {tipoPromo.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.value}
+                      </MenuItem>
+                    ))}
+                  </SelectValidator>
+                  <SelectValidator
+                    fullWidth
+                    label="Proveedor de promoción"
+                    onChange={handleChange}
+                    name="proveedor"
+                    value={formData.proveedor}
+                    variant="outlined"
+                    validators={["required"]}
+                    errorMessages={["*Este campo es obligatorio"]}
+                  >
+                    {proveedor.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.value}
+                      </MenuItem>
+                    ))}
+                  </SelectValidator>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker
+                      autoOk
+                      disableToolbar
                       fullWidth
-                      label="Tipo de promoción"
-                      onChange={handleChange}
-                      name="tipoPromo"
-                      value={formData.tipoPromo}
-                      variant="outlined"
-                      validators={["required"]}
-                      errorMessages={["*Este campo es obligatorio"]}
-                    >
-                      {tipoPromo.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.value}
-                        </MenuItem>
-                      ))}
-                    </SelectValidator>
-                    <SelectValidator
+                      inputVariant="outlined"
+                      name="desdeVigencia"
+                      label="Disponible desde el"
+                      minDate={new Date()}
+                      format="dd/MM/yyyy"
+                      value={desdeVigencia}
+                      variant="inline"
+                      onChange={(data) => handleDesdeVigencia(data)}
+                    />
+                    <DatePicker
+                      autoOk
+                      disableToolbar
                       fullWidth
-                      label="Proveedor de promoción"
-                      onChange={handleChange}
-                      name="proveedor"
-                      value={formData.proveedor}
-                      variant="outlined"
-                      validators={["required"]}
-                      errorMessages={["*Este campo es obligatorio"]}
-                    >
-                      {proveedor.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.value}
-                        </MenuItem>
-                      ))}
-                    </SelectValidator>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <DatePicker
-                        autoOk
-                        disableToolbar
-                        fullWidth
-                        inputVariant="outlined"
-                        name="desdeVigencia"
-                        label="Disponible desde el"
-                        minDate={new Date()}
-                        format="dd/MM/yyyy"
-                        value={desdeVigencia}
-                        variant="inline"
-                        onChange={(data) => handleDesdeVigencia(data)}
+                      inputVariant="outlined"
+                      name="hastaVigencia"
+                      label="Disponible hasta el"
+                      format="dd/MM/yyyy"
+                      minDate={desdeVigencia}
+                      minDateMessage="*La fecha no puede ser menor al 'desde'"
+                      value={hastaVigencia}
+                      variant="inline"
+                      onChange={(data) => handleHastaVigencia(data)}
+                    ></DatePicker>
+                  </MuiPickersUtilsProvider>
+                  <FormControlLabel
+                    id="cargar-promo-checkbox"
+                    label="Efectivo"
+                    control={
+                      <CelesteCheckbox
+                        checked={efectivo.efectivo}
+                        onChange={handleChangee}
+                        name="efectivo"
                       />
-                      <DatePicker
-                        autoOk
-                        disableToolbar
-                        fullWidth
-                        inputVariant="outlined"
-                        name="hastaVigencia"
-                        label="Disponible hasta el"
-                        format="dd/MM/yyyy"
-                        minDate={desdeVigencia}
-                        minDateMessage="*La fecha no puede ser menor al 'desde'"
-                        value={hastaVigencia}
-                        variant="inline"
-                        onChange={(data) => handleHastaVigencia(data)}
-                      ></DatePicker>
-                    </MuiPickersUtilsProvider>
+                    }
+                  />
+                </div>
+                <Divider className="dividerVertical" orientation="vertical" />
+                <Divider className="dividerHorizontal" />
+                <div className="contenedorCol2">
+                  <p>¿Qué días aplica la promoción?</p>
+                  <div className="cargar-promo-check-group">
                     <FormControlLabel
                       id="cargar-promo-checkbox"
-                      label="Efectivo"
+                      className="cargar-promo-checkbox-1"
                       control={
                         <CelesteCheckbox
-                          checked={efectivo.efectivo}
-                          onChange={handleChangee}
-                          name="efectivo"
+                          checked={state.checkedL}
+                          onChange={handleChangec}
+                          name="checkedL"
                         />
                       }
+                      label="Lunes"
+                    />
+
+                    <FormControlLabel
+                      id="cargar-promo-checkbox"
+                      className="cargar-promo-checkbox-2"
+                      control={
+                        <CelesteCheckbox
+                          checked={state.checkedM}
+                          onChange={handleChangec}
+                          name="checkedM"
+                        />
+                      }
+                      label="Martes"
+                    />
+                    <FormControlLabel
+                      id="cargar-promo-checkbox"
+                      className="cargar-promo-checkbox-3"
+                      control={
+                        <CelesteCheckbox
+                          checked={state.checkedMi}
+                          onChange={handleChangec}
+                          name="checkedMi"
+                        />
+                      }
+                      label="Miércoles"
+                    />
+
+                    <FormControlLabel
+                      id="cargar-promo-checkbox"
+                      className="cargar-promo-checkbox-4"
+                      control={
+                        <CelesteCheckbox
+                          checked={state.checkedJ}
+                          onChange={handleChangec}
+                          name="checkedJ"
+                        />
+                      }
+                      label="Jueves"
+                    />
+                    <FormControlLabel
+                      id="cargar-promo-checkbox"
+                      className="cargar-promo-checkbox-5"
+                      control={
+                        <CelesteCheckbox
+                          checked={state.checkedV}
+                          onChange={handleChangec}
+                          name="checkedV"
+                        />
+                      }
+                      label="Viernes"
+                    />
+
+                    <FormControlLabel
+                      id="cargar-promo-checkbox"
+                      className="cargar-promo-checkbox-6"
+                      control={
+                        <CelesteCheckbox
+                          checked={state.checkedS}
+                          onChange={handleChangec}
+                          name="checkedS"
+                        />
+                      }
+                      label="Sábado"
+                    />
+                    <FormControlLabel
+                      id="cargar-promo-checkbox"
+                      className="cargar-promo-checkbox-7"
+                      control={
+                        <CelesteCheckbox
+                          checked={state.checkedD}
+                          onChange={handleChangec}
+                          name="checkedD"
+                        />
+                      }
+                      label="Domingo"
+                    />
+                    <FormControlLabel
+                      id="cargar-promo-checkbox"
+                      className="cargar-promo-checkbox-8"
+                      control={
+                        <CelesteCheckbox
+                          checked={state.checkedTD}
+                          onChange={handleChangec}
+                          name="checkedTD"
+                        />
+                      }
+                      label="Todos los días"
                     />
                   </div>
-                  <Divider className="dividerVertical" orientation="vertical" />
-                  <Divider className="dividerHorizontal" />
-                  <div className="contenedorCol2">
-                    <p>¿Qué días aplica la promoción?</p>
-                    <div className="cargar-promo-check-group">
-                      <FormControlLabel
-                        id="cargar-promo-checkbox"
-                        className="cargar-promo-checkbox-1"
-                        control={
-                          <CelesteCheckbox
-                            checked={state.checkedL}
-                            onChange={handleChangec}
-                            name="checkedL"
-                          />
-                        }
-                        label="Lunes"
-                      />
-
-                      <FormControlLabel
-                        id="cargar-promo-checkbox"
-                        className="cargar-promo-checkbox-2"
-                        control={
-                          <CelesteCheckbox
-                            checked={state.checkedM}
-                            onChange={handleChangec}
-                            name="checkedM"
-                          />
-                        }
-                        label="Martes"
-                      />
-                      <FormControlLabel
-                        id="cargar-promo-checkbox"
-                        className="cargar-promo-checkbox-3"
-                        control={
-                          <CelesteCheckbox
-                            checked={state.checkedMi}
-                            onChange={handleChangec}
-                            name="checkedMi"
-                          />
-                        }
-                        label="Miércoles"
-                      />
-
-                      <FormControlLabel
-                        id="cargar-promo-checkbox"
-                        className="cargar-promo-checkbox-4"
-                        control={
-                          <CelesteCheckbox
-                            checked={state.checkedJ}
-                            onChange={handleChangec}
-                            name="checkedJ"
-                          />
-                        }
-                        label="Jueves"
-                      />
-                      <FormControlLabel
-                        id="cargar-promo-checkbox"
-                        className="cargar-promo-checkbox-5"
-                        control={
-                          <CelesteCheckbox
-                            checked={state.checkedV}
-                            onChange={handleChangec}
-                            name="checkedV"
-                          />
-                        }
-                        label="Viernes"
-                      />
-
-                      <FormControlLabel
-                        id="cargar-promo-checkbox"
-                        className="cargar-promo-checkbox-6"
-                        control={
-                          <CelesteCheckbox
-                            checked={state.checkedS}
-                            onChange={handleChangec}
-                            name="checkedS"
-                          />
-                        }
-                        label="Sábado"
-                      />
-                      <FormControlLabel
-                        id="cargar-promo-checkbox"
-                        className="cargar-promo-checkbox-7"
-                        control={
-                          <CelesteCheckbox
-                            checked={state.checkedD}
-                            onChange={handleChangec}
-                            name="checkedD"
-                          />
-                        }
-                        label="Domingo"
-                      />
-                      <FormControlLabel
-                        id="cargar-promo-checkbox"
-                        className="cargar-promo-checkbox-8"
-                        control={
-                          <CelesteCheckbox
-                            checked={state.checkedTD}
-                            onChange={handleChangec}
-                            name="checkedTD"
-                          />
-                        }
-                        label="Todos los días"
+                  <p className="cargar-promo-desc">Agregar descripción</p>
+                  <form className={classes.root} noValidate autoComplete="off">
+                    <div>
+                      <TextField
+                        fullWidth
+                        variant="outlined"
+                        id="standard-textarea"
+                        name="descripcion"
+                        label="Descripción (opcional)"
+                        value={formData.descripcion}
+                        onChange={handleChange}
+                        placeholder="Descripción (opcional)"
+                        multiline
+                        rows={2}
                       />
                     </div>
-                    <p className="cargar-promo-desc">Agregar descripción</p>
-                    <form
-                      className={classes.root}
-                      noValidate
-                      autoComplete="off"
-                    >
-                      <div>
-                        <TextField
-                          fullWidth
-                          variant="outlined"
-                          id="standard-textarea"
-                          name="descripcion"
-                          label="Descripción (opcional)"
-                          value={formData.descripcion}
-                          onChange={handleChange}
-                          placeholder="Descripción (opcional)"
-                          multiline
-                          rows={2}
-                        />
-                      </div>
-                    </form>
-                  </div>
+                  </form>
                 </div>
               </div>
             </CardContent>
