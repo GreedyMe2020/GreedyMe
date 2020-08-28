@@ -6,6 +6,7 @@ import { crearPromocion } from "../../redux/actions/promActions";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
 import CargaPromociones from "../Promociones/cargaPromociones";
+import MisPromociones from "../Promociones/misPromociones";
 import Perfil from "../Perfil/Perfil";
 import NavBarSup from "../../components/Principal/navBarSuperior";
 import NavBarIzq from "../../components/Principal/navBarIzquierda";
@@ -50,7 +51,7 @@ function MainPage() {
       return <CargaPromociones />;
     }
     if (seleccionado === 3) {
-      return <h3>Aca van Mis promociones</h3>;
+      return <MisPromociones />;
     }
     if (seleccionado === 4) {
       return <h3>Aca las estadisticas</h3>;
