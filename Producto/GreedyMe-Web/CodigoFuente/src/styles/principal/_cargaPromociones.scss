@@ -50,7 +50,7 @@ $background-color: #ececec;
     margin-top: 1rem;
     box-shadow: 0px 10px 10px 0px #e1e1e1;
 
-    .cardContentePromo {
+    .cardContentPromo {
       width: 100%;
 
       .subtituloProm {
@@ -171,7 +171,7 @@ $background-color: #ececec;
 @media only screen and (max-width: 1000px) {
   .contenedorTodo {
     .cardPromo {
-      .cardContentePromo {
+      .cardContentPromo {
         .contCargarProm {
           .contenedorCol2 {
             .cargar-promo-check-group {
@@ -195,7 +195,7 @@ $background-color: #ececec;
       justify-content: center;
       align-items: center;
 
-      .cardContentePromo {
+      .cardContentPromo {
         .contCargarProm {
           display: flex;
           flex-flow: column;
