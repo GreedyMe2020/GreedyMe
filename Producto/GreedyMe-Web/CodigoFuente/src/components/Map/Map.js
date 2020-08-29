@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import usePlacesAutocomplete, {
   getGeocode,
@@ -14,49 +14,54 @@ import {
 
 import "@reach/combobox/styles.css";
 
-const libraries = ["places"];
-
 const options = {
   disableDefaultUI: true,
   zoomControl: true,
 };
 
-export default function Map() {
-  const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries,
-  });
+const center = {
+  lat: -31.4212352,
+  lng: -64.1826816,
+};
 
-  /*const [mapData, setMapData] = React.useState({
-    address: props.direccion,
-    lat: props.lat,
-    lng: props.lng,
-  });*/
+export default function Map(props) {
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map;
   }, []);
-
-  const panTo = React.useCallback(({ address, lat, lng }) => {
+  /*
+  const panTo = () => {
+    mapRef.current.panTo({ ubicacion.lat, ubicacion.lng });
+    mapRef.current.setZoom(14);
+  };
+*/
+  /*const panTo = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ address, lat, lng });
     mapRef.current.setZoom(14);
     setMapData({ address, lat, lng });
-  }, []);
-
-  if (loadError) return "Error";
-  if (!isLoaded) return "Loading...";
+  }, []);*/
 
   return (
     <div>
-      <GoogleMap
-        id="map"
-        zoom={14}
-        center={{ lat: -31.4214431, lng: -64.1961064 }}
-        options={options}
-        onLoad={onMapLoad}
-      >
-        <Marker position={{ lat: -31.4214431, lng: -64.1961064 }} />
-      </GoogleMap>
+      {props.lat ? (
+        <GoogleMap
+          id="map"
+          zoom={14}
+          center={{ lat: props.lat, lng: props.lng }}
+          options={options}
+          onLoad={onMapLoad}
+        >
+          <Marker position={{ lat: props.lat, lng: props.lng }} />
+        </GoogleMap>
+      ) : (
+        <GoogleMap
+          id="map"
+          zoom={11}
+          center={center}
+          options={options}
+          onLoad={onMapLoad}
+        ></GoogleMap>
+      )}
     </div>
   );
 }

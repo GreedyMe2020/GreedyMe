@@ -41,22 +41,22 @@ function MainPage() {
 
   const getOpcionSeleccionada = (seleccionado) => {
     if (seleccionado === 0) {
-      return <h3>Pagina principal</h3>;
+      return <h3></h3>;
     }
     if (seleccionado === 1) {
-      return <h3>En esta pagina iria lo de Carga cupón</h3>;
+      return <h3></h3>;
     }
     if (seleccionado === 2) {
       return <CargaPromociones />;
     }
     if (seleccionado === 3) {
-      return <h3>Aca van Mis promociones</h3>;
+      return <h3>Mis promociones</h3>;
     }
     if (seleccionado === 4) {
-      return <h3>Aca las estadisticas</h3>;
+      return <h3>Estadísticas</h3>;
     }
     if (seleccionado === 5) {
-      return <h3>y aca las notificaciones</h3>;
+      return <h3>Notificaciones</h3>;
     }
     if (seleccionado === 6) {
       return <Perfil />;
