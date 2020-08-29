@@ -51,9 +51,8 @@ function MainPage() {
       return <CargaPromociones />;
     }
     if (seleccionado === 3) {
-
       return <MisPromociones />;
-
+    }
     if (seleccionado === 4) {
       return <h3>Estadísticas</h3>;
     }
