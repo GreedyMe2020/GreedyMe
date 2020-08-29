@@ -9,6 +9,8 @@ import { NavBarSup } from "../../components/Principal/navBarSuperior";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import {
   MenuItem,
   FormControlLabel,
@@ -107,6 +109,10 @@ const CelesteCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 function CargaPromociones(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
@@ -131,6 +137,15 @@ function CargaPromociones(props) {
 
   const [desdeVigencia, handleDesdeVigencia] = React.useState(new Date()); //Estados para cada datePicker
   const [hastaVigencia, handleHastaVigencia] = React.useState(new Date());
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -164,6 +179,7 @@ function CargaPromociones(props) {
         desdeVigencia,
         hastaVigencia
       );
+      setOpen(true);
     }
   };
 
@@ -411,6 +427,16 @@ function CargaPromociones(props) {
                   Cargar promoción
                 </Button>
               </div>
+              <Snackbar
+                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                open={open}
+                autoHideDuration={8000}
+                onClose={handleClose}
+              >
+                <Alert onClose={handleClose} severity="success">
+                  La promoción se cargo correctamente!
+                </Alert>
+              </Snackbar>
             </CardActions>
           </ValidatorForm>
         </Card>

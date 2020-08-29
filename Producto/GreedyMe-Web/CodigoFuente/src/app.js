@@ -11,6 +11,7 @@ import Promociones from "./pages/Promociones";
 import { OlvidoContraseña } from "./pages/OlvidoContraseña";
 import PerfilComercio from "./pages/PerfilComercio";
 import CambiarContraseña from "./pages/CambiarContraseña";
+import { SnackbarProvider } from "notistack";
 
 //<Promociones path="/main/:id/promociones" />
 const App = () => {
@@ -33,7 +34,9 @@ store.firebaseAuthIsReady.then(() => {
     <React.StrictMode>
       <Provider store={store}>
         <BrowserRouter>
-          <App />
+          <SnackbarProvider>
+            <App />
+          </SnackbarProvider>
         </BrowserRouter>
       </Provider>
     </React.StrictMode>,
