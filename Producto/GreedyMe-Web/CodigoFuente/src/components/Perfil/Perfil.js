@@ -16,7 +16,6 @@ import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-import classes from "../../components/Modal";
 import Avatar from "@material-ui/core/Avatar";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -93,8 +92,6 @@ function Perfil(props) {
     lng: null,
   });
   const [picture, setPicture] = useState(props.profile.photoURL);
-  const [submitted, setSubmitted] = React.useState(false);
-  const [showModal, setModal] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
   const handleClose = (event, reason) => {
@@ -152,10 +149,6 @@ function Perfil(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.editarDatos(formData);
-    setSubmitted({ submitted: true }, () => {
-      setTimeout(() => setSubmitted({ submitted: false }), 5000);
-    });
-
     setOpen(true);
   };
 
@@ -361,6 +354,12 @@ function Perfil(props) {
                 />
               </Grid>
               <Grid className="inputPerfil2" item xs={12} md={12}>
+                {/* <TextValidator
+                  variant="outlined"
+                  id="outlined-basic"
+                  label="Dirección"
+                  fullWidth
+                ></TextValidator> */}
                 <Search
                   obtenerDireccion={obtenerDireccion}
                   actual={formData.direccion}
