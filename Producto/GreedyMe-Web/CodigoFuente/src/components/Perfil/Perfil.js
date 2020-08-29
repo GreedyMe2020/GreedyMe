@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Search from "../Map/Search";
+import NavBarSup from "../../components/Principal/navBarSuperior";
+
 import { Link } from "@reach/router";
+
 import { Card } from "react-bootstrap";
 import {
   ValidatorForm,
@@ -26,8 +30,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import SaveIcon from "@material-ui/icons/Save";
 import Map from "../Map/Map";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
+import usePlacesAutocomplete from "use-places-autocomplete";
+import { useLoadScript } from "@react-google-maps/api";
 /* import { db } from "../firebase/config"; */
-
+const libraries = ["places"];
 /*const rubros = [];
 const rubro = () => {
   db.collection("rubros")
@@ -45,6 +58,8 @@ const rubro = () => {
 };
 rubro();*/
 import Geocode from "react-geocode";
+
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
 
 const rubros = [
   {
@@ -137,10 +152,10 @@ function Perfil(props) {
     direccion: props.profile.direccion,
   });
 
-  /*const [ubicacion, setUbicacion] = React.useState({
-    lat: props.profile.direccion[1].Ra,
-    lng: props.profile.direccion[1].Pa,
-  });*/
+  const [ubicacion, setUbicacion] = React.useState({
+    lat: null,
+    lng: null,
+  });
   const [picture, setPicture] = useState(props.profile.photoURL);
   const [submitted, setSubmitted] = React.useState(false);
   const [showModal, setModal] = React.useState(false);
@@ -209,14 +224,25 @@ function Perfil(props) {
   };
 
   const form = React.createRef();
-  /*
+
   const getCoords = () => {
     Geocode.fromAddress(formData.direccion).then((response) => {
       const { lat, lng } = response.results[0].geometry.location;
-      setFormData({ ...formData, lat: lat, lng: lng });
+      setUbicacion({ lat: lat, lng: lng });
     });
   };
-*/
+
+  const obtenerDireccion = React.useCallback(({ address }) => {
+    formData.direccion = address;
+    setFormData({ ...formData });
+    formData.direccion ? getCoords() : null;
+  }, []);
+
+  useEffect(() => {
+    //esto no corre en el primer render, se ejecuta luego del return
+    formData.direccion ? getCoords() : null;
+  }, []); //lista de dependencias de react, cosa de que se refresque el campo una vez y luego cada vez que se actualizan los elementos de la lista
+
   return (
     <div className="perfil-validator-form">
       <ValidatorForm ref={form} onSubmit={handleSubmit}>
@@ -399,21 +425,16 @@ function Perfil(props) {
                 />
               </Grid>
               <Grid className="inputPerfil2" item xs={12} md={12}>
-                <TextValidator
-                  variant="outlined"
-                  id="outlined-basic"
-                  label="Dirección"
-                  fullWidth
-                  onChange={handleChange}
-                  name="direccion"
-                  defaultValue={formData.direccion}
-                  validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
-                  errorMessages={["El usuario no es válido"]}
+                <Search
+                  obtenerDireccion={obtenerDireccion}
+                  actual={formData.direccion}
                 />
               </Grid>
-              <Grid item xs={12} md={12}>
-                <Map />
-              </Grid>
+              {formData.direccion ? (
+                <Grid item xs={12} md={12}>
+                  <Map lat={ubicacion.lat} lng={ubicacion.lng} />
+                </Grid>
+              ) : null}
             </Grid>
           </Card.Body>
         </Card>
