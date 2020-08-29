@@ -40,3 +40,22 @@ export const subirFoto = (downloadURL) => {
       });
   };
 };
+
+export const eliminarFoto = (id) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("usuarioComercio")
+      .doc(id.id)
+      .update({
+        photoURL: null,
+      })
+      .then(() => {
+        dispatch({ type: "ELIMINAR_FOTO" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_ELIMINAR", error });
+      });
+  };
+};
+

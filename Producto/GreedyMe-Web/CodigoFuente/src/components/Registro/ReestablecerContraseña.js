@@ -6,11 +6,25 @@ import { Redirect } from "@reach/router";
 import Button from "@material-ui/core/Button";
 import { Card } from "react-bootstrap";
 import Grid from "@material-ui/core/Grid";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function ReestablecerContraseña(props) {
   const [formData, setFormData] = React.useState({
     email: "",
   });
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
@@ -20,6 +34,7 @@ function ReestablecerContraseña(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.forgotPass(formData);
+    setOpen(true);
   };
 
   const form = React.createRef();
@@ -82,6 +97,16 @@ function ReestablecerContraseña(props) {
                     Email inválido, ingresalo nuevamente
                   </p>
                 ) : null}
+                <Snackbar
+                  anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                  open={open}
+                  autoHideDuration={8000}
+                  onClose={handleClose}
+                >
+                  <Alert onClose={handleClose} severity="success">
+                    Email enviado correctamente
+                  </Alert>
+                </Snackbar>
               </div>
             </ValidatorForm>
           </Card.Body>

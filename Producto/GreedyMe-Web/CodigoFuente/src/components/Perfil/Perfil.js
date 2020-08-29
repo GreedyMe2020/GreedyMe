@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Search from "../Map/Search";
 import NavBarSup from "../../components/Principal/navBarSuperior";
+
+import { Link } from "@reach/router";
+
 import { Card } from "react-bootstrap";
 import {
   ValidatorForm,
@@ -15,10 +18,14 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import classes from "../../components/Modal";
 import Avatar from "@material-ui/core/Avatar";
-import { editarDatos } from "../../redux/actions/comActions";
-import { subirFoto } from "../../redux/actions/comActions";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import {
+  editarDatos,
+  subirFoto,
+  eliminarFoto,
+} from "../../redux/actions/comActions";
 import firebase from "../../firebase/config";
-import UseModal from "../useModal";
 import { makeStyles } from "@material-ui/core/styles";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import SaveIcon from "@material-ui/icons/Save";
@@ -127,6 +134,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 function Perfil(props) {
   const classes = useStyles();
 
@@ -148,6 +159,14 @@ function Perfil(props) {
   const [picture, setPicture] = useState(props.profile.photoURL);
   const [submitted, setSubmitted] = React.useState(false);
   const [showModal, setModal] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
@@ -189,26 +208,22 @@ function Perfil(props) {
     );
   };
 
+  const handleDelete = () => {
+    setPicture(null);
+    props.eliminarFoto({ id: props.auth.uid });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     props.editarDatos(formData);
     setSubmitted({ submitted: true }, () => {
       setTimeout(() => setSubmitted({ submitted: false }), 5000);
     });
-  };
 
-  const toggleModal = () => {
-    setModal(!showModal);
+    setOpen(true);
   };
 
   const form = React.createRef();
-
-  /*React.useEffect(() => {
-    Geocode.fromAddress(formData.direccion).then((response) => {
-      const { lat, lng } = response.results[0].geometry.location;
-      setUbicacion({ lat: lat, lng: lng });
-    }, console.error);
-  }, [formData.direccion, setFormData]);*/
 
   const getCoords = () => {
     Geocode.fromAddress(formData.direccion).then((response) => {
@@ -229,8 +244,8 @@ function Perfil(props) {
   }, []); //lista de dependencias de react, cosa de que se refresque el campo una vez y luego cada vez que se actualizan los elementos de la lista
 
   return (
-    <div>
-      <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
+    <div className="perfil-validator-form">
+      <ValidatorForm ref={form} onSubmit={handleSubmit}>
         <h4 className="tituloCardAdminP1">Información de inicio de sesión</h4>
         <Card id="cardAdminCuenta">
           <Card.Body className="contCardPerfil1">
@@ -271,6 +286,9 @@ function Perfil(props) {
                 errorMessages={["*Este campo es obligatorio"]}
               />
             </div>
+            <Link to={"/main/" + props.auth.uid + "/newpassword"}>
+              Cambiar contraseña
+            </Link>
             <div className="imagenPerfil">
               <Avatar
                 className="contImgSubir"
@@ -295,6 +313,9 @@ function Perfil(props) {
                   Cargar imagen
                 </Button>
               </label>
+              <a className="eliminar-img" onClick={handleDelete}>
+                Eliminar imagen
+              </a>
             </div>
           </Card.Body>
         </Card>
@@ -428,24 +449,18 @@ function Perfil(props) {
           >
             Guardar cambios
           </Button>
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+            open={open}
+            autoHideDuration={8000}
+            onClose={handleClose}
+          >
+            <Alert onClose={handleClose} severity="success">
+              ¡Cambios guardados correctamente!
+            </Alert>
+          </Snackbar>
         </div>
       </ValidatorForm>
-      {showModal ? (
-        <UseModal>
-          <div>
-            <h5>Tus datos han sido actualizados.</h5>
-            <Button
-              color="primary"
-              variant="contained"
-              className={classes.margin}
-              type="submit"
-              onClick={toggleModal}
-            >
-              Salir
-            </Button>
-          </div>
-        </UseModal>
-      ) : null}
     </div>
   );
 }
@@ -461,6 +476,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     editarDatos: (datos) => dispatch(editarDatos(datos)),
     subirFoto: (downloadURL) => dispatch(subirFoto(downloadURL)),
+    eliminarFoto: (downloadURL) => dispatch(eliminarFoto(downloadURL)),
   };
 };
 

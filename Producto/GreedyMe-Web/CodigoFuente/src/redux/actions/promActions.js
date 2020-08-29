@@ -1,4 +1,10 @@
-export const crearPromocion = (promocion) => {
+export const crearPromocion = (
+  promocion,
+  dias,
+  efectivo,
+  desdeVigencia,
+  hastaVigencia
+) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     firestore
@@ -9,8 +15,12 @@ export const crearPromocion = (promocion) => {
       .set({
         tipoPromo: promocion.tipoPromo,
         proveedor: promocion.proveedor,
-        diaVigencia: promocion.diaVigencia,
-        mesVigencia: promocion.mesVigencia,
+        desdeVigencia: desdeVigencia,
+        hastaVigencia: hastaVigencia,
+        visible: false,
+        descripcion: promocion.descripcion,
+        diaAplicacion: dias,
+        efectivo: efectivo.efectivo,
       })
       .then(() => {
         dispatch({ type: "CREAR_PROMOCION" });
@@ -21,7 +31,13 @@ export const crearPromocion = (promocion) => {
   };
 };
 
-export const actulizarPromocion = (promocion) => {
+export const actualizarPromocion = (
+  promocion,
+  dias,
+  efectivo,
+  desdeVigencia,
+  hastaVigencia
+) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     firestore
@@ -30,7 +46,13 @@ export const actulizarPromocion = (promocion) => {
       .collection("promociones")
       .doc()
       .update({
-        tipoPromocion: promocion.tipoPromocion,
+        tipoPromo: promocion.tipoPromo,
+        proveedor: promocion.proveedor,
+        desdeVigencia: desdeVigencia,
+        hastaVigencia: hastaVigencia,
+        descripcion: promocion.descripcion,
+        diaAplicacion: dias,
+        efectivo: efectivo.efectivo,
       })
       .then(() => {
         dispatch({ type: "ACTUALIZAR_PROMOCION", promocion });
@@ -55,6 +77,26 @@ export const eliminarPromocion = (promocion) => {
       })
       .catch((error) => {
         dispatch({ type: "ERROR_ELIMINACION", error });
+      });
+  };
+};
+
+export const cambiarVisibilidad = (promocion) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("usuarioComercio")
+      .doc(promocion.id)
+      .collection("promociones")
+      .doc(promocion.idProm)
+      .update({
+        visible: !promocion.visible,
+      })
+      .then(() => {
+        dispatch({ type: "CAMBIAR_VISIBILIDAD" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_VISIBILIDAD", error });
       });
   };
 };
