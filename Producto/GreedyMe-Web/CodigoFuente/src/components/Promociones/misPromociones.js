@@ -147,7 +147,14 @@ import firebase from "../../firebase/config";
 import { connect } from "react-redux";
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
-const promociones = [];
+
+const useStyles = makeStyles((theme) => ({
+  demo: {
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
+
+let promociones = [];
 const promocion = () => {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
@@ -158,6 +165,7 @@ const promocion = () => {
         .doc(id)
         .collection("promociones")
         .onSnapshot(function (snapShots) {
+          promociones = [];
           snapShots.forEach((doc) => {
             const data = doc.data();
             promociones.push({
@@ -172,24 +180,10 @@ const promocion = () => {
 //y aca se ejecuta la fncion de arriba
 promocion();
 
-const useStyles = makeStyles((theme) => ({
-  demo: {
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
-
-function generate(element) {
-  return promociones.map((value) =>
-    React.cloneElement(element, {
-      key: value.id,
-      descripcion: value.descripcion,
-    })
-  );
-}
-
 function MisPromociones(props) {
   console.log(promociones); //te dejo un console.log si queres ver como vienen las promos
   const classes = useStyles();
+
   return (
     <div>
       <div className="prom-title-container">
@@ -202,31 +196,34 @@ function MisPromociones(props) {
               <div className={classes.demo}>
                 <List>
                   {promociones &&
-                    generate(
-                      <ListItem>
-                        <ListItemAvatar>
-                          <Avatar
-                            variant="square"
-                            src={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
-                          ></Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary="aca va la info como la descripcion"
-                          //secondary={secondary ? "Secondary text" : null}
-                        />
-                        <ListItemSecondaryAction>
-                          <IconButton aria-label="Editar">
-                            <CreateIcon />
-                          </IconButton>
-                          <IconButton aria-label="Mostrar/Ocultar">
-                            <Visibility />
-                          </IconButton>
-                          <IconButton edge="end" aria-label="Eliminar">
-                            <DeleteIcon />
-                          </IconButton>
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                    )}
+                    promociones.map((promos) => {
+                      return (
+                        <ListItem>
+                          <ListItemAvatar>
+                            <Avatar
+                              variant="square"
+                              src={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
+                            ></Avatar>
+                          </ListItemAvatar>
+                          <ListItemText
+                            //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                            primary={promos.descripcion}
+                            //secondary={secondary ? "Secondary text" : null}
+                          />
+                          <ListItemSecondaryAction>
+                            <IconButton aria-label="Editar">
+                              <CreateIcon />
+                            </IconButton>
+                            <IconButton aria-label="Mostrar/Ocultar">
+                              <Visibility />
+                            </IconButton>
+                            <IconButton edge="end" aria-label="Eliminar">
+                              <DeleteIcon />
+                            </IconButton>
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      );
+                    })}
                 </List>
               </div>
             </Grid>
