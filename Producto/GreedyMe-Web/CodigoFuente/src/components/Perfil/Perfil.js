@@ -16,7 +16,6 @@ import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-import classes from "../../components/Modal";
 import Avatar from "@material-ui/core/Avatar";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -41,9 +40,11 @@ import usePlacesAutocomplete from "use-places-autocomplete";
 import { useLoadScript } from "@react-google-maps/api";
 /* import { db } from "../firebase/config"; */
 const libraries = ["places"];
-/*const rubros = [];
+const rubros = [];
 const rubro = () => {
-  db.collection("rubros")
+  const firestore = firebase.firestore();
+  firestore
+    .collection("rubros")
     .orderBy("nombre")
     .get()
     .then((snapShots) => {
@@ -56,77 +57,11 @@ const rubro = () => {
       });
     });
 };
-rubro();*/
+rubro();
+console.log(rubros);
 import Geocode from "react-geocode";
 
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
-
-const rubros = [
-  {
-    value: "Belleza",
-    nombre: "Belleza",
-  },
-  {
-    value: "Deportes",
-    nombre: "Deportes",
-  },
-  {
-    value: "Entretenimiento",
-    nombre: "Entretenimiento",
-  },
-  {
-    value: "Estetica",
-    nombre: "Estética",
-  },
-  {
-    value: "Farmacia",
-    nombre: "Farmacia",
-  },
-  {
-    value: "Gastronomia",
-    nombre: "Gastronomía",
-  },
-  {
-    value: "Hogar",
-    nombre: "Hogar",
-  },
-  {
-    value: "Indumentaria",
-    nombre: "Indumentaria",
-  },
-  {
-    value: "Librerias",
-    nombre: "Librerías",
-  },
-  {
-    value: "MueblesYDecoracion",
-    nombre: "Muebles y Decoración",
-  },
-  {
-    value: "Niños",
-    nombre: "Niños",
-  },
-  {
-    value: "Supermercados",
-    nombre: "Supermercados",
-  },
-  {
-    value: "Tecnologia",
-    nombre: "Tecnologia",
-  },
-  {
-    value: "Turismo",
-    nombre: "Turismo",
-  },
-  {
-    value: "Vehiculos",
-    nombre: "Vehículos",
-  },
-  {
-    value: "Otro",
-    nombre: "Otro",
-  },
-];
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -157,8 +92,6 @@ function Perfil(props) {
     lng: null,
   });
   const [picture, setPicture] = useState(props.profile.photoURL);
-  const [submitted, setSubmitted] = React.useState(false);
-  const [showModal, setModal] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
   const handleClose = (event, reason) => {
@@ -216,10 +149,6 @@ function Perfil(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.editarDatos(formData);
-    setSubmitted({ submitted: true }, () => {
-      setTimeout(() => setSubmitted({ submitted: false }), 5000);
-    });
-
     setOpen(true);
   };
 
@@ -425,6 +354,12 @@ function Perfil(props) {
                 />
               </Grid>
               <Grid className="inputPerfil2" item xs={12} md={12}>
+                {/* <TextValidator
+                  variant="outlined"
+                  id="outlined-basic"
+                  label="Dirección"
+                  fullWidth
+                ></TextValidator> */}
                 <Search
                   obtenerDireccion={obtenerDireccion}
                   actual={formData.direccion}
