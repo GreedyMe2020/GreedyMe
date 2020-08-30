@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 import MaterialTable from "material-table";
 import { forwardRef } from "react";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
@@ -14,9 +14,11 @@ import LastPage from "@material-ui/icons/LastPage";
 import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
-import ViewColumn from "@material-ui/icons/ViewColumn";
+import ViewColumn from "@material-ui/icons/ViewColumn";*/
 
-function MisPromociones() {
+/*function MisPromociones(props) {
+  console.log(promociones);
+
   const { useState } = React;
   const [columns, setColumns] = useState([
     {
@@ -48,11 +50,11 @@ function MisPromociones() {
       vigenciaHasta: "",
       efectivo: 1,
       dias: 1,
-      descripcion: "Hola que tal aca va la descrip",
+      descripcion: "sdsad",
     },
   ]);
 
-  // todos los iconos
+   todos los iconos
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -86,7 +88,15 @@ function MisPromociones() {
       icons={tableIcons}
       title="Mis promociones"
       columns={columns}
-      data={data}
+      data={promociones.map((option) => ({
+        tipoPromo: 1,
+        proveedor: 2,
+        vigenciaDesde: option.vigenciaDesde,
+        vigenciaHasta: option.vigenciaHasta,
+        efectivo: 1,
+        dias: 1,
+        descripcion: option.descripcion,
+      }))}
       editable={{
         onRowUpdate: (newData, oldData) =>
           new Promise((resolve, reject) => {
@@ -113,164 +123,167 @@ function MisPromociones() {
       }}
     />
   );
+}*/
+
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
+import DeleteIcon from "@material-ui/icons/Delete";
+import CreateIcon from "@material-ui/icons/Create";
+import Visibility from "@material-ui/icons/Visibility";
+import { Grid, Avatar, IconButton } from "@material-ui/core";
+import {
+  cambiarVisibilidad,
+  actualizarPromocion,
+  eliminarPromocion,
+} from "../../redux/actions/promActions";
+import firebase from "../../firebase/config";
+import { connect } from "react-redux";
+//esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
+//y la va acumulando en el array
+const promociones = [];
+const promocion = () => {
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      const id = user.uid;
+      const firestore = firebase.firestore();
+      firestore
+        .collection("usuarioComercio")
+        .doc(id)
+        .collection("promociones")
+        .onSnapshot(function (snapShots) {
+          snapShots.forEach((doc) => {
+            const data = doc.data();
+            promociones.push({
+              ...data,
+              id: doc.id,
+            });
+          });
+        });
+    }
+  });
+};
+//y aca se ejecuta la fncion de arriba
+promocion();
+
+const useStyles = makeStyles((theme) => ({
+  demo: {
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
+
+function generate(element) {
+  return promociones.map((value) =>
+    React.cloneElement(element, {
+      key: value.id,
+      descripcion: value.descripcion,
+    })
+  );
 }
-export default MisPromociones;
 
-// import React, { useState } from "react";
-// import { connect } from "react-redux";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Card from "@material-ui/core/Card";
-// import CardContent from "@material-ui/core/CardContent";
-// import List from "@material-ui/core/List";
-// import ListItem from "@material-ui/core/ListItem";
-// import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-// import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-// import ListItemText from "@material-ui/core/ListItemText";
-// import DeleteIcon from "@material-ui/icons/Delete";
-// import CreateIcon from "@material-ui/icons/Create";
-// import Visibility from "@material-ui/icons/Visibility";
-// import { Grid, Avatar, IconButton } from "@material-ui/core";
-// import { firestoreConnect } from "react-redux-firebase";
-// import { compose } from "redux";
-// import { cambiarVisibilidad } from "../../redux/actions/promActions";
-// import firebase from "../../firebase/config";
+function MisPromociones(props) {
+  console.log(promociones); //te dejo un console.log si queres ver como vienen las promos
+  const classes = useStyles();
+  return (
+    <div>
+      <div className="prom-title-container">
+        <h1>Mis promociones</h1>
+      </div>
+      <div className="contenedorTodo">
+        <Card className="cardPromo">
+          <CardContent className="cardContentePromo">
+            <Grid item xs={12} md={12}>
+              <div className={classes.demo}>
+                <List>
+                  {promociones &&
+                    generate(
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar
+                            variant="square"
+                            src={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
+                          ></Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary="aca va la info como la descripcion"
+                          //secondary={secondary ? "Secondary text" : null}
+                        />
+                        <ListItemSecondaryAction>
+                          <IconButton aria-label="Editar">
+                            <CreateIcon />
+                          </IconButton>
+                          <IconButton aria-label="Mostrar/Ocultar">
+                            <Visibility />
+                          </IconButton>
+                          <IconButton edge="end" aria-label="Eliminar">
+                            <DeleteIcon />
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    )}
+                </List>
+              </div>
+            </Grid>
+            {/* <img
+               width="40px"
+               height="40px"
+               src={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
+             />
+             <p></p>
+             <Divider />
+             <img
+               width="40px"
+               height="40px"
+               src={require("../../../Multimedia/Sistema-svg/store.svg")}
+             />
+             <p></p>
+             <Divider />
+             <img
+               width="40px"
+               height="40px"
+               src={require("../../../Multimedia/Sistema-svg/percentage (1).svg")}
+             />
+             <p></p> */}
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}
 
-// const useStyles = makeStyles((theme) => ({
-//   demo: {
-//     backgroundColor: theme.palette.background.paper,
-//   },
-// }));
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+  };
+};
 
-// function generate(element) {
-//   return [0, 1, 2].map((value) =>
-//     React.cloneElement(element, {
-//       key: value,
-//     })
-//   );
-// }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actualizarPromocion: (
+      promocion,
+      dias,
+      efectivo,
+      desdeVigencia,
+      hastaVigencia
+    ) =>
+      dispatch(
+        actualizarPromocion(
+          promocion,
+          dias,
+          efectivo,
+          desdeVigencia,
+          hastaVigencia
+        )
+      ),
+    eliminarPromocion: (promocion) => dispatch(eliminarPromocion(promocion)),
+    cambiarVisibilidad: (promocion) => dispatch(cambiarVisibilidad(promocion)),
+  };
+};
 
-// function MisPromociones(props) {
-//   const promociones = [];
-//   const promocion = () => {
-//     const firestore = firebase.firestore();
-//     firestore
-//       .collection("usuarioComercio")
-//       .doc(props.auth.uid)
-//       .collection("promociones")
-//       .get()
-//       .then((snapShots) => {
-//         snapShots.forEach((doc) => {
-//           const data = doc.data();
-//           promociones.push({
-//             ...data,
-//             id: doc.id,
-//           });
-//         });
-//       });
-//   };
-//   promocion();
-//   console.log(promociones);
-//   const classes = useStyles();
-//   return (
-//     <div>
-//       <div className="prom-title-container">
-//         <h1>Mis promociones</h1>
-//       </div>
-//       <div className="contenedorTodo">
-//         <Card className="cardPromo">
-//           <CardContent className="cardContentePromo">
-//             <Grid item xs={12} md={12}>
-//               <div className={classes.demo}>
-//                 <List>
-//                   {generate(
-//                     <ListItem>
-//                       <ListItemAvatar>
-//                         <Avatar
-//                           variant="square"
-//                           src={require("../../../Multimedia/Sistema-svg/credit-card.svg")} //aca enrealidad tengo que variar el icono segun el tipo de promocion que sea
-//                         ></Avatar>
-//                       </ListItemAvatar>
-//                       <ListItemText
-//                         primary="gol"
-//                         //secondary={secondary ? "Secondary text" : null}
-//                       />
-//                       <ListItemSecondaryAction>
-//                         <IconButton aria-label="Editar">
-//                           <CreateIcon />
-//                         </IconButton>
-//                         <IconButton aria-label="Mostrar/Ocultar">
-//                           <Visibility />
-//                         </IconButton>
-//                         <IconButton edge="end" aria-label="Eliminar">
-//                           <DeleteIcon />
-//                         </IconButton>
-//                       </ListItemSecondaryAction>
-//                     </ListItem>
-//                   )}
-//                 </List>
-//               </div>
-//             </Grid>
-//             {/* <img
-//               width="40px"
-//               height="40px"
-//               src={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
-//             />
-//             <p></p>
-//             <Divider />
-//             <img
-//               width="40px"
-//               height="40px"
-//               src={require("../../../Multimedia/Sistema-svg/store.svg")}
-//             />
-//             <p></p>
-//             <Divider />
-//             <img
-//               width="40px"
-//               height="40px"
-//               src={require("../../../Multimedia/Sistema-svg/percentage (1).svg")}
-//             />
-//             <p></p> */}
-//           </CardContent>
-//         </Card>
-//       </div>
-//     </div>
-//   );
-// }
-
-// const mapStateToProps = (state) => {
-//   console.log(state);
-//   return {
-//     auth: state.firebase.auth,
-//     //promociones: state.firestore.data.usuarioComercio
-//   };
-// };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     acturalizarPromocion: (
-//       promocion,
-//       dias,
-//       efectivo,
-//       desdeVigencia,
-//       hastaVigencia
-//     ) =>
-//       dispatch(
-//         actualizarPromocion(
-//           promocion,
-//           dias,
-//           efectivo,
-//           desdeVigencia,
-//           hastaVigencia
-//         )
-//       ),
-//     eliminarPromocion: (promocion) => dispatch(eliminarPromocion(promocion)),
-//     cambiarVisibilidad: (promocion) => dispatch(cambiarVisibilidad(promocion)),
-//   };
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(MisPromociones);
-/*
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect((props) => [`usuarioComercio/${props.auth.uid}/promociones`])
-)(MisPromociones);*/
+export default connect(mapStateToProps, mapDispatchToProps)(MisPromociones);
