@@ -183,12 +183,12 @@ const promocion = () => {
 promocion();
 
 function MisPromociones(props) {
-  console.log(promociones); //te dejo un console.log si queres ver como vienen las promos
+  console.log(promociones); //meustra lo que hay en base de datos
 
   const [promos, setPromos] = React.useState(promociones);
-  const [eliminaciones, setEliminaciones] = React.useState(promociones);
   const classes = useStyles();
-  console.log(promos);
+  console.log(promos); //muestra lo que hay en usestate de promos
+
   return (
     <div>
       <div className="prom-title-container">
@@ -240,7 +240,7 @@ function MisPromociones(props) {
                                   "dd-MM-yyyy"
                                 ) +
                                 " " +
-                                promo.dias +
+                                promo.diaAplicacion.checkedTD +
                                 " " +
                                 promo.descripcion
                               }
@@ -260,10 +260,7 @@ function MisPromociones(props) {
                                   id: props.auth.uid,
                                   idProm: promo.id,
                                 });
-
-                                setPromos(
-                                  promos.splice(promos.indexOf(promo.id), 1)
-                                );
+                                setPromos(promos);
                               }}
                               edge="end"
                               aria-label="Eliminar"
