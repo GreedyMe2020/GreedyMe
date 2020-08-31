@@ -34,6 +34,7 @@ const promReducer = (state = initState, action) => {
         actualError: "Ocurrio algun error en la edicion",
       };
     case "ELIMINAR_PROMOCION":
+      console.log("se elimino bro")
       return {
         ...state,
         promElim: "se elimino la promocion",

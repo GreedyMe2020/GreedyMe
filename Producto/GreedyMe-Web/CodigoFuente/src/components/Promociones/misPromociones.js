@@ -182,8 +182,11 @@ promocion();
 
 function MisPromociones(props) {
   console.log(promociones); //te dejo un console.log si queres ver como vienen las promos
-  const classes = useStyles();
 
+  const [promos, setPromos] = React.useState(promociones);
+  const [eliminaciones, setEliminaciones] = React.useState(promociones);
+  const classes = useStyles();
+  console.log(promos);
   return (
     <div>
       <div className="prom-title-container">
@@ -195,10 +198,10 @@ function MisPromociones(props) {
             <Grid item xs={12} md={12}>
               <div className={classes.demo}>
                 <List>
-                  {promociones &&
-                    promociones.map((promos) => {
+                  {promos &&
+                    promos.map((promo) => {
                       return (
-                        <ListItem>
+                        <ListItem key={promo.id}>
                           <ListItemAvatar>
                             <Avatar
                               variant="square"
@@ -207,7 +210,7 @@ function MisPromociones(props) {
                           </ListItemAvatar>
                           <ListItemText
                             //asi podes ir accediendo a todos los datos asi los acomodas como quieras
-                            primary={promos.descripcion}
+                            primary={promo.descripcion}
                             //secondary={secondary ? "Secondary text" : null}
                           />
                           <ListItemSecondaryAction>
@@ -217,7 +220,20 @@ function MisPromociones(props) {
                             <IconButton aria-label="Mostrar/Ocultar">
                               <Visibility />
                             </IconButton>
-                            <IconButton edge="end" aria-label="Eliminar">
+                            <IconButton
+                              onClick={() => {
+                                props.eliminarPromocion({
+                                  id: props.auth.uid,
+                                  idProm: promo.id,
+                                });
+
+                                setPromos(
+                                  promos.splice(promos.indexOf(promo.id), 1)
+                                );
+                              }}
+                              edge="end"
+                              aria-label="Eliminar"
+                            >
                               <DeleteIcon />
                             </IconButton>
                           </ListItemSecondaryAction>
