@@ -17,8 +17,8 @@ export default function Suscripciones(props) {
             <div className="susc-title-container">
               <h1>Compará los planes</h1>
               <p>
-                GreedyMe ofrece una comparación entre los planes ofrecidos para
-                que elijas el que mas se ajuste a tus necesidades
+                GreedyMe te brinda una comparación entre los planes ofrecidos
+                para que elijas el que mas se ajuste a tus necesidades.
               </p>
             </div>
             <div className="susc-container"></div>

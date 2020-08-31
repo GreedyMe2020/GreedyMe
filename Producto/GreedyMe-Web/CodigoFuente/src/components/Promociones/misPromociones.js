@@ -138,6 +138,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
 import Visibility from "@material-ui/icons/Visibility";
 import { Grid, Avatar, IconButton } from "@material-ui/core";
+import { format } from "date-fns";
 import ModalPromos from "../../components/modal-button";
 import {
   cambiarVisibilidad,
@@ -178,7 +179,7 @@ const promocion = () => {
     }
   });
 };
-//y aca se ejecuta la fncion de arriba
+//y aca se ejecuta la funcion de arriba
 promocion();
 
 function MisPromociones(props) {
@@ -225,9 +226,15 @@ function MisPromociones(props) {
                                 " " +
                                 promos.proveedor +
                                 " desde el " +
-                                promos.desdeVigencia +
+                                format(
+                                  promos.desdeVigencia.toDate(),
+                                  "dd-MM-yyyy"
+                                ) +
                                 " hasta el " +
-                                promos.hastaVigencia +
+                                format(
+                                  promos.hastaVigencia.toDate(),
+                                  "dd-MM-yyyy"
+                                ) +
                                 " " +
                                 promos.dias +
                                 " " +
