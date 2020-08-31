@@ -21,12 +21,14 @@ $logo-orange-color: #f7941e;
 $dark-orange-color: #fd5f00;
 $background-color: #ececec;
 
-.iconoMP {
-  width: 10px;
-  height: 10px;
+.contenedor-todo {
+  .cardPromo {
+    .cardContentePromo {
+      .susc-title-container {
+        width: 100%;
+        display: flex;
+        flex-flow: column;
+      }
+    }
+  }
 }
-
-.elementoListaProm {
-  width: 80%;
-}
-

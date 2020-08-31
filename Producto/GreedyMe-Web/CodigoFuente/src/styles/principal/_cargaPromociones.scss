@@ -23,10 +23,14 @@ $background-color: #ececec;
 
 .prom-title-container {
   margin-top: 35px;
-  margin-left: 5%;
+  display: flex;
   h1 {
     font-weight: 500;
     font-size: 1.5rem;
+    margin-left: 5%;
+  }
+  .btnModalProm {
+    margin-left: 600px;
   }
 }
 .contenedorTodo {
