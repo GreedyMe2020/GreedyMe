@@ -138,6 +138,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
 import Visibility from "@material-ui/icons/Visibility";
 import { Grid, Avatar, IconButton } from "@material-ui/core";
+import ModalPromos from "../../components/modal-button";
 import {
   cambiarVisibilidad,
   actualizarPromocion,
@@ -188,6 +189,7 @@ function MisPromociones(props) {
     <div>
       <div className="prom-title-container">
         <h1>Mis promociones</h1>
+        <ModalPromos />
       </div>
       <div className="contenedorTodo">
         <Card className="cardPromo">
@@ -202,14 +204,38 @@ function MisPromociones(props) {
                           <ListItemAvatar>
                             <Avatar
                               variant="square"
-                              src={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
+                              src={require("../../../Multimedia/Sistema-svg/store.svg")}
+                              /* src1={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
+                              src2={require("../../../Multimedia/Sistema-svg/store.svg")}
+                              src3={require("../../../Multimedia/Sistema-svg/percentage (1).svg")}
+                              proveedor={
+                                promos.proveedor === 1
+                                  ? src1
+                                  : promos.proveedor === 2
+                                  ? src2
+                                  : src3
+                              } */
                             ></Avatar>
                           </ListItemAvatar>
-                          <ListItemText
-                            //asi podes ir accediendo a todos los datos asi los acomodas como quieras
-                            primary={promos.descripcion}
-                            //secondary={secondary ? "Secondary text" : null}
-                          />
+                          <div className="elementoListaProm">
+                            <ListItemText
+                              //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                              primary={
+                                promos.tipoPromo +
+                                " " +
+                                promos.proveedor +
+                                " desde el " +
+                                promos.desdeVigencia +
+                                " hasta el " +
+                                promos.hastaVigencia +
+                                " " +
+                                promos.dias +
+                                " " +
+                                promos.descripcion
+                              }
+                              secondary={promos.efectivo ? "Efectivo" : null}
+                            />
+                          </div>
                           <ListItemSecondaryAction>
                             <IconButton aria-label="Editar">
                               <CreateIcon />
@@ -227,26 +253,6 @@ function MisPromociones(props) {
                 </List>
               </div>
             </Grid>
-            {/* <img
-               width="40px"
-               height="40px"
-               src={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
-             />
-             <p></p>
-             <Divider />
-             <img
-               width="40px"
-               height="40px"
-               src={require("../../../Multimedia/Sistema-svg/store.svg")}
-             />
-             <p></p>
-             <Divider />
-             <img
-               width="40px"
-               height="40px"
-               src={require("../../../Multimedia/Sistema-svg/percentage (1).svg")}
-             />
-             <p></p> */}
           </CardContent>
         </Card>
       </div>
