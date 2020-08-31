@@ -183,8 +183,11 @@ const promocion = () => {
 promocion();
 
 function MisPromociones(props) {
-  console.log(promociones); //te dejo un console.log si queres ver como vienen las promos
+  console.log(promociones); //meustra lo que hay en base de datos
+
+  const [promos, setPromos] = React.useState(promociones);
   const classes = useStyles();
+  console.log(promos); //muestra lo que hay en usestate de promos
 
   return (
     <div>
@@ -198,10 +201,10 @@ function MisPromociones(props) {
             <Grid item xs={12} md={12}>
               <div className={classes.demo}>
                 <List>
-                  {promociones &&
-                    promociones.map((promos) => {
+                  {promos &&
+                    promos.map((promo) => {
                       return (
-                        <ListItem>
+                        <ListItem key={promo.id}>
                           <ListItemAvatar>
                             <Avatar
                               variant="square"
@@ -218,29 +221,30 @@ function MisPromociones(props) {
                               } */
                             ></Avatar>
                           </ListItemAvatar>
+
                           <div className="elementoListaProm">
                             <ListItemText
                               //asi podes ir accediendo a todos los datos asi los acomodas como quieras
                               primary={
-                                promos.tipoPromo +
+                                promo.tipoPromo +
                                 " " +
-                                promos.proveedor +
+                                promo.proveedor +
                                 " desde el " +
                                 format(
-                                  promos.desdeVigencia.toDate(),
+                                  promo.desdeVigencia.toDate(),
                                   "dd-MM-yyyy"
                                 ) +
                                 " hasta el " +
                                 format(
-                                  promos.hastaVigencia.toDate(),
+                                  promo.hastaVigencia.toDate(),
                                   "dd-MM-yyyy"
                                 ) +
                                 " " +
-                                promos.dias +
+                                promo.diaAplicacion.checkedTD +
                                 " " +
-                                promos.descripcion
+                                promo.descripcion
                               }
-                              secondary={promos.efectivo ? "Efectivo" : null}
+                              secondary={promo.efectivo ? "Efectivo" : null}
                             />
                           </div>
                           <ListItemSecondaryAction>
@@ -250,7 +254,17 @@ function MisPromociones(props) {
                             <IconButton aria-label="Mostrar/Ocultar">
                               <Visibility />
                             </IconButton>
-                            <IconButton edge="end" aria-label="Eliminar">
+                            <IconButton
+                              onClick={() => {
+                                props.eliminarPromocion({
+                                  id: props.auth.uid,
+                                  idProm: promo.id,
+                                });
+                                setPromos(promos);
+                              }}
+                              edge="end"
+                              aria-label="Eliminar"
+                            >
                               <DeleteIcon />
                             </IconButton>
                           </ListItemSecondaryAction>
