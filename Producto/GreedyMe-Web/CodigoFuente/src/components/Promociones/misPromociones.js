@@ -201,7 +201,7 @@ function MisPromociones(props) {
                           <ListItemAvatar>
                             <Avatar
                               variant="square"
-                              src={require("../../../Multimedia/Sistema-svg/store.svg")}
+                              src={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
                               /* src1={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
                               src2={require("../../../Multimedia/Sistema-svg/store.svg")}
                               src3={require("../../../Multimedia/Sistema-svg/percentage (1).svg")}
