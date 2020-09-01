@@ -11,7 +11,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
-import CargaPromociones from "../components/Promociones/cargaPromociones";
+import ModalPromociones from "../components/Promociones/modalPromociones";
 
 export const ModalButton = ({ children }) => {
   const [modalShow, setModalShow] = useState(false);
@@ -32,7 +32,8 @@ export const ModalButton = ({ children }) => {
 export default function ModalPromos() {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const [fullWidth, setFullWidth] = React.useState(true);
+  const [maxWidth, setMaxWidth] = React.useState("md");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -44,44 +45,36 @@ export default function ModalPromos() {
 
   return (
     <div>
-      <div className="btnModalProm">
-        <Button
-          className="fabIconAdd"
-          variant="contained"
-          color="primary"
-          onClick={handleClickOpen}
-        >
-          Cargar promoción
-        </Button>
-        <Fab
-          className="fabIconAdd"
-          color="secondary"
-          aria-label="add"
-          onClick={handleClickOpen}
-        >
-          <AddIcon />
-        </Fab>
+      <div className="prom-title-container">
+        <h1>Mis promociones</h1>
+        <div className="icoNuevaProm">
+          <Button
+            variant="contained"
+            onClick={handleClickOpen}
+            id="cargar-promo-submit"
+          >
+            Nueva promoción
+          </Button>
+        </div>
       </div>
       <Dialog
-        fullScreen={fullScreen}
+        fullWidth={fullWidth}
+        maxWidth={maxWidth}
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">
+        {/* <DialogTitle id="responsive-dialog-title">
           {"Cargar nueva promoción"}
-        </DialogTitle>
+        </DialogTitle> */}
         <DialogContent>
           <DialogContentText>
-            <CargaPromociones />
+            <ModalPromociones />
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Cerrar
-          </Button>
           <Button onClick={handleClose} color="primary" autoFocus>
-            Cargar
+            Cerrar
           </Button>
         </DialogActions>
       </Dialog>

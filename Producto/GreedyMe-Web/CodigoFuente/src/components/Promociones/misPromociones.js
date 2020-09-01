@@ -187,10 +187,7 @@ function MisPromociones(props) {
 
   return (
     <div>
-      <div className="prom-title-container">
-        <h1>Mis promociones</h1>
-        <ModalPromos />
-      </div>
+      <ModalPromos />
       <div className="contenedorTodo">
         <Card className="cardPromo">
           <CardContent className="cardContentePromo">
@@ -229,7 +226,7 @@ function MisPromociones(props) {
                                 " hasta el " +
                                 promos.hastaVigencia +
                                 " " +
-                                promos.dias +
+                                promos.diaAplicacion.checkedTD +
                                 " " +
                                 promos.descripcion
                               }
