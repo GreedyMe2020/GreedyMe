@@ -138,6 +138,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
 import Visibility from "@material-ui/icons/Visibility";
 import { Grid, Avatar, IconButton } from "@material-ui/core";
+import { format } from "date-fns";
 import ModalPromos from "../../components/modal-button";
 import {
   cambiarVisibilidad,
@@ -146,6 +147,8 @@ import {
 } from "../../redux/actions/promActions";
 import firebase from "../../firebase/config";
 import { connect } from "react-redux";
+import _ from "lodash";
+
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
 
@@ -178,11 +181,25 @@ const promocion = () => {
     }
   });
 };
-//y aca se ejecuta la fncion de arriba
+//y aca se ejecuta la funcion de arriba
 promocion();
 
 function MisPromociones(props) {
-  console.log(promociones); //te dejo un console.log si queres ver como vienen las promos
+  const [promos, setPromos] = React.useState(promociones);
+  const [currentId, setCurrentId] = React.useState(null);
+  React.useEffect(() => {
+    if (currentId) {
+      props.eliminarPromocion({
+        id: props.auth.uid,
+        idProm: currentId,
+      });
+      const promoteca = _.remove(promos, function (n) {
+        return n.id === currentId;
+      });
+      console.log(promos);
+      setPromos([...promos]);
+    }
+  }, [currentId]);
   const classes = useStyles();
 
   return (
@@ -194,10 +211,10 @@ function MisPromociones(props) {
             <Grid item xs={12} md={12}>
               <div className={classes.demo}>
                 <List>
-                  {promociones &&
-                    promociones.map((promos) => {
+                  {promos &&
+                    promos.map((promo) => {
                       return (
-                        <ListItem>
+                        <ListItem key={promo.id}>
                           <ListItemAvatar>
                             <Avatar
                               variant="square"
@@ -214,23 +231,30 @@ function MisPromociones(props) {
                               } */
                             ></Avatar>
                           </ListItemAvatar>
+
                           <div className="elementoListaProm">
                             <ListItemText
                               //asi podes ir accediendo a todos los datos asi los acomodas como quieras
                               primary={
-                                promos.tipoPromo +
+                                promo.tipoPromo +
                                 " " +
-                                promos.proveedor +
+                                promo.proveedor +
                                 " desde el " +
-                                promos.desdeVigencia +
+                                format(
+                                  promo.desdeVigencia.toDate(),
+                                  "dd-MM-yyyy"
+                                ) +
                                 " hasta el " +
-                                promos.hastaVigencia +
+                                format(
+                                  promo.hastaVigencia.toDate(),
+                                  "dd-MM-yyyy"
+                                ) +
                                 " " +
-                                promos.diaAplicacion.checkedTD +
+                                promo.diaAplicacion.checkedTD +
                                 " " +
-                                promos.descripcion
+                                promo.descripcion
                               }
-                              secondary={promos.efectivo ? "Efectivo" : null}
+                              secondary={promo.efectivo ? "Efectivo" : null}
                             />
                           </div>
                           <ListItemSecondaryAction>
@@ -240,7 +264,13 @@ function MisPromociones(props) {
                             <IconButton aria-label="Mostrar/Ocultar">
                               <Visibility />
                             </IconButton>
-                            <IconButton edge="end" aria-label="Eliminar">
+                            <IconButton
+                              onClick={() => {
+                                setCurrentId(promo.id);
+                              }}
+                              edge="end"
+                              aria-label="Eliminar"
+                            >
                               <DeleteIcon />
                             </IconButton>
                           </ListItemSecondaryAction>
