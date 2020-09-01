@@ -21,13 +21,32 @@ $logo-orange-color: #f7941e;
 $dark-orange-color: #fd5f00;
 $background-color: #ececec;
 
-.contenedor-todo {
+.contenedorTodo {
   .cardPromo {
     .cardContentePromo {
       .susc-title-container {
         width: 100%;
         display: flex;
         flex-flow: column;
+      }
+
+      .susc-body-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-items: center;
+        align-items: center;
+
+        .susc-plan-uno {
+          grid-column: 1/2;
+        }
+
+        .susc-plan-dos {
+          grid-column: 2/3;
+        }
+
+        .susc-plan-tres {
+          grid-column: 3/4;
+        }
       }
     }
   }
