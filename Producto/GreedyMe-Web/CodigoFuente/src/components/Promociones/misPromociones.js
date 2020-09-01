@@ -147,6 +147,8 @@ import {
 } from "../../redux/actions/promActions";
 import firebase from "../../firebase/config";
 import { connect } from "react-redux";
+import _ from "lodash";
+
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
 
@@ -183,11 +185,22 @@ const promocion = () => {
 promocion();
 
 function MisPromociones(props) {
-  console.log(promociones); //meustra lo que hay en base de datos
-
   const [promos, setPromos] = React.useState(promociones);
+  const [currentId, setCurrentId] = React.useState(null);
+  React.useEffect(() => {
+    if (currentId) {
+      props.eliminarPromocion({
+        id: props.auth.uid,
+        idProm: currentId,
+      });
+      const promoteca = _.remove(promos, function (n) {
+        return n.id === currentId;
+      });
+      console.log(promos);
+      setPromos([...promos]);
+    }
+  }, [currentId]);
   const classes = useStyles();
-  console.log(promos); //muestra lo que hay en usestate de promos
 
   return (
     <div>
@@ -256,11 +269,7 @@ function MisPromociones(props) {
                             </IconButton>
                             <IconButton
                               onClick={() => {
-                                props.eliminarPromocion({
-                                  id: props.auth.uid,
-                                  idProm: promo.id,
-                                });
-                                setPromos(promos);
+                                setCurrentId(promo.id);
                               }}
                               edge="end"
                               aria-label="Eliminar"
