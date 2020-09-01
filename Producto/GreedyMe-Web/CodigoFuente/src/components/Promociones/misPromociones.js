@@ -137,6 +137,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
 import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { Grid, Avatar, IconButton } from "@material-ui/core";
 import { format } from "date-fns";
 import ModalPromos from "../../components/modal-button";
@@ -200,7 +201,20 @@ function MisPromociones(props) {
       setPromos([...promos]);
     }
   }, [currentId]);
+
   const classes = useStyles();
+
+  const [values, setValues] = React.useState({
+    showPromo: false,
+  });
+
+  const handleClickShowPromo = () => {
+    setValues({ ...values, showPromo: !values.showPromo });
+  };
+
+  const handleMouseDownPromo = (event) => {
+    event.preventDefault();
+  };
 
   return (
     <div>
@@ -261,8 +275,16 @@ function MisPromociones(props) {
                             <IconButton aria-label="Editar">
                               <CreateIcon />
                             </IconButton>
-                            <IconButton aria-label="Mostrar/Ocultar">
-                              <Visibility />
+                            <IconButton
+                              aria-label="Mostrar/Ocultar"
+                              onClick={handleClickShowPromo}
+                              onMouseDown={handleMouseDownPromo}
+                            >
+                              {values.showPromo ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
                             </IconButton>
                             <IconButton
                               onClick={() => {
