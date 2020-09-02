@@ -27,26 +27,32 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles({
   table: {
-    width: 270,
+    width: 275,
   },
 });
 
-export default function CardPlanes({ text }) {
+export default function CardPlanes({ title, text, precio, style1, style2 }) {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableBody>
-          {text.map((row) => (
-            <StyledTableRow key={row}>
-              <StyledTableCell component="th" scope="row">
-                {row}
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <div className="planes-title-container">
+        <div className={style1}>{title}</div>
+        <div className={style2}>{precio}</div>
+      </div>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="customized table">
+          <TableBody>
+            {text.map((row) => (
+              <StyledTableRow key={row}>
+                <StyledTableCell component="th" scope="row">
+                  {row}
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }
