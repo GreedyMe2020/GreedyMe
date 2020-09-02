@@ -264,7 +264,15 @@ function MisPromociones(props) {
                             <IconButton aria-label="Editar">
                               <CreateIcon />
                             </IconButton>
-                            <IconButton aria-label="Mostrar/Ocultar">
+                            <IconButton
+                              onClick={() => {
+                                props.cambiarVisibilidad({
+                                  id: props.auth.uid,
+                                  idProm: promo.id,
+                                });
+                              }}
+                              aria-label="Mostrar/Ocultar"
+                            >
                               <Visibility />
                             </IconButton>
                             <IconButton
