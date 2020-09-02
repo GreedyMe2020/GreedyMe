@@ -293,9 +293,9 @@ function CargaPromociones(props) {
                       errorMessages={["La promoción no es válida"]}
                     >
                       {formData.tipoPromo === "Descuento"
-                        ? promocion[0]["valor"].map((option) => (
-                            <MenuItem key={option} value={option[getVal]}>
-                              {option[getVal]}
+                        ? promocion[0]["lista"].map((option) => (
+                            <MenuItem key={option} value={option.value}>
+                              {option.value}
                             </MenuItem>
                           ))
                         : null}
