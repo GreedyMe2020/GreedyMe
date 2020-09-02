@@ -6,6 +6,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControl from "@material-ui/core/FormControl";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import {
   MenuItem,
   FormControlLabel,
@@ -93,6 +97,16 @@ const CelesteCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
+const CelesteRadio = withStyles({
+  root: {
+    color: "#707070",
+    "&$checked": {
+      color: "#76B39D",
+    },
+  },
+  checked: {},
+})((props) => <Radio color="default" {...props} />);
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -110,7 +124,7 @@ function ModalPromociones(props) {
     checkedD: false,
   });
 
-  const [efectivo, setEfectivo] = React.useState({ efectivo: false });
+  //const [efectivo, setEfectivo] = React.useState({ efectivo: false });
 
   const [formData, setFormData] = React.useState({
     id: props.auth.uid,
@@ -118,6 +132,10 @@ function ModalPromociones(props) {
     proveedor: "",
     descripcion: "",
   });
+
+  const [value, setValue] = React.useState({ value: false });
+  const [error, setError] = React.useState(false);
+  const [helperText, setHelperText] = React.useState("");
 
   const [desdeVigencia, handleDesdeVigencia] = React.useState(new Date()); //Estados para cada datePicker
   const [hastaVigencia, handleHastaVigencia] = React.useState(new Date());
@@ -131,8 +149,20 @@ function ModalPromociones(props) {
     setOpen(false);
   };
 
+  const handleRadioChange = (event) => {
+    setValue(event.target.value);
+    setHelperText("");
+    setError(false);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (value === "efectivo") {
+    } else if (value === "todosMedios") {
+    } else {
+      setHelperText("Debe seleccionar una opción");
+      setError(true);
+    }
     if (
       state.checkedTD === false &&
       state.checkedL === false &&
@@ -159,7 +189,7 @@ function ModalPromociones(props) {
       props.crearPromocion(
         formData,
         state,
-        efectivo,
+        value,
         desdeVigencia,
         hastaVigencia
       );
@@ -177,10 +207,10 @@ function ModalPromociones(props) {
     setState({ ...state });
   };
 
-  const handleChangee = (event) => {
-    efectivo[event.target.name] = event.target.checked;
-    setEfectivo({ ...efectivo });
-  };
+  // const handleChangee = (event) => {
+  //   efectivo[event.target.name] = event.target.checked;
+  //   setEfectivo({ ...efectivo });
+  // };
   const form = React.createRef();
 
   return (
@@ -422,17 +452,21 @@ function ModalPromociones(props) {
           </div>
           <Divider className="dividerH" />
           <p className="subtit">Forma de pago</p>
-          <FormControlLabel
-            id="cargar-promo-checkbox"
-            label="Efectivo"
-            control={
-              <CelesteCheckbox
-                checked={efectivo.efectivo}
-                onChange={handleChangee}
-                name="efectivo"
+          <FormControl error={error}>
+            <RadioGroup value={value} onChange={handleRadioChange}>
+              <FormControlLabel
+                value="efectivo"
+                control={<CelesteRadio />}
+                label="Efectivo"
               />
-            }
-          />
+              <FormControlLabel
+                value="todosMedios"
+                control={<CelesteRadio />}
+                label="Todos los medios de pago"
+              />
+            </RadioGroup>
+            <FormHelperText>{helperText}</FormHelperText>
+          </FormControl>
           <Divider className="dividerH" />
           <p className="subtit">Agregar descripción</p>
           <form className={classes.root} noValidate autoComplete="off">
