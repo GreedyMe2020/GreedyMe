@@ -23,10 +23,23 @@ $background-color: #ececec;
 
 .prom-title-container {
   margin-top: 35px;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 8fr 2fr;
+  grid-template-rows: repeat(auto-fill, [row] auto);
   margin-left: 5%;
+  margin-right: 5%;
   h1 {
     font-weight: 500;
     font-size: 1.5rem;
+    grid-column: 1;
+  }
+  .icoNuevaProm {
+    grid-column: col 2 / span 3;
+    #cargar-promo-submit {
+      background-color: #262262;
+      color: white;
+    }
   }
 }
 .contenedorTodo {
@@ -39,9 +52,9 @@ $background-color: #ececec;
     grid-row: 1/2;
     grid-column: 2/4;
     width: 100%;
-    border-radius: 10px;
+    //border-radius: 10px;
     margin-top: 1rem;
-    box-shadow: 0px 10px 10px 0px #e1e1e1;
+    //box-shadow: 0px 10px 10px 0px #e1e1e1;
 
     .cardContentePromo {
       width: 100%;
@@ -65,14 +78,46 @@ $background-color: #ececec;
         display: grid;
         align-items: flex-start;
         grid-gap: 10px;
-        grid-template-columns: 5% 1fr 0.2fr 1fr 5%;
+        //grid-template-columns: 5% 1fr 0.2fr 1fr 5%;
+        grid-template-columns: 0% 1fr 0.1fr 1fr 0%;
         grid-template-rows: 1fr;
         .contenedorCol1 {
           grid-column: 2/3;
           grid-row: 2/3;
           display: flex;
           flex-flow: column;
-          padding-right: 17px;
+          padding-right: 10px;
+          .col-1-subgrid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            justify-items: flex;
+            align-items: center;
+            margin-bottom: 1.2rem;
+
+            .select-tipo-promo {
+              padding-right: 10px;
+              grid-row: 1/2;
+              grid-column: 1/2;
+            }
+            .select-promo {
+              padding-right: 10px;
+              grid-row: 2/3;
+              grid-column: 1/2;
+            }
+            .select-tipo-proveedor {
+              grid-row: 1/2;
+              grid-column: 2/3;
+            }
+            .select-proveedor {
+              grid-row: 2/3;
+              grid-column: 2/3;
+            }
+            #outlined-disabled {
+              grid-row: 3/4;
+            }
+          }
         }
 
         .dividerVertical {

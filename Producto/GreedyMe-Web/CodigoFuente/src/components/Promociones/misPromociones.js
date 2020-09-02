@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -11,11 +10,21 @@ import ListItemText from "@material-ui/core/ListItemText";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
 import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { Grid, Avatar, IconButton } from "@material-ui/core";
-import { firestoreConnect } from "react-redux-firebase";
-import { compose } from "redux";
-import { cambiarVisibilidad } from "../../redux/actions/promActions";
+import { format } from "date-fns";
+import ModalPromos from "../../components/modal-button";
+import {
+  cambiarVisibilidad,
+  actualizarPromocion,
+  eliminarPromocion,
+} from "../../redux/actions/promActions";
 import firebase from "../../firebase/config";
+import { connect } from "react-redux";
+import _ from "lodash";
+
+//esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
+//y la va acumulando en el array
 
 const useStyles = makeStyles((theme) => ({
   demo: {
@@ -23,127 +32,165 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function generate(element) {
-  return [0, 1, 2].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    })
-  );
-}
-
-function MisPromociones(props) {
-  const promociones = [];
-  const promocion = () => {
-    const firestore = firebase.firestore();
-    firestore
-      .collection("usuarioComercio")
-      .doc(props.auth.uid)
-      .collection("promociones")
-      .get()
-      .then((snapShots) => {
-        snapShots.forEach((doc) => {
-          const data = doc.data();
-          promociones.push({
-            ...data,
-            id: doc.id,
+let promociones = [];
+const promocion = () => {
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      const id = user.uid;
+      const firestore = firebase.firestore();
+      firestore
+        .collection("usuarioComercio")
+        .doc(id)
+        .collection("promociones")
+        .onSnapshot(function (snapShots) {
+          promociones = [];
+          snapShots.forEach((doc) => {
+            const data = doc.data();
+            promociones.push({
+              ...data,
+              id: doc.id,
+            });
           });
         });
+    }
+  });
+};
+//y aca se ejecuta la funcion de arriba
+promocion();
+
+function MisPromociones(props) {
+  const [promos, setPromos] = React.useState(promociones);
+  const [currentId, setCurrentId] = React.useState(null);
+  React.useEffect(() => {
+    if (currentId) {
+      props.eliminarPromocion({
+        id: props.auth.uid,
+        idProm: currentId,
       });
-  };
-  promocion();
-  console.log(promociones);
+      const promoteca = _.remove(promos, function (n) {
+        return n.id === currentId;
+      });
+      console.log(promos);
+      setPromos([...promos]);
+    }
+  }, [currentId]);
+
   const classes = useStyles();
+
+  const [values, setValues] = React.useState({
+    showPromo: false,
+  });
+
+  const handleClickShowPromo = () => {
+    setValues({ ...values, showPromo: !values.showPromo });
+  };
+
+  const handleMouseDownPromo = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <div>
-      <div className="prom-title-container">
-        <h1>Mis promociones</h1>
-      </div>
+      <ModalPromos />
       <div className="contenedorTodo">
         <Card className="cardPromo">
           <CardContent className="cardContentePromo">
             <Grid item xs={12} md={12}>
               <div className={classes.demo}>
                 <List>
-                  {generate(
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar
-                          variant="square"
-                          src={require("../../../Multimedia/Sistema-svg/credit-card.svg")} //aca enrealidad tengo que variar el icono segun el tipo de promocion que sea
-                        ></Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary="gol"
-                        //secondary={secondary ? "Secondary text" : null}
-                      />
-                      <ListItemSecondaryAction>
-                        <IconButton aria-label="Editar">
-                          <CreateIcon />
-                        </IconButton>
-                        <IconButton aria-label="Mostrar/Ocultar">
-                          <Visibility />
-                        </IconButton>
-                        <IconButton edge="end" aria-label="Eliminar">
-                          <DeleteIcon />
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  )}
+                  {promos &&
+                    promos.map((promo) => {
+                      return (
+                        <ListItem key={promo.id}>
+                          <ListItemAvatar>
+                            <Avatar
+                              variant="square"
+                              src={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
+                              /* src1={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
+                              src2={require("../../../Multimedia/Sistema-svg/store.svg")}
+                              src3={require("../../../Multimedia/Sistema-svg/percentage (1).svg")}
+                              proveedor={
+                                promos.proveedor === 1
+                                  ? src1
+                                  : promos.proveedor === 2
+                                  ? src2
+                                  : src3
+                              } */
+                            ></Avatar>
+                          </ListItemAvatar>
+
+                          <div className="elementoListaProm">
+                            <ListItemText
+                              //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                              primary={
+                                promo.tipoPromo +
+                                " " +
+                                promo.proveedor +
+                                " desde el " +
+                                format(
+                                  promo.desdeVigencia.toDate(),
+                                  "dd-MM-yyyy"
+                                ) +
+                                " hasta el " +
+                                format(
+                                  promo.hastaVigencia.toDate(),
+                                  "dd-MM-yyyy"
+                                ) +
+                                " " +
+                                promo.diaAplicacion.checkedTD +
+                                " " +
+                                promo.descripcion
+                              }
+                              secondary={promo.efectivo ? "Efectivo" : null}
+                            />
+                          </div>
+                          <ListItemSecondaryAction>
+                            <IconButton aria-label="Editar">
+                              <CreateIcon />
+                            </IconButton>
+                            <IconButton
+                              aria-label="Mostrar/Ocultar"
+                              onClick={handleClickShowPromo}
+                              onMouseDown={handleMouseDownPromo}
+                            >
+                              {values.showPromo ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
+                            </IconButton>
+                            <IconButton
+                              onClick={() => {
+                                setCurrentId(promo.id);
+                              }}
+                              edge="end"
+                              aria-label="Eliminar"
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      );
+                    })}
                 </List>
               </div>
             </Grid>
-            {/* <img
-              width="40px"
-              height="40px"
-              src={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
-            />
-            <p></p>
-            <Divider />
-            <img
-              width="40px"
-              height="40px"
-              src={require("../../../Multimedia/Sistema-svg/store.svg")}
-            />
-            <p></p>
-            <Divider />
-            <img
-              width="40px"
-              height="40px"
-              src={require("../../../Multimedia/Sistema-svg/percentage (1).svg")}
-            />
-            <p></p> */}
           </CardContent>
         </Card>
       </div>
     </div>
   );
 }
-{
-  /* 
-              { {
-                (tipoPromo,
-                proveedor,
-                dias,
-                "desde",
-                desdeVigencia,
-                "hasta",
-                hastaVigencia,
-                descripcion,
-                efectivo) }
-              } */
-}
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
-    //promociones: state.firestore.data.usuarioComercio
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    acturalizarPromocion: (
+    actualizarPromocion: (
       promocion,
       dias,
       efectivo,
@@ -165,8 +212,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MisPromociones);
-/*
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect((props) => [`usuarioComercio/${props.auth.uid}/promociones`])
-)(MisPromociones);*/

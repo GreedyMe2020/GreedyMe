@@ -25,3 +25,154 @@ $background-color: #ececec;
   width: 10px;
   height: 10px;
 }
+
+.elementoListaProm {
+  width: 80%;
+}
+
+.contTodo {
+  margin-left: 20px;
+  margin-right: 20px;
+  color: black;
+  .col-subgrid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    justify-items: flex;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    .select-tipopromo {
+      grid-column: 1/2;
+      padding-right: 10px;
+    }
+    .selectpromo {
+      grid-column: 2/3;
+      padding-right: 10px;
+    }
+    #outlineddisabled {
+      grid-column: 3/4;
+    }
+  }
+
+  .col-subgrid-2 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    justify-items: flex;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    .select-tipoproveedor {
+      grid-column: 1/2;
+      padding-right: 10px;
+    }
+    .selectproveedor {
+      grid-column: 1/2;
+      padding-right: 10px;
+    }
+    #outlineddisabled {
+      grid-column: 1/2;
+    }
+  }
+
+  .col-subgrid-3 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    justify-items: flex;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    .desde {
+      grid-column: 1/2;
+      padding-right: 20px;
+    }
+    .hasta {
+      grid-column: 2/3;
+      padding-right: 20px;
+    }
+  }
+
+  .subtit {
+    margin-top: 20px;
+  }
+  .dividerVertical {
+    justify-self: center;
+    grid-column: 3/4;
+    grid-row: 2/3;
+  }
+  .dividerH {
+    justify-self: center;
+  }
+  .contenedorCol2 {
+    grid-column: 4;
+    grid-row: 2;
+    p {
+      margin-left: 10px;
+      font-size: 1rem;
+    }
+    .cargar-promo-check-group {
+      width: 50%;
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-template-rows: subgrid;
+      justify-items: flex-start;
+      align-items: center;
+      margin-bottom: 1.2rem;
+
+      .cargar-promo-checkbox-1 {
+        grid-row: 1/2;
+        grid-column: 1/2;
+      }
+      .cargar-promo-checkbox-2 {
+        grid-row: 1/2;
+        grid-column: 2/3;
+      }
+      .cargar-promo-checkbox-3 {
+        grid-row: 2/3;
+        grid-column: 1/2;
+      }
+      .cargar-promo-checkbox-4 {
+        grid-row: 2/3;
+        grid-column: 2/3;
+      }
+      .cargar-promo-checkbox-5 {
+        grid-row: 3/4;
+        grid-column: 1/2;
+      }
+      .cargar-promo-checkbox-6 {
+        grid-row: 3/4;
+        grid-column: 2/3;
+      }
+      .cargar-promo-checkbox-7 {
+        grid-row: 4/5;
+        grid-column: 1/2;
+      }
+      .cargar-promo-checkbox-8 {
+        grid-row: 4/5;
+        grid-column: 2/3;
+      }
+    }
+    .cargar-promo-desc {
+      margin-bottom: 5px;
+    }
+  }
+}
+.cargar-promo-buttons-container {
+  grid-row: row 3;
+  grid-column: 2;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-right: 2.8rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  .btn-cargar-prom {
+    margin-left: 1rem;
+    #cargar-promo-submit {
+      background-color: #262262;
+      color: white;
+    }
+  }
+}

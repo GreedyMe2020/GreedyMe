@@ -10,6 +10,7 @@ import MisPromociones from "../Promociones/misPromociones";
 import Perfil from "../Perfil/Perfil";
 import NavBarSup from "../../components/Principal/navBarSuperior";
 import NavBarIzq from "../../components/Principal/navBarIzquierda";
+import Suscripciones from "../Perfil/suscripciones";
 
 //pagina vacia
 
@@ -63,7 +64,7 @@ function MainPage() {
       return <Perfil />;
     }
     if (seleccionado === 7) {
-      return <h3>Suscripciones</h3>;
+      return <Suscripciones />;
     }
     if (seleccionado === 8) {
       return <h3>Ayuda y soporte</h3>;
