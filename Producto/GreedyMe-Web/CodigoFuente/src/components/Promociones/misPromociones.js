@@ -77,6 +77,8 @@ function MisPromociones(props) {
 
   const classes = useStyles();
 
+  const [text, setText] = React.useState("");
+  const [promos2, setPromos2] = React.useState(promociones);
   const [values, setValues] = React.useState({
     showPromo: false,
   });
@@ -89,9 +91,29 @@ function MisPromociones(props) {
     event.preventDefault();
   };
 
+  const filter = (text) => {
+    let textoBuscar = text.target.value;
+    const datos = promos2;
+    const newDatos = datos.filter(function (item) {
+      const itemTipoPromo = item.tipoPromo.toUpperCase();
+      const itemProveedor = item.proveedor.toUpperCase();
+      const itemDescripcion = item.descripcion.toUpperCase();
+      const campo = itemTipoPromo + " " + itemProveedor + " " + itemDescripcion;
+      const textData = textoBuscar.toUpperCase();
+      return campo.indexOf(textData) > -1;
+    });
+    setPromos(newDatos);
+    setText(text);
+  };
   return (
     <div>
       <ModalPromos />
+      <input
+        className="form-control col-md-4"
+        defaultValue={text}
+        placeholder="Buscar"
+        onChange={(text) => filter(text)}
+      />
       <div className="contenedorTodo">
         <Card className="cardPromo">
           <CardContent className="cardContentePromo">
