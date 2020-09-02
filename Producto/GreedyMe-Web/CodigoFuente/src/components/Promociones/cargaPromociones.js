@@ -224,26 +224,19 @@ function CargaPromociones(props) {
 
   const [valorPromo, setValorPromo] = React.useState([]); //lista de dependencias de react, cosa de que se refresque el campo una vez y luego cada vez que se actualizan los elementos de la lista
 
-  /*useEffect(() => {
+  useEffect(() => {
     //esto no corre en el primer render, se ejecuta luego del return
     setValorPromo([]);
-    const valorPromocion = () => {
-      firestore
-        .collection("tipoPromocion")
-        .where("tipoPromocion.tipo", "==", `${formData.tipoPromo}`)
-        .get()
-        .then((snapShots) => {
-          snapShots((doc) => {
-            const data = doc.data();
-            valorPromo.push({
-              ...data,
-              id: doc.id,
-            });
-          });
-        });
-    }; //Por si falla la API
-    valorPromocion();
-  }, [formData.tipoPromo, setFormData]);*/ return (
+    if (formData.tipoPromo === "Descuento") {
+      for (let i = 0; i <= promocion[0]["lista"].length(); i++) {
+        let valor = `valor${i}`;
+        let promo = promocion[0]["lista"][this.valor];
+        setValorPromo({ ...this.promo });
+      }
+    }
+  }, [formData.tipoPromo]);
+
+  return (
     <div>
       {console.log(promocion)}
       <div className="prom-title-container">
