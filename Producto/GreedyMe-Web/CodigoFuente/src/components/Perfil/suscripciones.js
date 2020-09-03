@@ -61,7 +61,7 @@ export default function Suscripciones(props) {
                   style2="planes-precio planes-basico-2"
                 />
                 {promocion === 0 ? (
-                  "Tu promoción actual"
+                  <div className="plan-actual">Tu plan actual</div>
                 ) : (
                   <Button
                     variant="contained"
@@ -93,7 +93,7 @@ export default function Suscripciones(props) {
                   style2="planes-precio planes-estandar-2"
                 />
                 {promocion === 1 ? (
-                  "Tu promoción actual"
+                  <div className="plan-actual">Tu plan actual</div>
                 ) : (
                   <Button
                     variant="contained"
@@ -125,7 +125,7 @@ export default function Suscripciones(props) {
                   style2="planes-precio planes-premuim-2"
                 />
                 {promocion === 2 ? (
-                  "Tu promoción actual"
+                  <div className="plan-actual">Tu plan actual</div>
                 ) : (
                   <Button
                     variant="contained"
