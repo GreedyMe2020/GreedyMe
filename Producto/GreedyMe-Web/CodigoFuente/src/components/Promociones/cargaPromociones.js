@@ -224,18 +224,6 @@ function CargaPromociones(props) {
 
   const [valorPromo, setValorPromo] = React.useState([]); //lista de dependencias de react, cosa de que se refresque el campo una vez y luego cada vez que se actualizan los elementos de la lista
 
-  useEffect(() => {
-    //esto no corre en el primer render, se ejecuta luego del return
-    setValorPromo([]);
-    if (formData.tipoPromo === "Descuento") {
-      for (let i = 0; i <= promocion[0]["lista"].length(); i++) {
-        let valor = `valor${i}`;
-        let promo = promocion[0]["lista"][this.valor];
-        setValorPromo({ ...this.promo });
-      }
-    }
-  }, [formData.tipoPromo]);
-
   return (
     <div>
       {console.log(promocion)}
@@ -286,12 +274,25 @@ function CargaPromociones(props) {
                       errorMessages={["La promoción no es válida"]}
                     >
                       {formData.tipoPromo === "Descuento"
-                        ? promocion[0]["lista"].map((option) => (
-                            <MenuItem key={option} value={option.value}>
-                              {option.value}
-                            </MenuItem>
-                          ))
-                        : null}
+                        ? [promocion[0].valor].map((option) => {
+                            <MenuItem key={option.valor1} value={option.valor1}>
+                              {option.valor1}
+
+                              {console.log(option)}
+                              {console.log(option.valor1)}
+                            </MenuItem>;
+                          })
+                        : //DEFINIR UNA VARIABLE COMO ARRAY Y METERLO.
+                          /*promocion.map((option) => {
+                            if (option.tipo === "Descuento") {
+                              for (const key in option.lista) {
+                                <MenuItem key={key} value={key[value]}>
+                                  {key[value]}
+                                </MenuItem>;
+                              }
+                            }
+                          })*/
+                          null}
                     </SelectValidator>
                   ) : null}
 
