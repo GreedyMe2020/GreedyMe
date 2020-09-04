@@ -151,6 +151,7 @@ function ModalPromociones(props) {
   const handleRadioChange = (event) => {
     setValue(event.target.value);
     setHelperText("");
+    console.log(value);
     setError(false);
   };
 
@@ -185,8 +186,7 @@ function ModalPromociones(props) {
     ) {
       alert("che perraco hay inconsistencia en los cheks ponete las pilas bro");
     } else {
-      props.crear(formData, state, efectivo, desdeVigencia, hastaVigencia);
-
+      props.crear(formData, state, value, desdeVigencia, hastaVigencia);
       setOpen(true);
     }
   };

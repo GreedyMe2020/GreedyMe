@@ -125,14 +125,8 @@ function MisPromociones(props) {
     setText(text);
   };
 
-  const crear = (formData, state, efectivo, desdeVigencia, hastaVigencia) => {
-    props.crearPromocion(
-      formData,
-      state,
-      efectivo,
-      desdeVigencia,
-      hastaVigencia
-    );
+  const crear = (formData, state, value, desdeVigencia, hastaVigencia) => {
+    props.crearPromocion(formData, state, value, desdeVigencia, hastaVigencia);
     setNuevaPromo({
       id: formData.id,
       tipoPromo: formData.tipoPromo,
@@ -142,7 +136,7 @@ function MisPromociones(props) {
       hastaVigencia: firebase.firestore.Timestamp.fromDate(hastaVigencia),
       visible: false,
       diaAplicacion: state,
-      efectivo: efectivo.efectivo,
+      medioPago: value,
     });
     console.log("entro aca bebesitooooo");
     console.log(promos);
@@ -214,7 +208,7 @@ function MisPromociones(props) {
                                 " " +
                                 promo.descripcion
                               }
-                              secondary={promo.efectivo ? "Efectivo" : null}
+                              secondary={promo.medioPago ? "Efectivo" : null}
                             />
                           </div>
                           <ListItemSecondaryAction>
