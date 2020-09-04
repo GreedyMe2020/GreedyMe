@@ -28,6 +28,9 @@ $background-color: #ececec;
         width: 100%;
         display: flex;
         flex-flow: column;
+        p {
+          font-size: 1rem;
+        }
       }
 
       .susc-body-container {
@@ -37,37 +40,37 @@ $background-color: #ececec;
         align-items: flex-start;
 
         .susc-plan-uno {
-          margin-right: 2px;
+          margin-right: 4px;
           margin-top: 2rem;
-          #planes-promo-submit {
-            background-color: #262262;
-            color: white;
-          }
         }
 
         .susc-plan-dos {
-          margin-right: 2px;
+          margin-right: 4px;
           margin-top: 2rem;
-          #planes-promo-submit {
-            background-color: #262262;
-            color: white;
-          }
         }
 
         .susc-plan-tres {
           margin-top: 2rem;
-          #planes-promo-submit {
-            background-color: #262262;
-            color: white;
-          }
         }
 
         .plan-actual {
           width: 100%;
+          height: 80px;
           display: flex;
           flex-flow: row wrap;
           justify-content: center;
           align-items: center;
+
+          #planes-promo-submit {
+            background-color: #262262;
+            color: white;
+          }
+
+          #planes-promo-actual {
+            background-color: white;
+            border-color: #262262;
+            color: #262262;
+          }
         }
 
         .MuiTableCell-root {
@@ -120,5 +123,8 @@ $background-color: #ececec;
         }
       }
     }
+  }
+  .plan-container {
+    padding: 20px;
   }
 }

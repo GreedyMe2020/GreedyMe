@@ -43,8 +43,8 @@ export default function CardPlanes({ title, text, precio, style1, style2 }) {
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableBody>
-            {text.map((row) => (
-              <StyledTableRow key={row}>
+            {text.map((row, index) => (
+              <StyledTableRow key={index}>
                 <StyledTableCell component="th" scope="row">
                   {row}
                 </StyledTableCell>

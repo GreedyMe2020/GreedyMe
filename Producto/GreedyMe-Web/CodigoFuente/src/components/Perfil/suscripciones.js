@@ -17,15 +17,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Suscripciones(props) {
-  const [promocion, setPromocion] = React.useState(0);
+  const [plan, setPlan] = React.useState(0);
   const classes = useStyles();
+
+  function handlePlan(number) {
+    setPlan(number);
+  }
   return (
     <div>
       <div className="prom-title-container">
         <h1>Mis suscripciones</h1>
       </div>
       <div className="contenedorTodo">
-        <Card className="cardPromo">
+        <Card className="cardPromo plan-container">
           <CardContent className="cardContentePromo">
             <div className="susc-title-container">
               <h3>Compará los planes</h3>
@@ -52,7 +56,7 @@ export default function Suscripciones(props) {
                       -
                     </Box>,
                     "-",
-                    <Box lineHeight={1.75} m={1}>
+                    <Box lineHeight={1.7} m={1}>
                       -
                     </Box>,
                     "-",
@@ -60,18 +64,30 @@ export default function Suscripciones(props) {
                   style1="planes-title planes-basico-1"
                   style2="planes-precio planes-basico-2"
                 />
-                {promocion === 0 ? (
-                  <div className="plan-actual">Tu plan actual</div>
-                ) : (
-                  <Button
-                    variant="contained"
-                    className={classes.margin}
-                    id="planes-promo-submit"
-                    type="submit"
-                  >
-                    Actualizar promoción
-                  </Button>
-                )}
+                <div className="plan-actual">
+                  {plan === 0 ? (
+                    <Button
+                      variant="outlined"
+                      disabled
+                      className={classes.margin}
+                      id="planes-promo-actual"
+                      type="submit"
+                    >
+                      TU PLAN ACTUAL
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      className={classes.margin}
+                      id="planes-promo-submit"
+                      onClick={() => {
+                        handlePlan(0);
+                      }}
+                    >
+                      Actualizar plan
+                    </Button>
+                  )}
+                </div>
               </div>
               <div className="susc-plan-dos">
                 <CardPlanes
@@ -92,18 +108,30 @@ export default function Suscripciones(props) {
                   style1="planes-title planes-estandar-1"
                   style2="planes-precio planes-estandar-2"
                 />
-                {promocion === 1 ? (
-                  <div className="plan-actual">Tu plan actual</div>
-                ) : (
-                  <Button
-                    variant="contained"
-                    className={classes.margin}
-                    id="planes-promo-submit"
-                    type="submit"
-                  >
-                    Actualizar promoción
-                  </Button>
-                )}
+                <div className="plan-actual">
+                  {plan === 1 ? (
+                    <Button
+                      variant="outlined"
+                      disabled
+                      className={classes.margin}
+                      id="planes-promo-actual"
+                      type="submit"
+                    >
+                      TU PLAN ACTUAL
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      className={classes.margin}
+                      id="planes-promo-submit"
+                      onClick={() => {
+                        handlePlan(1);
+                      }}
+                    >
+                      Actualizar plan
+                    </Button>
+                  )}
+                </div>
               </div>
               <div className="susc-plan-tres">
                 <CardPlanes
@@ -124,18 +152,30 @@ export default function Suscripciones(props) {
                   style1="planes-title planes-premuim-1"
                   style2="planes-precio planes-premuim-2"
                 />
-                {promocion === 2 ? (
-                  <div className="plan-actual">Tu plan actual</div>
-                ) : (
-                  <Button
-                    variant="contained"
-                    className={classes.margin}
-                    id="planes-promo-submit"
-                    type="submit"
-                  >
-                    Actualizar promoción
-                  </Button>
-                )}
+                <div className="plan-actual">
+                  {plan === 2 ? (
+                    <Button
+                      variant="outlined"
+                      disabled
+                      className={classes.margin}
+                      id="planes-promo-actual"
+                      type="submit"
+                    >
+                      TU PLAN ACTUAL
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      className={classes.margin}
+                      id="planes-promo-submit"
+                      onClick={() => {
+                        handlePlan(2);
+                      }}
+                    >
+                      Actualizar plan
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
           </CardContent>
