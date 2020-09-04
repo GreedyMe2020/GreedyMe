@@ -181,7 +181,7 @@ function CargaPromociones(props) {
       state.checkedS === false &&
       state.checkedD === false
     ) {
-      alert("che perri pone un check");
+      alert("No seleccionaste ningun dia de aplicacion");
     } else if (
       state.checkedTD === true &&
       (state.checkedL === true ||
@@ -192,7 +192,9 @@ function CargaPromociones(props) {
         state.checkedS === true ||
         state.checkedD === true)
     ) {
-      alert("che perraco hay inconsistencia en los cheks ponete las pilas bro");
+      alert(
+        "No puede seleccionar todos los dias y ademas otro dia (ej. lunes) por inconsistencia"
+      );
     } else {
       props.crearPromocion(
         formData,

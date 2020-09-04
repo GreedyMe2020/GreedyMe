@@ -1,7 +1,7 @@
 export const crearPromocion = (
   promocion,
   dias,
-  efectivo,
+  value,
   desdeVigencia,
   hastaVigencia
 ) => {
@@ -20,7 +20,7 @@ export const crearPromocion = (
         visible: false,
         descripcion: promocion.descripcion,
         diaAplicacion: dias,
-        efectivo: efectivo.efectivo,
+        medioPago: value,
       })
       .then(() => {
         dispatch({ type: "CREAR_PROMOCION" });

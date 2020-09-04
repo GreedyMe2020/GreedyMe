@@ -21,14 +21,110 @@ $logo-orange-color: #f7941e;
 $dark-orange-color: #fd5f00;
 $background-color: #ececec;
 
-.contenedor-todo {
+.contenedorTodo {
   .cardPromo {
     .cardContentePromo {
       .susc-title-container {
         width: 100%;
         display: flex;
         flex-flow: column;
+        p {
+          font-size: 1rem;
+        }
+      }
+
+      .susc-body-container {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: flex-start;
+
+        .susc-plan-uno {
+          margin-right: 4px;
+          margin-top: 2rem;
+        }
+
+        .susc-plan-dos {
+          margin-right: 4px;
+          margin-top: 2rem;
+        }
+
+        .susc-plan-tres {
+          margin-top: 2rem;
+        }
+
+        .plan-actual {
+          width: 100%;
+          height: 80px;
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: center;
+          align-items: center;
+
+          #planes-promo-submit {
+            background-color: #262262;
+            color: white;
+          }
+
+          #planes-promo-actual {
+            background-color: white;
+            border-color: #262262;
+            color: #262262;
+          }
+        }
+
+        .MuiTableCell-root {
+          text-align: center;
+        }
+
+        .MuiPaper-elevation1 {
+          box-shadow: none;
+          border-radius: 0px;
+        }
+
+        .planes-title-container {
+          width: 275px;
+          .planes-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: $text-font;
+            font-size: 1rem;
+            color: white;
+            height: 2.5rem;
+          }
+          .planes-precio {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            height: 4.8rem;
+            color: white;
+          }
+
+          .planes-basico-1 {
+            background-color: #b6b6b6;
+          }
+          .planes-basico-2 {
+            background-color: #c5c5c5;
+          }
+          .planes-estandar-1 {
+            background-color: #858282;
+          }
+          .planes-estandar-2 {
+            background-color: #949494;
+          }
+          .planes-premuim-1 {
+            background-color: #f88800;
+          }
+          .planes-premuim-2 {
+            background-color: $logo-orange-color;
+          }
+        }
       }
     }
+  }
+  .plan-container {
+    padding: 20px;
   }
 }

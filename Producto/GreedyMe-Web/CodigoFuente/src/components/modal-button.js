@@ -7,26 +7,24 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import { useTheme } from "@material-ui/core/styles";
 import ModalPromociones from "../components/Promociones/modalPromociones";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { makeStyles } from "@material-ui/core/styles";
 
-export const ModalButton = ({ children }) => {
-  const [modalShow, setModalShow] = useState(false);
+const useStyles = makeStyles((theme) => ({
+  cruz: {
+    position: "absolute",
+    right: theme.spacing(1),
+    top: "8px",
+    color: theme.palette.grey[500],
+  },
+}));
 
-  const handleClose = () => setModalShow(false);
-  const handleShow = () => setModalShow(true);
-
-  return (
-    <div>
-      <Button className="btn-round" variant="primary" onClick={handleShow}>
-        {children}
-      </Button>
-      <MyModalWithGrid show={modalShow} onHide={handleClose} />
-    </div>
-  );
-};
-
-export default function ModalPromos() {
+export default function ModalPromos(props) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
+  const classes = useStyles();
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState("md");
 
@@ -46,7 +44,7 @@ export default function ModalPromos() {
           <Button
             variant="contained"
             onClick={handleClickOpen}
-            id="cargar-promo-submit"
+            id="cargar-promosubmit"
           >
             Nueva promoción
           </Button>
@@ -57,21 +55,23 @@ export default function ModalPromos() {
         maxWidth={maxWidth}
         open={open}
         onClose={handleClose}
-        aria-labelledby="responsive-dialog-title"
       >
-        {/* <DialogTitle id="responsive-dialog-title">
-          {"Cargar nueva promoción"}
-        </DialogTitle> */}
-        <DialogContent>
+        <DialogTitle id="dialog-title-prom">
+          <h5>Cargar un nuevo beneficio</h5>
+          <IconButton
+            aria-label="close"
+            id="btn"
+            className={classes.cruz}
+            onClick={handleClose}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
           <DialogContentText>
-            <ModalPromociones />
+            <ModalPromociones crear={props.crear} />
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            Cerrar
-          </Button>
-        </DialogActions>
       </Dialog>
     </div>
   );

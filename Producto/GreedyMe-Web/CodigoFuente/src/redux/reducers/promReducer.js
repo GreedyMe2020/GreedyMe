@@ -34,7 +34,7 @@ const promReducer = (state = initState, action) => {
         actualError: "Ocurrio algun error en la edicion",
       };
     case "ELIMINAR_PROMOCION":
-      console.log("se elimino bro")
+      console.log("se elimino bro");
       return {
         ...state,
         promElim: "se elimino la promocion",
@@ -45,11 +45,13 @@ const promReducer = (state = initState, action) => {
         elimError: "Ocurrio algun error en la eliminacion",
       };
     case "CAMBIAR_VISIBILIDAD":
+      console.log("se cambio visible");
       return {
         ...state,
         visibilidadCambiada: "se cambio la visibilidad",
       };
     case "ERROR_VISIBILIDAD":
+      console.log("no se cambio visible");
       return {
         ...state,
         visibilidadError: "Ocurrio algun error en la visibilidad",

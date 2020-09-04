@@ -21,27 +21,6 @@ $logo-orange-color: #f7941e;
 $dark-orange-color: #fd5f00;
 $background-color: #ececec;
 
-.prom-title-container {
-  margin-top: 35px;
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: 8fr 2fr;
-  grid-template-rows: repeat(auto-fill, [row] auto);
-  margin-left: 5%;
-  margin-right: 5%;
-  h1 {
-    font-weight: 500;
-    font-size: 1.5rem;
-    grid-column: 1;
-  }
-  .icoNuevaProm {
-    grid-column: col 2 / span 3;
-    #cargar-promo-submit {
-      background-color: #262262;
-      color: white;
-    }
-  }
-}
 .contenedorTodo {
   display: grid;
   grid-template-rows: 7fr;
@@ -183,6 +162,7 @@ $background-color: #ececec;
         }
       }
     }
+
     .cargar-promo-buttons-container {
       grid-row: row 3;
       grid-column: 2;
