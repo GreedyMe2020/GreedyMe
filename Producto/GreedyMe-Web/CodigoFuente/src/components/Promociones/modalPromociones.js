@@ -47,37 +47,6 @@ const proveedor = [
   },
 ];
 
-const diaVigencia = [
-  {
-    value: "Lunes",
-    nombre: "Lunes",
-  },
-  {
-    value: "Martes",
-    nombre: "Martes",
-  },
-  {
-    value: "Miércoles",
-    nombre: "Miércoles",
-  },
-  {
-    value: "Jueves",
-    nombre: "Jueves",
-  },
-  {
-    value: "Viernes",
-    nombre: "Viernes",
-  },
-  {
-    value: "Sábado",
-    nombre: "Sábado",
-  },
-  {
-    value: "Domingo",
-    nombre: "Domingo",
-  },
-];
-
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -85,7 +54,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
 const CelesteCheckbox = withStyles({
   root: {
     color: "#707070",
@@ -112,18 +80,6 @@ function Alert(props) {
 
 function ModalPromociones(props) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    checkedTD: true,
-    checkedL: false,
-    checkedM: false,
-    checkedMi: false,
-    checkedJ: false,
-    checkedV: false,
-    checkedS: false,
-    checkedD: false,
-  });
-
-  //const [efectivo, setEfectivo] = React.useState({ efectivo: false });
 
   const [formData, setFormData] = React.useState({
     id: props.auth.uid,
@@ -131,22 +87,44 @@ function ModalPromociones(props) {
     proveedor: "",
     descripcion: "",
   });
+  const [desdeVigencia, handleDesdeVigencia] = React.useState(new Date()); //Estados para cada datePicker
+  const [hastaVigencia, handleHastaVigencia] = React.useState(new Date());
+  const [open, setOpen] = React.useState(false);
 
+  //esto es para los dias
+  const [state, setState] = React.useState({
+    lunes: false,
+    martes: false,
+    miercoles: false,
+    jueves: false,
+    viernes: false,
+    sabado: false,
+    domingo: false,
+    todoslosdias: true,
+  });
+  const {
+    lunes,
+    martes,
+    miercoles,
+    jueves,
+    viernes,
+    sabado,
+    domingo,
+    todoslosdias,
+  } = state;
+  const [errorD, setErrorDias] = React.useState(false);
+  const [helperTextD, setHelperTextDias] = React.useState("");
+
+  const handleChangec = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+    setHelperTextDias("");
+    setErrorDias(false);
+  };
+
+  //esto es para la forma de pago
   const [value, setValue] = React.useState({ value: false });
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState("");
-
-  const [desdeVigencia, handleDesdeVigencia] = React.useState(new Date()); //Estados para cada datePicker
-  const [hastaVigencia, handleHastaVigencia] = React.useState(new Date());
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
@@ -157,56 +135,51 @@ function ModalPromociones(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (value === "efectivo") {
-    } else if (value === "todosMedios") {
-    } else {
-      setHelperText("Debe seleccionar una opción");
-      setError(true);
-    }
     if (
-      state.checkedTD === false &&
-      state.checkedL === false &&
-      state.checkedM === false &&
-      state.checkedMi === false &&
-      state.checkedJ === false &&
-      state.checkedV === false &&
-      state.checkedS === false &&
-      state.checkedD === false
+      state.lunes === false &&
+      state.martes === false &&
+      state.miercoles === false &&
+      state.jueves === false &&
+      state.viernes === false &&
+      state.sabado === false &&
+      state.domingo === false &&
+      state.todoslosdias === false
     ) {
-      alert("che perri pone un check");
+      setHelperTextDias("*Este campo es obligatorio");
+      setErrorDias(true);
     } else if (
-      state.checkedTD === true &&
-      (state.checkedL === true ||
-        state.checkedM === true ||
-        state.checkedMi === true ||
-        state.checkedJ === true ||
-        state.checkedV === true ||
-        state.checkedS === true ||
-        state.checkedD === true)
+      state.todoslosdias === true &&
+      (state.lunes === true ||
+        state.martes === true ||
+        state.miercoles === true ||
+        state.jueves === true ||
+        state.viernes === true ||
+        state.sabado === true ||
+        state.domingo === true)
     ) {
-      alert("che perraco hay inconsistencia en los cheks ponete las pilas bro");
+      setHelperTextDias("*Hay inconsistencia en la selección");
+      setErrorDias(true);
+    }
+    if (value != "efectivo" && value != "todosMedios") {
+      setHelperText("*Este campo es obligatorio");
+      setError(true);
     } else {
       props.crear(formData, state, value, desdeVigencia, hastaVigencia);
       setOpen(true);
     }
   };
-
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
   };
 
-  const handleChangec = (event) => {
-    state[event.target.name] = event.target.checked;
-    setState({ ...state });
-  };
-
-  // const handleChangee = (event) => {
-  //   efectivo[event.target.name] = event.target.checked;
-  //   setEfectivo({ ...efectivo });
-  // };
   const form = React.createRef();
-
   return (
     <div className="contTodo">
       <ValidatorForm
@@ -214,7 +187,7 @@ function ModalPromociones(props) {
         ref={form}
         onSubmit={handleSubmit}
       >
-        <p className="subtit">Promoción</p>
+        <p className="subtit-p">Promoción</p>
         <div className="col-subgrid">
           <SelectValidator
             className="select-tipopromo"
@@ -278,7 +251,6 @@ function ModalPromociones(props) {
               </MenuItem>
             ))}
           </SelectValidator>
-
           <SelectValidator
             className="selectproveedor"
             fullWidth
@@ -296,7 +268,6 @@ function ModalPromociones(props) {
               </MenuItem>
             ))}
           </SelectValidator>
-
           <TextField
             disabled
             id="outlineddisabled"
@@ -318,6 +289,7 @@ function ModalPromociones(props) {
               name="desdeVigencia"
               label="Disponible desde el"
               minDate={new Date()}
+              minDateMessage="*La fecha no puede ser menor al día de hoy"
               format="dd/MM/yyyy"
               value={desdeVigencia}
               variant="inline"
@@ -343,28 +315,31 @@ function ModalPromociones(props) {
         <Divider className="dividerH" />
         <div className="contenedorCol2">
           <p className="subtit">¿Qué días aplica la promoción?</p>
-          <div className="cargar-promo-check-group">
+          <FormControl
+            required
+            error={errorD}
+            className="cargar-promo-check-group"
+          >
             <FormControlLabel
               id="cargar-promo-checkbox"
               className="cargar-promo-checkbox-1"
               control={
                 <CelesteCheckbox
-                  checked={state.checkedL}
+                  checked={lunes}
                   onChange={handleChangec}
-                  name="checkedL"
+                  name="lunes"
                 />
               }
               label="Lunes"
             />
-
             <FormControlLabel
               id="cargar-promo-checkbox"
               className="cargar-promo-checkbox-2"
               control={
                 <CelesteCheckbox
-                  checked={state.checkedM}
+                  checked={martes}
                   onChange={handleChangec}
-                  name="checkedM"
+                  name="martes"
                 />
               }
               label="Martes"
@@ -374,22 +349,21 @@ function ModalPromociones(props) {
               className="cargar-promo-checkbox-3"
               control={
                 <CelesteCheckbox
-                  checked={state.checkedMi}
+                  checked={miercoles}
                   onChange={handleChangec}
-                  name="checkedMi"
+                  name="miercoles"
                 />
               }
               label="Miércoles"
             />
-
             <FormControlLabel
               id="cargar-promo-checkbox"
               className="cargar-promo-checkbox-4"
               control={
                 <CelesteCheckbox
-                  checked={state.checkedJ}
+                  checked={jueves}
                   onChange={handleChangec}
-                  name="checkedJ"
+                  name="jueves"
                 />
               }
               label="Jueves"
@@ -399,22 +373,21 @@ function ModalPromociones(props) {
               className="cargar-promo-checkbox-5"
               control={
                 <CelesteCheckbox
-                  checked={state.checkedV}
+                  checked={viernes}
                   onChange={handleChangec}
-                  name="checkedV"
+                  name="viernes"
                 />
               }
               label="Viernes"
             />
-
             <FormControlLabel
               id="cargar-promo-checkbox"
               className="cargar-promo-checkbox-6"
               control={
                 <CelesteCheckbox
-                  checked={state.checkedS}
+                  checked={sabado}
                   onChange={handleChangec}
-                  name="checkedS"
+                  name="sabado"
                 />
               }
               label="Sábado"
@@ -424,9 +397,9 @@ function ModalPromociones(props) {
               className="cargar-promo-checkbox-7"
               control={
                 <CelesteCheckbox
-                  checked={state.checkedD}
+                  checked={domingo}
                   onChange={handleChangec}
-                  name="checkedD"
+                  name="domingo"
                 />
               }
               label="Domingo"
@@ -436,17 +409,18 @@ function ModalPromociones(props) {
               className="cargar-promo-checkbox-8"
               control={
                 <CelesteCheckbox
-                  checked={state.checkedTD}
+                  checked={todoslosdias}
                   onChange={handleChangec}
-                  name="checkedTD"
+                  name="todoslosdias"
                 />
               }
               label="Todos los días"
             />
-          </div>
+            <FormHelperText>{helperTextD}</FormHelperText>
+          </FormControl>
           <Divider className="dividerH" />
           <p className="subtit">Forma de pago</p>
-          <FormControl error={error}>
+          <FormControl error={error} required>
             <RadioGroup value={value} onChange={handleRadioChange}>
               <FormControlLabel
                 value="efectivo"
@@ -507,288 +481,6 @@ function ModalPromociones(props) {
         </div>
       </ValidatorForm>
     </div>
-    /* <ValidatorForm
-        className={classes.root}
-        ref={form}
-        onSubmit={handleSubmit}
-      >
-        <div className="contCargarProm">
-          <div className="contenedorCol1">
-            <div className="col-1-subgrid">
-              <SelectValidator
-                className="select-tipo-promo"
-                fullWidth
-                label="Tipo de promoción"
-                onChange={handleChange}
-                name="tipoPromo"
-                value={formData.tipoPromo}
-                variant="outlined"
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
-              >
-                {tipoPromo.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </SelectValidator>
-              <SelectValidator
-                className="select-tipo-proveedor"
-                fullWidth
-                label="Tipo de proveedor"
-                onChange={handleChange}
-                name="proveedor"
-                value={formData.proveedor}
-                variant="outlined"
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
-              >
-                {proveedor.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </SelectValidator>
-              <SelectValidator
-                className="select-promo"
-                fullWidth
-                label="Promoción"
-                onChange={handleChange}
-                name="tipoPromo"
-                value={formData.tipoPromo}
-                variant="outlined"
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
-              >
-                {tipoPromo.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </SelectValidator>
-
-              <SelectValidator
-                className="select-proveedor"
-                fullWidth
-                label="Proveedor de promoción"
-                onChange={handleChange}
-                name="proveedor"
-                value={formData.proveedor}
-                variant="outlined"
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
-              >
-                {proveedor.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </SelectValidator>
-              <TextField
-                disabled
-                id="outlined-disabled"
-                label="Otros"
-                defaultValue="Otros"
-                variant="outlined"
-              />
-              <TextField
-                disabled
-                id="outlined-disabled"
-                label="Otros"
-                defaultValue="Otros"
-                variant="outlined"
-              />
-            </div>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <DatePicker
-                autoOk
-                disableToolbar
-                fullWidth
-                inputVariant="outlined"
-                name="desdeVigencia"
-                label="Disponible desde el"
-                minDate={new Date()}
-                format="dd/MM/yyyy"
-                value={desdeVigencia}
-                variant="inline"
-                onChange={(data) => handleDesdeVigencia(data)}
-              />
-              <DatePicker
-                autoOk
-                disableToolbar
-                fullWidth
-                inputVariant="outlined"
-                name="hastaVigencia"
-                label="Disponible hasta el"
-                format="dd/MM/yyyy"
-                minDate={desdeVigencia}
-                minDateMessage="*La fecha no puede ser menor al 'desde'"
-                value={hastaVigencia}
-                variant="inline"
-                onChange={(data) => handleHastaVigencia(data)}
-              ></DatePicker>
-            </MuiPickersUtilsProvider>
-            <FormControlLabel
-              id="cargar-promo-checkbox"
-              label="Efectivo"
-              control={
-                <CelesteCheckbox
-                  checked={efectivo.efectivo}
-                  onChange={handleChangee}
-                  name="efectivo"
-                />
-              }
-            />
-          </div>
-          <Divider className="dividerVertical" orientation="vertical" />
-          <Divider className="dividerHorizontal" />
-          <div className="contenedorCol2">
-            <p>¿Qué días aplica la promoción?</p>
-            <div className="cargar-promo-check-group">
-              <FormControlLabel
-                id="cargar-promo-checkbox"
-                className="cargar-promo-checkbox-1"
-                control={
-                  <CelesteCheckbox
-                    checked={state.checkedL}
-                    onChange={handleChangec}
-                    name="checkedL"
-                  />
-                }
-                label="Lunes"
-              />
-
-              <FormControlLabel
-                id="cargar-promo-checkbox"
-                className="cargar-promo-checkbox-2"
-                control={
-                  <CelesteCheckbox
-                    checked={state.checkedM}
-                    onChange={handleChangec}
-                    name="checkedM"
-                  />
-                }
-                label="Martes"
-              />
-              <FormControlLabel
-                id="cargar-promo-checkbox"
-                className="cargar-promo-checkbox-3"
-                control={
-                  <CelesteCheckbox
-                    checked={state.checkedMi}
-                    onChange={handleChangec}
-                    name="checkedMi"
-                  />
-                }
-                label="Miércoles"
-              />
-
-              <FormControlLabel
-                id="cargar-promo-checkbox"
-                className="cargar-promo-checkbox-4"
-                control={
-                  <CelesteCheckbox
-                    checked={state.checkedJ}
-                    onChange={handleChangec}
-                    name="checkedJ"
-                  />
-                }
-                label="Jueves"
-              />
-              <FormControlLabel
-                id="cargar-promo-checkbox"
-                className="cargar-promo-checkbox-5"
-                control={
-                  <CelesteCheckbox
-                    checked={state.checkedV}
-                    onChange={handleChangec}
-                    name="checkedV"
-                  />
-                }
-                label="Viernes"
-              />
-
-              <FormControlLabel
-                id="cargar-promo-checkbox"
-                className="cargar-promo-checkbox-6"
-                control={
-                  <CelesteCheckbox
-                    checked={state.checkedS}
-                    onChange={handleChangec}
-                    name="checkedS"
-                  />
-                }
-                label="Sábado"
-              />
-              <FormControlLabel
-                id="cargar-promo-checkbox"
-                className="cargar-promo-checkbox-7"
-                control={
-                  <CelesteCheckbox
-                    checked={state.checkedD}
-                    onChange={handleChangec}
-                    name="checkedD"
-                  />
-                }
-                label="Domingo"
-              />
-              <FormControlLabel
-                id="cargar-promo-checkbox"
-                className="cargar-promo-checkbox-8"
-                control={
-                  <CelesteCheckbox
-                    checked={state.checkedTD}
-                    onChange={handleChangec}
-                    name="checkedTD"
-                  />
-                }
-                label="Todos los días"
-              />
-            </div>
-            <p className="cargar-promo-desc">Agregar descripción</p>
-            <form className={classes.root} noValidate autoComplete="off">
-              <div>
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  id="standard-textarea"
-                  name="descripcion"
-                  label="Descripción (opcional)"
-                  value={formData.descripcion}
-                  onChange={handleChange}
-                  placeholder="Descripción (opcional)"
-                  multiline
-                  rows={2}
-                />
-              </div>
-            </form>
-          </div>
-          {/* </div>
-            </div>
-          <div className="cargar-promo-buttons-container">
-            <div className="btn-cargar-prom">
-              <Button
-                variant="contained"
-                className={classes.margin}
-                id="cargar-promo-submit"
-                type="submit"
-              >
-                Cargar promoción
-              </Button>
-            </div>
-            <Snackbar
-              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-              open={open}
-              autoHideDuration={8000}
-              onClose={handleClose}
-            >
-              <Alert onClose={handleClose} severity="success">
-                La promoción se cargo correctamente!
-              </Alert>
-            </Snackbar>
-          </div>
-        </div>
-      </ValidatorForm> */
   );
 }
 
