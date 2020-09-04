@@ -19,7 +19,6 @@ import {
   ValidatorForm,
   SelectValidator,
 } from "react-material-ui-form-validator";
-import { crearPromocion } from "../../redux/actions/promActions";
 //pagina vacia
 
 const tipoPromo = [
@@ -156,13 +155,7 @@ function ModalPromociones(props) {
     ) {
       alert("che perraco hay inconsistencia en los cheks ponete las pilas bro");
     } else {
-      props.crearPromocion(
-        formData,
-        state,
-        efectivo,
-        desdeVigencia,
-        hastaVigencia
-      );
+      props.crear(formData, state, efectivo, desdeVigencia, hastaVigencia);
       setOpen(true);
     }
   };
@@ -770,13 +763,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    crearPromocion: (promocion, dias, efectivo, desdeVigencia, hastaVigencia) =>
-      dispatch(
-        crearPromocion(promocion, dias, efectivo, desdeVigencia, hastaVigencia)
-      ),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ModalPromociones);
+export default connect(mapStateToProps)(ModalPromociones);

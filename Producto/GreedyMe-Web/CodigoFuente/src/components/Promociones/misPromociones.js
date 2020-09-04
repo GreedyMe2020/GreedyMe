@@ -22,6 +22,7 @@ import {
 import firebase from "../../firebase/config";
 import { connect } from "react-redux";
 import _ from "lodash";
+import { crearPromocion } from "../../redux/actions/promActions";
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -61,6 +62,7 @@ promocion();
 function MisPromociones(props) {
   const [promos, setPromos] = React.useState(promociones);
   const [currentId, setCurrentId] = React.useState(null);
+  const [nuevaPromo, setNuevaPromo] = React.useState(null);
   React.useEffect(() => {
     if (currentId) {
       props.eliminarPromocion({
@@ -70,10 +72,18 @@ function MisPromociones(props) {
       const promoteca = _.remove(promos, function (n) {
         return n.id === currentId;
       });
-      console.log(promos);
       setPromos([...promos]);
+      setPromos2([...promos]);
     }
   }, [currentId]);
+  React.useEffect(() => {
+    if (nuevaPromo) {
+      promos.push(nuevaPromo);
+      setPromos([...promos]);
+      setPromos2([...promos]);
+      console.log(promos);
+    }
+  }, [nuevaPromo]);
 
   const classes = useStyles();
 
@@ -105,9 +115,32 @@ function MisPromociones(props) {
     setPromos(newDatos);
     setText(text);
   };
+
+  const crear = (formData, state, efectivo, desdeVigencia, hastaVigencia) => {
+    props.crearPromocion(
+      formData,
+      state,
+      efectivo,
+      desdeVigencia,
+      hastaVigencia
+    );
+    setNuevaPromo({
+      id: formData.id,
+      tipoPromo: formData.tipoPromo,
+      proveedor: formData.proveedor,
+      descripcion: formData.descripcion,
+      desdeVigencia: firebase.firestore.Timestamp.fromDate(desdeVigencia),
+      hastaVigencia: firebase.firestore.Timestamp.fromDate(hastaVigencia),
+      visible: false,
+      diaAplicacion: state,
+      efectivo: efectivo.efectivo,
+    });
+    console.log("entro aca bebesitooooo");
+    console.log(promos);
+  };
   return (
     <div>
-      <ModalPromos />
+      <ModalPromos crear={crear} />
       <input
         className="form-control col-md-4"
         defaultValue={text}
@@ -230,6 +263,10 @@ const mapDispatchToProps = (dispatch) => {
       ),
     eliminarPromocion: (promocion) => dispatch(eliminarPromocion(promocion)),
     cambiarVisibilidad: (promocion) => dispatch(cambiarVisibilidad(promocion)),
+    crearPromocion: (promocion, dias, efectivo, desdeVigencia, hastaVigencia) =>
+      dispatch(
+        crearPromocion(promocion, dias, efectivo, desdeVigencia, hastaVigencia)
+      ),
   };
 };
 

@@ -24,7 +24,7 @@ export const ModalButton = ({ children }) => {
   );
 };
 
-export default function ModalPromos() {
+export default function ModalPromos(props) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const [fullWidth, setFullWidth] = React.useState(true);
@@ -64,7 +64,7 @@ export default function ModalPromos() {
         </DialogTitle> */}
         <DialogContent>
           <DialogContentText>
-            <ModalPromociones />
+            <ModalPromociones crear={props.crear} />
           </DialogContentText>
         </DialogContent>
         <DialogActions>
