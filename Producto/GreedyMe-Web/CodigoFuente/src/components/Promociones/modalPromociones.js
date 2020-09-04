@@ -23,7 +23,6 @@ import {
   ValidatorForm,
   SelectValidator,
 } from "react-material-ui-form-validator";
-import { crearPromocion } from "../../redux/actions/promActions";
 //pagina vacia
 
 const tipoPromo = [
@@ -130,6 +129,7 @@ function ModalPromociones(props) {
   const handleRadioChange = (event) => {
     setValue(event.target.value);
     setHelperText("");
+    console.log(value);
     setError(false);
   };
 
@@ -164,13 +164,7 @@ function ModalPromociones(props) {
       setHelperText("*Este campo es obligatorio");
       setError(true);
     } else {
-      props.crearPromocion(
-        formData,
-        state,
-        value,
-        desdeVigencia,
-        hastaVigencia
-      );
+      props.crear(formData, state, value, desdeVigencia, hastaVigencia);
       setOpen(true);
     }
   };
@@ -496,13 +490,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    crearPromocion: (promocion, dias, efectivo, desdeVigencia, hastaVigencia) =>
-      dispatch(
-        crearPromocion(promocion, dias, efectivo, desdeVigencia, hastaVigencia)
-      ),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ModalPromociones);
+export default connect(mapStateToProps)(ModalPromociones);

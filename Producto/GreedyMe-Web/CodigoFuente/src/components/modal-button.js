@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ModalPromos() {
+export default function ModalPromos(props) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const classes = useStyles();
@@ -69,7 +69,7 @@ export default function ModalPromos() {
         </DialogTitle>
         <DialogContent dividers>
           <DialogContentText>
-            <ModalPromociones />
+            <ModalPromociones crear={props.crear} />
           </DialogContentText>
         </DialogContent>
       </Dialog>

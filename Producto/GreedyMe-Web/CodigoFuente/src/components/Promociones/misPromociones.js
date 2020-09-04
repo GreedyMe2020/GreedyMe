@@ -29,6 +29,7 @@ import {
 import firebase from "../../firebase/config";
 import { connect } from "react-redux";
 import _ from "lodash";
+import { crearPromocion } from "../../redux/actions/promActions";
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -70,6 +71,7 @@ function MisPromociones(props) {
   const [open, setOpen] = React.useState(false);
   const [eliminar, setEliminar] = React.useState(null);
   const [currentId, setCurrentId] = React.useState(null);
+  const [nuevaPromo, setNuevaPromo] = React.useState(null);
   React.useEffect(() => {
     if (currentId) {
       props.eliminarPromocion({
@@ -79,13 +81,23 @@ function MisPromociones(props) {
       const promoteca = _.remove(promos, function (n) {
         return n.id === currentId;
       });
-      console.log(promos);
       setPromos([...promos]);
+      setPromos2([...promos]);
     }
   }, [currentId]);
+  React.useEffect(() => {
+    if (nuevaPromo) {
+      promos.push(nuevaPromo);
+      setPromos([...promos]);
+      setPromos2([...promos]);
+      console.log(promos);
+    }
+  }, [nuevaPromo]);
 
   const classes = useStyles();
 
+  const [text, setText] = React.useState("");
+  const [promos2, setPromos2] = React.useState(promociones);
   const [values, setValues] = React.useState({
     showPromo: false,
   });
@@ -98,6 +110,38 @@ function MisPromociones(props) {
     event.preventDefault();
   };
 
+  const filter = (text) => {
+    let textoBuscar = text.target.value;
+    const datos = promos2;
+    const newDatos = datos.filter(function (item) {
+      const itemTipoPromo = item.tipoPromo.toUpperCase();
+      const itemProveedor = item.proveedor.toUpperCase();
+      const itemDescripcion = item.descripcion.toUpperCase();
+      const campo = itemTipoPromo + " " + itemProveedor + " " + itemDescripcion;
+      const textData = textoBuscar.toUpperCase();
+      return campo.indexOf(textData) > -1;
+    });
+    setPromos(newDatos);
+    setText(text);
+  };
+
+  const crear = (formData, state, value, desdeVigencia, hastaVigencia) => {
+    props.crearPromocion(formData, state, value, desdeVigencia, hastaVigencia);
+    setNuevaPromo({
+      id: formData.id,
+      tipoPromo: formData.tipoPromo,
+      proveedor: formData.proveedor,
+      descripcion: formData.descripcion,
+      desdeVigencia: firebase.firestore.Timestamp.fromDate(desdeVigencia),
+      hastaVigencia: firebase.firestore.Timestamp.fromDate(hastaVigencia),
+      visible: false,
+      diaAplicacion: state,
+      medioPago: value,
+    });
+    console.log("entro aca bebesitooooo");
+    console.log(promos);
+  };
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -108,7 +152,13 @@ function MisPromociones(props) {
 
   return (
     <div>
-      <ModalPromos />
+      <ModalPromos crear={crear} />
+      <input
+        className="form-control col-md-4"
+        defaultValue={text}
+        placeholder="Buscar"
+        onChange={(text) => filter(text)}
+      />
       <div className="contenedorTodo">
         <Card className="cardPromo">
           <CardContent className="cardContentePromo">
@@ -158,7 +208,7 @@ function MisPromociones(props) {
                                 " " +
                                 promo.descripcion
                               }
-                              secondary={promo.efectivo ? "Efectivo" : null}
+                              secondary={promo.medioPago ? "Efectivo" : null}
                             />
                           </div>
                           <ListItemSecondaryAction>
@@ -266,6 +316,10 @@ const mapDispatchToProps = (dispatch) => {
       ),
     eliminarPromocion: (promocion) => dispatch(eliminarPromocion(promocion)),
     cambiarVisibilidad: (promocion) => dispatch(cambiarVisibilidad(promocion)),
+    crearPromocion: (promocion, dias, efectivo, desdeVigencia, hastaVigencia) =>
+      dispatch(
+        crearPromocion(promocion, dias, efectivo, desdeVigencia, hastaVigencia)
+      ),
   };
 };
 
