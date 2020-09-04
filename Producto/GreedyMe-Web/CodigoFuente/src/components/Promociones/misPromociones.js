@@ -11,6 +11,13 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Tooltip from "@material-ui/core/Tooltip";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import { Grid, Avatar, IconButton } from "@material-ui/core";
 import { format } from "date-fns";
 import ModalPromos from "../../components/modal-button";
@@ -61,6 +68,8 @@ promocion();
 
 function MisPromociones(props) {
   const [promos, setPromos] = React.useState(promociones);
+  const [open, setOpen] = React.useState(false);
+  const [eliminar, setEliminar] = React.useState(null);
   const [currentId, setCurrentId] = React.useState(null);
   const [nuevaPromo, setNuevaPromo] = React.useState(null);
   React.useEffect(() => {
@@ -138,6 +147,15 @@ function MisPromociones(props) {
     console.log("entro aca bebesitooooo");
     console.log(promos);
   };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div>
       <ModalPromos crear={crear} />
@@ -200,29 +218,70 @@ function MisPromociones(props) {
                             />
                           </div>
                           <ListItemSecondaryAction>
-                            <IconButton aria-label="Editar">
-                              <CreateIcon />
-                            </IconButton>
-                            <IconButton
-                              aria-label="Mostrar/Ocultar"
-                              onClick={handleClickShowPromo}
-                              onMouseDown={handleMouseDownPromo}
+                            <Tooltip title="Editar" arrow>
+                              <IconButton aria-label="Editar">
+                                <CreateIcon />
+                              </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Mostrar/Ocultar" arrow>
+                              <IconButton
+                                aria-label="Mostrar/Ocultar"
+                                onClick={handleClickShowPromo}
+                                onMouseDown={handleMouseDownPromo}
+                              >
+                                {values.showPromo ? (
+                                  <Visibility />
+                                ) : (
+                                  <VisibilityOff />
+                                )}
+                              </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Eliminar" arrow>
+                              <IconButton
+                                onClick={() => {
+                                  setEliminar(promo.id);
+                                  setOpen(true);
+                                }}
+                                edge="end"
+                                aria-label="Eliminar"
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </Tooltip>
+                            <Dialog
+                              open={open}
+                              onClose={handleClose}
+                              aria-labelledby="alert-dialog-title"
+                              aria-describedby="alert-dialog-description"
                             >
-                              {values.showPromo ? (
-                                <Visibility />
-                              ) : (
-                                <VisibilityOff />
-                              )}
-                            </IconButton>
-                            <IconButton
-                              onClick={() => {
-                                setCurrentId(promo.id);
-                              }}
-                              edge="end"
-                              aria-label="Eliminar"
-                            >
-                              <DeleteIcon />
-                            </IconButton>
+                              <DialogTitle id="alert-dialog-title">
+                                {"¿Estás seguro de eliminar el beneficio?"}
+                              </DialogTitle>
+                              <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                  Una vez que aceptes eliminar el beneficio, el
+                                  mismo no podrá ser recuperado.
+                                </DialogContentText>
+                              </DialogContent>
+                              <DialogActions>
+                                <Button onClick={handleClose} color="primary">
+                                  Cancelar
+                                </Button>
+                                <Button
+                                  onClick={() => {
+                                    console.log(eliminar);
+                                    setCurrentId(eliminar);
+                                    setOpen(false);
+                                    setEliminar(null);
+                                    console.log(eliminar);
+                                  }}
+                                  color="secondary"
+                                  autoFocus
+                                >
+                                  Eliminar
+                                </Button>
+                              </DialogActions>
+                            </Dialog>
                           </ListItemSecondaryAction>
                         </ListItem>
                       );
