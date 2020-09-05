@@ -1,5 +1,6 @@
 export const crearPromocion = (
   promocion,
+  id,
   dias,
   value,
   desdeVigencia,
@@ -11,7 +12,7 @@ export const crearPromocion = (
       .collection("usuarioComercio")
       .doc(promocion.id)
       .collection("promociones")
-      .doc()
+      .doc(id)
       .set({
         tipoPromo: promocion.tipoPromo,
         proveedor: promocion.proveedor,
