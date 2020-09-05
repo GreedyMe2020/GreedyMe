@@ -207,11 +207,13 @@ function MisPromociones(props) {
                                   "dd-MM-yyyy"
                                 ) +
                                 " " +
-                                promo.diaAplicacion.checkedTD +
-                                " " +
-                                promo.descripcion
+                                promo.diaAplicacion.checkedTD
                               }
-                              secondary={promo.medioPago ? "Efectivo" : null}
+                              secondary={
+                                promo.medioPago +
+                                ". " +
+                                (promo.descripcion ? promo.descripcion : "")
+                              }
                             />
                           </div>
                           <ListItemSecondaryAction>
@@ -274,7 +276,9 @@ function MisPromociones(props) {
                               <DialogContent>
                                 <DialogContentText id="alert-dialog-description">
                                   Una vez que aceptes eliminar el beneficio, el
-                                  mismo no podrá ser recuperado.
+                                  mismo no podrá ser recuperado. Los cupones
+                                  vinculados a este beneficio se inhabilitarán
+                                  para todos los clientes.
                                 </DialogContentText>
                               </DialogContent>
                               <DialogActions>
