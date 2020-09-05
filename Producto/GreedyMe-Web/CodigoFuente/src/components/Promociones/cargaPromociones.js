@@ -222,13 +222,22 @@ function CargaPromociones(props) {
     setEfectivo({ ...efectivo });
   };
 
+  useEffect(() => {
+    setValorPromo([]);
+    //esto no corre en el primer render, se ejecuta luego del return
+    if (formData.tipoPromo === "Descuento") {
+      setValorPromo(promocion[0].lista);
+    } else {
+      setValorPromo(promocion[1].lista);
+    }
+  }, [formData.tipoPromo, setFormData]); //lista de dependencias de react, cosa de que se refresque el campo una vez y luego cada vez que se actualizan los elementos de la lista
+
   const form = React.createRef();
 
   const [valorPromo, setValorPromo] = React.useState([]); //lista de dependencias de react, cosa de que se refresque el campo una vez y luego cada vez que se actualizan los elementos de la lista
 
   return (
     <div>
-      {console.log(promocion)}
       <div className="prom-title-container">
         <h1>Promociones</h1>
       </div>
@@ -275,29 +284,13 @@ function CargaPromociones(props) {
                       validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
                       errorMessages={["La promoción no es válida"]}
                     >
-                      {formData.tipoPromo === "Descuento"
-                        ? [promocion[0].valor].map((option) => {
-                            <MenuItem key={option.valor1} value={option.valor1}>
-                              {option.valor1}
-
-                              {console.log(option)}
-                              {console.log(option.valor1)}
-                            </MenuItem>;
-                          })
-                        : //DEFINIR UNA VARIABLE COMO ARRAY Y METERLO.
-                          /*promocion.map((option) => {
-                            if (option.tipo === "Descuento") {
-                              for (const key in option.lista) {
-                                <MenuItem key={key} value={key[value]}>
-                                  {key[value]}
-                                </MenuItem>;
-                              }
-                            }
-                          })*/
-                          null}
+                      {valorPromo.map((option) => (
+                        <MenuItem key={option.valor} value={option.valor}>
+                          {option.valor}
+                        </MenuItem>
+                      ))}
                     </SelectValidator>
                   ) : null}
-
                   <SelectValidator
                     fullWidth
                     label="Proveedor de promoción"
