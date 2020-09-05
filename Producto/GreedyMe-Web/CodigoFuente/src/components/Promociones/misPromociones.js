@@ -140,6 +140,7 @@ function MisPromociones(props) {
       });
     }
     setValues(null);
+    setCurrentId2(null);
   }, [currentId2]);
 
   const handleClickShowPromo = () => {
@@ -192,13 +193,12 @@ function MisPromociones(props) {
 
   return (
     <div>
-      <ModalPromos crear={crear} />
-      <input
-        className="form-control col-md-4"
+      <ModalPromos
+        crear={crear}
         defaultValue={text}
-        placeholder="Buscar"
         onChange={(text) => filter(text)}
       />
+
       <div className="contenedorTodo">
         <Card className="cardPromo">
           <CardContent className="cardContentePromo">
