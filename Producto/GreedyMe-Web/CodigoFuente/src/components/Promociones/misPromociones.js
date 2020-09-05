@@ -222,11 +222,13 @@ function MisPromociones(props) {
                                   "dd-MM-yyyy"
                                 ) +
                                 " " +
-                                promo.diaAplicacion.checkedTD +
-                                " " +
-                                promo.descripcion
+                                promo.diaAplicacion.checkedTD
                               }
-                              secondary={promo.medioPago ? "Efectivo" : null}
+                              secondary={
+                                promo.medioPago +
+                                ". " +
+                                (promo.descripcion ? promo.descripcion : "")
+                              }
                             />
                           </div>
                           <ListItemSecondaryAction>
