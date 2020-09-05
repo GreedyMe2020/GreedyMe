@@ -18,6 +18,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogComponent from "../Dialog";
 import { Grid, Avatar, IconButton } from "@material-ui/core";
 import { format } from "date-fns";
 import ModalPromos from "../../components/modal-button";
@@ -67,11 +68,27 @@ const promocion = () => {
 promocion();
 
 function MisPromociones(props) {
+  const classes = useStyles();
+  //Estados de las promociones
   const [promos, setPromos] = React.useState(promociones);
+  const [promos2, setPromos2] = React.useState(promociones);
+
+  //Estado del dialog (abierto/cerrado)
   const [open, setOpen] = React.useState(false);
+
+  //Estados para setear la promo a eliminar, y eliminar la promo
   const [eliminar, setEliminar] = React.useState(null);
   const [currentId, setCurrentId] = React.useState(null);
+
+  //Estados para crear nuevas promociones
   const [nuevaPromo, setNuevaPromo] = React.useState(null);
+  const [text, setText] = React.useState("");
+
+  //Estado de visibilidad para mostar u ocultar una promocion en la app mobile
+  const [values, setValues] = React.useState(null);
+  const [currentId2, setCurrentId2] = React.useState(null);
+
+  //Eliminar una promo de la BD y renderizar la eliminacion de una promo
   React.useEffect(() => {
     if (currentId) {
       props.eliminarPromocion({
@@ -85,25 +102,47 @@ function MisPromociones(props) {
       setPromos2([...promos]);
     }
   }, [currentId]);
+
+  //Renderizar nueva promo
   React.useEffect(() => {
     if (nuevaPromo) {
       promos.push(nuevaPromo);
       setPromos([...promos]);
       setPromos2([...promos]);
-      console.log(promos);
     }
   }, [nuevaPromo]);
 
-  const classes = useStyles();
+  React.useEffect(() => {
+    if (currentId2) {
+      props.cambiarVisibilidad({
+        id: props.auth.uid,
+        idProm: currentId2,
+        visible: values,
+      });
 
-  const [text, setText] = React.useState("");
-  const [promos2, setPromos2] = React.useState(promociones);
-  const [values, setValues] = React.useState({
-    showPromo: false,
-  });
+      const indiceACambiar = _.findIndex(promos, function (o) {
+        return o.id === currentId2;
+      });
+
+      const objCambiar = _.nth(promos, indiceACambiar);
+
+      promos.splice(indiceACambiar, 1, {
+        id: objCambiar.id,
+        tipoPromo: objCambiar.tipoPromo,
+        proveedor: objCambiar.proveedor,
+        descripcion: objCambiar.descripcion,
+        desdeVigencia: objCambiar.desdeVigencia,
+        hastaVigencia: objCambiar.hastaVigencia,
+        visible: values,
+        diaAplicacion: objCambiar.diaAplicacion,
+        medioPago: objCambiar.medioPago,
+      });
+    }
+    setValues(null);
+  }, [currentId2]);
 
   const handleClickShowPromo = () => {
-    setValues({ ...values, showPromo: !values.showPromo });
+    setValues(!promo.id);
   };
 
   const handleMouseDownPromo = (event) => {
@@ -125,10 +164,17 @@ function MisPromociones(props) {
     setText(text);
   };
 
-  const crear = (formData, state, value, desdeVigencia, hastaVigencia) => {
-    props.crearPromocion(formData, state, value, desdeVigencia, hastaVigencia);
+  const crear = (formData, id, state, value, desdeVigencia, hastaVigencia) => {
+    props.crearPromocion(
+      formData,
+      id,
+      state,
+      value,
+      desdeVigencia,
+      hastaVigencia
+    );
     setNuevaPromo({
-      id: formData.id,
+      id: id,
       tipoPromo: formData.tipoPromo,
       proveedor: formData.proveedor,
       descripcion: formData.descripcion,
@@ -139,7 +185,6 @@ function MisPromociones(props) {
       medioPago: value,
     });
     console.log("entro aca bebesitooooo");
-    console.log(promos);
   };
 
   const handleClickOpen = () => {
@@ -222,10 +267,14 @@ function MisPromociones(props) {
                             <Tooltip title="Mostrar/Ocultar" arrow>
                               <IconButton
                                 aria-label="Mostrar/Ocultar"
-                                onClick={handleClickShowPromo}
+                                onClick={() => {
+                                  setValues(!promo.visible);
+                                  setCurrentId2(promo.id);
+                                  console.log(values);
+                                }}
                                 onMouseDown={handleMouseDownPromo}
                               >
-                                {values.showPromo ? (
+                                {promo.visible ? (
                                   <Visibility />
                                 ) : (
                                   <VisibilityOff />
@@ -237,6 +286,8 @@ function MisPromociones(props) {
                                 onClick={() => {
                                   setEliminar(promo.id);
                                   setOpen(true);
+                                  console.log(promo.id);
+                                  console.log(promo.visible);
                                 }}
                                 edge="end"
                                 aria-label="Eliminar"
@@ -244,42 +295,19 @@ function MisPromociones(props) {
                                 <DeleteIcon />
                               </IconButton>
                             </Tooltip>
-                            <Dialog
+                            <DialogComponent
                               open={open}
-                              onClose={handleClose}
-                              aria-labelledby="alert-dialog-title"
-                              aria-describedby="alert-dialog-description"
-                            >
-                              <DialogTitle id="alert-dialog-title">
-                                {"¿Estás seguro de eliminar el beneficio?"}
-                              </DialogTitle>
-                              <DialogContent>
-                                <DialogContentText id="alert-dialog-description">
-                                  Una vez que aceptes eliminar el beneficio, el
-                                  mismo no podrá ser recuperado. Los cupones
-                                  vinculados a este beneficio se inhabilitarán
-                                  para todos los clientes.
-                                </DialogContentText>
-                              </DialogContent>
-                              <DialogActions>
-                                <Button onClick={handleClose} color="primary">
-                                  Cancelar
-                                </Button>
-                                <Button
-                                  onClick={() => {
-                                    console.log(eliminar);
-                                    setCurrentId(eliminar);
-                                    setOpen(false);
-                                    setEliminar(null);
-                                    console.log(eliminar);
-                                  }}
-                                  color="secondary"
-                                  autoFocus
-                                >
-                                  Eliminar
-                                </Button>
-                              </DialogActions>
-                            </Dialog>
+                              setOpen={setOpen}
+                              handleClose={handleClose}
+                              eliminar={eliminar}
+                              setEliminar={setEliminar}
+                              setCurrentId={setCurrentId}
+                              title={"¿Estás seguro de eliminar el beneficio?"}
+                              text={
+                                "Una vez que aceptes eliminar el beneficio, el mismo no podrá ser recuperado."
+                              }
+                              btnText={"Eliminar"}
+                            />
                           </ListItemSecondaryAction>
                         </ListItem>
                       );
@@ -320,9 +348,23 @@ const mapDispatchToProps = (dispatch) => {
       ),
     eliminarPromocion: (promocion) => dispatch(eliminarPromocion(promocion)),
     cambiarVisibilidad: (promocion) => dispatch(cambiarVisibilidad(promocion)),
-    crearPromocion: (promocion, dias, efectivo, desdeVigencia, hastaVigencia) =>
+    crearPromocion: (
+      promocion,
+      id,
+      dias,
+      efectivo,
+      desdeVigencia,
+      hastaVigencia
+    ) =>
       dispatch(
-        crearPromocion(promocion, dias, efectivo, desdeVigencia, hastaVigencia)
+        crearPromocion(
+          promocion,
+          id,
+          dias,
+          efectivo,
+          desdeVigencia,
+          hastaVigencia
+        )
       ),
   };
 };
