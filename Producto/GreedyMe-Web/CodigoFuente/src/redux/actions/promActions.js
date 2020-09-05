@@ -15,7 +15,11 @@ export const crearPromocion = (
       .doc(id)
       .set({
         tipoPromo: promocion.tipoPromo,
-        proveedor: promocion.proveedor,
+        valuePromo: promocion.valuePromo,
+        otraPromo: promocion.otraPromo,
+        tipoProveedor: promocion.tipoProveedor,
+        valueProveedor: promocion.valueProveedor,
+        otroProveedor: promocion.otroProveedor,
         desdeVigencia: desdeVigencia,
         hastaVigencia: hastaVigencia,
         visible: false,
