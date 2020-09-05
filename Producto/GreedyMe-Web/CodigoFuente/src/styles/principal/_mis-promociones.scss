@@ -47,278 +47,283 @@ $background-color: #ececec;
   }
 }
 
-.elementoListaProm {
-  width: 80%;
-}
-
-.contTodo {
-  margin-left: 20px;
-  margin-right: 20px;
-  color: black;
-  .col-subgrid {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    justify-items: flex;
-    align-items: flex-start;
-    margin-bottom: 1.2rem;
-    .select-tipopromo {
-      grid-column: 1/2;
-      padding-right: 10px;
-    }
-    .selectpromo {
-      grid-column: 1/2;
-      padding-right: 10px;
-    }
-    #outlineddisabled {
-      grid-column: 1/2;
-    }
+#buscador-container {
+  margin-top: 10px;
+  margin-left: 5%;
+  margin-right: 5%;
+  .elementoListaProm {
+    width: 80%;
   }
 
-  .col-subgrid-2 {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    justify-items: flex;
-    align-items: flex-start;
-    margin-bottom: 1.2rem;
-    .select-tipoproveedor {
-      grid-column: 1/2;
-      padding-right: 10px;
-    }
-    .selectproveedor {
-      grid-column: 1/2;
-      padding-right: 10px;
-    }
-    #outlineddisabled {
-      grid-column: 1/2;
-    }
-  }
-
-  .col-subgrid-3 {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-    justify-items: flex;
-    align-items: center;
-    margin-bottom: 1.2rem;
-    .desde {
-      grid-column: 1/2;
-      padding-right: 20px;
-    }
-    .hasta {
-      grid-column: 2/3;
-      padding-right: 20px;
-    }
-  }
-
-  .subtit {
-    margin-top: 20px;
-  }
-  .dividerVertical {
-    justify-self: center;
-    grid-column: 3/4;
-    grid-row: 2/3;
-  }
-  .dividerH {
-    justify-self: center;
-  }
-
-  .contenedorCol2 {
-    .cargar-promo-check-group {
-      width: 50%;
+  .contTodo {
+    margin-left: 20px;
+    margin-right: 20px;
+    color: black;
+    .col-subgrid {
+      width: 100%;
       display: grid;
-      grid-template-columns: subgrid;
-      grid-template-rows: subgrid;
-      justify-items: flex-start;
-      align-items: center;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr;
+      justify-items: flex;
+      align-items: flex-start;
       margin-bottom: 1.2rem;
-      .cargar-promo-checkbox-1 {
-        grid-row: 1/2;
+      .select-tipopromo {
         grid-column: 1/2;
+        padding-right: 10px;
       }
-      .cargar-promo-checkbox-2 {
-        grid-row: 1/2;
-        grid-column: 2/3;
-      }
-      .cargar-promo-checkbox-3 {
-        grid-row: 1/2;
-        grid-column: 3/4;
-      }
-      .cargar-promo-checkbox-4 {
-        grid-row: 1/2;
-        grid-column: 4/5;
-      }
-      .cargar-promo-checkbox-5 {
-        grid-row: 2/3;
+      .selectpromo {
         grid-column: 1/2;
+        padding-right: 10px;
       }
-      .cargar-promo-checkbox-6 {
-        grid-row: 2/3;
-        grid-column: 2/3;
-      }
-      .cargar-promo-checkbox-7 {
-        grid-row: 2/3;
-        grid-column: 3/4;
-      }
-      .cargar-promo-checkbox-8 {
-        grid-row: 2/3;
-        grid-column: 4/5;
-        width: 150px;
-      }
-    }
-
-    .cargar-promo-desc {
-      margin-bottom: 5px;
-    }
-  }
-}
-.cargar-promo-buttons-container {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  margin-right: 2.8rem;
-  margin-bottom: 2rem;
-  margin-top: 1.5rem;
-  .btn-cargar-prom {
-    margin-left: 1rem;
-    #cargar-promo-submit {
-      background-color: #262262;
-      color: white;
-    }
-  }
-}
-
-@media only screen and (max-width: 870px) {
-  .contTodo {
-    .col-subgrid {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
       #outlineddisabled {
         grid-column: 1/2;
-        grid-row: 2/3;
       }
     }
+
     .col-subgrid-2 {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      #outlineddisabled {
-        grid-column: 1/2;
-        grid-row: 2/3;
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 640px) {
-  .contTodo {
-    .col-subgrid {
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr 1fr;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr;
+      justify-items: flex;
+      align-items: flex-start;
+      margin-bottom: 1.2rem;
       .select-tipoproveedor {
         grid-column: 1/2;
+        padding-right: 10px;
       }
       .selectproveedor {
         grid-column: 1/2;
-        grid-row: 2/3;
+        padding-right: 10px;
       }
       #outlineddisabled {
         grid-column: 1/2;
-        grid-row: 3/4;
       }
     }
-    .col-subgrid-2 {
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr 1fr;
-      .select-tipoproveedor {
-        grid-column: 1/2;
-      }
-      .selectproveedor {
-        grid-column: 1/2;
-        grid-row: 2/3;
-      }
-      #outlineddisabled {
-        grid-column: 1/2;
-        grid-row: 3/4;
-      }
-    }
-    .contenedorCol2 {
-      .cargar-promo-check-group {
-        .cargar-promo-checkbox-4 {
-          grid-row: 2/3;
-          grid-column: 1/2;
-        }
-        .cargar-promo-checkbox-5 {
-          grid-row: 2/3;
-          grid-column: 2/3;
-        }
-        .cargar-promo-checkbox-6 {
-          grid-row: 2/3;
-          grid-column: 3/4;
-        }
-        .cargar-promo-checkbox-7 {
-          grid-row: 3/4;
-          grid-column: 1/2;
-        }
-        .cargar-promo-checkbox-8 {
-          grid-row: 3/4;
-          grid-column: 2/3;
-          width: 150px;
-        }
-      }
-    }
-  }
-}
 
-@media only screen and (max-width: 555px) {
-  .contTodo {
     .col-subgrid-3 {
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr;
       justify-items: flex;
-      align-items: flex-start;
+      align-items: center;
       margin-bottom: 1.2rem;
       .desde {
         grid-column: 1/2;
         padding-right: 20px;
       }
       .hasta {
-        grid-column: 1/2;
-        grid-row: 2/3;
+        grid-column: 2/3;
         padding-right: 20px;
       }
     }
+
+    .subtit {
+      margin-top: 20px;
+    }
+    .dividerVertical {
+      justify-self: center;
+      grid-column: 3/4;
+      grid-row: 2/3;
+    }
+    .dividerH {
+      justify-self: center;
+    }
+
     .contenedorCol2 {
       .cargar-promo-check-group {
-        .cargar-promo-checkbox-3 {
-          grid-row: 2/3;
+        width: 50%;
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-template-rows: subgrid;
+        justify-items: flex-start;
+        align-items: center;
+        margin-bottom: 1.2rem;
+        .cargar-promo-checkbox-1 {
+          grid-row: 1/2;
           grid-column: 1/2;
         }
-        .cargar-promo-checkbox-4 {
-          grid-row: 2/3;
+        .cargar-promo-checkbox-2 {
+          grid-row: 1/2;
           grid-column: 2/3;
         }
+        .cargar-promo-checkbox-3 {
+          grid-row: 1/2;
+          grid-column: 3/4;
+        }
+        .cargar-promo-checkbox-4 {
+          grid-row: 1/2;
+          grid-column: 4/5;
+        }
         .cargar-promo-checkbox-5 {
-          grid-row: 3/4;
+          grid-row: 2/3;
           grid-column: 1/2;
         }
         .cargar-promo-checkbox-6 {
-          grid-row: 3/4;
+          grid-row: 2/3;
           grid-column: 2/3;
         }
         .cargar-promo-checkbox-7 {
-          grid-row: 4/5;
-          grid-column: 1/2;
+          grid-row: 2/3;
+          grid-column: 3/4;
         }
         .cargar-promo-checkbox-8 {
-          grid-row: 4/5;
-          grid-column: 2/3;
+          grid-row: 2/3;
+          grid-column: 4/5;
           width: 150px;
+        }
+      }
+
+      .cargar-promo-desc {
+        margin-bottom: 5px;
+      }
+    }
+  }
+  .cargar-promo-buttons-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin-right: 2.8rem;
+    margin-bottom: 2rem;
+    margin-top: 1.5rem;
+    .btn-cargar-prom {
+      margin-left: 1rem;
+      #cargar-promo-submit {
+        background-color: #262262;
+        color: white;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 870px) {
+    .contTodo {
+      .col-subgrid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        #outlineddisabled {
+          grid-column: 1/2;
+          grid-row: 2/3;
+        }
+      }
+      .col-subgrid-2 {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        #outlineddisabled {
+          grid-column: 1/2;
+          grid-row: 2/3;
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 640px) {
+    .contTodo {
+      .col-subgrid {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        .select-tipoproveedor {
+          grid-column: 1/2;
+        }
+        .selectproveedor {
+          grid-column: 1/2;
+          grid-row: 2/3;
+        }
+        #outlineddisabled {
+          grid-column: 1/2;
+          grid-row: 3/4;
+        }
+      }
+      .col-subgrid-2 {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        .select-tipoproveedor {
+          grid-column: 1/2;
+        }
+        .selectproveedor {
+          grid-column: 1/2;
+          grid-row: 2/3;
+        }
+        #outlineddisabled {
+          grid-column: 1/2;
+          grid-row: 3/4;
+        }
+      }
+      .contenedorCol2 {
+        .cargar-promo-check-group {
+          .cargar-promo-checkbox-4 {
+            grid-row: 2/3;
+            grid-column: 1/2;
+          }
+          .cargar-promo-checkbox-5 {
+            grid-row: 2/3;
+            grid-column: 2/3;
+          }
+          .cargar-promo-checkbox-6 {
+            grid-row: 2/3;
+            grid-column: 3/4;
+          }
+          .cargar-promo-checkbox-7 {
+            grid-row: 3/4;
+            grid-column: 1/2;
+          }
+          .cargar-promo-checkbox-8 {
+            grid-row: 3/4;
+            grid-column: 2/3;
+            width: 150px;
+          }
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 555px) {
+    .contTodo {
+      .col-subgrid-3 {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        justify-items: flex;
+        align-items: flex-start;
+        margin-bottom: 1.2rem;
+        .desde {
+          grid-column: 1/2;
+          padding-right: 20px;
+        }
+        .hasta {
+          grid-column: 1/2;
+          grid-row: 2/3;
+          padding-right: 20px;
+        }
+      }
+      .contenedorCol2 {
+        .cargar-promo-check-group {
+          .cargar-promo-checkbox-3 {
+            grid-row: 2/3;
+            grid-column: 1/2;
+          }
+          .cargar-promo-checkbox-4 {
+            grid-row: 2/3;
+            grid-column: 2/3;
+          }
+          .cargar-promo-checkbox-5 {
+            grid-row: 3/4;
+            grid-column: 1/2;
+          }
+          .cargar-promo-checkbox-6 {
+            grid-row: 3/4;
+            grid-column: 2/3;
+          }
+          .cargar-promo-checkbox-7 {
+            grid-row: 4/5;
+            grid-column: 1/2;
+          }
+          .cargar-promo-checkbox-8 {
+            grid-row: 4/5;
+            grid-column: 2/3;
+            width: 150px;
+          }
         }
       }
     }

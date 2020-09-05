@@ -10,7 +10,10 @@ import ModalPromociones from "../components/Promociones/modalPromociones";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { makeStyles } from "@material-ui/core/styles";
+import InputBase from "@material-ui/core/InputBase";
+import SearchIcon from "@material-ui/icons/Search";
+import Toolbar from "@material-ui/core/Toolbar";
+import { makeStyles, fade } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   cruz: {
@@ -18,6 +21,45 @@ const useStyles = makeStyles((theme) => ({
     right: theme.spacing(1),
     top: "8px",
     color: theme.palette.grey[500],
+  },
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.7),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 1),
+    },
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(1),
+      width: "auto",
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inputRoot: {
+    color: "inherit",
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
+      },
+    },
   },
 }));
 
@@ -48,6 +90,23 @@ export default function ModalPromos(props) {
           >
             Nueva promoción
           </Button>
+        </div>
+      </div>
+      <div id="buscador-container">
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
+          </div>
+          <InputBase
+            placeholder="Buscar…"
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ "aria-label": "search" }}
+            defaultValue={props.text}
+            onChange={props.onChange}
+          />
         </div>
       </div>
       <Dialog
