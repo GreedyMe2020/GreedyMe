@@ -21,7 +21,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { Grid, Avatar, IconButton } from "@material-ui/core";
 import { format } from "date-fns";
 import ModalPromos from "../../components/modal-button";
-
+import ModalPromosActualizar from "../../components/modal-button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import {
@@ -68,6 +68,10 @@ const promocion = () => {
 };
 //y aca se ejecuta la funcion de arriba
 promocion();
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function MisPromociones(props) {
   const [promos, setPromos] = React.useState(promociones);
@@ -219,9 +223,10 @@ function MisPromociones(props) {
                           <ListItemSecondaryAction>
                             <Tooltip title="Editar" arrow>
                               <IconButton aria-label="Editar">
-                                <CreateIcon />
+                                <CreateIcon onClick={handleClickOpen} />
                               </IconButton>
                             </Tooltip>
+                            <ModalPromosActualizar />
                             <Tooltip title="Mostrar/Ocultar" arrow>
                               <IconButton
                                 aria-label="Mostrar/Ocultar"
@@ -243,12 +248,30 @@ function MisPromociones(props) {
                                         onClose={handleClose}
                                         severity="success"
                                       >
-                                        Se ocultó la promoción en la aplicación
+                                        La promoción está visible en la
+                                        aplicación
                                       </Alert>
                                     </Snackbar>
                                   </Visibility>
                                 ) : (
-                                  <VisibilityOff />
+                                  <VisibilityOff>
+                                    <Snackbar
+                                      anchorOrigin={{
+                                        vertical: "bottom",
+                                        horizontal: "left",
+                                      }}
+                                      open={open}
+                                      autoHideDuration={8000}
+                                      onClose={handleClose}
+                                    >
+                                      <Alert
+                                        onClose={handleClose}
+                                        severity="info"
+                                      >
+                                        Se ocultó la promoción en la aplicación
+                                      </Alert>
+                                    </Snackbar>
+                                  </VisibilityOff>
                                 )}
                               </IconButton>
                             </Tooltip>

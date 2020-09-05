@@ -69,6 +69,50 @@ export default function ModalPromos(props) {
         </DialogTitle>
         <DialogContent dividers>
           <DialogContentText>
+            <ModalPromociones />
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
+export function ModalPromosActualizar(props) {
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const classes = useStyles();
+  const [fullWidth, setFullWidth] = React.useState(true);
+  const [maxWidth, setMaxWidth] = React.useState("md");
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Dialog
+        fullWidth={fullWidth}
+        maxWidth={maxWidth}
+        open={open}
+        onClose={handleClose}
+      >
+        <DialogTitle id="dialog-title-prom">
+          <h5>Cargar un nuevo beneficio</h5>
+          <IconButton
+            aria-label="close"
+            id="btn"
+            className={classes.cruz}
+            onClick={handleClose}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
+          <DialogContentText>
             <ModalPromociones crear={props.crear} />
           </DialogContentText>
         </DialogContent>
