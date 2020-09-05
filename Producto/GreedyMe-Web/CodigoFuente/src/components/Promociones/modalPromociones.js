@@ -129,7 +129,6 @@ function ModalPromociones(props) {
   const handleRadioChange = (event) => {
     setValue(event.target.value);
     setHelperText("");
-    console.log(value);
     setError(false);
   };
   function generateUUID() {
@@ -171,8 +170,7 @@ function ModalPromociones(props) {
     ) {
       setHelperTextDias("*Hay inconsistencia en la selección");
       setErrorDias(true);
-    }
-    if (value != "efectivo" && value != "todosMedios") {
+    } else if (value != "efectivo" && value != "todosMedios") {
       setHelperText("*Este campo es obligatorio");
       setError(true);
     } else {

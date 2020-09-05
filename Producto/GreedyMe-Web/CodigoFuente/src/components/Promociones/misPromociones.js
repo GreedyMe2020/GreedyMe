@@ -184,7 +184,6 @@ function MisPromociones(props) {
       diaAplicacion: state,
       medioPago: value,
     });
-    console.log("entro aca bebesitooooo");
   };
 
   const handleClickOpen = () => {
