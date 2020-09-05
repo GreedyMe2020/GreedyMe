@@ -222,7 +222,7 @@ function MisPromociones(props) {
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+    setOpenAlert(false);
   };
   return (
     <div>
