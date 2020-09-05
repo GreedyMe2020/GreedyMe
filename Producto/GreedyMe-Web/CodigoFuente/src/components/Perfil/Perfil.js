@@ -16,6 +16,7 @@ import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
+import classes from "../../components/Modal";
 import Avatar from "@material-ui/core/Avatar";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -58,7 +59,7 @@ const rubro = () => {
     });
 };
 rubro();
-console.log(rubros);
+
 import Geocode from "react-geocode";
 
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
@@ -92,6 +93,8 @@ function Perfil(props) {
     lng: null,
   });
   const [picture, setPicture] = useState(props.profile.photoURL);
+  const [submitted, setSubmitted] = React.useState(false);
+  const [showModal, setModal] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
   const handleClose = (event, reason) => {
@@ -149,6 +152,10 @@ function Perfil(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.editarDatos(formData);
+    setSubmitted({ submitted: true }, () => {
+      setTimeout(() => setSubmitted({ submitted: false }), 5000);
+    });
+
     setOpen(true);
   };
 
@@ -184,7 +191,7 @@ function Perfil(props) {
                 fullWidth
                 id="outlined-disabled"
                 label="Nombre del comercio"
-                defaultValue={props.profile.nombreComercio}
+                value={props.profile.nombreComercio}
                 variant="outlined"
                 name="usuario"
               />
@@ -195,7 +202,7 @@ function Perfil(props) {
                 label="Email"
                 fullWidth
                 disabled
-                defaultValue={props.auth.email}
+                value={props.auth.email}
                 variant="outlined"
                 name="email"
               />
@@ -208,7 +215,7 @@ function Perfil(props) {
                 autoComplete="current-password"
                 disabled
                 variant="outlined"
-                defaultValue="***********"
+                value="***********"
                 name="contraseña"
                 fullWidth
                 validators={["required"]}
@@ -262,7 +269,7 @@ function Perfil(props) {
                   fullWidth
                   disabled
                   name="cuit"
-                  defaultValue={props.profile.CUIT}
+                  value={props.profile.CUIT}
                   label="CUIT"
                 />
               </Grid>
@@ -272,9 +279,9 @@ function Perfil(props) {
                   variant="outlined"
                   fullWidth
                   onChange={handleChange}
-                  name="sitioWeb"
+                  name="web"
                   label="Sitio web"
-                  defaultValue={formData.web}
+                  value={formData.web}
                   validators={[
                     "matchRegexp:^(http://www.|https://www.|http://|https://)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$",
                   ]}
@@ -290,7 +297,7 @@ function Perfil(props) {
                   fullWidth
                   onChange={handleChange}
                   name="sucursal"
-                  defaultValue={formData.sucursal}
+                  value={formData.sucursal}
                   validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
                   errorMessages={["La sucursal no es válida"]}
                 />
@@ -302,8 +309,9 @@ function Perfil(props) {
                   label="Teléfono"
                   fullWidth
                   onChange={handleChange}
+                  required
                   name="telefono"
-                  defaultValue={formData.telefono}
+                  value={formData.telefono}
                   validators={["matchRegexp:^([0-9 ]){2,20}$"]}
                   errorMessages={["El teléfono no es válido"]}
                 />
@@ -316,7 +324,8 @@ function Perfil(props) {
                   onChange={handleChange}
                   name="rubro"
                   fullWidth
-                  defaultValue={formData.rubro}
+                  required
+                  value={formData.rubro}
                   validators={["required"]}
                   errorMessages={["*Este campo es obligatorio"]}
                 >
@@ -335,7 +344,7 @@ function Perfil(props) {
                   fullWidth
                   onChange={handleChange}
                   name="instagram"
-                  defaultValue={formData.instagram}
+                  value={formData.instagram}
                   validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
                   errorMessages={["El usuario no es válido"]}
                 />
@@ -348,18 +357,12 @@ function Perfil(props) {
                   fullWidth
                   onChange={handleChange}
                   name="facebook"
-                  defaultValue={formData.facebook}
+                  value={formData.facebook}
                   validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
                   errorMessages={["El usuario no es válido"]}
                 />
               </Grid>
               <Grid className="inputPerfil2" item xs={12} md={12}>
-                {/* <TextValidator
-                  variant="outlined"
-                  id="outlined-basic"
-                  label="Dirección"
-                  fullWidth
-                ></TextValidator> */}
                 <Search
                   obtenerDireccion={obtenerDireccion}
                   actual={formData.direccion}

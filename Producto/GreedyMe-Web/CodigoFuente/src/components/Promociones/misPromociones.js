@@ -144,7 +144,11 @@ function MisPromociones(props) {
       promos.splice(indiceACambiar, 1, {
         id: objCambiar.id,
         tipoPromo: objCambiar.tipoPromo,
-        proveedor: objCambiar.proveedor,
+        valuePromo: objCambiar.valuePromo,
+        otraPromo: objCambiar.otraPromo,
+        tipoProveedor: objCambiar.tipoProveedor,
+        valueProveedor: objCambiar.valueProveedor,
+        otroProveedor: objCambiar.otroProveedor,
         descripcion: objCambiar.descripcion,
         desdeVigencia: objCambiar.desdeVigencia,
         hastaVigencia: objCambiar.hastaVigencia,
@@ -172,9 +176,20 @@ function MisPromociones(props) {
     const datos = promos2;
     const newDatos = datos.filter(function (item) {
       const itemTipoPromo = item.tipoPromo.toUpperCase();
-      const itemProveedor = item.proveedor.toUpperCase();
+      const itemValuePromo = item.valuePromo.toUpperCase();
+      const itemProveedor = item.tipoProveedor.toUpperCase();
+      const itemValueProveedor = item.valueProveedor.toUpperCase();
       const itemDescripcion = item.descripcion.toUpperCase();
-      const campo = itemTipoPromo + " " + itemProveedor + " " + itemDescripcion;
+      const campo =
+        itemTipoPromo +
+        " " +
+        itemValuePromo +
+        " " +
+        itemProveedor +
+        " " +
+        itemValueProveedor +
+        " " +
+        itemDescripcion;
       const textData = textoBuscar.toUpperCase();
       return campo.indexOf(textData) > -1;
     });
@@ -194,7 +209,11 @@ function MisPromociones(props) {
     setNuevaPromo({
       id: id,
       tipoPromo: formData.tipoPromo,
-      proveedor: formData.proveedor,
+      valuePromo: formData.valuePromo,
+      otraPromo: formData.otraPromo,
+      tipoProveedor: formData.tipoProveedor,
+      valueProveedor: formData.valueProveedor,
+      otroProveedor: formData.otroProveedor,
       descripcion: formData.descripcion,
       desdeVigencia: firebase.firestore.Timestamp.fromDate(desdeVigencia),
       hastaVigencia: firebase.firestore.Timestamp.fromDate(hastaVigencia),
@@ -264,9 +283,15 @@ function MisPromociones(props) {
                               //asi podes ir accediendo a todos los datos asi los acomodas como quieras
                               primary={
                                 promo.tipoPromo +
-                                " " +
-                                promo.proveedor +
-                                " desde el " +
+                                ": " +
+                                promo.valuePromo +
+                                ". " +
+                                promo.otraPromo +
+                                " Proveedor: " +
+                                promo.valueProveedor +
+                                ". " +
+                                promo.otroProveedor +
+                                " válida desde el " +
                                 format(
                                   promo.desdeVigencia.toDate(),
                                   "dd-MM-yyyy"
