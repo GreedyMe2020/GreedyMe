@@ -86,6 +86,7 @@ function MisPromociones(props) {
 
   //Estado de visibilidad para mostar u ocultar una promocion en la app mobile
   const [values, setValues] = React.useState(null);
+  const [currentId2, setCurrentId2] = React.useState(null);
 
   //Eliminar una promo de la BD y renderizar la eliminacion de una promo
   React.useEffect(() => {
@@ -112,13 +113,34 @@ function MisPromociones(props) {
     }
   }, [nuevaPromo]);
 
-  // Traer funcion de redux para cambiarle el estado de promo.visible
-  // y asi cambiar si se muestra el ojo sin tachar o tachado.
-  /* React.useEffect(() =>{
-    if(values || values === false){
+  React.useEffect(() => {
+    if (currentId2) {
+      props.cambiarVisibilidad({
+        id: props.auth.uid,
+        idProm: currentId2,
+        visible: values,
+      });
 
+      const indiceACambiar = _.findIndex(promos, function (o) {
+        return o.id === currentId2;
+      });
+
+      const objCambiar = _.nth(promos, indiceACambiar);
+
+      promos.splice(indiceACambiar, 1, {
+        id: objCambiar.id,
+        tipoPromo: objCambiar.tipoPromo,
+        proveedor: objCambiar.proveedor,
+        descripcion: objCambiar.descripcion,
+        desdeVigencia: objCambiar.desdeVigencia,
+        hastaVigencia: objCambiar.hastaVigencia,
+        visible: values,
+        diaAplicacion: objCambiar.diaAplicacion,
+        medioPago: objCambiar.medioPago,
+      });
     }
-  }) */
+    setValues(null);
+  }, [currentId2]);
 
   const handleClickShowPromo = () => {
     setValues(!promo.id);
@@ -242,6 +264,7 @@ function MisPromociones(props) {
                                 aria-label="Mostrar/Ocultar"
                                 onClick={() => {
                                   setValues(!promo.visible);
+                                  setCurrentId2(promo.id);
                                   console.log(values);
                                 }}
                                 onMouseDown={handleMouseDownPromo}
@@ -258,6 +281,8 @@ function MisPromociones(props) {
                                 onClick={() => {
                                   setEliminar(promo.id);
                                   setOpen(true);
+                                  console.log(promo.id);
+                                  console.log(promo.visible);
                                 }}
                                 edge="end"
                                 aria-label="Eliminar"

@@ -90,7 +90,7 @@ export const cambiarVisibilidad = (promocion) => {
       .collection("promociones")
       .doc(promocion.idProm)
       .update({
-        visible: !promocion.visible,
+        visible: promocion.visible,
       })
       .then(() => {
         dispatch({ type: "CAMBIAR_VISIBILIDAD" });
