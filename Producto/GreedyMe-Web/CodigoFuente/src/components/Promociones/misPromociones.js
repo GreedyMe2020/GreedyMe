@@ -109,7 +109,6 @@ function MisPromociones(props) {
       promos.push(nuevaPromo);
       setPromos([...promos]);
       setPromos2([...promos]);
-      console.log(promos);
     }
   }, [nuevaPromo]);
 
@@ -165,10 +164,17 @@ function MisPromociones(props) {
     setText(text);
   };
 
-  const crear = (formData, state, value, desdeVigencia, hastaVigencia) => {
-    props.crearPromocion(formData, state, value, desdeVigencia, hastaVigencia);
+  const crear = (formData, id, state, value, desdeVigencia, hastaVigencia) => {
+    props.crearPromocion(
+      formData,
+      id,
+      state,
+      value,
+      desdeVigencia,
+      hastaVigencia
+    );
     setNuevaPromo({
-      id: formData.id,
+      id: id,
       tipoPromo: formData.tipoPromo,
       proveedor: formData.proveedor,
       descripcion: formData.descripcion,
@@ -179,7 +185,6 @@ function MisPromociones(props) {
       medioPago: value,
     });
     console.log("entro aca bebesitooooo");
-    console.log(promos);
   };
 
   const handleClickOpen = () => {
@@ -343,9 +348,23 @@ const mapDispatchToProps = (dispatch) => {
       ),
     eliminarPromocion: (promocion) => dispatch(eliminarPromocion(promocion)),
     cambiarVisibilidad: (promocion) => dispatch(cambiarVisibilidad(promocion)),
-    crearPromocion: (promocion, dias, efectivo, desdeVigencia, hastaVigencia) =>
+    crearPromocion: (
+      promocion,
+      id,
+      dias,
+      efectivo,
+      desdeVigencia,
+      hastaVigencia
+    ) =>
       dispatch(
-        crearPromocion(promocion, dias, efectivo, desdeVigencia, hastaVigencia)
+        crearPromocion(
+          promocion,
+          id,
+          dias,
+          efectivo,
+          desdeVigencia,
+          hastaVigencia
+        )
       ),
   };
 };
