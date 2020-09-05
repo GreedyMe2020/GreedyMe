@@ -78,7 +78,6 @@ export default function ModalPromos(props) {
 }
 
 export function ModalPromosActualizar(props) {
-  const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const classes = useStyles();
   const [fullWidth, setFullWidth] = React.useState(true);

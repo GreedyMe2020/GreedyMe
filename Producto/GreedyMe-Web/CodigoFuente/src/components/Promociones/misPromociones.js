@@ -76,6 +76,7 @@ function Alert(props) {
 function MisPromociones(props) {
   const [promos, setPromos] = React.useState(promociones);
   const [open, setOpen] = React.useState(false);
+  const [openModificar, setOpenModificar] = React.useState(false);
   const [eliminar, setEliminar] = React.useState(null);
   const [currentId, setCurrentId] = React.useState(null);
   const [nuevaPromo, setNuevaPromo] = React.useState(null);
