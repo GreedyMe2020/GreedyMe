@@ -21,6 +21,9 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { Grid, Avatar, IconButton } from "@material-ui/core";
 import { format } from "date-fns";
 import ModalPromos from "../../components/modal-button";
+
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import {
   cambiarVisibilidad,
   actualizarPromocion,
@@ -224,7 +227,24 @@ function MisPromociones(props) {
                                 onMouseDown={handleMouseDownPromo}
                               >
                                 {values.showPromo ? (
-                                  <Visibility />
+                                  <Visibility>
+                                    <Snackbar
+                                      anchorOrigin={{
+                                        vertical: "bottom",
+                                        horizontal: "left",
+                                      }}
+                                      open={open}
+                                      autoHideDuration={8000}
+                                      onClose={handleClose}
+                                    >
+                                      <Alert
+                                        onClose={handleClose}
+                                        severity="success"
+                                      >
+                                        Se ocultó la promoción en la aplicación
+                                      </Alert>
+                                    </Snackbar>
+                                  </Visibility>
                                 ) : (
                                   <VisibilityOff />
                                 )}
