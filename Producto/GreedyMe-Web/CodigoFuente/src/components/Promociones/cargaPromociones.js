@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "@reach/router";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
@@ -23,31 +23,51 @@ import {
 import {
   ValidatorForm,
   SelectValidator,
+  TextValidator,
 } from "react-material-ui-form-validator";
 import { crearPromocion } from "../../redux/actions/promActions";
+import firebase from "../../firebase/config";
+import { getVal } from "react-redux-firebase";
+
 //pagina vacia
 
-const tipoPromo = [
-  {
-    value: "10%",
-    nombre: "Descuento",
-  },
-  {
-    value: "2x1",
-    nombre: "Promocion",
-  },
-];
+const firestore = firebase.firestore();
 
-const proveedor = [
-  {
-    value: "Club Personal",
-    nombre: "Personal",
-  },
-  {
-    value: "Banco Galicia",
-    nombre: "Galicia",
-  },
-];
+const proveedor = [];
+const proveedorServicio = () => {
+  firestore
+    .collection("proveedorServicio")
+    .orderBy("nombre")
+    .get()
+    .then((snapShots) => {
+      snapShots.forEach((doc) => {
+        const data = doc.data();
+        proveedor.push({
+          ...data,
+          id: doc.id,
+        });
+      });
+    });
+};
+proveedorServicio();
+
+const promocion = [];
+const promo = () => {
+  firestore
+    .collection("tipoPromocion")
+    .orderBy("tipo")
+    .get()
+    .then((snapShots) => {
+      snapShots.forEach((doc) => {
+        const data = doc.data();
+        promocion.push({
+          ...data,
+          id: doc.id,
+        });
+      });
+    });
+};
+promo();
 
 const mesVigencia = [
   {
@@ -131,7 +151,9 @@ function CargaPromociones(props) {
   const [formData, setFormData] = React.useState({
     id: props.auth.uid,
     tipoPromo: "",
+    valuePromo: "",
     proveedor: "",
+    otroProveedor: "",
     descripcion: "",
   });
 
@@ -199,7 +221,20 @@ function CargaPromociones(props) {
     efectivo[event.target.name] = event.target.checked;
     setEfectivo({ ...efectivo });
   };
+
+  useEffect(() => {
+    setValorPromo([]);
+    //esto no corre en el primer render, se ejecuta luego del return
+    if (formData.tipoPromo === "Descuento") {
+      setValorPromo(promocion[0].lista);
+    } else {
+      setValorPromo(promocion[1].lista);
+    }
+  }, [formData.tipoPromo, setFormData]); //lista de dependencias de react, cosa de que se refresque el campo una vez y luego cada vez que se actualizan los elementos de la lista
+
   const form = React.createRef();
+
+  const [valorPromo, setValorPromo] = React.useState([]); //lista de dependencias de react, cosa de que se refresque el campo una vez y luego cada vez que se actualizan los elementos de la lista
 
   return (
     <div>
@@ -230,12 +265,32 @@ function CargaPromociones(props) {
                     validators={["required"]}
                     errorMessages={["*Este campo es obligatorio"]}
                   >
-                    {tipoPromo.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.value}
+                    {promocion.map((option) => (
+                      <MenuItem key={option.tipo} value={option.tipo}>
+                        {option.tipo}
                       </MenuItem>
                     ))}
                   </SelectValidator>
+                  {formData.tipoPromo ? (
+                    <SelectValidator
+                      variant="outlined"
+                      id="outlined-basic"
+                      label="Valor de la Promoción"
+                      fullWidth
+                      onChange={handleChange}
+                      name="valuePromo"
+                      required
+                      value={formData.valuePromo}
+                      validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                      errorMessages={["La promoción no es válida"]}
+                    >
+                      {valorPromo.map((option) => (
+                        <MenuItem key={option.valor} value={option.valor}>
+                          {option.valor}
+                        </MenuItem>
+                      ))}
+                    </SelectValidator>
+                  ) : null}
                   <SelectValidator
                     fullWidth
                     label="Proveedor de promoción"
@@ -247,8 +302,8 @@ function CargaPromociones(props) {
                     errorMessages={["*Este campo es obligatorio"]}
                   >
                     {proveedor.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.value}
+                      <MenuItem key={option.nombre} value={option.nombre}>
+                        {option.nombre}
                       </MenuItem>
                     ))}
                   </SelectValidator>
