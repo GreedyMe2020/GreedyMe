@@ -103,6 +103,9 @@ function MisPromociones(props) {
   const [values, setValues] = React.useState(null);
   const [currentId2, setCurrentId2] = React.useState(null);
 
+  //Para modificar la promo
+  const [modificar, setModificar] = React.useState(null);
+
   //Eliminar una promo de la BD y renderizar la eliminacion de una promo
   React.useEffect(() => {
     if (currentId) {
@@ -126,7 +129,7 @@ function MisPromociones(props) {
       setPromos2([...promos]);
     }
   }, [nuevaPromo]);
-
+  console.log(promos);
   React.useEffect(() => {
     if (currentId2) {
       props.cambiarVisibilidad({
@@ -233,7 +236,7 @@ function MisPromociones(props) {
   const handleCloseModificar = () => {
     setOpenModificar(false);
   };
-
+  console.log(promos);
   const [openAlert, setOpenAlert] = React.useState(false);
 
   const handleCloseAlert = (event, reason) => {
@@ -314,7 +317,24 @@ function MisPromociones(props) {
                             <Tooltip title="Editar" arrow>
                               <IconButton
                                 aria-label="Editar"
-                                onClick={handleClickOpenModificar}
+                                onClick={() => {
+                                  setModificar({
+                                    id: promo.id,
+                                    tipoPromo: promo.tipoPromo,
+                                    valuePromo: promo.valuePromo,
+                                    otraPromo: promo.otraPromo,
+                                    tipoProveedor: promo.tipoProveedor,
+                                    valueProveedor: promo.valueProveedor,
+                                    otroProveedor: promo.otroProveedor,
+                                    descripcion: promo.descripcion,
+                                    diaAplicacion: promo.diaAplicacion,
+                                    desdeVigencia: promo.desdeVigencia,
+                                    hastaVigencia: promo.hastaVigencia,
+                                    visible: promo.visible,
+                                    medioPago: promo.medioPago,
+                                  });
+                                  handleClickOpenModificar();
+                                }}
                               >
                                 <CreateIcon />
                               </IconButton>
@@ -337,7 +357,7 @@ function MisPromociones(props) {
                               </DialogTitle>
                               <DialogContent dividers>
                                 <DialogContentText>
-                                  <ModalPromosActualizar />
+                                  <ModalPromosActualizar promo={modificar} />
                                 </DialogContentText>
                               </DialogContent>
                             </Dialog>

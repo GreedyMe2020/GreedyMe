@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import ModalPromociones from "./modalPromociones";
+import ModalPromocionesActualizar from "./modalPromocionesActualizar";
 
 export default function ModalPromosActualizar(props) {
   return (
     <div>
-      <ModalPromociones />
+      <ModalPromocionesActualizar promo={props.promo} />
     </div>
   );
 }
