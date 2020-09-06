@@ -103,6 +103,10 @@ function MisPromociones(props) {
   const [values, setValues] = React.useState(null);
   const [currentId2, setCurrentId2] = React.useState(null);
 
+  //Para modificar la promo
+  const [modificar, setModificar] = React.useState(null);
+  const [modificado, setModificado] = React.useState(null);
+
   //Eliminar una promo de la BD y renderizar la eliminacion de una promo
   React.useEffect(() => {
     if (currentId) {
@@ -126,7 +130,31 @@ function MisPromociones(props) {
       setPromos2([...promos]);
     }
   }, [nuevaPromo]);
-
+  //Renderizar cambio de promo
+  React.useEffect(() => {
+    if (modificado) {
+      const indiceACambiar = _.findIndex(promos, function (o) {
+        return o.id === modificado.id;
+      });
+      const objCambiar = _.nth(promos, indiceACambiar);
+      promos.splice(indiceACambiar, 1, {
+        id: modificado.id,
+        tipoPromo: modificado.tipoPromo,
+        valuePromo: modificado.valuePromo,
+        otraPromo: modificado.otraPromo,
+        tipoProveedor: modificado.tipoProveedor,
+        valueProveedor: modificado.valueProveedor,
+        otroProveedor: modificado.otroProveedor,
+        descripcion: modificado.descripcion,
+        desdeVigencia: modificado.desdeVigencia,
+        hastaVigencia: modificado.hastaVigencia,
+        visible: modificado.visible,
+        diaAplicacion: modificado.diaAplicacion,
+        medioPago: modificado.medioPago,
+      });
+    }
+  }, [modificado]);
+  //cambiar visibilidad de promo
   React.useEffect(() => {
     if (currentId2) {
       props.cambiarVisibilidad({
@@ -171,7 +199,7 @@ function MisPromociones(props) {
   const handleMouseDownPromo = (event) => {
     event.preventDefault();
   };
-
+  // funcion para el buscador
   const filter = (text) => {
     let textoBuscar = text.target.value;
     const datos = promos2;
@@ -197,7 +225,7 @@ function MisPromociones(props) {
     setPromos(newDatos);
     setText(text);
   };
-
+  //funcion para crear una promo
   const crear = (formData, id, state, value, desdeVigencia, hastaVigencia) => {
     props.crearPromocion(
       formData,
@@ -222,7 +250,31 @@ function MisPromociones(props) {
       diaAplicacion: state,
       medioPago: value,
     });
-    console.log("entro aca bebesitooooo");
+  };
+
+  const actualizar = (formData, state, value, desdeVigencia, hastaVigencia) => {
+    props.actualizarPromocion(
+      formData,
+      state,
+      value,
+      desdeVigencia,
+      hastaVigencia
+    );
+    setModificado({
+      id: formData.idProm,
+      tipoPromo: formData.tipoPromo,
+      valuePromo: formData.valuePromo,
+      otraPromo: formData.otraPromo,
+      tipoProveedor: formData.tipoProveedor,
+      valueProveedor: formData.valueProveedor,
+      otroProveedor: formData.otroProveedor,
+      descripcion: formData.descripcion,
+      desdeVigencia: firebase.firestore.Timestamp.fromDate(desdeVigencia),
+      hastaVigencia: firebase.firestore.Timestamp.fromDate(hastaVigencia),
+      visible: false,
+      diaAplicacion: state,
+      medioPago: value,
+    });
   };
 
   const [openModificar, setOpenModificar] = React.useState(false);
@@ -327,7 +379,24 @@ function MisPromociones(props) {
                             <Tooltip title="Editar" arrow>
                               <IconButton
                                 aria-label="Editar"
-                                onClick={handleClickOpenModificar}
+                                onClick={() => {
+                                  setModificar({
+                                    id: promo.id,
+                                    tipoPromo: promo.tipoPromo,
+                                    valuePromo: promo.valuePromo,
+                                    otraPromo: promo.otraPromo,
+                                    tipoProveedor: promo.tipoProveedor,
+                                    valueProveedor: promo.valueProveedor,
+                                    otroProveedor: promo.otroProveedor,
+                                    descripcion: promo.descripcion,
+                                    diaAplicacion: promo.diaAplicacion,
+                                    desdeVigencia: promo.desdeVigencia,
+                                    hastaVigencia: promo.hastaVigencia,
+                                    visible: promo.visible,
+                                    medioPago: promo.medioPago,
+                                  });
+                                  handleClickOpenModificar();
+                                }}
                               >
                                 <CreateIcon />
                               </IconButton>
@@ -350,7 +419,10 @@ function MisPromociones(props) {
                               </DialogTitle>
                               <DialogContent dividers>
                                 <DialogContentText>
-                                  <ModalPromosActualizar />
+                                  <ModalPromosActualizar
+                                    promo={modificar}
+                                    actualizar={actualizar}
+                                  />
                                 </DialogContentText>
                               </DialogContent>
                             </Dialog>

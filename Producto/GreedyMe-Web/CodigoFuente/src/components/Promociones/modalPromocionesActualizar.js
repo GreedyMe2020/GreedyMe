@@ -93,33 +93,38 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function ModalPromociones(props) {
+function ModalPromocionesActualizar(props) {
   const classes = useStyles();
 
   const [formData, setFormData] = React.useState({
     id: props.auth.uid,
-    tipoPromo: "",
-    valuePromo: "",
-    otraPromo: "",
-    tipoProveedor: "",
-    valueProveedor: "",
-    otroProveedor: "",
-    descripcion: "",
+    idProm: props.promo.id,
+    tipoPromo: props.promo.tipoPromo,
+    valuePromo: props.promo.valuePromo,
+    otraPromo: props.promo.otraPromo,
+    tipoProveedor: props.promo.tipoProveedor,
+    valueProveedor: props.promo.valueProveedor,
+    otroProveedor: props.promo.otroProveedor,
+    descripcion: props.promo.descripcion,
   });
-  const [desdeVigencia, handleDesdeVigencia] = React.useState(new Date()); //Estados para cada datePicker
-  const [hastaVigencia, handleHastaVigencia] = React.useState(new Date());
+  const [desdeVigencia, handleDesdeVigencia] = React.useState(
+    props.promo.desdeVigencia.toDate()
+  ); //Estados para cada datePicker
+  const [hastaVigencia, handleHastaVigencia] = React.useState(
+    props.promo.hastaVigencia.toDate()
+  );
   const [open, setOpen] = React.useState(false);
 
   //esto es para los dias
   const [state, setState] = React.useState({
-    lunes: false,
-    martes: false,
-    miercoles: false,
-    jueves: false,
-    viernes: false,
-    sabado: false,
-    domingo: false,
-    todoslosdias: true,
+    lunes: props.promo.diaAplicacion.lunes,
+    martes: props.promo.diaAplicacion.martes,
+    miercoles: props.promo.diaAplicacion.miercoles,
+    jueves: props.promo.diaAplicacion.jueves,
+    viernes: props.promo.diaAplicacion.viernes,
+    sabado: props.promo.diaAplicacion.sabado,
+    domingo: props.promo.diaAplicacion.domingo,
+    todoslosdias: props.promo.diaAplicacion.todoslosdias,
   });
   const {
     lunes,
@@ -141,7 +146,7 @@ function ModalPromociones(props) {
   };
 
   //esto es para la forma de pago
-  const [value, setValue] = React.useState({ value: false });
+  const [value, setValue] = React.useState(props.promo.medioPago);
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState("");
 
@@ -150,18 +155,6 @@ function ModalPromociones(props) {
     setHelperText("");
     setError(false);
   };
-  function generateUUID() {
-    var d = new Date().getTime();
-    var uuid = "xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx".replace(/[xy]/g, function (
-      c
-    ) {
-      var r = (d + Math.random() * 16) % 16 | 0;
-      d = Math.floor(d / 16);
-      return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
-    });
-    return uuid;
-  }
-  const id = generateUUID();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -193,7 +186,7 @@ function ModalPromociones(props) {
       setHelperText("*Este campo es obligatorio");
       setError(true);
     } else {
-      props.crear(formData, id, state, value, desdeVigencia, hastaVigencia);
+      props.actualizar(formData, state, value, desdeVigencia, hastaVigencia);
       setOpen(true);
     }
   };
@@ -350,7 +343,6 @@ function ModalPromociones(props) {
               validators={["required"]}
               errorMessages={["*Este campo es obligatorio"]}
             >
-              {console.log(formData.tipoProveedor)}
               {valorProveedor.map((option) => (
                 <MenuItem key={option.nombre} value={option.nombre}>
                   {option.nombre}
@@ -402,7 +394,7 @@ function ModalPromociones(props) {
               inputVariant="outlined"
               name="desdeVigencia"
               label="Disponible desde el"
-              minDate={new Date()}
+              minDate={desdeVigencia}
               minDateMessage="*La fecha no puede ser menor al día de hoy"
               format="dd/MM/yyyy"
               value={desdeVigencia}
@@ -577,7 +569,7 @@ function ModalPromociones(props) {
               id="cargar-promo-submit"
               type="submit"
             >
-              Cargar promoción
+              Actualizar promoción
             </Button>
           </div>
           <Snackbar
@@ -587,7 +579,7 @@ function ModalPromociones(props) {
             onClose={handleClose}
           >
             <Alert onClose={handleClose} severity="success">
-              La promoción se cargo correctamente!
+              La promoción se actualizo correctamente!
             </Alert>
             {/* <Alert onClose={handleClose} severity="error">
               Faltan campos de completar
@@ -605,4 +597,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ModalPromociones);
+export default connect(mapStateToProps)(ModalPromocionesActualizar);
