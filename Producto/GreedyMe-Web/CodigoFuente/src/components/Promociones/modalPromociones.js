@@ -170,7 +170,7 @@ function ModalPromociones(props) {
     ) {
       setHelperTextDias("*Hay inconsistencia en la selección");
       setErrorDias(true);
-    } else if (value != "efectivo" && value != "todosMedios") {
+    } else if (value != "Efectivo" && value != "Todos los medios de pago") {
       setHelperText("*Este campo es obligatorio");
       setError(true);
     } else {
@@ -433,12 +433,12 @@ function ModalPromociones(props) {
           <FormControl error={error} required>
             <RadioGroup value={value} onChange={handleRadioChange}>
               <FormControlLabel
-                value="efectivo"
+                value="Efectivo"
                 control={<CelesteRadio />}
                 label="Efectivo"
               />
               <FormControlLabel
-                value="todosMedios"
+                value="Todos los medios de pago"
                 control={<CelesteRadio />}
                 label="Todos los medios de pago"
               />
@@ -460,6 +460,7 @@ function ModalPromociones(props) {
                 placeholder="Descripción (opcional)"
                 multiline
                 rows={2}
+                inputProps={{ maxLength: 140 }}
               />
             </div>
           </form>

@@ -22,6 +22,11 @@ import DialogComponent from "../Dialog";
 import { Grid, Avatar, IconButton } from "@material-ui/core";
 import { format } from "date-fns";
 import ModalPromos from "../../components/modal-button";
+import ModalPromosActualizar from "../../components/Promociones/modal-modificar";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import CloseIcon from "@material-ui/icons/Close";
+
 import {
   cambiarVisibilidad,
   actualizarPromocion,
@@ -38,6 +43,12 @@ import { crearPromocion } from "../../redux/actions/promActions";
 const useStyles = makeStyles((theme) => ({
   demo: {
     backgroundColor: theme.palette.background.paper,
+  },
+  cruz: {
+    position: "absolute",
+    right: theme.spacing(1),
+    top: "8px",
+    color: theme.palette.grey[500],
   },
 }));
 
@@ -66,6 +77,10 @@ const promocion = () => {
 };
 //y aca se ejecuta la funcion de arriba
 promocion();
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function MisPromociones(props) {
   const classes = useStyles();
@@ -144,7 +159,9 @@ function MisPromociones(props) {
   const handleClickShowPromo = () => {
     setValues(!promo.id);
   };
-
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleMouseDownPromo = (event) => {
     event.preventDefault();
   };
@@ -186,14 +203,25 @@ function MisPromociones(props) {
     });
   };
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const [openModificar, setOpenModificar] = React.useState(false);
+  const [fullWidth, setFullWidth] = React.useState(true);
+  const [maxWidth, setMaxWidth] = React.useState("md");
+  const handleClickOpenModificar = () => {
+    setOpenModificar(true);
   };
 
-  const handleClose = () => {
+  const handleCloseModificar = () => {
+    setOpenModificar(false);
+  };
+
+  const [openAlert, setOpenAlert] = React.useState(false);
+
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
     setOpen(false);
   };
-
   return (
     <div>
       <ModalPromos crear={crear} />
@@ -259,10 +287,35 @@ function MisPromociones(props) {
                           </div>
                           <ListItemSecondaryAction>
                             <Tooltip title="Editar" arrow>
-                              <IconButton aria-label="Editar">
+                              <IconButton
+                                aria-label="Editar"
+                                onClick={handleClickOpenModificar}
+                              >
                                 <CreateIcon />
                               </IconButton>
                             </Tooltip>
+                            <Dialog
+                              fullWidth={fullWidth}
+                              maxWidth={maxWidth}
+                              open={openModificar}
+                            >
+                              <DialogTitle id="dialog-title-prom">
+                                <h5>Modificar beneficio</h5>
+                                <IconButton
+                                  aria-label="close"
+                                  id="btn"
+                                  className={classes.cruz}
+                                  onClick={handleCloseModificar}
+                                >
+                                  <CloseIcon />
+                                </IconButton>
+                              </DialogTitle>
+                              <DialogContent dividers>
+                                <DialogContentText>
+                                  <ModalPromosActualizar />
+                                </DialogContentText>
+                              </DialogContent>
+                            </Dialog>
                             <Tooltip title="Mostrar/Ocultar" arrow>
                               <IconButton
                                 aria-label="Mostrar/Ocultar"
@@ -274,9 +327,44 @@ function MisPromociones(props) {
                                 onMouseDown={handleMouseDownPromo}
                               >
                                 {promo.visible ? (
-                                  <Visibility />
+                                  <Visibility>
+                                    <Snackbar
+                                      anchorOrigin={{
+                                        vertical: "bottom",
+                                        horizontal: "left",
+                                      }}
+                                      open={openAlert}
+                                      autoHideDuration={8000}
+                                      onClose={handleCloseAlert}
+                                    >
+                                      <Alert
+                                        onClose={handleCloseAlert}
+                                        severity="info"
+                                      >
+                                        La promoción está visible en la
+                                        aplicación
+                                      </Alert>
+                                    </Snackbar>
+                                  </Visibility>
                                 ) : (
-                                  <VisibilityOff />
+                                  <VisibilityOff>
+                                    <Snackbar
+                                      anchorOrigin={{
+                                        vertical: "bottom",
+                                        horizontal: "left",
+                                      }}
+                                      open={openAlert}
+                                      autoHideDuration={8000}
+                                      onClose={handleCloseAlert}
+                                    >
+                                      <Alert
+                                        onClose={handleCloseAlert}
+                                        severity="info"
+                                      >
+                                        Se ocultó la promoción en la aplicación
+                                      </Alert>
+                                    </Snackbar>
+                                  </VisibilityOff>
                                 )}
                               </IconButton>
                             </Tooltip>
