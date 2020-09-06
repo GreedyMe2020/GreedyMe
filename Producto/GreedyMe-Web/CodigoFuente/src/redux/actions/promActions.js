@@ -39,7 +39,7 @@ export const crearPromocion = (
 export const actualizarPromocion = (
   promocion,
   dias,
-  efectivo,
+  value,
   desdeVigencia,
   hastaVigencia
 ) => {
@@ -49,15 +49,20 @@ export const actualizarPromocion = (
       .collection("usuarioComercio")
       .doc(promocion.id)
       .collection("promociones")
-      .doc()
+      .doc(promocion.idProm)
       .update({
         tipoPromo: promocion.tipoPromo,
-        proveedor: promocion.proveedor,
+        valuePromo: promocion.valuePromo,
+        otraPromo: promocion.otraPromo,
+        tipoProveedor: promocion.tipoProveedor,
+        valueProveedor: promocion.valueProveedor,
+        otroProveedor: promocion.otroProveedor,
         desdeVigencia: desdeVigencia,
         hastaVigencia: hastaVigencia,
+        visible: false,
         descripcion: promocion.descripcion,
         diaAplicacion: dias,
-        efectivo: efectivo.efectivo,
+        medioPago: value,
       })
       .then(() => {
         dispatch({ type: "ACTUALIZAR_PROMOCION", promocion });
