@@ -36,6 +36,7 @@ import firebase from "../../firebase/config";
 import { connect } from "react-redux";
 import _ from "lodash";
 import { crearPromocion } from "../../redux/actions/promActions";
+import Typography from "@material-ui/core/Typography";
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -49,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
     right: theme.spacing(1),
     top: "8px",
     color: theme.palette.grey[500],
+  },
+  inline: {
+    display: "block",
   },
 }));
 
@@ -346,52 +350,66 @@ function MisPromociones(props) {
                             <ListItemText
                               //asi podes ir accediendo a todos los datos asi los acomodas como quieras
                               primary={
-                                promo.tipoPromo +
-                                " " +
-                                (promo.valuePromo === "Otro"
-                                  ? promo.otraPromo
-                                  : promo.valuePromo) +
-                                " " +
-                                (promo.valueProveedor === "Otro"
-                                  ? promo.otroProveedor
-                                  : promo.valueProveedor) +
-                                " " +
-                                " válida desde el " +
-                                format(
-                                  promo.desdeVigencia.toDate(),
-                                  "dd/MM/yyyy"
-                                ) +
-                                " hasta el " +
-                                format(
-                                  promo.hastaVigencia.toDate(),
-                                  "dd/MM/yyyy"
-                                ) +
-                                ". " +
-                                ((promo.diaAplicacion.lunes ? "Lunes" : "") +
-                                  " " +
-                                  (promo.diaAplicacion.martes ? "Martes" : "") +
-                                  " " +
-                                  (promo.diaAplicacion.miercoles
-                                    ? "Miercoles"
-                                    : "") +
-                                  " " +
-                                  (promo.diaAplicacion.jueves ? "Jueves" : "") +
-                                  " " +
-                                  (promo.diaAplicacion.viernes
-                                    ? "Viernes"
-                                    : "") +
-                                  " " +
-                                  (promo.diaAplicacion.sabado ? "Sábado" : "") +
-                                  " " +
-                                  (promo.diaAplicacion.domingo
-                                    ? "Domingo"
-                                    : "") +
-                                  " " +
-                                  (promo.diaAplicacion.todoslosdias
-                                    ? "Todos los días"
-                                    : ""))
+                                <React.Fragment>
+                                  <Typography className={classes.inline}>
+                                    {promo.tipoPromo +
+                                      " " +
+                                      (promo.valuePromo === "Otro"
+                                        ? promo.otraPromo
+                                        : promo.valuePromo) +
+                                      " " +
+                                      (promo.valueProveedor === "Otro"
+                                        ? promo.otroProveedor
+                                        : promo.valueProveedor) +
+                                      ", " +
+                                      "válida desde el " +
+                                      format(
+                                        promo.desdeVigencia.toDate(),
+                                        "dd/MM/yyyy"
+                                      ) +
+                                      " hasta el " +
+                                      format(
+                                        promo.hastaVigencia.toDate(),
+                                        "dd/MM/yyyy"
+                                      ) +
+                                      "."}
+                                  </Typography>
+                                  {"Días que aplica: " +
+                                    ((promo.diaAplicacion.lunes
+                                      ? "Lunes"
+                                      : "") +
+                                      " " +
+                                      (promo.diaAplicacion.martes
+                                        ? "Martes"
+                                        : "") +
+                                      " " +
+                                      (promo.diaAplicacion.miercoles
+                                        ? "Miercoles"
+                                        : "") +
+                                      " " +
+                                      (promo.diaAplicacion.jueves
+                                        ? "Jueves"
+                                        : "") +
+                                      " " +
+                                      (promo.diaAplicacion.viernes
+                                        ? "Viernes"
+                                        : "") +
+                                      " " +
+                                      (promo.diaAplicacion.sabado
+                                        ? "Sábado"
+                                        : "") +
+                                      " " +
+                                      (promo.diaAplicacion.domingo
+                                        ? "Domingo"
+                                        : "") +
+                                      " " +
+                                      (promo.diaAplicacion.todoslosdias
+                                        ? "Todos los días"
+                                        : ""))}
+                                </React.Fragment>
                               }
                               secondary={
+                                "Forma de pago: " +
                                 promo.medioPago +
                                 ". " +
                                 (promo.descripcion ? promo.descripcion : "")
