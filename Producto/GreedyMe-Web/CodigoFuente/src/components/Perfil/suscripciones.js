@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardPlanes from "../CardPlanes";
 import Box from "@material-ui/core/Box";
 import { Button } from "@material-ui/core";
+import { editarSuscripcion } from "../../redux/actions/comActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,13 +17,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Suscripciones(props) {
-  const [plan, setPlan] = React.useState(0);
+function Suscripciones(props) {
+  const [submitted, setSubmitted] = React.useState(false);
+
+  const [formData, setFormData] = React.useState({
+    id: props.auth.uid,
+    web: props.profile.web,
+    sucursal: props.profile.sucursal,
+    rubro: props.profile.rubro,
+    telefono: props.profile.telefono,
+    instagram: props.profile.instagram,
+    facebook: props.profile.facebook,
+    direccion: props.profile.direccion,
+    tipoSuscripcion: props.profile.tipoSuscripcion,
+  });
+  const [plan, setPlan] = React.useState(formData.tipoSuscripcion);
   const classes = useStyles();
 
   function handlePlan(number) {
     setPlan(number);
+    formData.tipoSuscripcion = number;
+    setFormData({ ...formData });
+    handleSubmit();
   }
+
+  const handleSubmit = () => {
+    props.editarSuscripcion(formData);
+    setSubmitted({ submitted: true }, () => {
+      setTimeout(() => setSubmitted({ submitted: false }), 5000);
+    });
+  };
+
   return (
     <div>
       <div className="prom-title-container">
@@ -184,3 +209,18 @@ export default function Suscripciones(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    profile: state.firebase.profile,
+    auth: state.firebase.auth,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    editarSuscripcion: (datos) => dispatch(editarSuscripcion(datos)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Suscripciones);

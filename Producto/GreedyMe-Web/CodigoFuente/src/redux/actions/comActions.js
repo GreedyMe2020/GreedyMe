@@ -59,3 +59,28 @@ export const eliminarFoto = (id) => {
   };
 };
 
+export const editarSuscripcion = (datos) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const firestore = getFirestore();
+    firestore
+      .collection("usuarioComercio")
+      .doc(datos.id)
+      .update({
+        web: datos.web,
+        sucursal: datos.sucursal,
+        rubro: datos.rubro,
+        telefono: datos.telefono,
+        instagram: datos.instagram,
+        facebook: datos.facebook,
+        direccion: datos.direccion,
+        tipoSuscripcion: datos.tipoSuscripcion,
+      })
+      .then(() => {
+        dispatch({ type: "EDITAR_SUSCRIPCION" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_SUSCRIPCION", error });
+      });
+  };
+};
