@@ -29,10 +29,8 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: fade(theme.palette.common.white, 1),
     },
-    marginLeft: 0,
-    width: "100%",
+    width: "50%",
     [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
       width: "auto",
     },
   },
@@ -55,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      width: "12ch",
+      width: "13.5ch",
       "&:focus": {
         width: "20ch",
       },

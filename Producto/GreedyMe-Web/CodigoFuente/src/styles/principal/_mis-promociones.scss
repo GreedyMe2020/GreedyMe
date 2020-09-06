@@ -51,7 +51,11 @@ $background-color: #ececec;
   margin-top: 10px;
   margin-left: 5%;
   margin-right: 5%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
+
 .contTodo {
   margin-left: 20px;
   margin-right: 20px;
