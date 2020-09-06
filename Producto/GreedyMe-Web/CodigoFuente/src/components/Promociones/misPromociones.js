@@ -159,8 +159,9 @@ function MisPromociones(props) {
         diaAplicacion: objCambiar.diaAplicacion,
         medioPago: objCambiar.medioPago,
       });
+
+      setOpenAlert(true);
     }
-    setValues(null);
     setCurrentId2(null);
   }, [currentId2]);
 
@@ -245,6 +246,17 @@ function MisPromociones(props) {
     }
     setOpenAlert(false);
   };
+
+  function handleDias(promo) {
+    const dias = [];
+    for (const dia of promo) {
+      if (dia) {
+        dias.push(promo.key);
+      }
+    }
+    console.log(dias);
+  }
+
   return (
     <div>
       <ModalPromos
@@ -304,7 +316,7 @@ function MisPromociones(props) {
                                   "dd-MM-yyyy"
                                 ) +
                                 " " +
-                                promo.diaAplicacion.checkedTD
+                                promo.diaAplicacion.lunes
                               }
                               secondary={
                                 promo.medioPago +
@@ -372,44 +384,9 @@ function MisPromociones(props) {
                                 onMouseDown={handleMouseDownPromo}
                               >
                                 {promo.visible ? (
-                                  <Visibility>
-                                    <Snackbar
-                                      anchorOrigin={{
-                                        vertical: "bottom",
-                                        horizontal: "left",
-                                      }}
-                                      open={openAlert}
-                                      autoHideDuration={8000}
-                                      onClose={handleCloseAlert}
-                                    >
-                                      <Alert
-                                        onClose={handleCloseAlert}
-                                        severity="info"
-                                      >
-                                        La promoción está visible en la
-                                        aplicación
-                                      </Alert>
-                                    </Snackbar>
-                                  </Visibility>
+                                  <Visibility />
                                 ) : (
-                                  <VisibilityOff>
-                                    <Snackbar
-                                      anchorOrigin={{
-                                        vertical: "bottom",
-                                        horizontal: "left",
-                                      }}
-                                      open={openAlert}
-                                      autoHideDuration={8000}
-                                      onClose={handleCloseAlert}
-                                    >
-                                      <Alert
-                                        onClose={handleCloseAlert}
-                                        severity="info"
-                                      >
-                                        Se ocultó la promoción en la aplicación
-                                      </Alert>
-                                    </Snackbar>
-                                  </VisibilityOff>
+                                  <VisibilityOff />
                                 )}
                               </IconButton>
                             </Tooltip>
@@ -445,6 +422,35 @@ function MisPromociones(props) {
                       );
                     })}
                 </List>
+                {values ? (
+                  <Snackbar
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    open={openAlert}
+                    autoHideDuration={8000}
+                    onClose={handleCloseAlert}
+                  >
+                    <Alert onClose={handleCloseAlert} severity="info">
+                      La promoción está visible en la aplicación
+                    </Alert>
+                  </Snackbar>
+                ) : (
+                  <Snackbar
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    open={openAlert}
+                    autoHideDuration={8000}
+                    onClose={handleCloseAlert}
+                  >
+                    <Alert onClose={handleCloseAlert} severity="warning">
+                      Se ocultó la promoción en la aplicación
+                    </Alert>
+                  </Snackbar>
+                )}
               </div>
             </Grid>
           </CardContent>
