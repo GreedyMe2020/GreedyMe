@@ -37,6 +37,9 @@ $background-color: #ececec;
 
     .cardContentePromo {
       width: 100%;
+      .elementoListaProm {
+        width: 80%;
+      }
 
       .subtituloProm {
         grid-row: row 1;
@@ -187,10 +190,13 @@ $background-color: #ececec;
   margin-left: 0px !important;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1240px) {
   .contenedorTodo {
     .cardPromo {
       .cardContentePromo {
+        .elementoListaProm {
+          width: 70%;
+        }
         .contCargarProm {
           .contenedorCol2 {
             .cargar-promo-check-group {
@@ -206,6 +212,18 @@ $background-color: #ececec;
   }
 }
 
+@media only screen and (max-width: 1000px) {
+  .contenedorTodo {
+    .cardPromo {
+      .cardContentePromo {
+        .elementoListaProm {
+          width: 65%;
+        }
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: 960px) {
   .contenedorTodo {
     .cardPromo {
@@ -215,6 +233,10 @@ $background-color: #ececec;
       align-items: center;
 
       .cardContentePromo {
+        .elementoListaProm {
+          width: 60%;
+        }
+
         .subtituloProm {
           display: inline-block;
           text-align: center;

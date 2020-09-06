@@ -283,26 +283,49 @@ function MisPromociones(props) {
                               //asi podes ir accediendo a todos los datos asi los acomodas como quieras
                               primary={
                                 promo.tipoPromo +
-                                ": " +
-                                promo.valuePromo +
-                                ". " +
-                                promo.otraPromo +
-                                " Proveedor: " +
-                                promo.valueProveedor +
-                                ". " +
-                                promo.otroProveedor +
+                                " " +
+                                (promo.valuePromo === "Otro"
+                                  ? promo.otraPromo
+                                  : promo.valuePromo) +
+                                " " +
+                                (promo.valueProveedor === "Otro"
+                                  ? promo.otroProveedor
+                                  : promo.valueProveedor) +
+                                " " +
                                 " válida desde el " +
                                 format(
                                   promo.desdeVigencia.toDate(),
-                                  "dd-MM-yyyy"
+                                  "dd/MM/yyyy"
                                 ) +
                                 " hasta el " +
                                 format(
                                   promo.hastaVigencia.toDate(),
-                                  "dd-MM-yyyy"
+                                  "dd/MM/yyyy"
                                 ) +
-                                " " +
-                                promo.diaAplicacion.checkedTD
+                                ". " +
+                                ((promo.diaAplicacion.lunes ? "Lunes" : "") +
+                                  " " +
+                                  (promo.diaAplicacion.martes ? "Martes" : "") +
+                                  " " +
+                                  (promo.diaAplicacion.miercoles
+                                    ? "Miercoles"
+                                    : "") +
+                                  " " +
+                                  (promo.diaAplicacion.jueves ? "Jueves" : "") +
+                                  " " +
+                                  (promo.diaAplicacion.viernes
+                                    ? "Viernes"
+                                    : "") +
+                                  " " +
+                                  (promo.diaAplicacion.sabado ? "Sábado" : "") +
+                                  " " +
+                                  (promo.diaAplicacion.domingo
+                                    ? "Domingo"
+                                    : "") +
+                                  " " +
+                                  (promo.diaAplicacion.todoslosdias
+                                    ? "Todos los días"
+                                    : ""))
                               }
                               secondary={
                                 promo.medioPago +
