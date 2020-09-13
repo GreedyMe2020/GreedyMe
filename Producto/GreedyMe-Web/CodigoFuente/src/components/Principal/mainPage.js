@@ -11,6 +11,7 @@ import Perfil from "../Perfil/Perfil";
 import NavBarSup from "../../components/Principal/navBarSuperior";
 import NavBarIzq from "../../components/Principal/navBarIzquierda";
 import Suscripciones from "../Perfil/suscripciones";
+import Notificaciones from "../Notificaciones/programarNotif";
 
 //pagina vacia
 
@@ -58,7 +59,7 @@ function MainPage() {
       return <h3>Estadísticas</h3>;
     }
     if (seleccionado === 5) {
-      return <h3>Notificaciones</h3>;
+      return <Notificaciones />;
     }
     if (seleccionado === 6) {
       return <Perfil />;
