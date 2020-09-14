@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { signOut } from "../../redux/actions/authActions";
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
 
 function Admin(props) {
   const handleCloseSesion = () => {
@@ -17,6 +19,7 @@ function Admin(props) {
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
+    usuarios: state.firestore.ordered.usuarioComercio,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -25,4 +28,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Admin);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect([{ collection: "usuarioComercio" }])
+)(Admin);
