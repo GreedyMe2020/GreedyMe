@@ -82,7 +82,6 @@ function NuevaContraseña(props) {
       />
 
       <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
-        <h4 className="tituloCardAdminP1">Información de inicio de sesión</h4>
         <Card id="cardAdminCuenta">
           <Card.Body className="contCardPerfil1">
             <div className="inputPerfil">

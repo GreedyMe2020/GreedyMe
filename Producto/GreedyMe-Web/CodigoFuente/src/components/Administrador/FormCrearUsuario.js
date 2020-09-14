@@ -6,13 +6,11 @@ import {
   SelectValidator,
 } from "react-material-ui-form-validator";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import classes from "../../components/Modal";
-import Avatar from "@material-ui/core/Avatar";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import {
@@ -22,27 +20,9 @@ import {
 } from "../../redux/actions/comActions";
 import firebase from "../../firebase/config";
 import { makeStyles } from "@material-ui/core/styles";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import SaveIcon from "@material-ui/icons/Save";
-import Map from "../Map/Map";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox";
-import usePlacesAutocomplete from "use-places-autocomplete";
-import { useLoadScript } from "@react-google-maps/api";
-import NuevaContraseña from "./NuevaContraseña";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogComponent from "../Dialog";
-import { IconButton } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
+import { signUp } from "../../redux/actions/adminActions";
+
 /* import { db } from "../firebase/config"; */
 
 const rubros = [];
@@ -82,6 +62,7 @@ function FormCrearUsuario(props) {
     CUIT: "",
     nombreComercio: "",
     web: "",
+    contraseña: "",
     sucursal: "",
     rubro: "",
     telefono: "",
@@ -108,6 +89,8 @@ function FormCrearUsuario(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("perro bomba volcanico");
+    props.signUp(formData);
     setSubmitted({ submitted: true }, () => {
       setTimeout(() => setSubmitted({ submitted: false }), 5000);
     });
@@ -120,36 +103,37 @@ function FormCrearUsuario(props) {
   return (
     <div className="perfil-validator-form">
       <ValidatorForm ref={form} onSubmit={handleSubmit}>
-        <Card id="cardAdminCuenta">
-          <Card.Body className="contCardPerfil1">
-            <div className="inputPerfil">
-              <TextField
-                disabled
-                fullWidth
-                id="outlined-disabled"
-                label="Nombre del comercio"
-                value={formData.nombreComercio}
-                variant="outlined"
-                name="usuario"
-              />
-            </div>
-          </Card.Body>
-        </Card>
         <div className="tituloCardAdminP2">
-          <h4 className="tituloCardAdminP">Información general</h4>
+          <h4 className="tituloCardAdminP">Crear Usuario Comercio</h4>
           <p className="opcional">(algunos campos son opcionales)</p>
         </div>
         <Card id="cardAdminCuenta">
           <Card.Body className="contCardPerfil2">
             <Grid container spacing={1}>
+              <Grid className="inputPerfil2" item xs={12} md={12}>
+                <TextValidator
+                  fullWidth
+                  id="outlined-basic"
+                  label="Nombre del comercio"
+                  value={formData.nombreComercio}
+                  variant="outlined"
+                  name="nombreComercio"
+                  onChange={handleChange}
+                  required
+                />
+              </Grid>
               <Grid className="inputPerfil2" item xs={12} md={6}>
                 <TextValidator
-                  id="outlined-disabled"
+                  id="outlined-basic"
                   label="Email"
                   fullWidth
                   value={formData.email}
                   variant="outlined"
+                  onChange={handleChange}
                   name="email"
+                  required
+                  validators={["isEmail"]}
+                  errorMessages={["El email no es válido"]}
                 />
               </Grid>
               <Grid className="inputPerfil2" item xs={12} md={6}>
@@ -159,21 +143,25 @@ function FormCrearUsuario(props) {
                   type="password"
                   autoComplete="current-password"
                   variant="outlined"
-                  value="***********"
+                  value={formData.contraseña}
                   name="contraseña"
+                  onChange={handleChange}
                   fullWidth
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
+                  required
                 />
               </Grid>
               <Grid className="inputPerfil2" item xs={12} md={6}>
                 <TextValidator
                   variant="outlined"
-                  id="outlined-disabled"
+                  id="outlined-basic"
                   fullWidth
-                  name="cuit"
+                  name="CUIT"
+                  onChange={handleChange}
                   value={formData.CUIT}
                   label="CUIT"
+                  required
+                  validators={["matchRegexp:^([0-9 ]){11}$"]}
+                  errorMessages={["El CUIT no es válido"]}
                 />
               </Grid>
               <Grid className="inputPerfil2" item xs={12} md={6}>
@@ -212,7 +200,6 @@ function FormCrearUsuario(props) {
                   label="Teléfono"
                   fullWidth
                   onChange={handleChange}
-                  required
                   name="telefono"
                   value={formData.telefono}
                   validators={["matchRegexp:^([0-9 ]){2,20}$"]}
@@ -274,7 +261,6 @@ function FormCrearUsuario(props) {
             id="btnAdminPerfil"
             className="btnAdminPerfil"
             type="submit"
-            onClick={handleSubmit}
             startIcon={<SaveIcon />}
           >
             Crear Usuario
@@ -296,17 +282,12 @@ function FormCrearUsuario(props) {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    profile: state.firebase.profile,
-    auth: state.firebase.auth,
-  };
+  return {};
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    editarDatos: (datos) => dispatch(editarDatos(datos)),
-    subirFoto: (downloadURL) => dispatch(subirFoto(downloadURL)),
-    eliminarFoto: (downloadURL) => dispatch(eliminarFoto(downloadURL)),
+    signUp: (nuevoUsuario) => dispatch(signUp(nuevoUsuario)),
   };
 };
 
