@@ -60,40 +60,32 @@ $background-color: #ececec;
     }
     .input-tipo-clientes {
       margin-top: 1rem;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 5% 1fr 1fr 5%;
-      grid-template-rows: 1fr;
-      justify-items: flex;
-      align-items: flex-start;
+      display: block;
+      justify-items: center;
+      align-items: center;
+      margin-left: 5%;
+      margin-right: 5%;
       margin-bottom: 1rem;
       .texto-tipo-cliente {
         margin-top: 1rem;
-        grid-column: 2/3;
       }
       .select-tipo-cliente {
-        grid-column: 3/4;
+        margin-top: 10px;
       }
     }
     .input-buscador-beneficio {
       margin-top: 1rem;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 5% 1fr 1fr 5%;
-      grid-template-rows: 1fr;
-      justify-items: flex;
-      align-items: flex-start;
+      display: block;
+      justify-items: center;
+      align-items: center;
+      margin-left: 5%;
+      margin-right: 5%;
       margin-bottom: 1rem;
       .texto-beneficio {
         margin-top: 1rem;
-        grid-column: 2/3;
       }
-      #buscador-beneficio {
-        grid-column: 3/4;
+      .buscador-ben {
         margin-top: 10px;
-        display: flex;
-        justify-content: flex-end;
-        background-color: #ececec;
       }
     }
   }

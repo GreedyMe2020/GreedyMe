@@ -54,14 +54,25 @@ function Notificaciones() {
     promocion: "",
     programarEnvio: "",
     ubicacion: "",
+    descripcion: "",
   }); */
 
-  const promociones = [{ name: "Promociones" }, { name: "Descuentos" }];
+  const beneficios = [
+    { name: "3x2 Club Personal, válida desde el" },
+    { name: "20% Nuevo club, válida desde el" },
+    { name: "5*2 Club La Voz, válida desde el" },
+    { name: "4x2 Talleres, válida desde el" },
+    { name: "APEPE La Voz, válida desde el" },
+    { name: "PEPE La Voz, válida desde el" },
+    { name: "1x2 Club Personal, válida desde el" },
+    { name: "4x2 OLA, válida desde el" },
+    { name: "5*2 PEPE La Voz, válida desde el" },
+  ];
 
-  const options = promociones.map((option) => {
+  const options = beneficios.map((option) => {
     const firstLetter = option.name[0].toUpperCase();
     return {
-      firstLetter: /[0-9]/.test(firstLetter) ? "0-9" : firstLetter,
+      firstLetter: /[0-9]/.test(firstLetter) ? firstLetter : firstLetter,
       ...option,
     };
   });
@@ -172,35 +183,21 @@ function Notificaciones() {
                   Beneficio que va a notificar:
                 </h6>
                 <Autocomplete
-                  id="buscador-beneficio"
+                  className="buscador-ben"
+                  fullWidth
                   options={options.sort(
                     (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
                   )}
                   groupBy={(option) => option.firstLetter}
                   getOptionLabel={(option) => option.name}
-                  style={{ width: 300 }}
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="Beneficio"
+                      label="Buscar beneficio"
                       variant="outlined"
                     />
                   )}
                 />
-                {/* <Paper id="buscador-beneficio">
-                  <InputBase
-                    className={classes.input}
-                    placeholder="Buscar beneficio..."
-                    inputProps={{ "aria-label": "buscar beneficio" }}
-                  />
-                  <IconButton
-                    type="submit"
-                    className={classes.iconButton}
-                    aria-label="search"
-                  >
-                    <SearchIcon />
-                  </IconButton>
-                </Paper> */}
               </div>
             </CardContent>
           </Card>
