@@ -41,5 +41,60 @@ $background-color: #ececec;
     .card-content-notif {
       width: 100%;
     }
+    .input-nom-suc {
+      margin-top: 1rem;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 5% 1fr 1fr 5%;
+      grid-template-rows: 1fr;
+      justify-items: flex;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      .text-usuario {
+        grid-column: 2/3;
+        padding-right: 10px;
+      }
+      .text-sucursal {
+        grid-column: 3/4;
+      }
+    }
+    .input-tipo-clientes {
+      margin-top: 1rem;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 5% 1fr 1fr 5%;
+      grid-template-rows: 1fr;
+      justify-items: flex;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      .texto-tipo-cliente {
+        margin-top: 1rem;
+        grid-column: 2/3;
+      }
+      .select-tipo-cliente {
+        grid-column: 3/4;
+      }
+    }
+    .input-buscador-beneficio {
+      margin-top: 1rem;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 5% 1fr 1fr 5%;
+      grid-template-rows: 1fr;
+      justify-items: flex;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      .texto-beneficio {
+        margin-top: 1rem;
+        grid-column: 2/3;
+      }
+      #buscador-beneficio {
+        grid-column: 3/4;
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-end;
+        background-color: #ececec;
+      }
+    }
   }
 }
