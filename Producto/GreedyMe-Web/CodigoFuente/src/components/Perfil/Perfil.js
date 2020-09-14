@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Search from "../Map/Search";
 import NavBarSup from "../../components/Principal/navBarSuperior";
-
 import { Link } from "@reach/router";
-
 import { Card } from "react-bootstrap";
 import {
   ValidatorForm,
@@ -39,6 +37,15 @@ import {
 } from "@reach/combobox";
 import usePlacesAutocomplete from "use-places-autocomplete";
 import { useLoadScript } from "@react-google-maps/api";
+import NuevaContraseña from "./NuevaContraseña";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogComponent from "../Dialog";
+import { IconButton } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 /* import { db } from "../firebase/config"; */
 const libraries = ["places"];
 const rubros = [];
@@ -68,6 +75,12 @@ const useStyles = makeStyles((theme) => ({
   input: {
     display: "none",
   },
+  cruz: {
+    position: "absolute",
+    right: theme.spacing(1),
+    top: "8px",
+    color: theme.palette.grey[500],
+  },
 }));
 
 function Alert(props) {
@@ -96,7 +109,15 @@ function Perfil(props) {
   const [submitted, setSubmitted] = React.useState(false);
   const [showModal, setModal] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-
+  const [openModificar, setOpenModificar] = React.useState(false);
+  const [fullWidth, setFullWidth] = React.useState(true);
+  const [maxWidth, setMaxWidth] = React.useState("md");
+  const handleClickOpenModificar = () => {
+    setOpenModificar(true);
+  };
+  const handleCloseModificar = () => {
+    setOpenModificar(false);
+  };
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -222,9 +243,29 @@ function Perfil(props) {
                 errorMessages={["*Este campo es obligatorio"]}
               />
             </div>
-            <Link to={"/main/" + props.auth.uid + "/newpassword"}>
-              Cambiar contraseña
-            </Link>
+            <a onClick={handleClickOpenModificar}>Cambiar contraseña</a>
+            <Dialog
+              fullWidth={fullWidth}
+              maxWidth={maxWidth}
+              open={openModificar}
+            >
+              <DialogTitle id="dialog-title-prom">
+                <h5>Modificar contraseña</h5>
+                <IconButton
+                  aria-label="close"
+                  id="btn"
+                  className={classes.cruz}
+                  onClick={handleCloseModificar}
+                >
+                  <CloseIcon />
+                </IconButton>
+              </DialogTitle>
+              <DialogContent dividers>
+                <DialogContentText>
+                  <NuevaContraseña />
+                </DialogContentText>
+              </DialogContent>
+            </Dialog>
             <div className="imagenPerfil">
               <Avatar
                 className="contImgSubir"
