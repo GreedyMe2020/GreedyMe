@@ -11,7 +11,7 @@ import Perfil from "../Perfil/Perfil";
 import NavBarSup from "../../components/Principal/navBarSuperior";
 import NavBarIzq from "../../components/Principal/navBarIzquierda";
 import Suscripciones from "../Perfil/suscripciones";
-import Notificaciones from "../Notificaciones/programarNotif";
+import Notificaciones from "../Notificaciones/principalNotif";
 
 //pagina vacia
 

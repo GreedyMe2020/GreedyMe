@@ -6,6 +6,12 @@ import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import {
+  MuiPickersUtilsProvider,
+  DatePicker,
+  TimePicker,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import Paper from "@material-ui/core/Paper";
@@ -13,21 +19,12 @@ import {
   ValidatorForm,
   SelectValidator,
 } from "react-material-ui-form-validator";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogComponent from "../Dialog";
-import { Grid, Avatar, IconButton } from "@material-ui/core";
-import { format } from "date-fns";
+
+import SnoozeIcon from "@material-ui/icons/Snooze";
+import AlarmIcon from "@material-ui/icons/AddAlarm";
+import TodayIcon from "@material-ui/icons/Today";
+import { IconButton, InputAdornment } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
@@ -42,9 +39,28 @@ const useStyles = makeStyles((theme) => ({
   iconButton: {
     padding: 10,
   },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
+  },
+  icon: {
+    verticalAlign: "bottom",
+    height: 20,
+    width: 20,
+  },
+  details: {
+    alignItems: "center",
+  },
 }));
 
-function Notificaciones() {
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+function ProgramarNotificaciones() {
   const classes = useStyles();
   /* const [formData, setFormData] = React.useState({
     id: props.auth.uid,
@@ -80,18 +96,43 @@ function Notificaciones() {
   //Estados
 
   //Estado checked del switch de geolocalizacion
-  const [state, setState] = React.useState({
+  const [stateGeo, setStateGeo] = React.useState({
     activo: false,
     oculto: true,
   });
 
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+  const [stateProgramar, setStateProgramar] = React.useState({
+    activo: false,
+    oculto: true,
+  });
+
+  //Estado para la fecha y hora de envio de notif
+  const [envioNotif, handleEnvioNotif] = React.useState(new Date());
+  const [selectedDate, handleDateChange] = useState(new Date());
+
+  const handleChangeEnvioUbicacion = (event) => {
+    setStateGeo({ ...stateGeo, [event.target.name]: event.target.checked });
+  };
+
+  const handleChangeProgramarEnvio = (event) => {
+    setStateProgramar({
+      ...stateProgramar,
+      [event.target.name]: event.target.checked,
+    });
   };
 
   const handleChangeCliente = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
+  };
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
 
   const handleSubmit = (e) => {
@@ -106,31 +147,10 @@ function Notificaciones() {
 
   return (
     <div>
-      <div className="prom-title-container">
-        <h1>Notificaciones</h1>
-      </div>
-      <div className="subtitulo-notif">
-        <h6>Gestioná las notificaciones push que enviás a los usuarios</h6>
-      </div>
       <ValidatorForm ref={form} onSubmit={handleSubmit}>
         <div className="contenedor-todo-notif">
           <Card className="card-notif">
             <CardContent className="card-content-notif">
-              <div>
-                <FormControlLabel
-                  value="activGeoloc"
-                  control={
-                    <Switch
-                      color="primary"
-                      checked={state.activo}
-                      onChange={handleChange}
-                      name="activo"
-                    />
-                  }
-                  label="Notificaciones por ubicación cercana"
-                  labelPlacement="start"
-                />
-              </div>
               <div className="input-nom-suc ">
                 <TextField
                   disabled
@@ -185,6 +205,8 @@ function Notificaciones() {
                 <Autocomplete
                   className="buscador-ben"
                   fullWidth
+                  validators={["required"]}
+                  errorMessages={["*Este campo es obligatorio"]}
                   options={options.sort(
                     (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
                   )}
@@ -199,6 +221,112 @@ function Notificaciones() {
                   )}
                 />
               </div>
+              <div className="texto-notif-geo">
+                <FormControlLabel
+                  value="activGeoloc"
+                  control={
+                    <Switch
+                      color="primary"
+                      checked={stateGeo.activo}
+                      onChange={handleChangeEnvioUbicacion}
+                      name="activo"
+                    />
+                  }
+                  label="Notificar solo a usuarios cercanos a mi tienda"
+                  labelPlacement="end"
+                />
+              </div>
+              <div className="text-envio-notif">
+                <FormControlLabel
+                  value="activEnvio"
+                  control={
+                    <Switch
+                      color="primary"
+                      checked={stateProgramar.activo}
+                      onChange={handleChangeProgramarEnvio}
+                      name="activo"
+                    />
+                  }
+                  label="Programar envío de notificación"
+                  labelPlacement="end"
+                />
+              </div>
+              {stateProgramar.activo ? (
+                <div className="programar-notif">
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker
+                      className="fecha-notif"
+                      autoOk
+                      disableToolbar
+                      fullWidth
+                      inputVariant="outlined"
+                      name="fechaNotif"
+                      label="Fecha de envío"
+                      minDate={new Date()}
+                      minDateMessage="*La fecha no puede ser menor al día de hoy"
+                      format="dd/MM/yyyy"
+                      value={envioNotif}
+                      variant="inline"
+                      onChange={(data) => handleEnvioNotif(data)}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton>
+                              <TodayIcon />
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    <TimePicker
+                      className="hora-notif"
+                      clearable
+                      autoOk
+                      disableToolbar
+                      fullWidth
+                      inputVariant="outlined"
+                      variant="inline"
+                      ampm={false}
+                      label="Hora de envío"
+                      value={selectedDate}
+                      onChange={(data) => handleDateChange(data)}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton>
+                              <AlarmIcon />
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </MuiPickersUtilsProvider>
+                </div>
+              ) : (
+                ""
+              )}
+
+              <div className="boton-enviar-notificacion">
+                <div>
+                  <Button
+                    variant="contained"
+                    className="btn-env-not"
+                    type="submit"
+                  >
+                    Enviar notificación
+                  </Button>
+                </div>
+                <Snackbar
+                  anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                  open={open}
+                  autoHideDuration={8000}
+                  onClose={handleClose}
+                >
+                  <Alert onClose={handleClose} severity="success">
+                    La notificación se enviará correctamente!
+                  </Alert>
+                </Snackbar>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -207,4 +335,4 @@ function Notificaciones() {
   );
 }
 
-export default Notificaciones;
+export default ProgramarNotificaciones;
