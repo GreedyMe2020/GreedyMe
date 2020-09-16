@@ -356,6 +356,51 @@ $background-color: #ececec;
 }
 
 @media only screen and (max-width: 820px) {
+  .contenedor-todo-notif {
+    .card-notif {
+      .card-content-notif {
+        .programar-notif {
+          margin-top: 1.2rem;
+          width: 100%;
+          display: grid;
+          grid-template-columns: 5% 1fr 5%;
+          grid-template-rows: 1fr 1fr;
+          justify-items: flex;
+          align-items: flex-start;
+          margin-bottom: 1rem;
+          .fecha-notif {
+            grid-column: 2/3;
+            grid-row: 1/2;
+            padding-right: 0px;
+            .MuiOutlinedInput-adornedEnd {
+              padding-right: 5px;
+            }
+          }
+          .hora-notif {
+            margin-top: 0.5rem;
+            grid-column: 2/3;
+            grid-row: 2/3;
+            .MuiOutlinedInput-adornedEnd {
+              padding-right: 5px;
+            }
+          }
+        }
+        .boton-enviar-notificacion {
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: center;
+          margin-right: 2.8rem;
+          margin-bottom: 1rem;
+          margin-top: 2rem;
+          .btn-env-not {
+            margin-left: 1rem;
+            background-color: #262262;
+            color: white;
+          }
+        }
+      }
+    }
+  }
   .contenedor-notificaciones-todo {
     width: 100%;
     display: grid;
