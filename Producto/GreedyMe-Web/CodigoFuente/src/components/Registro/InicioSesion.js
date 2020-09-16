@@ -73,11 +73,9 @@ function InicioSesion(props) {
                   onChange={handleChangePass("email")}
                   name="email"
                   value={values.email}
-                  validators={["required", "isEmail"]}
-                  errorMessages={[
-                    "*Este campo es obligatorio",
-                    "El email no es válido",
-                  ]}
+                  required
+                  validators={["isEmail"]}
+                  errorMessages={["El email no es válido"]}
                 />
               </Grid>
               <Grid item xs={12} md={12}>
@@ -87,9 +85,8 @@ function InicioSesion(props) {
                   variant="outlined"
                   type="password"
                   fullWidth
+                  required
                   name="contraseña"
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
                 >
                   <InputLabel htmlFor="outlined-adornment-password">
                     Contraseña
@@ -145,13 +142,13 @@ function InicioSesion(props) {
                   className="mt-3 text-right"
                   id="inicio-sesion-button"
                   color="secondary"
-                  onClick={handleSubmit}
+                  type="submit"
                 >
                   Iniciar sesión
                 </Button>
                 {props.authError ? (
                   <p className="text-danger">
-                    Todos los campos deben ser completados
+                    Los datos ingresados son incorrectos.
                   </p>
                 ) : null}
               </div>

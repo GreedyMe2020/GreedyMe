@@ -35,18 +35,7 @@ const authReducer = (state = initState, action) => {
         mailError: "email invalido",
         mandoMail: null,
       };
-    case "USUARIO_CREADO":
-      console.log("se creo el usuario");
-      return{
-        ...state,
-        authError: null
-      }
-    case "FALLO_CREACION":
-      console.log("fallo la creacion del usuario")
-      return{
-        ...state,
-        authError: action.error.message
-      }
+
     default:
       return state;
   }
