@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { signOut } from "../../redux/actions/authActions";
+import FormCrearUsuario from "./FormCrearUsuario";
+import ListaUsuarios from "./ListaUsuarios";
 
 function Admin(props) {
   const handleCloseSesion = () => {
@@ -8,8 +10,9 @@ function Admin(props) {
   };
   return (
     <>
-      <p>Hola bromigos administradores</p>
       <button onClick={handleCloseSesion}>Cerrar sesion</button>
+      <FormCrearUsuario />
+      <ListaUsuarios />
     </>
   );
 }

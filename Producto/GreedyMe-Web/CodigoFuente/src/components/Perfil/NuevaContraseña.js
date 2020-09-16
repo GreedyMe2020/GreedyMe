@@ -65,36 +65,6 @@ function NuevaContraseña(props) {
     });
   };
 
-  const getOpcionSeleccionada = (seleccionado) => {
-    if (seleccionado === 0) {
-      return <h3>Pagina principal</h3>;
-    }
-    if (seleccionado === 1) {
-      return <h3>En esta pagina iria lo de Carga cupón</h3>;
-    }
-    if (seleccionado === 2) {
-      return <CargaPromociones />;
-    }
-    if (seleccionado === 3) {
-      return <h3>Aca van Mis promociones</h3>;
-    }
-    if (seleccionado === 4) {
-      return <h3>Aca las estadisticas</h3>;
-    }
-    if (seleccionado === 5) {
-      return <h3>y aca las notificaciones</h3>;
-    }
-    if (seleccionado === 6) {
-      return <Perfil />;
-    }
-    if (seleccionado === 7) {
-      return <h3>Suscripciones</h3>;
-    }
-    if (seleccionado === 8) {
-      return <h3>Ayuda y soporte</h3>;
-    }
-  };
-
   ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
     if (value !== formData.nuevaContraseña) {
       return false;
@@ -112,7 +82,6 @@ function NuevaContraseña(props) {
       />
 
       <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
-        <h4 className="tituloCardAdminP1">Información de inicio de sesión</h4>
         <Card id="cardAdminCuenta">
           <Card.Body className="contCardPerfil1">
             <div className="inputPerfil">
@@ -144,8 +113,12 @@ function NuevaContraseña(props) {
                   onChange={handleChange}
                   name="nuevaContraseña"
                   fullWidth
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
+                  validators={[
+                    "matchRegexp:^(?=.{8,16}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])",
+                  ]}
+                  errorMessages={[
+                    "La contraseña debe entre 8 y 16 caracteres y, por lo menos una mayúscula, una minúscula y un número",
+                  ]}
                 />
               </div>
               <div className="inputPerfil">

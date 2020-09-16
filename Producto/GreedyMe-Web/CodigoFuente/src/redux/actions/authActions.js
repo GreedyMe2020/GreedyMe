@@ -1,6 +1,9 @@
 export const signIn = (usuario) => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
+    if (usuario.email === "admin") {
+      usuario.email = "greedyme.contacto@gmail.com";
+    }
     firebase
       .auth()
       .signInWithEmailAndPassword(usuario.email, usuario.password)
@@ -40,22 +43,4 @@ export const forgotPass = (usuario) => {
   };
 };
 
-export const signUp = (nuevoUsuario) => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
-    const firestore = getFirestore();
-    firebase.auth
-      .createUserWithEmailAndPassword(nuevoUsuario.email, nuevoUsuario.password)
-      .then((resp) => {
-        return firestore.collection("usuarioComercio").doc(resp.user.uid).set({
-          //datos adentro de la base de datos
-        });
-      })
-      .then(() => {
-        dispatch({ type: "USUARIO_CREADO" });
-      })
-      .catch((error) => {
-        dispatch({ type: "FALLO_CREACION", error });
-      });
-  };
-};
+
