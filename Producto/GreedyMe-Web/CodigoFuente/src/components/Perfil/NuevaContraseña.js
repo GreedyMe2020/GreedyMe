@@ -113,8 +113,12 @@ function NuevaContraseña(props) {
                   onChange={handleChange}
                   name="nuevaContraseña"
                   fullWidth
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
+                  validators={[
+                    "matchRegexp:^(?=.{8,16}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])",
+                  ]}
+                  errorMessages={[
+                    "La contraseña debe entre 8 y 16 caracteres y, por lo menos una mayúscula, una minúscula y un número",
+                  ]}
                 />
               </div>
               <div className="inputPerfil">
