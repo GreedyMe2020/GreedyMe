@@ -111,6 +111,12 @@ function MisPromociones(props) {
   const [modificar, setModificar] = React.useState(null);
   const [modificado, setModificado] = React.useState(null);
 
+  React.useEffect(() => {
+    if (promos) {
+      props.setCantPromos(promos.length);
+    }
+  }, [promos]);
+
   //Eliminar una promo de la BD y renderizar la eliminacion de una promo
   React.useEffect(() => {
     if (currentId) {
@@ -123,6 +129,7 @@ function MisPromociones(props) {
       });
       setPromos([...promos]);
       setPromos2([...promos]);
+      props.setCantPromos(promos.length);
     }
   }, [currentId]);
 
@@ -132,6 +139,7 @@ function MisPromociones(props) {
       promos.push(nuevaPromo);
       setPromos([...promos]);
       setPromos2([...promos]);
+      props.setCantPromos(promos.length);
     }
   }, [nuevaPromo]);
   //Renderizar cambio de promo
@@ -318,7 +326,6 @@ function MisPromociones(props) {
         defaultValue={text}
         onChange={(text) => filter(text)}
       />
-
       <div className="contenedorTodo">
         <Card className="cardPromo">
           <CardContent className="cardContentePromo">
