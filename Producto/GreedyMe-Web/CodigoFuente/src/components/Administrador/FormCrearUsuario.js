@@ -5,19 +5,12 @@ import {
   TextValidator,
   SelectValidator,
 } from "react-material-ui-form-validator";
-import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-import classes from "../../components/Modal";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import {
-  editarDatos,
-  subirFoto,
-  eliminarFoto,
-} from "../../redux/actions/comActions";
 import firebase from "../../firebase/config";
 import { makeStyles } from "@material-ui/core/styles";
 import SaveIcon from "@material-ui/icons/Save";
@@ -25,6 +18,7 @@ import { signUp } from "../../redux/actions/adminActions";
 
 /* import { db } from "../firebase/config"; */
 
+//funcion para traer los rubros
 const rubros = [];
 const rubro = () => {
   const firestore = firebase.firestore();
@@ -44,19 +38,20 @@ const rubro = () => {
 };
 rubro();
 
+//estilos
 const useStyles = makeStyles((theme) => ({
   input: {
     display: "none",
   },
 }));
-
+//esto no se que es
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 function FormCrearUsuario(props) {
   const classes = useStyles();
-
+  //datos de creacion de usuarios
   const [formData, setFormData] = React.useState({
     email: "",
     CUIT: "",
@@ -70,7 +65,7 @@ function FormCrearUsuario(props) {
     facebook: "",
     direccion: "",
   });
-
+  //estos no tengo idea
   const [submitted, setSubmitted] = React.useState(false);
   const [showModal, setModal] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -81,15 +76,14 @@ function FormCrearUsuario(props) {
     }
     setOpen(false);
   };
-
+  //funcion para poner lo que escribe en el formdata
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
   };
-
+  //funcion para crear el usuario
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("perro bomba volcanico");
     props.signUp(formData);
     setSubmitted({ submitted: true }, () => {
       setTimeout(() => setSubmitted({ submitted: false }), 5000);

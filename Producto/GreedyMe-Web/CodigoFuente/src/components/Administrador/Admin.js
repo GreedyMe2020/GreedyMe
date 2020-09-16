@@ -1,9 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { signOut } from "../../redux/actions/authActions";
-import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
 import FormCrearUsuario from "./FormCrearUsuario";
+import ListaUsuarios from "./ListaUsuarios"
 
 function Admin(props) {
   const handleCloseSesion = () => {
@@ -14,6 +13,7 @@ function Admin(props) {
       <p>Hola bromigos administradores</p>
       <button onClick={handleCloseSesion}>Cerrar sesion</button>
       <FormCrearUsuario />
+      <ListaUsuarios />
     </>
   );
 }
@@ -21,7 +21,6 @@ function Admin(props) {
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
-    usuarios: state.firestore.ordered.usuarioComercio,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -30,7 +29,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect([{ collection: "usuarioComercio" }])
-)(Admin);
+export default connect(mapStateToProps, mapDispatchToProps)(Admin);
