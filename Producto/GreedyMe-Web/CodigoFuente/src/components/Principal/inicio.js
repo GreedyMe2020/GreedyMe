@@ -1,4 +1,5 @@
 import React from "react";
+import div from "@material-ui/core/Card";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
@@ -9,6 +10,7 @@ import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { Redirect, Link } from "@reach/router";
 import Statistics from "../../../Multimedia/Sistema-svg/statistics-inicio.svg";
+import HacermePremium from "../Notificaciones/haztePremium";
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -171,9 +173,9 @@ export default function Inicio(props) {
           </CardContent>
         </Card>
 
-        <Card className="inicio-cont-cupones inicio-6 inicio-cards">
-          <h1>Ahora con una card abajo</h1>
-        </Card>
+        <div className="inicio-6">
+          <HacermePremium />
+        </div>
       </div>
     </div>
   );

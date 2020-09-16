@@ -141,6 +141,38 @@ $background-color: #ececec;
 
     .inicio-6 {
       grid-row: 3/5;
+
+      .hacerme-premium {
+        .contenedor-card-pequeña-premium {
+          border-radius: 10px;
+          margin-top: 0rem;
+          margin-left: 0px;
+          text-align: center;
+          .cont-card-pequeña-premium {
+            background-color: #f7941e;
+            color: white;
+            .texto-1-premium {
+              margin-top: 5%;
+              font-size: 22px;
+              font-weight: bold;
+            }
+            .texto-premium {
+              margin-top: 7%;
+              font-size: 16px;
+            }
+            .texto-3-premium {
+              margin-bottom: 7%;
+              margin-top: 5%;
+              font-size: 16px;
+              .btn-premium {
+                margin-top: 10px;
+                background-color: white;
+                color: #f7941e;
+              }
+            }
+          }
+        }
+      }
     }
   }
 
