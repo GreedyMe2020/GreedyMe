@@ -96,7 +96,7 @@ function ListaUsuarios(props) {
                               primary={
                                 <React.Fragment>
                                   <Typography className={classes.inline}>
-                                    {user.email}
+                                    {user.nombreComercio}
                                   </Typography>
                                   {user.CUIT}
                                 </React.Fragment>
@@ -104,23 +104,6 @@ function ListaUsuarios(props) {
                               secondary={"web: " + user.web}
                             />
                           </div>
-                          <ListItemSecondaryAction>
-                            <Tooltip title="Eliminar" arrow>
-                              <IconButton edge="end" aria-label="Eliminar">
-                                <DeleteIcon />
-                              </IconButton>
-                            </Tooltip>
-                            <DialogComponent
-                              open={open}
-                              setOpen={setOpen}
-                              handleClose={handleClose}
-                              title={"¿Estás seguro de eliminar el usuario?"}
-                              text={
-                                "Una vez que aceptes eliminar el usuario, el mismo no podrá ser recuperado."
-                              }
-                              btnText={"Eliminar"}
-                            />
-                          </ListItemSecondaryAction>
                         </ListItem>
                       );
                     })}

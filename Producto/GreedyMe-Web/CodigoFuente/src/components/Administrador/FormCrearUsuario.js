@@ -58,6 +58,7 @@ function FormCrearUsuario(props) {
     nombreComercio: "",
     web: "",
     contraseña: "",
+    repetirContraseña: "",
     sucursal: "",
     rubro: "",
     telefono: "",
@@ -65,8 +66,9 @@ function FormCrearUsuario(props) {
     facebook: "",
     direccion: "",
   });
+
   //estos no tengo idea
-  const [submitted, setSubmitted] = React.useState(false);
+
   const [showModal, setModal] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
@@ -84,13 +86,17 @@ function FormCrearUsuario(props) {
   //funcion para crear el usuario
   const handleSubmit = (e) => {
     e.preventDefault();
+
     props.signUp(formData);
-    setSubmitted({ submitted: true }, () => {
-      setTimeout(() => setSubmitted({ submitted: false }), 5000);
-    });
 
     setOpen(true);
   };
+  ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
+    if (value !== formData.contraseña) {
+      return false;
+    }
+    return true;
+  });
 
   const form = React.createRef();
 
@@ -104,7 +110,7 @@ function FormCrearUsuario(props) {
         <Card id="cardAdminCuenta">
           <Card.Body className="contCardPerfil2">
             <Grid container spacing={1}>
-              <Grid className="inputPerfil2" item xs={12} md={12}>
+              <Grid className="inputPerfil2" item xs={12} md={6}>
                 <TextValidator
                   fullWidth
                   id="outlined-basic"
@@ -142,6 +148,31 @@ function FormCrearUsuario(props) {
                   onChange={handleChange}
                   fullWidth
                   required
+                  validators={[
+                    "matchRegexp:^(?=.{8,16}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])",
+                  ]}
+                  errorMessages={[
+                    "La contraseña debe entre 8 y 16 caracteres y, por lo menos una mayúscula, una minúscula y un número",
+                  ]}
+                />
+              </Grid>
+              <Grid className="inputPerfil2" item xs={12} md={6}>
+                <TextValidator
+                  id="outlined-password-input"
+                  label="Repetir contraseña"
+                  type="password"
+                  autoComplete="current-password"
+                  variant="outlined"
+                  value={formData.repetirContraseña}
+                  name="repetirContraseña"
+                  onChange={handleChange}
+                  fullWidth
+                  required
+                  validators={["isPasswordMatch", "required"]}
+                  errorMessages={[
+                    "Las contraseñas deben ser iguales",
+                    "*Este campo es obligatorio",
+                  ]}
                 />
               </Grid>
               <Grid className="inputPerfil2" item xs={12} md={6}>
@@ -266,7 +297,7 @@ function FormCrearUsuario(props) {
             onClose={handleClose}
           >
             <Alert onClose={handleClose} severity="success">
-              ¡Usuario creado correctamente!
+              Usuario Creado Correctamente!!!
             </Alert>
           </Snackbar>
         </div>
@@ -276,7 +307,9 @@ function FormCrearUsuario(props) {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    usuarioFalla: state.admin.usuarioFalla,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
