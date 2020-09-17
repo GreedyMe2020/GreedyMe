@@ -99,6 +99,9 @@ function MisPromociones(props) {
   const [eliminar, setEliminar] = React.useState(null);
   const [currentId, setCurrentId] = React.useState(null);
 
+  //Snackbar cuando se elimina una promo
+  const [eliminada, setEliminada] = React.useState(false);
+
   //Estados para crear nuevas promociones
   const [nuevaPromo, setNuevaPromo] = React.useState(null);
   const [text, setText] = React.useState("");
@@ -110,6 +113,13 @@ function MisPromociones(props) {
   //Para modificar la promo
   const [modificar, setModificar] = React.useState(null);
   const [modificado, setModificado] = React.useState(null);
+
+  //Para que la promo del inicio se actualice cuando entras aca
+  React.useEffect(() => {
+    if (promos) {
+      props.setCantPromos(promos.length);
+    }
+  }, [promos]);
 
   //Eliminar una promo de la BD y renderizar la eliminacion de una promo
   React.useEffect(() => {
@@ -123,6 +133,7 @@ function MisPromociones(props) {
       });
       setPromos([...promos]);
       setPromos2([...promos]);
+      props.setCantPromos(promos.length);
     }
   }, [currentId]);
 
@@ -132,6 +143,7 @@ function MisPromociones(props) {
       promos.push(nuevaPromo);
       setPromos([...promos]);
       setPromos2([...promos]);
+      props.setCantPromos(promos.length);
     }
   }, [nuevaPromo]);
   //Renderizar cambio de promo
@@ -299,6 +311,7 @@ function MisPromociones(props) {
       return;
     }
     setOpenAlert(false);
+    setEliminada(false);
   };
 
   function handleDias(promo) {
@@ -318,7 +331,6 @@ function MisPromociones(props) {
         defaultValue={text}
         onChange={(text) => filter(text)}
       />
-
       <div className="contenedorTodo">
         <Card className="cardPromo">
           <CardContent className="cardContentePromo">
@@ -504,6 +516,7 @@ function MisPromociones(props) {
                               handleClose={handleClose}
                               eliminar={eliminar}
                               setEliminar={setEliminar}
+                              setEliminada={setEliminada}
                               setCurrentId={setCurrentId}
                               title={"¿Estás seguro de eliminar el beneficio?"}
                               text={
@@ -516,6 +529,23 @@ function MisPromociones(props) {
                       );
                     })}
                 </List>
+                {eliminada ? (
+                  <Snackbar
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    open={eliminada}
+                    autoHideDuration={8000}
+                    onClose={handleCloseAlert}
+                  >
+                    <Alert onClose={handleCloseAlert} severity="error">
+                      La promoción se ha eliminado
+                    </Alert>
+                  </Snackbar>
+                ) : (
+                  ""
+                )}
                 {values ? (
                   <Snackbar
                     anchorOrigin={{
