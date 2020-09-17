@@ -1,0 +1,186 @@
+//Google fonts
+@import url(http://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Raleway:wght@500;600&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Roboto&display=swap);
+
+//Inter (thin, medium & bold 700)
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap);
+
+//Variables
+$logo-font: "Raleway", sans-serif;
+$text-font: "Inter", sans-serif;
+
+$white-color: #ffffff;
+$grey-color: #e1e1e1;
+$green-color: #76b39d;
+$logo-green-color: #78e3bc;
+$logo-blue-color: #262262;
+$dark-blue-color: #1e1b4d;
+$logo-orange-color: #f7941e;
+$dark-orange-color: #fd5f00;
+$background-color: #ececec;
+
+.inicio-contenedor-todo {
+  margin-top: 35px;
+  margin-left: 5%;
+  margin-right: 4%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.1rem;
+
+  .inicio-cards {
+    border-radius: 10px;
+  }
+
+  .inicio-cont-1 {
+    grid-column: 1/2;
+    display: grid;
+    grid-template-rows: 1fr 2.7fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+
+    #inicio-button {
+      background-color: #262262;
+      color: white;
+      font-size: 12px;
+    }
+
+    .inicio-cont-boton {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .inicio-titulo {
+      font-weight: 500;
+      font-size: 1.5rem;
+    }
+
+    p {
+      display: inline-block;
+    }
+
+    .inicio-1 {
+      grid-row: 1/2;
+      grid-column: 1/2;
+    }
+
+    .inicio-2 {
+      grid-row: 1/2;
+      grid-column: 2/3;
+
+      .inicio-todos {
+        color: #76b39d;
+      }
+
+      p {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 0px;
+        color: #76b39d;
+      }
+    }
+
+    .inicio-cont-estadisticas {
+      display: flex;
+      flex-flow: column wrap;
+      align-items: center;
+
+      p {
+        display: inline-block;
+        text-align: center;
+      }
+    }
+
+    .inicio-3 {
+      grid-row: 2/3;
+      grid-column: 1/2;
+    }
+
+    .inicio-4 {
+      grid-row: 2/3;
+      grid-column: 2/3;
+
+      #inicio-button {
+        margin-top: 19px;
+      }
+    }
+  }
+
+  .inicio-cont-2 {
+    grid-column: 2/3;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    gap: 1.5rem;
+
+    .inicio-cont-boton {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .inicio-titulo {
+      font-weight: 500;
+      font-size: 1.5rem;
+    }
+
+    .inicio-5 {
+      grid-row: 1/3;
+
+      .inicio-tit-cont {
+        display: flex;
+        flex-flow: column wrap;
+        align-items: flex-start;
+      }
+    }
+
+    .inicio-6 {
+      grid-row: 3/5;
+
+      .hacerme-premium {
+        .contenedor-card-pequeña-premium {
+          border-radius: 10px;
+          margin-top: 0rem;
+          margin-left: 0px;
+          text-align: center;
+          .cont-card-pequeña-premium {
+            background-color: #f7941e;
+            color: white;
+            .texto-1-premium {
+              margin-top: 5%;
+              font-size: 22px;
+              font-weight: bold;
+            }
+            .texto-premium {
+              margin-top: 7%;
+              font-size: 16px;
+            }
+            .texto-3-premium {
+              margin-bottom: 7%;
+              margin-top: 5%;
+              font-size: 16px;
+              .btn-premium {
+                margin-top: 10px;
+                background-color: white;
+                color: #f7941e;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .inicio-cards {
+    padding: 1rem;
+
+    .MuiCardContent-root {
+      padding: 0rem;
+    }
+  }
+}
