@@ -20,3 +20,13 @@ $dark-blue-color: #1e1b4d;
 $logo-orange-color: #f7941e;
 $dark-orange-color: #fd5f00;
 $background-color: #ececec;
+
+.card-cupon {
+  margin-left: 5%;
+  margin-right: 30%;
+  border-radius: 5px !important;
+  margin-top: 1rem;
+  box-shadow: 0px 10px 10px 0px #e1e1e1 !important;
+  .card-content-cupon {
+  }
+}
