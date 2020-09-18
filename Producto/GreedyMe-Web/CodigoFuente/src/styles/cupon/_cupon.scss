@@ -28,5 +28,31 @@ $background-color: #ececec;
   margin-top: 1rem;
   box-shadow: 0px 10px 10px 0px #e1e1e1 !important;
   .card-content-cupon {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 1.2rem;
+  }
+  .generar-cupon {
+    margin-top: 1.2rem;
+    margin-bottom: 1rem;
+    .texto-cupon {
+      margin-bottom: 10px;
+    }
+    .generador-cupon {
+      display: grid;
+      grid-template-columns: 1fr 0.8fr 0.6fr;
+      grid-template-rows: 1fr;
+      justify-items: flex;
+      align-items: center;
+      .input-cupon {
+        grid-column: 1/2;
+        padding-right: 15px;
+      }
+      .btn-generar-cup {
+        background-color: #76b39d;
+        color: white;
+        grid-column: 2/3;
+      }
+    }
   }
 }

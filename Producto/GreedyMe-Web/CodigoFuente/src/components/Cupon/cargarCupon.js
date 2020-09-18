@@ -2,6 +2,7 @@ import React from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
 function Cupon() {
@@ -32,7 +33,9 @@ function Cupon() {
       <Card className="card-cupon">
         <CardContent className="card-content-cupon">
           <div className="input-buscador-beneficio">
-            <h6 className="texto-beneficio">Beneficio que va a notificar:</h6>
+            <h6 className="texto-beneficio">
+              Cupón que va a utilizar su cliente:
+            </h6>
             <Autocomplete
               className="buscador-ben"
               fullWidth
@@ -51,6 +54,24 @@ function Cupon() {
                 />
               )}
             />
+          </div>
+          <div className="generar-cupon">
+            <h6 className="texto-cupon">El código para este cupón es:</h6>
+            <div className="generador-cupon">
+              <TextField
+                label="Código"
+                className="input-cupon"
+                variant="outlined"
+                disabled
+              ></TextField>
+              <Button
+                variant="contained"
+                className="btn-generar-cup"
+                type="submit"
+              >
+                Generar código
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>
