@@ -12,6 +12,7 @@ export default function DialogComponent({
   handleClose,
   eliminar,
   setEliminar,
+  setEliminada,
   setCurrentId,
   title,
   text,
@@ -44,6 +45,7 @@ export default function DialogComponent({
             setCurrentId(eliminar);
             setOpen(false);
             setEliminar(null);
+            setEliminada(true);
           }}
           color="secondary"
           autoFocus

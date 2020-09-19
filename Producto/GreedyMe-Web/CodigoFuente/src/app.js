@@ -12,7 +12,7 @@ import { OlvidoContraseña } from "./pages/OlvidoContraseña";
 import PerfilComercio from "./pages/PerfilComercio";
 import CambiarContraseña from "./pages/CambiarContraseña";
 import { SnackbarProvider } from "notistack";
-
+import Administrador from "./pages/Administrador";
 //<Promociones path="/main/:id/promociones" />
 const App = () => {
   return (
@@ -25,6 +25,7 @@ const App = () => {
         <OlvidoContraseña path="/forgotpassword" />
         <PerfilComercio path="/main/:id/profile" />
         <CambiarContraseña path="/main/:id/newpassword" />
+        <Administrador path="/admin" />
       </Router>
     </div>
   );

@@ -96,17 +96,18 @@ function ReestablecerContraseña(props) {
                   <p className="text-danger">
                     Email inválido, ingresalo nuevamente
                   </p>
-                ) : null}
-                <Snackbar
-                  anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                  open={open}
-                  autoHideDuration={8000}
-                  onClose={handleClose}
-                >
-                  <Alert onClose={handleClose} severity="success">
-                    Email enviado correctamente
-                  </Alert>
-                </Snackbar>
+                ) : (
+                  <Snackbar
+                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                    open={open}
+                    autoHideDuration={8000}
+                    onClose={handleClose}
+                  >
+                    <Alert onClose={handleClose} severity="success">
+                      Email enviado correctamente
+                    </Alert>
+                  </Snackbar>
+                )}
               </div>
             </ValidatorForm>
           </Card.Body>

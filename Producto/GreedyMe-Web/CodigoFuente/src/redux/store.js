@@ -3,6 +3,7 @@ import authReducer from "./reducers/authReducer";
 import thunk from "redux-thunk";
 import promReducer from "./reducers/promReducer";
 import comReducer from "./reducers/comReducer";
+import adminReducer from "./reducers/adminReducer";
 import {
   firestoreReducer,
   reduxFirestore,
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   firestore: firestoreReducer,
   firebase: firebaseReducer,
   comercio: comReducer,
+  admin: adminReducer,
 });
 const store = createStore(
   reducer,

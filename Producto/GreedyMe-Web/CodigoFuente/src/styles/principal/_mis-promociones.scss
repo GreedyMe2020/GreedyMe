@@ -38,13 +38,6 @@ $background-color: #ececec;
     font-size: 1.5rem;
     grid-column: 1;
   }
-  .icoNuevaProm {
-    grid-column: col 2 / span 3;
-    #cargar-promosubmit {
-      background-color: #262262;
-      color: white;
-    }
-  }
 }
 
 #buscador-container {
@@ -52,8 +45,15 @@ $background-color: #ececec;
   margin-left: 5%;
   margin-right: 5%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+
+  .icoNuevaProm {
+    #cargar-promosubmit {
+      background-color: #262262;
+      color: white;
+    }
+  }
 }
 
 .contTodo {
