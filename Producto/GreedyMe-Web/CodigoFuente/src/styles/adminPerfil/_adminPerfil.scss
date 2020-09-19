@@ -130,3 +130,14 @@ $background-color: #ececec;
   height: 300px;
   width: 100%;
 }
+
+.search {
+  width: 100%;
+  max-width: 400px;
+  z-index: 10;
+}
+
+.search input {
+  margin-top: 25px;
+  padding-right: 20px;
+}

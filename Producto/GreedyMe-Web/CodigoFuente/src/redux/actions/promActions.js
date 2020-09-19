@@ -24,6 +24,7 @@ export const crearPromocion = (
         hastaVigencia: hastaVigencia,
         visible: false,
         descripcion: promocion.descripcion,
+        photoURL: promocion.photoURL,
         diaAplicacion: dias,
         medioPago: value,
       })
@@ -61,6 +62,7 @@ export const actualizarPromocion = (
         hastaVigencia: hastaVigencia,
         visible: false,
         descripcion: promocion.descripcion,
+        photoURL: promocion.photoURL,
         diaAplicacion: dias,
         medioPago: value,
       })

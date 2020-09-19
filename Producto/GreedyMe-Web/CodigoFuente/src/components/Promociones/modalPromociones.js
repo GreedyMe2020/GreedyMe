@@ -62,6 +62,24 @@ const promo = () => {
 };
 promo();
 
+const bancos = [];
+const banco = () => {
+  firestore
+    .collection("proveedorServicio")
+    .orderBy("bancos")
+    .get()
+    .then((snapShots) => {
+      snapShots.forEach((doc) => {
+        const data = doc.data();
+        bancos.push({
+          ...data,
+          id: doc.id,
+        });
+      });
+    });
+};
+banco();
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -69,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
 const CelesteCheckbox = withStyles({
   root: {
     color: "#707070",
@@ -105,6 +124,7 @@ function ModalPromociones(props) {
     valueProveedor: "",
     otroProveedor: "",
     descripcion: "",
+    photoURL: "",
   });
   const [desdeVigencia, handleDesdeVigencia] = React.useState(new Date()); //Estados para cada datePicker
   const [hastaVigencia, handleHastaVigencia] = React.useState(new Date());
@@ -203,8 +223,21 @@ function ModalPromociones(props) {
     }
     setOpen(false);
   };
+
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
+    if (event.target.name === "valueProveedor") {
+      valorProveedor.map((option) => {
+        if (option.nombre === event.target.value) {
+          formData.photoURL = option.photoURL;
+        }
+      });
+      valorBanco.map((option) => {
+        if (option.nombre === event.target.value) {
+          formData.photoURL = option.photoURL;
+        }
+      });
+    }
     setFormData({ ...formData });
   };
 
@@ -212,6 +245,12 @@ function ModalPromociones(props) {
   const [valorPromo, setValorPromo] = React.useState([]);
   useEffect(() => {
     setValorPromo([]);
+    setFormData({
+      ...formData,
+      valuePromo: "",
+      otraPromo: "",
+    });
+
     //esto no corre en el primer render, se ejecuta luego del return
     if (formData.tipoPromo === "Descuento") {
       setValorPromo(tipoPromo[0].lista);
@@ -222,25 +261,37 @@ function ModalPromociones(props) {
 
   //Para la info de proveedores.
   const [valorProveedor, setValorProveedor] = React.useState([]);
+  const [valorBanco, setValorBanco] = React.useState([]);
   useEffect(() => {
     setValorProveedor([]);
+    setValorBanco([]);
+    setFormData({
+      ...formData,
+      valueProveedor: "",
+      otroProveedor: "",
+      photoURL: "",
+    });
     //esto no corre en el primer render, se ejecuta luego del return
+
     if (formData.tipoProveedor === "Cartera Digital") {
       setValorProveedor(proveedor[0].lista);
     } else if (formData.tipoProveedor === "Club") {
       setValorProveedor(proveedor[1].lista);
-    } else if (formData.tipoProveedor === "Plataforma Digital") {
+    } else if (formData.tipoProveedor === "Propias") {
       setValorProveedor(proveedor[2].lista);
     } else if (formData.tipoProveedor === "Tarjetas de crédito") {
       setValorProveedor(proveedor[3].lista);
+      setValorBanco(bancos[0].bancos);
     } else if (formData.tipoProveedor === "Tarjetas de débito") {
       setValorProveedor(proveedor[4].lista);
+      setValorBanco(bancos[0].bancos);
     }
   }, [formData.tipoProveedor, setFormData]);
 
   const form = React.createRef();
   return (
     <div className="contTodo">
+      {console.log(formData)}
       <ValidatorForm
         className={classes.root}
         ref={form}
@@ -307,15 +358,7 @@ function ModalPromociones(props) {
               onChange={handleChange}
               variant="outlined"
             />
-          ) : (
-            <TextField
-              disabled
-              id="outlineddisabled"
-              label="Otros"
-              defaultValue="Otros"
-              variant="outlined"
-            />
-          )}
+          ) : null}
         </div>
         <Divider className="dividerH" />
         <p className="subtit">Proveedor</p>
@@ -337,7 +380,52 @@ function ModalPromociones(props) {
               </MenuItem>
             ))}
           </SelectValidator>
-          {formData.tipoProveedor ? (
+          {formData.tipoProveedor === "Tarjetas de débito" ||
+          formData.tipoProveedor === "Tarjetas de crédito" ? (
+            <div>
+              <SelectValidator
+                variant="outlined"
+                className="selectproveedor"
+                label="Banco"
+                fullWidth
+                onChange={handleChange}
+                name="valueProveedor"
+                required
+                value={formData.valueProveedor}
+                validators={["required"]}
+                errorMessages={["*Este campo es obligatorio"]}
+              >
+                {valorBanco.map((option) => (
+                  <MenuItem key={option.nombre} value={option.nombre}>
+                    {option.nombre}
+                  </MenuItem>
+                ))}
+              </SelectValidator>
+
+              <SelectValidator
+                variant="outlined"
+                className="selectproveedor"
+                label="Proveedor"
+                fullWidth
+                onChange={handleChange}
+                name="otroProveedor"
+                required
+                value={formData.otroProveedor}
+                validators={["required"]}
+                errorMessages={["*Este campo es obligatorio"]}
+              >
+                {valorProveedor.map((option) => (
+                  <MenuItem key={option.nombre} value={option.nombre}>
+                    {option.nombre}
+                  </MenuItem>
+                ))}
+              </SelectValidator>
+            </div>
+          ) : null}
+
+          {formData.tipoProveedor !== "Tarjetas de débito" &&
+          formData.tipoProveedor !== "Tarjetas de crédito" &&
+          formData.tipoProveedor ? (
             <SelectValidator
               variant="outlined"
               className="selectproveedor"
@@ -350,27 +438,13 @@ function ModalPromociones(props) {
               validators={["required"]}
               errorMessages={["*Este campo es obligatorio"]}
             >
-              {console.log(formData.tipoProveedor)}
               {valorProveedor.map((option) => (
                 <MenuItem key={option.nombre} value={option.nombre}>
                   {option.nombre}
                 </MenuItem>
               ))}
             </SelectValidator>
-          ) : (
-            <SelectValidator
-              className="selectproveedor"
-              fullWidth
-              label="Proveedor"
-              onChange={handleChange}
-              name="valueProveedor"
-              value={formData.valueProveedor}
-              variant="outlined"
-              disabled
-              validators={["required"]}
-              errorMessages={["*Este campo es obligatorio"]}
-            ></SelectValidator>
-          )}
+          ) : null}
           {formData.valueProveedor === "Otro" ? (
             <TextField
               id="outlineddisabled"
@@ -380,15 +454,7 @@ function ModalPromociones(props) {
               onChange={handleChange}
               variant="outlined"
             />
-          ) : (
-            <TextField
-              disabled
-              id="outlineddisabled"
-              label="Otros"
-              defaultValue="Otros"
-              variant="outlined"
-            />
-          )}
+          ) : null}
         </div>
         <Divider className="dividerH" />
         <p className="subtit">Periodo de vigencia de la promoción</p>
