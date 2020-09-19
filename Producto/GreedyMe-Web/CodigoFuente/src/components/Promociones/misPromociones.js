@@ -54,6 +54,9 @@ const useStyles = makeStyles((theme) => ({
   inline: {
     display: "block",
   },
+  proveedor: {
+    height: "0%",
+  },
 }));
 
 let promociones = [];
@@ -162,6 +165,7 @@ function MisPromociones(props) {
         valueProveedor: modificado.valueProveedor,
         otroProveedor: modificado.otroProveedor,
         descripcion: modificado.descripcion,
+        photoURL: modificado.photoURL,
         desdeVigencia: modificado.desdeVigencia,
         hastaVigencia: modificado.hastaVigencia,
         visible: modificado.visible,
@@ -194,6 +198,7 @@ function MisPromociones(props) {
         valueProveedor: objCambiar.valueProveedor,
         otroProveedor: objCambiar.otroProveedor,
         descripcion: objCambiar.descripcion,
+        photoURL: objCambiar.photoURL,
         desdeVigencia: objCambiar.desdeVigencia,
         hastaVigencia: objCambiar.hastaVigencia,
         visible: values,
@@ -260,6 +265,7 @@ function MisPromociones(props) {
       valueProveedor: formData.valueProveedor,
       otroProveedor: formData.otroProveedor,
       descripcion: formData.descripcion,
+      photoURL: formData.photoURL,
       desdeVigencia: firebase.firestore.Timestamp.fromDate(desdeVigencia),
       hastaVigencia: firebase.firestore.Timestamp.fromDate(hastaVigencia),
       visible: false,
@@ -285,6 +291,7 @@ function MisPromociones(props) {
       valueProveedor: formData.valueProveedor,
       otroProveedor: formData.otroProveedor,
       descripcion: formData.descripcion,
+      photoURL: formData.photoURL,
       desdeVigencia: firebase.firestore.Timestamp.fromDate(desdeVigencia),
       hastaVigencia: firebase.firestore.Timestamp.fromDate(hastaVigencia),
       visible: false,
@@ -344,7 +351,8 @@ function MisPromociones(props) {
                           <ListItemAvatar>
                             <Avatar
                               variant="square"
-                              src={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
+                              className={classes.proveedor}
+                              src={promo.photoURL}
                               /* src1={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
                               src2={require("../../../Multimedia/Sistema-svg/store.svg")}
                               src3={require("../../../Multimedia/Sistema-svg/percentage (1).svg")}
@@ -445,6 +453,7 @@ function MisPromociones(props) {
                                     diaAplicacion: promo.diaAplicacion,
                                     desdeVigencia: promo.desdeVigencia,
                                     hastaVigencia: promo.hastaVigencia,
+                                    photoURL: promo.photoURL,
                                     visible: promo.visible,
                                     medioPago: promo.medioPago,
                                   });
