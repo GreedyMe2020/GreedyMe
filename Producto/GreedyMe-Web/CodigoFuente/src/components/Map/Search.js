@@ -10,8 +10,17 @@ import {
 } from "@reach/combobox";
 
 import "@reach/combobox/styles.css";
+import { makeStyles } from "@material-ui/core/styles";
 
 const libraries = ["places"];
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: "25ch",
+    },
+  },
+}));
 
 export default function Search({ obtenerDireccion, actual }) {
   const {
@@ -26,7 +35,7 @@ export default function Search({ obtenerDireccion, actual }) {
       radius: 100 * 1000,
     },
   });
-
+  const classes = useStyles();
   // https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service#AutocompletionRequest
 
   const handleInput = (e) => {
