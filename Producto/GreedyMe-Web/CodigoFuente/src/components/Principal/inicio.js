@@ -9,6 +9,7 @@ import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { Redirect, Link } from "@reach/router";
 import Statistics from "../../../Multimedia/Sistema-svg/statistics-inicio.svg";
+import Notificaciones from "../../../Multimedia/Sistema-svg/notificaciones-inicio.svg";
 import HacermePremium from "../Notificaciones/haztePremium";
 
 const useStyles = makeStyles((theme) => ({
@@ -121,11 +122,7 @@ export default function Inicio(props) {
 
         <Card className="inicio-cont-cupones inicio-4 inicio-cards">
           <CardContent className="inicio-cont-estadisticas">
-            <img
-              src={require("../../../Multimedia/Sistema/notificaciones-inicio.jpg")}
-              alt="Notificaciones"
-              className="img-fluid"
-            />
+            <img src={Notificaciones} alt="Notificaciones" />
             <h1 className="inicio-titulo">Notificaciones</h1>
             <p>Gestioná las notificaciones que envias a los usuarios.</p>
           </CardContent>
