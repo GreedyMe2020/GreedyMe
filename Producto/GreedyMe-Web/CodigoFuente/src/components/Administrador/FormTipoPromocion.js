@@ -36,26 +36,14 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function FormProveedores(props) {
+function FormTipoPromocion(props) {
   const classes = useStyles();
   const [formData, setFormData] = React.useState({
-    tipoProveedor: "",
-    valueProveedor: "",
+    tipoPromocion: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.tipoProveedor === "Club") {
-      console.log("club");
-    } else if (formData.tipoProveedor === "Tarjetas de débito") {
-      console.log("Tarjetas de debito");
-    } else if (formData.tipoProveedor === "Tarjetas de crédito") {
-      console.log("tarjetas de credito");
-    } else if (formData.tipoProveedor === "Cartera Digital") {
-      console.log("cartera digital");
-    } else if (formData.tipoProveedor === "Bancos") {
-      console.log("Bancoss");
-    }
   };
 
   const handleChange = (event) => {
@@ -74,37 +62,15 @@ function FormProveedores(props) {
             onSubmit={handleSubmit}
           >
             <div className="col-subgrid">
-              <SelectValidator
-                className="select-tipopromo"
-                fullWidth
-                label="Tipo de proveedor"
-                onChange={handleChange}
-                name="tipoProveedor"
-                required
-                value={formData.tipoProveedor}
-                variant="outlined"
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
-              >
-                {props.proveedores &&
-                  props.proveedores.map((option) => (
-                    <MenuItem
-                      key={option.tipo}
-                      value={option.tipo ? option.tipo : "Bancos"}
-                    >
-                      {option.tipo ? option.tipo : "Bancos"}
-                    </MenuItem>
-                  ))}
-              </SelectValidator>
               <TextValidator
                 variant="outlined"
                 id="outlined-basic"
-                label="Ingresa aqui el nuevo proveedor"
+                label="tipo promocion"
                 fullWidth
                 required
                 onChange={handleChange}
-                name="valueProveedor"
-                value={formData.valueProveedor}
+                name="tipoPromocion"
+                value={formData.tipoPromocion}
               />
               <Button
                 variant="contained"
@@ -141,4 +107,4 @@ export default compose(
     { collection: "proveedorServicio" },
     { collection: "tipoPromocion" },
   ])
-)(FormProveedores);
+)(FormTipoPromocion);

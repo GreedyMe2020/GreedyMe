@@ -151,11 +151,15 @@ function ListaProveedores(props) {
                             primary={
                               <React.Fragment>
                                 <Typography className={classes.inline}>
-                                  {item.tipo}
+                                  {item.tipo ? item.tipo : "Bancos"}
                                 </Typography>
-                                {/*item.lista.map((ite) => {
-                                  return ite.nombre;
-                                })*/}
+                                {item.lista
+                                  ? item.lista.map((ite) => {
+                                      return ite.nombre;
+                                    })
+                                  : item.bancos.map((ite) => {
+                                      return ite.nombre;
+                                    })}
                               </React.Fragment>
                             }
                           />
