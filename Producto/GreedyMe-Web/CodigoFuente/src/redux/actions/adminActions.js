@@ -33,3 +33,41 @@ export const signUp = (nuevoUsuario) => {
       });
   };
 };
+
+export const cargarDescuento = (descuento) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const firestore = getFirestore();
+    firestore
+      .collection("tipoPromocion")
+      .doc("NjuUuaTR5sP6En3G5hSG")
+      .set({
+        lista: {},
+      })
+      .then(() => {
+        dispatch({ type: "CARGAR_DESCUENTO" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_DESCUENTO", error });
+      });
+  };
+};
+
+export const cargarPromocion = (promocion) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const firestore = getFirestore();
+    firestore
+      .collection("tipoPromocion")
+      .doc("NjuUuaTR5sP6En3G5hSG")
+      .set({
+        lista: {},
+      })
+      .then(() => {
+        dispatch({ type: "CARGAR_DESCUENTO" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_DESCUENTO", error });
+      });
+  };
+};
