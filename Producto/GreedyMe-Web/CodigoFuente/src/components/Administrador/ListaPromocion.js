@@ -49,7 +49,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function ListaProveedores(props) {
+function ListaPromocion(props) {
   const classes = useStyles();
 
   //const { tipoPromo } = props;
@@ -124,8 +124,8 @@ function ListaProveedores(props) {
           <Grid item xs={12} md={12}>
             <div className={classes.demo}>
               <List>
-                {props.proveedores &&
-                  props.proveedores.map((item) => {
+                {props.tipoPromo &&
+                  props.tipoPromo.map((item) => {
                     return (
                       <ListItem key={item.id}>
                         <ListItemAvatar>
@@ -153,9 +153,9 @@ function ListaProveedores(props) {
                                 <Typography className={classes.inline}>
                                   {item.tipo}
                                 </Typography>
-                                {/*item.lista.map((ite) => {
-                                  return ite.nombre;
-                                })*/}
+                                {item.lista.map((ite) => {
+                                  return ite.valor;
+                                })}
                               </React.Fragment>
                             }
                           />
@@ -190,4 +190,4 @@ export default compose(
     { collection: "proveedorServicio" },
     { collection: "tipoPromocion" },
   ])
-)(ListaProveedores);
+)(ListaPromocion);
