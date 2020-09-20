@@ -53,9 +53,9 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      width: "13.5ch",
+      width: "16ch",
       "&:focus": {
-        width: "20ch",
+        width: "30ch",
       },
     },
   },
@@ -80,17 +80,8 @@ export default function ModalPromos(props) {
     <div>
       <div className="prom-title-container">
         <h1>Mis promociones</h1>
-        <div className="icoNuevaProm">
-          <Button
-            variant="contained"
-            onClick={handleClickOpen}
-            id="cargar-promosubmit"
-          >
-            Nueva promoción
-          </Button>
-        </div>
       </div>
-      <div id="buscador-container">
+      <div id="subtitulo-container">
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
@@ -105,6 +96,15 @@ export default function ModalPromos(props) {
             defaultValue={props.text}
             onChange={props.onChange}
           />
+        </div>
+        <div className="icoNuevaProm">
+          <Button
+            variant="contained"
+            onClick={handleClickOpen}
+            id="cargar-promosubmit"
+          >
+            Nueva promoción
+          </Button>
         </div>
       </div>
       <Dialog

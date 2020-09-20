@@ -11,7 +11,9 @@ import Perfil from "../Perfil/Perfil";
 import NavBarSup from "../../components/Principal/navBarSuperior";
 import NavBarIzq from "../../components/Principal/navBarIzquierda";
 import Suscripciones from "../Perfil/suscripciones";
+import Inicio from "../Principal/inicio";
 import Notificaciones from "../Notificaciones/principalNotif";
+import Estadisticas from "../Estadisticas/estadisticas.js";
 
 //pagina vacia
 
@@ -40,11 +42,17 @@ const useStyles = makeStyles((theme) => ({
 function MainPage() {
   const classes = useStyles();
   const [seleccionado, setSeleccionado] = React.useState(0);
-  const [opcion, setOpcion] = React.useState(0);
+  const [cantPromos, setCantPromos] = React.useState(0);
 
   const getOpcionSeleccionada = (seleccionado) => {
     if (seleccionado === 0) {
-      return <h3></h3>;
+      return (
+        <Inicio
+          seleccionado={seleccionado}
+          setSeleccionado={setSeleccionado}
+          cantPromos={cantPromos}
+        />
+      );
     }
     if (seleccionado === 1) {
       return <h3></h3>;
@@ -53,10 +61,10 @@ function MainPage() {
       return <CargaPromociones />;
     }
     if (seleccionado === 3) {
-      return <MisPromociones />;
+      return <MisPromociones setCantPromos={setCantPromos} />;
     }
     if (seleccionado === 4) {
-      return <h3>Estadísticas</h3>;
+      return <Estadisticas cantPromos={cantPromos} />;
     }
     if (seleccionado === 5) {
       return <Notificaciones />;

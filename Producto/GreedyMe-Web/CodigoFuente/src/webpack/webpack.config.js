@@ -8,8 +8,15 @@ module.exports = {
   },
   rules: [
     {
-      test: /\.(png|jpg|gif)$/,
-      loader: "url-loader",
+      test: /\.(png|jp(e*)g|svg|gif)$/,
+      use: [
+        {
+          loader: "file-loader",
+          options: {
+            name: "images/[hash]-[name].[ext]",
+          },
+        },
+      ],
     },
     {
       test: /\.scss$/,
