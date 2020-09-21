@@ -125,7 +125,7 @@ export default function ModalComercios(props) {
         </DialogTitle>
         <DialogContent dividers>
           <DialogContentText>
-            <FormCrearUsuario />
+            <FormCrearUsuario crearComercio={props.crearComercio} />
           </DialogContentText>
         </DialogContent>
       </Dialog>

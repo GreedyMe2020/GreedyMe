@@ -22,6 +22,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import CreateIcon from "@material-ui/icons/Create";
 import ModalActualizarComercio from "./modal-actualizar-comercio";
+import { signUp } from "../../../redux/actions/adminActions";
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -130,9 +131,13 @@ function ListaUsuarios(props) {
     }
   }, [modificado]); */
 
+  const crearComercio = (formData) => {
+    props.signUp(formData);
+  };
+
   return (
     <div>
-      <ModalComercios />
+      <ModalComercios crearComercio={crearComercio} />
       <div className="contenedorTodo">
         <Card className="cardPromo">
           <CardContent className="cardContentePromo">
@@ -262,7 +267,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return { signUp: (nuevoUsuario) => dispatch(signUp(nuevoUsuario)) };
 };
 
 export default compose(
