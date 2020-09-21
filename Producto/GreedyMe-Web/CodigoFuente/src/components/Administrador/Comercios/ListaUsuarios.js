@@ -67,18 +67,18 @@ function ListaUsuarios(props) {
     setOpenAlert(false);
   };
 
-  /*   //Estados de las promociones
+  /*   //Estados de los comercios
   const [comercio, setComercio] = React.useState(comercio);
   const [comercio2, setComercio2] = React.useState(comercio);
 
-  //Estados para setear la promo a eliminar, y eliminar la promo
+  //Estados para setear comercio a eliminar, y eliminarlo
   const [eliminar, setEliminar] = React.useState(null);
   const [currentId, setCurrentId] = React.useState(null);
 
-  //Snackbar cuando se elimina una promo
+  //Snackbar cuando se elimina 
   const [eliminada, setEliminada] = React.useState(false);
 
-  //Eliminar una promo de la BD y renderizar la eliminacion de una promo
+  //Eliminar un comercio de la BD y renderizar la eliminacion 
   React.useEffect(() => {
     if (currentId) {
       props.eliminarComercio({
@@ -93,20 +93,20 @@ function ListaUsuarios(props) {
     }
   }, [currentId]);
 
-  //Renderizar nueva promo
+  //Renderizar nueva comercio
   React.useEffect(() => {
     if (nuevoComercio) {
       usuarios.push(nuevoComercio);
       setComercio([...usuarios]);
       setComercios2([...usuarios]);
     }
-  }, [nuevaComercio]);
+  }, [nuevoComercio]);
 
-  //Para modificar la promo
+  //Para modificar comercio
   const [modificar, setModificar] = React.useState(null);
   const [modificado, setModificado] = React.useState(null);
 
-  //Renderizar cambio de promo
+  //Renderizar cambio de comercio
   React.useEffect(() => {
     if (modificado) {
       const indiceACambiar = _.findIndex(usuarios, function (o) {
