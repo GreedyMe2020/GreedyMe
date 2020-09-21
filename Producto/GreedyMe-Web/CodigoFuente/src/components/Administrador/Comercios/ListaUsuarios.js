@@ -16,12 +16,13 @@ import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { connect } from "react-redux";
 import Typography from "@material-ui/core/Typography";
-import ModalComercios from "./modal-comercio";
+import ModalAdministrador from "../modal-admin";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import CreateIcon from "@material-ui/icons/Create";
 import ModalActualizarComercio from "./modal-actualizar-comercio";
+import FormCrearUsuario from "./FormCrearUsuario";
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -132,7 +133,12 @@ function ListaUsuarios(props) {
 
   return (
     <div>
-      <ModalComercios />
+      <ModalAdministrador
+        title="Comercios"
+        titleModal="Cargar nuevo comercio"
+        button="Nuevo comercio"
+        openContent={<FormCrearUsuario />}
+      />
       <div className="contenedorTodo">
         <Card className="cardPromo">
           <CardContent className="cardContentePromo">
