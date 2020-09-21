@@ -52,7 +52,67 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
         <List>
           <ListItemCustom
             id="listItemCustom"
+            text="Lista Comercios"
+            src1=""
+            src2=""
+            className="inicio-img"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={0}
+          />
+        </List>
+        <List>
+          <ListItemCustom
+            id="listItemCustom"
+            text="Promocion"
+            src1=""
+            src2=""
+            className="cargar-cupon"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={1}
+          />
+        </List>
+        <List>
+          <ListItemCustom
+            id="listItemCustom"
+            text="Lista Promocion"
+            src1=""
+            src2=""
+            className="cargar-cupon"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={1}
+          />
+        </List>
+        <List>
+          <ListItemCustom
+            id="listItemCustom"
             text="Proveedores"
+            src1=""
+            src2=""
+            className="cargar-cupon"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={1}
+          />
+        </List>
+        <List>
+          <ListItemCustom
+            id="listItemCustom"
+            text="Prov"
+            src1=""
+            src2=""
+            className="cargar-cupon"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={1}
+          />
+        </List>
+        <List>
+          <ListItemCustom
+            id="listItemCustom"
+            text="Lista Prov"
             src1=""
             src2=""
             className="cargar-cupon"
