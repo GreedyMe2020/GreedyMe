@@ -16,6 +16,7 @@ import {
   SelectValidator,
   TextValidator,
 } from "react-material-ui-form-validator";
+import { cargarTipoProveedor } from "../../redux/actions/adminActions";
 
 const useStyles = makeStyles((theme) => ({
   demo: {
@@ -43,7 +44,7 @@ function FormTipoProveedores(props) {
   });
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    props.cargarTipoProveedor(formData);
   };
 
   const handleChange = (event) => {
@@ -98,7 +99,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    cargarTipoProveedor: (formData) => dispatch(cargarTipoProveedor(formData)),
+  };
 };
 
 export default compose(

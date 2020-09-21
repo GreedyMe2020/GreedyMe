@@ -34,40 +34,42 @@ export const signUp = (nuevoUsuario) => {
   };
 };
 
-export const cargarDescuento = (descuento) => {
+export const cargarTipoPromocion = (formData) => {
   return (dispatch, getState, { getFirestore }) => {
     //codigo asincrono
     const firestore = getFirestore();
     firestore
       .collection("tipoPromocion")
-      .doc("NjuUuaTR5sP6En3G5hSG")
+      .doc()
       .set({
-        lista: {},
+        tipo: formData.tipoPromocion,
+        lista: [],
       })
       .then(() => {
-        dispatch({ type: "CARGAR_DESCUENTO" });
+        dispatch({ type: "CARGAR_TIPO_PROMOCION" });
       })
       .catch((error) => {
-        dispatch({ type: "ERROR_DESCUENTO", error });
+        dispatch({ type: "ERROR_TIPO_PROMOCION", error });
       });
   };
 };
 
-export const cargarPromocion = (promocion) => {
+export const cargarTipoProveedor = (formData) => {
   return (dispatch, getState, { getFirestore }) => {
     //codigo asincrono
     const firestore = getFirestore();
     firestore
-      .collection("tipoPromocion")
-      .doc("NjuUuaTR5sP6En3G5hSG")
+      .collection("proveedorServicio")
+      .doc()
       .set({
-        lista: {},
+        tipo: formData.tipoProveedor,
+        lista: [{ nombre: "", photoURL: "" }],
       })
       .then(() => {
-        dispatch({ type: "CARGAR_DESCUENTO" });
+        dispatch({ type: "CARGAR_TIPO_PROVEEDOR" });
       })
       .catch((error) => {
-        dispatch({ type: "ERROR_DESCUENTO", error });
+        dispatch({ type: "ERROR_TIPO_PROVEEDOR", error });
       });
   };
 };

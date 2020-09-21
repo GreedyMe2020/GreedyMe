@@ -16,6 +16,7 @@ import {
   SelectValidator,
   TextValidator,
 } from "react-material-ui-form-validator";
+import { cargarTipoPromocion } from "../../redux/actions/adminActions";
 
 const useStyles = makeStyles((theme) => ({
   demo: {
@@ -44,6 +45,7 @@ function FormTipoPromocion(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    props.cargarTipoPromocion(formData);
   };
 
   const handleChange = (event) => {
@@ -98,9 +100,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    cargarTipoPromocion: (formData) => dispatch(cargarTipoPromocion(formData)),
+  };
 };
-
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([

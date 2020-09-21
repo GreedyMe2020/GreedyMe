@@ -75,6 +75,7 @@ function ReestablecerContraseña(props) {
                   onChange={handleChange}
                   name="email"
                   value={formData.email}
+                  required
                   validators={["required", "isEmail"]}
                   errorMessages={[
                     "*Este campo es obligatorio",
@@ -88,7 +89,7 @@ function ReestablecerContraseña(props) {
                   className="mt-3 text-right"
                   color="secondary"
                   id="reestablecer-contraseña-submit"
-                  onClick={handleSubmit}
+                  type="submit"
                 >
                   Recuperar cuenta
                 </Button>
