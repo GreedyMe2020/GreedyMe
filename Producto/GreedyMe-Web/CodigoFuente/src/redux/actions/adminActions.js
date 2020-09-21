@@ -34,40 +34,83 @@ export const signUp = (nuevoUsuario) => {
   };
 };
 
-export const cargarDescuento = (descuento) => {
-  return (dispatch, getState, { getFirestore }) => {
-    //codigo asincrono
+export const modificarUsuarioComercio = (usuario) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     firestore
-      .collection("tipoPromocion")
-      .doc("NjuUuaTR5sP6En3G5hSG")
-      .set({
-        lista: {},
+      .collection("usuarioComercio")
+      .doc(usuario.id)
+      .update({
+        email: usuario.email,
+        CUIT: usuario.CUIT,
+        facebook: usuario.facebook,
+        instagram: usuario.instagram,
+        nombreComercio: usuario.nombreComercio,
+        rubro: usuario.rubro,
+        sucursal: usuario.sucursal,
+        telefono: usuario.telefono,
+        web: usuario.web,
       })
       .then(() => {
-        dispatch({ type: "CARGAR_DESCUENTO" });
+        dispatch({ type: "USUARIO_MODIFICADO" });
       })
       .catch((error) => {
-        dispatch({ type: "ERROR_DESCUENTO", error });
+        dispatch({ type: "FALLO_MODIFICACION", error });
       });
   };
 };
 
-export const cargarPromocion = (promocion) => {
+export const eliminarUsuarioComercio = (usuario) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("usuarioComercio")
+      .doc(usuario.id)
+      .delete()
+      .then(() => {
+        dispatch({ type: "USUARIO_ELIMINADO" });
+      })
+      .catch((error) => {
+        dispatch({ type: "FALLO_ELIMINACION", error });
+      });
+  };
+};
+export const cargarTipoPromocion = (formData) => {
   return (dispatch, getState, { getFirestore }) => {
     //codigo asincrono
     const firestore = getFirestore();
     firestore
       .collection("tipoPromocion")
-      .doc("NjuUuaTR5sP6En3G5hSG")
+      .doc()
       .set({
-        lista: {},
+        tipo: formData.tipoPromocion,
+        lista: [],
       })
       .then(() => {
-        dispatch({ type: "CARGAR_DESCUENTO" });
+        dispatch({ type: "CARGAR_TIPO_PROMOCION" });
       })
       .catch((error) => {
-        dispatch({ type: "ERROR_DESCUENTO", error });
+        dispatch({ type: "ERROR_TIPO_PROMOCION", error });
+      });
+  };
+};
+
+export const cargarTipoProveedor = (formData) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const firestore = getFirestore();
+    firestore
+      .collection("proveedorServicio")
+      .doc()
+      .set({
+        tipo: formData.tipoProveedor,
+        lista: [{ nombre: "", photoURL: "" }],
+      })
+      .then(() => {
+        dispatch({ type: "CARGAR_TIPO_PROVEEDOR" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_TIPO_PROVEEDOR", error });
       });
   };
 };

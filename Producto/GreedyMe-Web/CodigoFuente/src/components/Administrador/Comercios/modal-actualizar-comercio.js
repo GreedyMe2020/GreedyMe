@@ -22,10 +22,31 @@ import {
 import {
   ValidatorForm,
   SelectValidator,
+  TextValidator,
 } from "react-material-ui-form-validator";
 import firebase from "../../../firebase/config";
 import { SettingsCellOutlined } from "@material-ui/icons";
-const firestore = firebase.firestore();
+import SaveIcon from "@material-ui/icons/Save";
+
+//funcion para traer los rubros
+const rubros = [];
+const rubro = () => {
+  const firestore = firebase.firestore();
+  firestore
+    .collection("rubros")
+    .orderBy("nombre")
+    .get()
+    .then((snapShots) => {
+      snapShots.forEach((doc) => {
+        const data = doc.data();
+        rubros.push({
+          ...data,
+          id: doc.id,
+        });
+      });
+    });
+};
+rubro();
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,20 +62,20 @@ function Alert(props) {
 
 function ModalActualizarComercio(props) {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
 
   const [formData, setFormData] = React.useState({
-    email: props.user.email,
-    CUIT: props.user.CUIT,
-    nombreComercio: props.user.nombreComercio,
-    web: props.user.web,
-    contraseña: props.user.contraseña,
-    repetirContraseña: props.user.repetirContraseña,
-    sucursal: props.user.sucursal,
-    rubro: props.user.rubro,
-    telefono: props.user.telefono,
-    instagram: props.user.instagram,
-    facebook: props.user.facebook,
-    direccion: props.user.direccion,
+    id: props.comercio.id,
+    email: props.comercio.email,
+    CUIT: props.comercio.CUIT,
+    nombreComercio: props.comercio.nombreComercio,
+    web: props.comercio.web,
+    sucursal: props.comercio.sucursal,
+    rubro: props.comercio.rubro,
+    telefono: props.comercio.telefono,
+    instagram: props.comercio.instagram,
+    facebook: props.comercio.facebook,
+    direccion: props.comercio.direccion,
   });
 
   const handleSubmit = (e) => {
@@ -69,17 +90,10 @@ function ModalActualizarComercio(props) {
     setOpen(false);
   };
 
-  //Para los rubros.
-  const [valorRubro, setValorRubro] = React.useState([]);
-  useEffect(() => {
-    setValorRubro([]);
-    //CREO QUE ESTO SE HACE ASI CON TODOS LOS RUBROS PERO NOSE
-    if (formData.rubro === "Belleza") {
-      setValorRubro(rubro[0].lista);
-    } else if (formData.rubro === "Deporte") {
-      setValorRubro(rubro[1].lista);
-    }
-  }, [formData.tipoProveedor, setFormData]);
+  const handleChange = (event) => {
+    formData[event.target.name] = event.target.value;
+    setFormData({ ...formData });
+  };
 
   const form = React.createRef();
   return (
@@ -112,45 +126,7 @@ function ModalActualizarComercio(props) {
               errorMessages={["El email no es válido"]}
             />
           </Grid>
-          <Grid className="inputPerfil2" item xs={12} md={6}>
-            <TextValidator
-              id="outlined-password-input"
-              label="Contraseña"
-              type="password"
-              autoComplete="current-password"
-              variant="outlined"
-              value={formData.contraseña}
-              name="contraseña"
-              onChange={handleChange}
-              fullWidth
-              required
-              validators={[
-                "matchRegexp:^(?=.{8,16}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])",
-              ]}
-              errorMessages={[
-                "La contraseña debe entre 8 y 16 caracteres y, por lo menos una mayúscula, una minúscula y un número",
-              ]}
-            />
-          </Grid>
-          <Grid className="inputPerfil2" item xs={12} md={6}>
-            <TextValidator
-              id="outlined-password-input"
-              label="Repetir contraseña"
-              type="password"
-              autoComplete="current-password"
-              variant="outlined"
-              value={formData.repetirContraseña}
-              name="repetirContraseña"
-              onChange={handleChange}
-              fullWidth
-              required
-              validators={["isPasswordMatch", "required"]}
-              errorMessages={[
-                "Las contraseñas deben ser iguales",
-                "*Este campo es obligatorio",
-              ]}
-            />
-          </Grid>
+
           <Grid className="inputPerfil2" item xs={12} md={6}>
             <TextValidator
               variant="outlined"
@@ -262,7 +238,7 @@ function ModalActualizarComercio(props) {
             type="submit"
             startIcon={<SaveIcon />}
           >
-            Crear comercio
+            Guardar cambios
           </Button>
           <Snackbar
             anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
@@ -271,7 +247,7 @@ function ModalActualizarComercio(props) {
             onClose={handleClose}
           >
             <Alert onClose={handleClose} severity="success">
-              El comercio se ha creado correctamente!!
+              El comercio se ha actualizado correctamente!!
             </Alert>
           </Snackbar>
         </div>

@@ -14,9 +14,6 @@ import MuiAlert from "@material-ui/lab/Alert";
 import firebase from "../../../firebase/config";
 import { makeStyles } from "@material-ui/core/styles";
 import SaveIcon from "@material-ui/icons/Save";
-import { signUp } from "../../../redux/actions/adminActions";
-
-/* import { db } from "../firebase/config"; */
 
 //funcion para traer los rubros
 const rubros = [];
@@ -87,7 +84,7 @@ function FormCrearUsuario(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    props.signUp(formData);
+    props.crearComercio(formData);
 
     setOpen(true);
   };
@@ -305,9 +302,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    signUp: (nuevoUsuario) => dispatch(signUp(nuevoUsuario)),
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormCrearUsuario);
