@@ -13,6 +13,7 @@ import NavBarIzq from "../../components/Principal/navBarIzquierda";
 import Suscripciones from "../Perfil/suscripciones";
 import Inicio from "../Principal/inicio";
 import Notificaciones from "../Notificaciones/principalNotif";
+import Cupon from "../Cupon/cargarCupon";
 import Estadisticas from "../Estadisticas/estadisticas.js";
 
 //pagina vacia
@@ -55,7 +56,11 @@ function MainPage() {
       );
     }
     if (seleccionado === 1) {
-      return <h3></h3>;
+      return (
+        <h3>
+          <Cupon />
+        </h3>
+      );
     }
     if (seleccionado === 2) {
       return <CargaPromociones />;
