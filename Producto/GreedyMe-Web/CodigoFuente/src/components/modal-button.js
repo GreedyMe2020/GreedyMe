@@ -81,7 +81,7 @@ export default function ModalPromos(props) {
       <div className="prom-title-container">
         <h1>Mis promociones</h1>
       </div>
-      <div id="buscador-container">
+      <div id="subtitulo-container">
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
