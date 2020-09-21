@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { signOut } from "../../redux/actions/authActions";
-import FormCrearUsuario from "./FormCrearUsuario";
-import ListaUsuarios from "./ListaUsuarios";
+import FormCrearUsuario from "./Comercios/FormCrearUsuario";
+import ListaUsuarios from "./Comercios/ListaUsuarios";
 import NavSup from "./Navbars/NavSup";
 import NavIzq from "./Navbars/NavIzq";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -16,6 +16,9 @@ import FormTipoProveedores from "./FormTipoProveedores";
 import FormTipoPromocion from "./FormTipoPromocion";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+  },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
@@ -36,9 +39,6 @@ function Admin(props) {
 
   const getOpcionSeleccionada = (seleccionado) => {
     if (seleccionado === 0) {
-      return <FormCrearUsuario />;
-    }
-    if (seleccionado === 1) {
       return <ListaUsuarios />;
     }
     if (seleccionado === 2) {
@@ -56,19 +56,24 @@ function Admin(props) {
     if (seleccionado === 6) {
       return <ListaProveedores />;
     }
+    if (seleccionado === 7) {
+      return <ListaPromocion />;
+    }
   };
 
   return (
-    <>
-      <CssBaseline />
-      <NavSup appBar={classes.appBar} />
-      <NavIzq seleccionado={seleccionado} setSeleccionado={setSeleccionado} />
-      <main className={classes.content}>
-        <Toolbar />
-        <button onClick={handleCloseSesion}>Cerrar sesion</button>
-        {getOpcionSeleccionada(seleccionado)}
-      </main>
-    </>
+    <div className="main-container">
+      <div className={classes.root}>
+        <CssBaseline />
+        <NavSup appBar={classes.appBar} />
+        <NavIzq seleccionado={seleccionado} setSeleccionado={setSeleccionado} />
+        <main className={classes.content}>
+          <Toolbar />
+          <button onClick={handleCloseSesion}>Cerrar sesion</button>
+          {getOpcionSeleccionada(seleccionado)}
+        </main>
+      </div>
+    </div>
   );
 }
 
