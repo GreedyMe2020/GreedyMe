@@ -8,6 +8,12 @@ import NavIzq from "./Navbars/NavIzq";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
+import ListaPromocion from "./ListaPromocion";
+import FormPromocion from "./FormPromocion";
+import ListaProveedores from "./ListaProveedores";
+import FormProveedores from "./FormProveedores";
+import FormTipoProveedores from "./FormTipoProveedores";
+import FormTipoPromocion from "./FormTipoPromocion";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -34,6 +40,21 @@ function Admin(props) {
     }
     if (seleccionado === 1) {
       return <ListaUsuarios />;
+    }
+    if (seleccionado === 2) {
+      return <FormTipoPromocion />;
+    }
+    if (seleccionado === 3) {
+      return <FormPromocion />;
+    }
+    if (seleccionado === 4) {
+      return <FormTipoProveedores />;
+    }
+    if (seleccionado === 5) {
+      return <FormProveedores />;
+    }
+    if (seleccionado === 6) {
+      return <ListaProveedores />;
     }
   };
 
