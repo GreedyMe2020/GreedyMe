@@ -12,7 +12,7 @@ import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles, fade } from "@material-ui/core/styles";
-import FormCrearUsuario from "./FormCrearUsuario";
+import FormCrearUsuario from "./Comercios/FormCrearUsuario";
 
 const useStyles = makeStyles((theme) => ({
   cruz: {
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ModalComercios(props) {
+export default function ModalAdministrador(props) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const classes = useStyles();
@@ -78,7 +78,7 @@ export default function ModalComercios(props) {
   return (
     <div>
       <div className="prom-title-container">
-        <h1>Comercios</h1>
+        <h1>{props.title}</h1>
       </div>
       <div id="subtitulo-container">
         <div className={classes.search}>
@@ -102,7 +102,7 @@ export default function ModalComercios(props) {
             onClick={handleClickOpen}
             id="cargar-promosubmit"
           >
-            Nuevo comercio
+            {props.button}
           </Button>
         </div>
       </div>
@@ -113,7 +113,7 @@ export default function ModalComercios(props) {
         onClose={handleClose}
       >
         <DialogTitle id="dialog-title-prom">
-          <h5>Cargar un nuevo comercio</h5>
+          <h5>{props.titleModal}</h5>
           <IconButton
             aria-label="close"
             id="btn"
@@ -124,9 +124,7 @@ export default function ModalComercios(props) {
           </IconButton>
         </DialogTitle>
         <DialogContent dividers>
-          <DialogContentText>
-            <FormCrearUsuario />
-          </DialogContentText>
+          <DialogContentText>{props.openContent}</DialogContentText>
         </DialogContent>
       </Dialog>
     </div>
