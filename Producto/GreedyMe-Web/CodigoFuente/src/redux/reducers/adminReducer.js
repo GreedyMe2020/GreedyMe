@@ -1,6 +1,10 @@
 const initState = {
   usuarioCreado: null,
   usuarioFalla: null,
+  usuarioModificado: null,
+  errorModificacion: null,
+  usuarioEliminado: null,
+  errorEliminacion: null,
   tipoPromo: null,
   tipoPromoFalla: null,
   tipoProveedor: null,
@@ -20,6 +24,30 @@ const adminReducer = (state = initState, action) => {
       return {
         ...state,
         usuarioFalla: action.error.message,
+      };
+    case "USUARIO_MODIFICADO":
+      console.log("se modifico");
+      return {
+        ...state,
+        usuarioModificado: "Se modifico el usuario usuario",
+      };
+    case "FALLO_MODIFICACION":
+      console.log("fallo la modificacion");
+      return {
+        ...state,
+        errorModificacion: "fallo la modificacion de usuario",
+      };
+    case "USUARIO_ELIMINADO":
+      console.log("se elimino el usuario");
+      return {
+        ...state,
+        usuarioEliminado: "se elimino el usuario",
+      };
+    case "FALLO_ELIMINACION":
+      console.log("fallo la eliminacion");
+      return {
+        ...state,
+        errorEliminacion: "La eliminacion del usuario ha fallado",
       };
     case "CARGAR_TIPO_PROMOCION":
       console.log("se creo el nuevo tipo");

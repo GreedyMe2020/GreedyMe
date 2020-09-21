@@ -10,6 +10,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Tooltip from "@material-ui/core/Tooltip";
 import DialogComponent from "../../Dialog";
+import Dialog from "@material-ui/core/Dialog";
 import { Grid, Avatar, IconButton } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import { compose } from "redux";
@@ -19,11 +20,16 @@ import Typography from "@material-ui/core/Typography";
 import ModalAdministrador from "../modal-admin";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import CreateIcon from "@material-ui/icons/Create";
+import CloseIcon from "@material-ui/icons/Close";
 import ModalActualizarComercio from "./modal-actualizar-comercio";
-import { signUp } from "../../../redux/actions/adminActions";
-
+import {
+  signUp,
+  eliminarUsuarioComercio,
+  modificarUsuarioComercio,
+} from "../../../redux/actions/adminActions";
 import FormCrearUsuario from "./FormCrearUsuario";
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
@@ -51,17 +57,21 @@ function Alert(props) {
 function ListaUsuarios(props) {
   const classes = useStyles();
 
-  //Estado del dialog (abierto/cerrado)
+  //Estado del dialog (abierto/cerrado) y propiedades del dialog
   const [open, setOpen] = React.useState(false);
-
+  const [fullWidth, setFullWidth] = React.useState(true);
+  const [maxWidth, setMaxWidth] = React.useState("md");
+  const [openModificar, setOpenModificar] = React.useState(false);
+  //estado de alerta
+  const [openAlert, setOpenAlert] = React.useState(false);
+  //estado para Modificar
+  const [modificar, setModificar] = React.useState(null);
   const handleClose = () => {
     setOpen(false);
   };
   const handleMouseDownPromo = (event) => {
     event.preventDefault();
   };
-
-  const [openAlert, setOpenAlert] = React.useState(false);
 
   const handleCloseAlert = (event, reason) => {
     if (reason === "clickaway") {
@@ -70,80 +80,49 @@ function ListaUsuarios(props) {
     setOpenAlert(false);
   };
 
-  /*   //Estados de los comercios
-  const [comercio, setComercio] = React.useState(comercio);
-  const [comercio2, setComercio2] = React.useState(comercio);
+  //Estados de los comercios
+  //const [comercio, setComercio] = React.useState(comercio);
+  //const [comercio2, setComercio2] = React.useState(comercio);
 
   //Estados para setear comercio a eliminar, y eliminarlo
   const [eliminar, setEliminar] = React.useState(null);
   const [currentId, setCurrentId] = React.useState(null);
 
-  //Snackbar cuando se elimina 
+  //Snackbar cuando se elimina
   const [eliminada, setEliminada] = React.useState(false);
 
-  //Eliminar un comercio de la BD y renderizar la eliminacion 
+  //Eliminar un comercio de la BD y renderizar la eliminacion
   React.useEffect(() => {
     if (currentId) {
-      props.eliminarComercio({
-        id: props.auth.uid,
-        idComercio: currentId,
+      props.eliminarUsuarioComercio({
+        id: currentId,
       });
-      const comercio = _.remove(user, function (n) {
-        return n.id === currentId;
-      });
-      setComercio([...usuarios]);
-      setComercio2([...usuarios]);
     }
   }, [currentId]);
 
-  //Renderizar nueva comercio
-  React.useEffect(() => {
-    if (nuevoComercio) {
-      usuarios.push(nuevoComercio);
-      setComercio([...usuarios]);
-      setComercios2([...usuarios]);
-    }
-  }, [nuevoComercio]);
+  //abre y cierra el modal de modificar (el lapiz)
+  const handleClickOpenModificar = () => {
+    setOpenModificar(true);
+  };
 
-  //Para modificar comercio
-  const [modificar, setModificar] = React.useState(null);
-  const [modificado, setModificado] = React.useState(null);
-
-  //Renderizar cambio de comercio
-  React.useEffect(() => {
-    if (modificado) {
-      const indiceACambiar = _.findIndex(usuarios, function (o) {
-        return o.id === modificado.id;
-      });
-      const objCambiar = _.nth(usuarios, indiceACambiar);
-      usuarios.splice(indiceACambiar, 1, {
-        email: modificado.email,
-        CUIT: modificado.CUIT,
-        nombreComercio: modificado.nombreComercio,
-        web: modificado.web,
-        contraseña: modificado.contraseña,
-        repetirContraseña: modificado.repetirContraseña,
-        sucursal: modificado.sucursal,
-        rubro: modificado.rubro,
-        telefono: modificado.telefono,
-        instagram: modificado.instagram,
-        facebook: modificado.facebook,
-        direccion: modificado.direccion,
-      });
-    }
-  }, [modificado]); */
+  const handleCloseModificar = () => {
+    setOpenModificar(false);
+  };
 
   const crearComercio = (formData) => {
     props.signUp(formData);
   };
 
+  const actualizarComercio = (formData) => {
+    props.modificarUsuarioComercio(formData);
+  };
   return (
     <div>
       <ModalAdministrador
         title="Comercios"
         titleModal="Cargar nuevo comercio"
         button="Nuevo comercio"
-        openContent={<FormCrearUsuario />}
+        openContent={<FormCrearUsuario crearComercio={crearComercio} />}
       />
 
       <div className="contenedorTodo">
@@ -181,8 +160,9 @@ function ListaUsuarios(props) {
                             <Tooltip title="Editar" arrow>
                               <IconButton
                                 aria-label="Editar"
-                                /*  onClick={() => {
+                                onClick={() => {
                                   setModificar({
+                                    id: user.id,
                                     email: user.email,
                                     CUIT: user.CUIT,
                                     nombreComercio: user.nombreComercio,
@@ -197,12 +177,13 @@ function ListaUsuarios(props) {
                                     direccion: user.direccion,
                                   });
                                   handleClickOpenModificar();
-                                }} */
+                                }}
                               >
                                 <CreateIcon />
                               </IconButton>
                             </Tooltip>
-                            {/* <Dialog
+
+                            <Dialog
                               fullWidth={fullWidth}
                               maxWidth={maxWidth}
                               open={openModificar}
@@ -222,25 +203,26 @@ function ListaUsuarios(props) {
                                 <DialogContentText>
                                   <ModalActualizarComercio
                                     comercio={modificar}
-                                    actualizar={actualizar}
+                                    actualizar={actualizarComercio}
                                   />
                                 </DialogContentText>
                               </DialogContent>
-                            </Dialog> */}
+                            </Dialog>
+
                             <Tooltip title="Eliminar" arrow>
                               <IconButton
-                                /*  onClick={() => {
+                                onClick={() => {
                                   setEliminar(user.id);
                                   setOpen(true);
                                   console.log(user.id);
-                                }} */
+                                }}
                                 edge="end"
                                 aria-label="Eliminar"
                               >
                                 <DeleteIcon />
                               </IconButton>
                             </Tooltip>
-                            {/* <DialogComponent
+                            <DialogComponent
                               open={open}
                               setOpen={setOpen}
                               handleClose={handleClose}
@@ -253,7 +235,7 @@ function ListaUsuarios(props) {
                                 "Una vez que aceptes eliminar el comercio, el mismo no podrá ser recuperado."
                               }
                               btnText={"Eliminar"}
-                            /> */}
+                            />
                           </ListItemSecondaryAction>
                         </ListItem>
                       );
@@ -275,7 +257,13 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return { signUp: (nuevoUsuario) => dispatch(signUp(nuevoUsuario)) };
+  return {
+    signUp: (nuevoUsuario) => dispatch(signUp(nuevoUsuario)),
+    eliminarUsuarioComercio: (usuario) =>
+      dispatch(eliminarUsuarioComercio(usuario)),
+    modificarUsuarioComercio: (usuario) =>
+      dispatch(modificarUsuarioComercio(usuario)),
+  };
 };
 
 export default compose(

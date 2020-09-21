@@ -34,6 +34,47 @@ export const signUp = (nuevoUsuario) => {
   };
 };
 
+export const modificarUsuarioComercio = (usuario) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("usuarioComercio")
+      .doc(usuario.id)
+      .update({
+        email: usuario.email,
+        CUIT: usuario.CUIT,
+        facebook: usuario.facebook,
+        instagram: usuario.instagram,
+        nombreComercio: usuario.nombreComercio,
+        rubro: usuario.rubro,
+        sucursal: usuario.sucursal,
+        telefono: usuario.telefono,
+        web: usuario.web,
+      })
+      .then(() => {
+        dispatch({ type: "USUARIO_MODIFICADO" });
+      })
+      .catch((error) => {
+        dispatch({ type: "FALLO_MODIFICACION", error });
+      });
+  };
+};
+
+export const eliminarUsuarioComercio = (usuario) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("usuarioComercio")
+      .doc(usuario.id)
+      .delete()
+      .then(() => {
+        dispatch({ type: "USUARIO_ELIMINADO" });
+      })
+      .catch((error) => {
+        dispatch({ type: "FALLO_ELIMINACION", error });
+      });
+  };
+};
 export const cargarTipoPromocion = (formData) => {
   return (dispatch, getState, { getFirestore }) => {
     //codigo asincrono
