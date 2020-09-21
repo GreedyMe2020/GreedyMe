@@ -1,0 +1,58 @@
+//Google fonts
+@import url(http://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Raleway:wght@500;600&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Roboto&display=swap);
+
+//Inter (thin, medium & bold 700)
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap);
+
+//Variables
+$logo-font: "Raleway", sans-serif;
+$text-font: "Inter", sans-serif;
+
+$white-color: #ffffff;
+$grey-color: #e1e1e1;
+$green-color: #76b39d;
+$logo-green-color: #78e3bc;
+$logo-blue-color: #262262;
+$dark-blue-color: #1e1b4d;
+$logo-orange-color: #f7941e;
+$dark-orange-color: #fd5f00;
+$background-color: #ececec;
+
+.card-cupon {
+  margin-left: 5%;
+  margin-right: 30%;
+  border-radius: 5px !important;
+  margin-top: 1rem;
+  box-shadow: 0px 10px 10px 0px #e1e1e1 !important;
+  .card-content-cupon {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 1.2rem;
+  }
+  .generar-cupon {
+    margin-top: 1.2rem;
+    margin-bottom: 1rem;
+    .texto-cupon {
+      margin-bottom: 10px;
+    }
+    .generador-cupon {
+      display: grid;
+      grid-template-columns: 1fr 0.8fr 0.6fr;
+      grid-template-rows: 1fr;
+      justify-items: flex;
+      align-items: center;
+      .input-cupon {
+        grid-column: 1/2;
+        padding-right: 15px;
+      }
+      .btn-generar-cup {
+        background-color: #76b39d;
+        color: white;
+        grid-column: 2/3;
+      }
+    }
+  }
+}
