@@ -62,9 +62,6 @@ function MainPage() {
         </h3>
       );
     }
-    if (seleccionado === 2) {
-      return <CargaPromociones />;
-    }
     if (seleccionado === 3) {
       return <MisPromociones setCantPromos={setCantPromos} />;
     }
