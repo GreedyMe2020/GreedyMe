@@ -26,6 +26,9 @@ import {
   ValidatorForm,
   SelectValidator,
 } from "react-material-ui-form-validator";
+import FormTipoPromocion from "./FormTipoPromocion";
+import FormPromocion from "./FormPromocion";
+import ModalAdministradorPr from "./modal-admin-pr";
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -118,21 +121,32 @@ function ListaPromocion(props) {
   };
   const form = React.createRef();
   return (
-    <div className="contenedorTodo">
-      <Card className="cardPromo">
-        <CardContent className="cardContentePromo">
-          <Grid item xs={12} md={12}>
-            <div className={classes.demo}>
-              <List>
-                {props.tipoPromo &&
-                  props.tipoPromo.map((item) => {
-                    return (
-                      <ListItem key={item.id}>
-                        <ListItemAvatar>
-                          <Avatar
-                            variant="square"
-                            src={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
-                            /* src1={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
+    <div>
+      <ModalAdministradorPr
+        title="Promociones"
+        button="Cargar promoción"
+        button2="Cargar tipo promoción"
+        titleModal="Cargar nueva promoción"
+        titleModal2="Cargar nuevo tipo de promoción"
+        openContent={<FormPromocion />}
+        openContent2={<FormTipoPromocion />}
+        placeholder="Buscar promoción…"
+      />
+      <div className="contenedorTodo">
+        <Card className="cardPromo">
+          <CardContent className="cardContentePromo">
+            <Grid item xs={12} md={12}>
+              <div className={classes.demo}>
+                <List>
+                  {props.tipoPromo &&
+                    props.tipoPromo.map((item) => {
+                      return (
+                        <ListItem key={item.id}>
+                          <ListItemAvatar>
+                            <Avatar
+                              variant="square"
+                              src={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
+                              /* src1={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
                               src2={require("../../../Multimedia/Sistema-svg/store.svg")}
                               src3={require("../../../Multimedia/Sistema-svg/percentage (1).svg")}
                               proveedor={
@@ -142,32 +156,33 @@ function ListaPromocion(props) {
                                   ? src2
                                   : src3
                               } */
-                          ></Avatar>
-                        </ListItemAvatar>
+                            ></Avatar>
+                          </ListItemAvatar>
 
-                        <div className="elementoListaProm">
-                          <ListItemText
-                            //asi podes ir accediendo a todos los datos asi los acomodas como quieras
-                            primary={
-                              <React.Fragment>
-                                <Typography className={classes.inline}>
-                                  {item.tipo}
-                                </Typography>
-                                {item.lista.map((ite) => {
-                                  return ite.valor;
-                                })}
-                              </React.Fragment>
-                            }
-                          />
-                        </div>
-                      </ListItem>
-                    );
-                  })}
-              </List>
-            </div>
-          </Grid>
-        </CardContent>
-      </Card>
+                          <div className="elementoListaProm">
+                            <ListItemText
+                              //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                              primary={
+                                <React.Fragment>
+                                  <Typography className={classes.inline}>
+                                    {item.tipo}
+                                  </Typography>
+                                  {item.lista.map((ite) => {
+                                    return ite.valor;
+                                  })}
+                                </React.Fragment>
+                              }
+                            />
+                          </div>
+                        </ListItem>
+                      );
+                    })}
+                </List>
+              </div>
+            </Grid>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

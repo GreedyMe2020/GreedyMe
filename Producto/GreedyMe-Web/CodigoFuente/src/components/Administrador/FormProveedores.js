@@ -16,8 +16,12 @@ import {
   SelectValidator,
   TextValidator,
 } from "react-material-ui-form-validator";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    gridColumn: "2/4",
+  },
   demo: {
     backgroundColor: theme.palette.background.paper,
   },
@@ -29,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   },
   inline: {
     display: "block",
+  },
+  cont: {
+    flexGrow: 1,
   },
 }));
 
@@ -66,59 +73,61 @@ function FormProveedores(props) {
   const form = React.createRef();
   return (
     <div className="contenedorTodo">
-      <Card className="cardPromo">
-        <CardContent className="cardContentePromo">
-          <ValidatorForm
-            className={classes.root}
-            ref={form}
-            onSubmit={handleSubmit}
-          >
-            <div className="col-subgrid">
-              <SelectValidator
-                className="select-tipopromo"
-                fullWidth
-                label="Tipo de proveedor"
-                onChange={handleChange}
-                name="tipoProveedor"
-                required
-                value={formData.tipoProveedor}
-                variant="outlined"
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
-              >
-                {props.proveedores &&
-                  props.proveedores.map((option) => (
-                    <MenuItem
-                      key={option.tipo}
-                      value={option.tipo ? option.tipo : "Bancos"}
-                    >
-                      {option.tipo ? option.tipo : "Bancos"}
-                    </MenuItem>
-                  ))}
-              </SelectValidator>
-              <TextValidator
-                variant="outlined"
-                id="outlined-basic"
-                label="Ingresa aqui el nuevo proveedor"
-                fullWidth
-                required
-                onChange={handleChange}
-                name="valueProveedor"
-                value={formData.valueProveedor}
-              />
-              <Button
-                variant="contained"
-                id="btnAdminPerfil"
-                className="btnAdminPerfil"
-                type="submit"
-                startIcon={<SaveIcon />}
-              >
-                Guardar
-              </Button>
-            </div>
-          </ValidatorForm>
-        </CardContent>
-      </Card>
+      <ValidatorForm
+        className={classes.root}
+        ref={form}
+        onSubmit={handleSubmit}
+      >
+        <Grid container className={classes.cont} spacing={1}>
+          <Grid item xs={12} md={12}>
+            <SelectValidator
+              className="select-tipopromo"
+              fullWidth
+              label="Tipo de proveedor"
+              onChange={handleChange}
+              name="tipoProveedor"
+              required
+              value={formData.tipoProveedor}
+              variant="outlined"
+              validators={["required"]}
+              errorMessages={["*Este campo es obligatorio"]}
+            >
+              {props.proveedores &&
+                props.proveedores.map((option) => (
+                  <MenuItem
+                    key={option.tipo}
+                    value={option.tipo ? option.tipo : "Bancos"}
+                  >
+                    {option.tipo ? option.tipo : "Bancos"}
+                  </MenuItem>
+                ))}
+            </SelectValidator>
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <TextValidator
+              variant="outlined"
+              id="outlined-basic"
+              label="Ingresa aqui el nuevo proveedor"
+              fullWidth
+              required
+              onChange={handleChange}
+              name="valueProveedor"
+              value={formData.valueProveedor}
+            />
+          </Grid>
+          <Grid item xs={12} md={12} className="admin-btn-cont">
+            <Button
+              variant="contained"
+              id="btn-azul"
+              className="btn-azul"
+              type="submit"
+              startIcon={<SaveIcon />}
+            >
+              Guardar proveedor
+            </Button>
+          </Grid>
+        </Grid>
+      </ValidatorForm>
     </div>
   );
 }

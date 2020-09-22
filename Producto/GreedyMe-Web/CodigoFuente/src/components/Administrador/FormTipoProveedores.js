@@ -17,8 +17,12 @@ import {
   TextValidator,
 } from "react-material-ui-form-validator";
 import { cargarTipoProveedor } from "../../redux/actions/adminActions";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    gridColumn: "2/4",
+  },
   demo: {
     backgroundColor: theme.palette.background.paper,
   },
@@ -30,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
   },
   inline: {
     display: "block",
+  },
+  cont: {
+    flexGrow: 1,
   },
 }));
 
@@ -55,37 +62,37 @@ function FormTipoProveedores(props) {
   const form = React.createRef();
   return (
     <div className="contenedorTodo">
-      <Card className="cardPromo">
-        <CardContent className="cardContentePromo">
-          <ValidatorForm
-            className={classes.root}
-            ref={form}
-            onSubmit={handleSubmit}
-          >
-            <div className="col-subgrid">
-              <TextValidator
-                variant="outlined"
-                id="outlined-basic"
-                label="tipo proveedor"
-                fullWidth
-                required
-                onChange={handleChange}
-                name="tipoProveedor"
-                value={formData.tipoProveedor}
-              />
-              <Button
-                variant="contained"
-                id="btnAdminPerfil"
-                className="btnAdminPerfil"
-                type="submit"
-                startIcon={<SaveIcon />}
-              >
-                Guardar
-              </Button>
-            </div>
-          </ValidatorForm>
-        </CardContent>
-      </Card>
+      <ValidatorForm
+        className={classes.root}
+        ref={form}
+        onSubmit={handleSubmit}
+      >
+        <Grid container className={classes.cont} spacing={1}>
+          <Grid item xs={12} md={12}>
+            <TextValidator
+              variant="outlined"
+              id="outlined-basic"
+              label="Tipo proveedor"
+              fullWidth
+              required
+              onChange={handleChange}
+              name="tipoProveedor"
+              value={formData.tipoProveedor}
+            />
+          </Grid>
+          <Grid item xs={12} md={12} className="admin-btn-cont">
+            <Button
+              variant="contained"
+              id="btn-azul"
+              className="btnAdminPerfil"
+              type="submit"
+              startIcon={<SaveIcon />}
+            >
+              Guardar tipo proveedor
+            </Button>
+          </Grid>
+        </Grid>
+      </ValidatorForm>
     </div>
   );
 }
