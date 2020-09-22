@@ -29,10 +29,6 @@ function Admin(props) {
   const classes = useStyles();
   const [seleccionado, setSeleccionado] = React.useState(0);
 
-  const handleCloseSesion = () => {
-    props.signOut();
-  };
-
   const getOpcionSeleccionada = (seleccionado) => {
     if (seleccionado === 0) {
       return <ListaUsuarios />;
@@ -53,7 +49,6 @@ function Admin(props) {
         <NavIzq seleccionado={seleccionado} setSeleccionado={setSeleccionado} />
         <main className={classes.content}>
           <Toolbar />
-          <button onClick={handleCloseSesion}>Cerrar sesion</button>
           {getOpcionSeleccionada(seleccionado)}
         </main>
       </div>
