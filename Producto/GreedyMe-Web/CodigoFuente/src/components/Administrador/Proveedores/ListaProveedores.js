@@ -20,6 +20,7 @@ import Typography from "@material-ui/core/Typography";
 import FormTipoProveedores from "./FormTipoProveedores";
 import FormProveedores from "./FormProveedores";
 import ModalAdministradorPr from "../modal-admin-pr";
+import { eliminarTipoProveedor } from "../../../redux/actions/adminActions";
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -46,35 +47,14 @@ function Alert(props) {
 function ListaProveedores(props) {
   const classes = useStyles();
 
-  //const { tipoPromo } = props;
   //Estado del dialog (abierto/cerrado)
   const [open, setOpen] = React.useState(false);
-  const [formData, setFormData] = React.useState({
-    tipoPromo: "",
-    valuePromo: "",
-    otraPromo: "",
-    tipoProveedor: "",
-    valueProveedor: "",
-    otroProveedor: "",
-    descripcion: "",
-    photoURL: "",
-  });
-  const [valorPromo, setValorPromo] = React.useState([]);
+  //para eliminar
+  const [eliminar, setEliminar] = React.useState(null);
+  const [currentId, setCurrentId] = React.useState(null);
 
-  useEffect(() => {
-    setValorPromo([]);
-    setFormData({
-      ...formData,
-      valuePromo: "",
-      otraPromo: "",
-    });
-    //esto no corre en el primer render, se ejecuta luego del return
-    if (formData.tipoPromo === "Descuento") {
-      setValorPromo(props.tipoPromo[0].lista);
-    } else if (formData.tipoPromo === "Promoción") {
-      setValorPromo(props.tipoPromo[1].lista);
-    }
-  }, [formData.tipoPromo, setFormData]);
+  //Snackbar cuando se elimina
+  const [eliminada, setEliminada] = React.useState(false);
 
   const handleClose = () => {
     setOpen(false);
@@ -83,27 +63,16 @@ function ListaProveedores(props) {
     event.preventDefault();
   };
 
+  React.useEffect(() => {
+    if (currentId) {
+      props.eliminarTipoProveedor({
+        id: currentId,
+      });
+    }
+  }, [currentId]);
+
   const [openAlert, setOpenAlert] = React.useState(false);
 
-  const handleSubmit = () => {
-    console.log("perrekeeeeeeeeee");
-  };
-  const handleChange = (event) => {
-    formData[event.target.name] = event.target.value;
-    if (event.target.name === "valueProveedor") {
-      valorProveedor.map((option) => {
-        if (option.nombre === event.target.value) {
-          formData.photoURL = option.photoURL;
-        }
-      });
-      /*valorBanco.map((option) => {
-        if (option.nombre === event.target.value) {
-          formData.photoURL = option.photoURL;
-        }
-      });*/
-    }
-    setFormData({ ...formData });
-  };
   const handleCloseAlert = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -162,18 +131,17 @@ function ListaProveedores(props) {
                           <ListItemSecondaryAction>
                             <Tooltip title="Eliminar" arrow>
                               <IconButton
-                                /* onClick={() => {
-                                  setEliminar(user.id);
+                                onClick={() => {
+                                  setEliminar(item.id);
                                   setOpen(true);
-                                  console.log(user.id);
-                                }} */
+                                }}
                                 edge="end"
                                 aria-label="Eliminar"
                               >
                                 <DeleteIcon />
                               </IconButton>
                             </Tooltip>
-                            {/* <DialogComponent
+                            <DialogComponent
                               open={open}
                               setOpen={setOpen}
                               handleClose={handleClose}
@@ -186,7 +154,7 @@ function ListaProveedores(props) {
                                 "Una vez que aceptes eliminar la promoción, la misma no podrá ser recuperada."
                               }
                               btnText={"Eliminar"}
-                            /> */}
+                            />
                           </ListItemSecondaryAction>
                         </ListItem>
                       );
@@ -227,7 +195,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    eliminarTipoProveedor: (formData) =>
+      dispatch(eliminarTipoProveedor(formData)),
+  };
 };
 
 export default compose(
