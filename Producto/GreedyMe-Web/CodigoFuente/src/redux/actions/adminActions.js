@@ -95,6 +95,22 @@ export const cargarTipoPromocion = (formData) => {
   };
 };
 
+export const eliminarTipoPromocion = (formData) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("tipoPromocion")
+      .doc(formData.id)
+      .delete()
+      .then(() => {
+        dispatch({ type: "TIPO_PROMOCION_ELIMINADO" });
+      })
+      .catch((error) => {
+        dispatch({ type: "FALLO_ELIMINACION_TIPO_PROMOCION", error });
+      });
+  };
+};
+
 export const cargarTipoProveedor = (formData) => {
   return (dispatch, getState, { getFirestore }) => {
     //codigo asincrono
@@ -111,6 +127,22 @@ export const cargarTipoProveedor = (formData) => {
       })
       .catch((error) => {
         dispatch({ type: "ERROR_TIPO_PROVEEDOR", error });
+      });
+  };
+};
+
+export const eliminarTipoProveedor = (formData) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection("proveedorServicio")
+      .doc(formData.id)
+      .delete()
+      .then(() => {
+        dispatch({ type: "TIPO_PROVEEDOR_ELIMINADO" });
+      })
+      .catch((error) => {
+        dispatch({ type: "FALLO_ELIMINACION_TIPO_PROVEEDOR", error });
       });
   };
 };
