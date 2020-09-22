@@ -40,8 +40,8 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
           <ListItemCustom
             id="listItemCustom"
             text="Comercios"
-            src1=""
-            src2=""
+            src1={require("../../../../Multimedia/Sistema-svg/comercio-gris.svg")}
+            src2={require("../../../../Multimedia/Sistema-svg/comercio.svg")}
             className="inicio-img"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
@@ -53,8 +53,8 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
           <ListItemCustom
             id="listItemCustom"
             text="Proveedores"
-            src1=""
-            src2=""
+            src1={require("../../../../Multimedia/Sistema-svg/proveedor.svg")}
+            src2={require("../../../../Multimedia/Sistema-svg/proveedor-naranja.svg")}
             className="cargar-cupon"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
@@ -66,8 +66,8 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
           <ListItemCustom
             id="listItemCustom"
             text="Promociones"
-            src1=""
-            src2=""
+            src1={require("../../../../Multimedia/Sistema-svg/promocion.svg")}
+            src2={require("../../../../Multimedia/Sistema-svg/promocion-naranja.svg")}
             className="cargar-cupon"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}

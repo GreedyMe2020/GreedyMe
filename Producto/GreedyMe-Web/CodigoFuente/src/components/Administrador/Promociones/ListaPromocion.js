@@ -3,9 +3,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import List from "@material-ui/core/List";
+import IconButton from "@material-ui/core/IconButton";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import DeleteIcon from "@material-ui/icons/Delete";
+import DialogComponent from "../../Dialog";
+import Tooltip from "@material-ui/core/Tooltip";
 import { Grid, Avatar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import { compose } from "redux";
@@ -131,17 +136,7 @@ function ListaPromocion(props) {
                           <ListItemAvatar>
                             <Avatar
                               variant="square"
-                              src={require("../../../../Multimedia/Sistema-svg/credit-card.svg")}
-                              /* src1={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
-                              src2={require("../../../Multimedia/Sistema-svg/store.svg")}
-                              src3={require("../../../Multimedia/Sistema-svg/percentage (1).svg")}
-                              proveedor={
-                                promos.proveedor === 1
-                                  ? src1
-                                  : promos.proveedor === 2
-                                  ? src2
-                                  : src3
-                              } */
+                              src={require("../../../../Multimedia/Sistema-svg/price-tag (5).svg")}
                             ></Avatar>
                           </ListItemAvatar>
 
@@ -160,10 +155,56 @@ function ListaPromocion(props) {
                               }
                             />
                           </div>
+                          <ListItemSecondaryAction>
+                            <Tooltip title="Eliminar" arrow>
+                              <IconButton
+                                /* onClick={() => {
+                                  setEliminar(user.id);
+                                  setOpen(true);
+                                  console.log(user.id);
+                                }} */
+                                edge="end"
+                                aria-label="Eliminar"
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </Tooltip>
+                            {/* <DialogComponent
+                              open={open}
+                              setOpen={setOpen}
+                              handleClose={handleClose}
+                              eliminar={eliminar}
+                              setEliminar={setEliminar}
+                              setEliminada={setEliminada}
+                              setCurrentId={setCurrentId}
+                              title={"¿Estás seguro de eliminar la promoción?"}
+                              text={
+                                "Una vez que aceptes eliminar la promoción, la misma no podrá ser recuperada."
+                              }
+                              btnText={"Eliminar"}
+                            /> */}
+                          </ListItemSecondaryAction>
                         </ListItem>
                       );
                     })}
                 </List>
+                {/* {eliminada ? (
+                  <Snackbar
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    open={eliminada}
+                    autoHideDuration={8000}
+                    onClose={handleCloseAlert}
+                  >
+                    <Alert onClose={handleCloseAlert} severity="error">
+                      La promoción se ha eliminado
+                    </Alert>
+                  </Snackbar>
+                ) : (
+                  ""
+                )} */}
               </div>
             </Grid>
           </CardContent>
