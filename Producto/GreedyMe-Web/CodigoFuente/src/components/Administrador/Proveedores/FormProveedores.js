@@ -1,25 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
-import DialogComponent from "../Dialog";
-import { TextField, MenuItem } from "@material-ui/core";
+import { MenuItem } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { connect } from "react-redux";
-import Typography from "@material-ui/core/Typography";
 import {
   ValidatorForm,
   SelectValidator,
   TextValidator,
 } from "react-material-ui-form-validator";
 import Grid from "@material-ui/core/Grid";
-
-//esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
-//y la va acumulando en el array
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,19 +39,25 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function FormPromocion(props) {
+function FormProveedores(props) {
   const classes = useStyles();
   const [formData, setFormData] = React.useState({
-    tipoPromo: "",
-    valuePromo: "",
+    tipoProveedor: "",
+    valueProveedor: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.tipoPromo === "Descuento") {
-      console.log("descuento");
-    } else if (formData.tipoPromo === "Promoción") {
-      console.log("promocion");
+    if (formData.tipoProveedor === "Club") {
+      console.log("club");
+    } else if (formData.tipoProveedor === "Tarjetas de débito") {
+      console.log("Tarjetas de debito");
+    } else if (formData.tipoProveedor === "Tarjetas de crédito") {
+      console.log("tarjetas de credito");
+    } else if (formData.tipoProveedor === "Cartera Digital") {
+      console.log("cartera digital");
+    } else if (formData.tipoProveedor === "Bancos") {
+      console.log("Bancoss");
     }
   };
 
@@ -80,19 +79,22 @@ function FormPromocion(props) {
             <SelectValidator
               className="select-tipopromo"
               fullWidth
-              label="Tipo de promoción"
+              label="Tipo de proveedor"
               onChange={handleChange}
-              name="tipoPromo"
+              name="tipoProveedor"
               required
-              value={formData.tipoPromo}
+              value={formData.tipoProveedor}
               variant="outlined"
               validators={["required"]}
               errorMessages={["*Este campo es obligatorio"]}
             >
-              {props.tipoPromo &&
-                props.tipoPromo.map((option) => (
-                  <MenuItem key={option.tipo} value={option.tipo}>
-                    {option.tipo}
+              {props.proveedores &&
+                props.proveedores.map((option) => (
+                  <MenuItem
+                    key={option.tipo}
+                    value={option.tipo ? option.tipo : "Bancos"}
+                  >
+                    {option.tipo ? option.tipo : "Bancos"}
                   </MenuItem>
                 ))}
             </SelectValidator>
@@ -101,23 +103,23 @@ function FormPromocion(props) {
             <TextValidator
               variant="outlined"
               id="outlined-basic"
-              label="Ingresa aqui"
+              label="Ingresa aqui el nuevo proveedor"
               fullWidth
               required
               onChange={handleChange}
-              name="valuePromo"
-              value={formData.valuePromo}
+              name="valueProveedor"
+              value={formData.valueProveedor}
             />
           </Grid>
           <Grid item xs={12} md={12} className="admin-btn-cont">
             <Button
               variant="contained"
               id="btn-azul"
-              className="btnAdminPerfil"
+              className="btn-azul"
               type="submit"
               startIcon={<SaveIcon />}
             >
-              Guardar promoción
+              Guardar proveedor
             </Button>
           </Grid>
         </Grid>
@@ -144,4 +146,4 @@ export default compose(
     { collection: "proveedorServicio" },
     { collection: "tipoPromocion" },
   ])
-)(FormPromocion);
+)(FormProveedores);

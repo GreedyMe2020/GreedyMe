@@ -1,34 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
-import DeleteIcon from "@material-ui/icons/Delete";
-import Tooltip from "@material-ui/core/Tooltip";
-import DialogComponent from "../Dialog";
-import {
-  Grid,
-  Avatar,
-  IconButton,
-  TextField,
-  MenuItem,
-} from "@material-ui/core";
+import { Grid, Avatar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { connect } from "react-redux";
 import Typography from "@material-ui/core/Typography";
-import {
-  ValidatorForm,
-  SelectValidator,
-} from "react-material-ui-form-validator";
 import FormTipoProveedores from "./FormTipoProveedores";
 import FormProveedores from "./FormProveedores";
-import ModalAdministradorPr from "./modal-admin-pr";
+import ModalAdministradorPr from "../modal-admin-pr";
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -145,7 +131,7 @@ function ListaProveedores(props) {
                           <ListItemAvatar>
                             <Avatar
                               variant="square"
-                              src={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
+                              src={require("../../../../Multimedia/Sistema-svg/credit-card.svg")}
                               /* src1={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
                               src2={require("../../../Multimedia/Sistema-svg/store.svg")}
                               src3={require("../../../Multimedia/Sistema-svg/percentage (1).svg")}

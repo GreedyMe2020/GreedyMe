@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
-import DialogComponent from "../Dialog";
-import { TextField, MenuItem } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { connect } from "react-redux";
-import Typography from "@material-ui/core/Typography";
-import {
-  ValidatorForm,
-  SelectValidator,
-  TextValidator,
-} from "react-material-ui-form-validator";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { cargarTipoPromocion } from "../../../redux/actions/adminActions";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,26 +35,15 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function FormProveedores(props) {
+function FormTipoPromocion(props) {
   const classes = useStyles();
   const [formData, setFormData] = React.useState({
-    tipoProveedor: "",
-    valueProveedor: "",
+    tipoPromocion: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.tipoProveedor === "Club") {
-      console.log("club");
-    } else if (formData.tipoProveedor === "Tarjetas de débito") {
-      console.log("Tarjetas de debito");
-    } else if (formData.tipoProveedor === "Tarjetas de crédito") {
-      console.log("tarjetas de credito");
-    } else if (formData.tipoProveedor === "Cartera Digital") {
-      console.log("cartera digital");
-    } else if (formData.tipoProveedor === "Bancos") {
-      console.log("Bancoss");
-    }
+    props.cargarTipoPromocion(formData);
   };
 
   const handleChange = (event) => {
@@ -80,50 +61,26 @@ function FormProveedores(props) {
       >
         <Grid container className={classes.cont} spacing={1}>
           <Grid item xs={12} md={12}>
-            <SelectValidator
-              className="select-tipopromo"
-              fullWidth
-              label="Tipo de proveedor"
-              onChange={handleChange}
-              name="tipoProveedor"
-              required
-              value={formData.tipoProveedor}
-              variant="outlined"
-              validators={["required"]}
-              errorMessages={["*Este campo es obligatorio"]}
-            >
-              {props.proveedores &&
-                props.proveedores.map((option) => (
-                  <MenuItem
-                    key={option.tipo}
-                    value={option.tipo ? option.tipo : "Bancos"}
-                  >
-                    {option.tipo ? option.tipo : "Bancos"}
-                  </MenuItem>
-                ))}
-            </SelectValidator>
-          </Grid>
-          <Grid item xs={12} md={12}>
             <TextValidator
               variant="outlined"
               id="outlined-basic"
-              label="Ingresa aqui el nuevo proveedor"
+              label="Tipo promoción"
               fullWidth
               required
               onChange={handleChange}
-              name="valueProveedor"
-              value={formData.valueProveedor}
+              name="tipoPromocion"
+              value={formData.tipoPromocion}
             />
           </Grid>
           <Grid item xs={12} md={12} className="admin-btn-cont">
             <Button
               variant="contained"
               id="btn-azul"
-              className="btn-azul"
+              className="btnAdminPerfil"
               type="submit"
               startIcon={<SaveIcon />}
             >
-              Guardar proveedor
+              Guardar tipo promoción
             </Button>
           </Grid>
         </Grid>
@@ -141,13 +98,14 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    cargarTipoPromocion: (formData) => dispatch(cargarTipoPromocion(formData)),
+  };
 };
-
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([
     { collection: "proveedorServicio" },
     { collection: "tipoPromocion" },
   ])
-)(FormProveedores);
+)(FormTipoPromocion);
