@@ -52,77 +52,26 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
         <List>
           <ListItemCustom
             id="listItemCustom"
-            text="Promocion"
-            src1=""
-            src2=""
-            className="cargar-cupon"
-            seleccionado={seleccionado}
-            setSeleccionado={setSeleccionado}
-            elementIndex={2}
-          />
-        </List>
-        <Divider variant="middle" />
-        <List>
-          <ListItemCustom
-            id="listItemCustom"
-            text="Lista Promocion"
-            src1=""
-            src2=""
-            className="cargar-cupon"
-            seleccionado={seleccionado}
-            setSeleccionado={setSeleccionado}
-            elementIndex={3}
-          />
-        </List>
-        <Divider variant="middle" />
-        <List>
-          <ListItemCustom
-            id="listItemCustom"
             text="Proveedores"
             src1=""
             src2=""
             className="cargar-cupon"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
-            elementIndex={4}
+            elementIndex={1}
           />
         </List>
         <Divider variant="middle" />
         <List>
           <ListItemCustom
             id="listItemCustom"
-            text="Prov"
+            text="Promociones"
             src1=""
             src2=""
             className="cargar-cupon"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
-            elementIndex={5}
-          />
-        </List>
-        <Divider variant="middle" />
-        <List>
-          <ListItemCustom
-            id="listItemCustom"
-            text="Lista Prov"
-            src1=""
-            src2=""
-            className="cargar-cupon"
-            seleccionado={seleccionado}
-            setSeleccionado={setSeleccionado}
-            elementIndex={6}
-          />
-        </List>
-        <List>
-          <ListItemCustom
-            id="listItemCustom"
-            text="Lista Prom"
-            src1=""
-            src2=""
-            className="cargar-cupon"
-            seleccionado={seleccionado}
-            setSeleccionado={setSeleccionado}
-            elementIndex={7}
+            elementIndex={2}
           />
         </List>
       </div>

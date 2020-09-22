@@ -41,6 +41,10 @@ span {
   font-family: $text-font;
   font-weight: "Semi-bold 600";
 }
+#btn-azul {
+  background-color: #262262;
+  color: white;
+}
 
 @import "modal/modal";
 @import "landing/landing";

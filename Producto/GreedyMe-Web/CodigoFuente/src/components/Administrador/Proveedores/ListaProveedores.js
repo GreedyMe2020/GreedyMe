@@ -1,31 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
-import DeleteIcon from "@material-ui/icons/Delete";
-import Tooltip from "@material-ui/core/Tooltip";
-import DialogComponent from "../Dialog";
-import {
-  Grid,
-  Avatar,
-  IconButton,
-  TextField,
-  MenuItem,
-} from "@material-ui/core";
+import { Grid, Avatar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { connect } from "react-redux";
 import Typography from "@material-ui/core/Typography";
-import {
-  ValidatorForm,
-  SelectValidator,
-} from "react-material-ui-form-validator";
+import FormTipoProveedores from "./FormTipoProveedores";
+import FormProveedores from "./FormProveedores";
+import ModalAdministradorPr from "../modal-admin-pr";
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -49,7 +38,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function ListaPromocion(props) {
+function ListaProveedores(props) {
   const classes = useStyles();
 
   //const { tipoPromo } = props;
@@ -118,21 +107,32 @@ function ListaPromocion(props) {
   };
   const form = React.createRef();
   return (
-    <div className="contenedorTodo">
-      <Card className="cardPromo">
-        <CardContent className="cardContentePromo">
-          <Grid item xs={12} md={12}>
-            <div className={classes.demo}>
-              <List>
-                {props.tipoPromo &&
-                  props.tipoPromo.map((item) => {
-                    return (
-                      <ListItem key={item.id}>
-                        <ListItemAvatar>
-                          <Avatar
-                            variant="square"
-                            src={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
-                            /* src1={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
+    <div>
+      <ModalAdministradorPr
+        title="Proveedores"
+        button="Cargar proveedor"
+        button2="Cargar tipo proveedor"
+        titleModal="Cargar nuevo proveedor"
+        titleModal2="Cargar nuevo tipo de proveedor"
+        openContent={<FormProveedores />}
+        openContent2={<FormTipoProveedores />}
+        placeholder="Buscar proveedor…"
+      />
+      <div className="contenedorTodo">
+        <Card className="cardPromo">
+          <CardContent className="cardContentePromo">
+            <Grid item xs={12} md={12}>
+              <div className={classes.demo}>
+                <List>
+                  {props.proveedores &&
+                    props.proveedores.map((item) => {
+                      return (
+                        <ListItem key={item.id}>
+                          <ListItemAvatar>
+                            <Avatar
+                              variant="square"
+                              src={require("../../../../Multimedia/Sistema-svg/credit-card.svg")}
+                              /* src1={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
                               src2={require("../../../Multimedia/Sistema-svg/store.svg")}
                               src3={require("../../../Multimedia/Sistema-svg/percentage (1).svg")}
                               proveedor={
@@ -142,32 +142,37 @@ function ListaPromocion(props) {
                                   ? src2
                                   : src3
                               } */
-                          ></Avatar>
-                        </ListItemAvatar>
+                            ></Avatar>
+                          </ListItemAvatar>
 
-                        <div className="elementoListaProm">
-                          <ListItemText
-                            //asi podes ir accediendo a todos los datos asi los acomodas como quieras
-                            primary={
-                              <React.Fragment>
-                                <Typography className={classes.inline}>
-                                  {item.tipo}
-                                </Typography>
-                                {item.lista.map((ite) => {
-                                  return ite.valor;
-                                })}
-                              </React.Fragment>
-                            }
-                          />
-                        </div>
-                      </ListItem>
-                    );
-                  })}
-              </List>
-            </div>
-          </Grid>
-        </CardContent>
-      </Card>
+                          <div className="elementoListaProm">
+                            <ListItemText
+                              //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                              primary={
+                                <React.Fragment>
+                                  <Typography className={classes.inline}>
+                                    {item.tipo ? item.tipo : "Bancos"}
+                                  </Typography>
+                                  {item.lista
+                                    ? item.lista.map((ite) => {
+                                        return ite.nombre;
+                                      })
+                                    : item.bancos.map((ite) => {
+                                        return ite.nombre;
+                                      })}
+                                </React.Fragment>
+                              }
+                            />
+                          </div>
+                        </ListItem>
+                      );
+                    })}
+                </List>
+              </div>
+            </Grid>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
@@ -190,4 +195,4 @@ export default compose(
     { collection: "proveedorServicio" },
     { collection: "tipoPromocion" },
   ])
-)(ListaPromocion);
+)(ListaProveedores);

@@ -60,19 +60,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ModalAdministrador(props) {
+export default function ModalAdministradorPr(props) {
+  //Estados para ver si esta abierto o cerrado el dialogo del primero y segundo componente
   const [open, setOpen] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
+
   const theme = useTheme();
   const classes = useStyles();
   const [fullWidth, setFullWidth] = React.useState(true);
-  const [maxWidth, setMaxWidth] = React.useState("md");
+  const [maxWidth, setMaxWidth] = React.useState("xs");
 
+  //Funciones para abrir o cerrar el primer dialogo
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  //Funciones para abrir o cerrar el segundo dialogo
+  const handleClickOpen2 = () => {
+    setOpen2(true);
+  };
+
+  const handleClose2 = () => {
+    setOpen2(false);
   };
 
   return (
@@ -86,7 +99,7 @@ export default function ModalAdministrador(props) {
             <SearchIcon />
           </div>
           <InputBase
-            placeholder="Buscar comercio…"
+            placeholder={props.placeholder}
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput,
@@ -97,11 +110,21 @@ export default function ModalAdministrador(props) {
           />
         </div>
         <div className="icoNuevaProm">
-          <Button variant="contained" onClick={handleClickOpen} id="btn-azul">
+          <Button
+            variant="contained"
+            onClick={handleClickOpen}
+            id="btn-azul"
+            className="modal-admin-btn"
+          >
             {props.button}
+          </Button>
+          <Button variant="contained" onClick={handleClickOpen2} id="btn-azul">
+            {props.button2}
           </Button>
         </div>
       </div>
+      {/* Dialogo del primer componente a abrir */}
+
       <Dialog
         fullWidth={fullWidth}
         maxWidth={maxWidth}
@@ -121,6 +144,29 @@ export default function ModalAdministrador(props) {
         </DialogTitle>
         <DialogContent dividers>
           <DialogContentText>{props.openContent}</DialogContentText>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialogo del segundo componente a abrir */}
+      <Dialog
+        fullWidth={fullWidth}
+        maxWidth={maxWidth}
+        open={open2}
+        onClose={handleClose2}
+      >
+        <DialogTitle id="dialog-title-prom">
+          <h5>{props.titleModal2}</h5>
+          <IconButton
+            aria-label="close"
+            id="btn"
+            className={classes.cruz}
+            onClick={handleClose2}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent dividers>
+          <DialogContentText>{props.openContent2}</DialogContentText>
         </DialogContent>
       </Dialog>
     </div>
