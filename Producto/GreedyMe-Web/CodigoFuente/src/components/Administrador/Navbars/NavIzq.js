@@ -4,7 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import Drawer from "@material-ui/core/Drawer";
-import ListItemCustom from "../../ListItemCustom";
+import ListItemCustomAdmin from "../../ListItemCustomAdmin";
 
 const drawerWidth = 240;
 
@@ -37,8 +37,8 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
       <Toolbar />
       <div className={classes.drawerContainer}>
         <List>
-          <ListItemCustom
-            id="listItemCustom"
+          <ListItemCustomAdmin
+            id="comercios"
             text="Comercios"
             src1={require("../../../../Multimedia/Sistema-svg/comercio-gris.svg")}
             src2={require("../../../../Multimedia/Sistema-svg/comercio.svg")}
@@ -50,8 +50,8 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
         </List>
         <Divider variant="middle" />
         <List>
-          <ListItemCustom
-            id="listItemCustom"
+          <ListItemCustomAdmin
+            id="proveedores"
             text="Proveedores"
             src1={require("../../../../Multimedia/Sistema-svg/proveedor.svg")}
             src2={require("../../../../Multimedia/Sistema-svg/proveedor-naranja.svg")}
@@ -63,9 +63,9 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
         </List>
         <Divider variant="middle" />
         <List>
-          <ListItemCustom
-            id="listItemCustom"
-            text="Promociones"
+          <ListItemCustomAdmin
+            id="beneficios"
+            text="Beneficios"
             src1={require("../../../../Multimedia/Sistema-svg/promocion.svg")}
             src2={require("../../../../Multimedia/Sistema-svg/promocion-naranja.svg")}
             className="cargar-cupon"

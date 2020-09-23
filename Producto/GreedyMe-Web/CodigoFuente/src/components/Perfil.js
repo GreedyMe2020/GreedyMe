@@ -119,21 +119,21 @@ function Perfil(props) {
               </div>
               <Divider variant="middle" />
               <div className="divider">
-                {/* <Link to="./profile" className="link"> */}
-                <MenuItem className="link" onClick={handleClose(6)}>
-                  Mi perfil
-                </MenuItem>
-                {/*  </Link> */}
-                {/* <Link to="" className="link"> */}
-                <MenuItem className="link" onClick={handleClose(7)}>
-                  Suscripciones
-                </MenuItem>
-                {/*  </Link>
-                <Link to="" className="link"> */}
-                <MenuItem className="link" onClick={handleClose(8)}>
-                  Ayuda y soporte técnico
-                </MenuItem>
-                {/* </Link> */}
+                <Link to="/main/:id/perfil" className="link">
+                  <MenuItem className="link" onClick={handleClose(6)}>
+                    Mi perfil
+                  </MenuItem>
+                </Link>
+                <Link to="/main/:id/suscripciones" className="link">
+                  <MenuItem className="link" onClick={handleClose(7)}>
+                    Suscripciones
+                  </MenuItem>
+                </Link>
+                <Link to="/main/:id/ayuda-y-soporte" className="link">
+                  <MenuItem className="link" onClick={handleClose(8)}>
+                    Ayuda y soporte técnico
+                  </MenuItem>
+                </Link>
               </div>
               <Divider variant="middle" />
               <div className="divider">

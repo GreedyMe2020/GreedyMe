@@ -65,35 +65,39 @@ export default function Inicio(props) {
             <p>Gestioná los descuentos que utilizan los clientes en tu local</p>
           </CardContent>
           <CardActions className="inicio-cont-boton">
-            <Button
-              variant="contained"
-              id="inicio-button"
-              type="submit"
-              onClick={() => {
-                props.setSeleccionado(1);
-              }}
-            >
-              Cargar cupón
-            </Button>
+            <Link to="/main/:id/cargar-cupon" className="link">
+              <Button
+                variant="contained"
+                id="inicio-button"
+                type="submit"
+                onClick={() => {
+                  props.setSeleccionado(1);
+                }}
+              >
+                Cargar cupón
+              </Button>
+            </Link>
           </CardActions>
         </Card>
 
         <Card className="inicio-cont-cupones inicio-2 inicio-cards">
           <CardContent>
-            <h1 className="inicio-titulo">Promociones activas</h1>
+            <h1 className="inicio-titulo">Beneficios activos</h1>
             <p>{props.cantPromos}</p>
           </CardContent>
           <CardActions className="inicio-cont-boton">
-            <Button
-              variant="contained"
-              id="inicio-button"
-              type="submit"
-              onClick={() => {
-                props.setSeleccionado(3);
-              }}
-            >
-              Ir a mis promociones
-            </Button>
+            <Link to="/main/:id/mis-beneficios" className="link">
+              <Button
+                variant="contained"
+                id="inicio-button"
+                type="submit"
+                onClick={() => {
+                  props.setSeleccionado(3);
+                }}
+              >
+                Ir a mis beneficios
+              </Button>
+            </Link>
           </CardActions>
         </Card>
 
@@ -107,16 +111,18 @@ export default function Inicio(props) {
             </p>
           </CardContent>
           <CardActions className="inicio-cont-boton">
-            <Button
-              variant="contained"
-              id="inicio-button"
-              type="submit"
-              onClick={() => {
-                props.setSeleccionado(4);
-              }}
-            >
-              Ver estadísticas
-            </Button>
+            <Link to="/main/:id/estadisticas" className="link">
+              <Button
+                variant="contained"
+                id="inicio-button"
+                type="submit"
+                onClick={() => {
+                  props.setSeleccionado(4);
+                }}
+              >
+                Ver estadísticas
+              </Button>
+            </Link>
           </CardActions>
         </Card>
 
@@ -127,16 +133,18 @@ export default function Inicio(props) {
             <p>Gestioná las notificaciones que envias a los usuarios.</p>
           </CardContent>
           <CardActions className="inicio-cont-boton">
-            <Button
-              variant="contained"
-              id="inicio-button"
-              type="submit"
-              onClick={() => {
-                props.setSeleccionado(5);
-              }}
-            >
-              Ir a notificaciones
-            </Button>
+            <Link to="/main/:id/notificaciones" className="link">
+              <Button
+                variant="contained"
+                id="inicio-button"
+                type="submit"
+                onClick={() => {
+                  props.setSeleccionado(5);
+                }}
+              >
+                Ir a notificaciones
+              </Button>
+            </Link>
           </CardActions>
         </Card>
       </div>
@@ -163,7 +171,9 @@ export default function Inicio(props) {
             <p>Hacenos cualquier pregunta y conseguí la ayuda que necesitas.</p>
             <CardActions className="inicio-cont-boton">
               <Typography color="textSecondary" gutterBottom>
-                <Link to="">Visitá el Centro de Ayuda</Link>
+                <Link to="/main/:id/ayuda-y-soporte">
+                  Visitá el Centro de Ayuda
+                </Link>
               </Typography>
             </CardActions>
           </CardContent>

@@ -38,7 +38,7 @@ export default function NavBarIzq({ seleccionado, setSeleccionado }) {
       <div className={classes.drawerContainer}>
         <List>
           <ListItemCustom
-            id="listItemCustom"
+            id="inicio"
             text="Inicio"
             src1={require("../../../Multimedia/Sistema-svg/home-grey.svg")}
             src2={require("../../../Multimedia/Sistema-svg/home-run-orange.svg")}
@@ -51,7 +51,7 @@ export default function NavBarIzq({ seleccionado, setSeleccionado }) {
         <Divider variant="middle" />
         <List>
           <ListItemCustom
-            id="listItemCustom"
+            id="cargar-cupon"
             text="Cargar cupón"
             src1={require("../../../Multimedia/Sistema-svg/promo-grey.svg")}
             src2={require("../../../Multimedia/Sistema-svg/promo-naranja.svg")}
@@ -61,7 +61,7 @@ export default function NavBarIzq({ seleccionado, setSeleccionado }) {
             elementIndex={1}
           />
           <ListItemCustom
-            id="listItemCustom"
+            id="cargar-promocion"
             text="Cargar promoción"
             src1={require("../../../Multimedia/Sistema-svg/percentage-grey.svg")}
             src2={require("../../../Multimedia/Sistema-svg/percent-orange.svg")}
@@ -74,8 +74,8 @@ export default function NavBarIzq({ seleccionado, setSeleccionado }) {
         <Divider variant="middle" />
         <List>
           <ListItemCustom
-            id="listItemCustom"
-            text="Mis promociones"
+            id="mis-beneficios"
+            text="Mis beneficios"
             src1={require("../../../Multimedia/Sistema-svg/coupon-grey.svg")}
             src2={require("../../../Multimedia/Sistema-svg/coupon-orange.svg")}
             className="mis-promociones"
@@ -84,7 +84,7 @@ export default function NavBarIzq({ seleccionado, setSeleccionado }) {
             elementIndex={3}
           />
           <ListItemCustom
-            id="listItemCustom"
+            id="estadisticas"
             text="Estadísticas"
             src1={require("../../../Multimedia/Sistema-svg/statistics-grey.svg")}
             src2={require("../../../Multimedia/Sistema-svg/statistics-orange.svg")}
@@ -94,7 +94,7 @@ export default function NavBarIzq({ seleccionado, setSeleccionado }) {
             elementIndex={4}
           />
           <ListItemCustom
-            id="listItemCustom"
+            id="notificaciones"
             text="Notificaciones"
             src1={require("../../../Multimedia/Sistema-svg/bell-grey.svg")}
             src2={require("../../../Multimedia/Sistema-svg/notification-orange.svg")}

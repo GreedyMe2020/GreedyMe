@@ -40,12 +40,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MainPage() {
+/* const Main = (props) => {
+  return (
+    <main className={props.className}>
+      <Toolbar />
+      {getOpcionSeleccionada(seleccionado)}
+      { <Link to="./promociones">
+            <button>Cargar promoción</button>
+          </Link> }
+      {props.mainId == "inicio" ? (
+        <Inicio
+          seleccionado={seleccionado}
+          setSeleccionado={setSeleccionado}
+          cantPromos={cantPromos}
+        />
+      ) : props.mainId == "cargar-cupon" ? (
+        <Cupon />
+      ) : (
+        "No es ninguno de los dos"
+      )}
+    </main>
+  );
+}; */
+
+function MainPage(props) {
   const classes = useStyles();
   const [seleccionado, setSeleccionado] = React.useState(0);
   const [cantPromos, setCantPromos] = React.useState(0);
 
-  const getOpcionSeleccionada = (seleccionado) => {
+  /* const getOpcionSeleccionada = (seleccionado) => {
     if (seleccionado === 0) {
       return (
         <Inicio
@@ -83,7 +106,7 @@ function MainPage() {
     if (seleccionado === 8) {
       return <h3>Ayuda y soporte</h3>;
     }
-  };
+  }; */
 
   return (
     <div className="main-container">
@@ -98,13 +121,37 @@ function MainPage() {
           seleccionado={seleccionado}
           setSeleccionado={setSeleccionado}
         />
-
         <main className={classes.content}>
           <Toolbar />
-          {getOpcionSeleccionada(seleccionado)}
+          {/*getOpcionSeleccionada(seleccionado)*/}
           {/* <Link to="./promociones">
             <button>Cargar promoción</button>
           </Link> */}
+          {props.mainId == "inicio" ? (
+            <Inicio
+              seleccionado={seleccionado}
+              setSeleccionado={setSeleccionado}
+              cantPromos={cantPromos}
+            />
+          ) : props.mainId == "cargar-cupon" ? (
+            <Cupon />
+          ) : props.mainId == "cargar-promocion" ? (
+            <CargaPromociones />
+          ) : props.mainId == "mis-beneficios" ? (
+            <MisPromociones setCantPromos={setCantPromos} />
+          ) : props.mainId == "estadisticas" ? (
+            <Estadisticas cantPromos={cantPromos} />
+          ) : props.mainId == "notificaciones" ? (
+            <Notificaciones />
+          ) : props.mainId === "perfil" ? (
+            <Perfil />
+          ) : props.mainId === "suscripciones" ? (
+            <Suscripciones />
+          ) : props.mainId === "ayuda-y-soporte" ? (
+            "Ayuda y soporte wey"
+          ) : (
+            "Ninguno es eto"
+          )}
         </main>
       </div>
     </div>

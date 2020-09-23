@@ -4,7 +4,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Router, Link } from "@reach/router";
 
-export default function ListItemCustom({
+export default function ListItemCustomAdmin({
   text,
   src1,
   src2,
@@ -53,7 +53,7 @@ export default function ListItemCustom({
       onClick={handleClick}
       style={borderstyle}
     >
-      <Link to={"/main/:id/" + id} className="link" style={fontstyles}>
+      <Link to={"/admin/" + id} className="link" style={fontstyles}>
         <ListItem button>
           <ListItemIcon>
             <img

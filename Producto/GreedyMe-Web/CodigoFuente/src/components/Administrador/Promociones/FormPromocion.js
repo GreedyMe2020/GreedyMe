@@ -76,7 +76,7 @@ function FormPromocion(props) {
             <SelectValidator
               className="select-tipopromo"
               fullWidth
-              label="Tipo de promoción"
+              label="Tipo de beneficio"
               onChange={handleChange}
               name="tipoPromo"
               required
@@ -113,7 +113,7 @@ function FormPromocion(props) {
               type="submit"
               startIcon={<SaveIcon />}
             >
-              Guardar promoción
+              Guardar beneficio
             </Button>
           </Grid>
         </Grid>

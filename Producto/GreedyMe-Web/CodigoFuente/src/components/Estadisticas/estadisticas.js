@@ -111,7 +111,7 @@ export default function Estadisticas(props) {
         <Card id="est-card">
           <CardContent id="est-card-content">
             <h1>{props.cantPromos}</h1>
-            <p className="est-titulo">Promociones cargadas</p>
+            <p className="est-titulo">Beneficios cargados</p>
           </CardContent>
         </Card>
 
@@ -125,7 +125,7 @@ export default function Estadisticas(props) {
         <Card id="est-card">
           <CardContent id="est-card-content">
             <h2>Club Personal</h2>
-            <p className="est-titulo">Promoción más utilizada</p>
+            <p className="est-titulo">Beneficio más utilizado</p>
           </CardContent>
         </Card>
       </div>
