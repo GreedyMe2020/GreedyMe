@@ -60,16 +60,6 @@ export default function NavBarIzq({ seleccionado, setSeleccionado }) {
             setSeleccionado={setSeleccionado}
             elementIndex={1}
           />
-          <ListItemCustom
-            id="cargar-promocion"
-            text="Cargar promoción"
-            src1={require("../../../Multimedia/Sistema-svg/percentage-grey.svg")}
-            src2={require("../../../Multimedia/Sistema-svg/percent-orange.svg")}
-            className="cargar-promo"
-            seleccionado={seleccionado}
-            setSeleccionado={setSeleccionado}
-            elementIndex={2}
-          />
         </List>
         <Divider variant="middle" />
         <List>
