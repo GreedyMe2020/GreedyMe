@@ -138,10 +138,9 @@ function ListaUsuarios(props) {
                           <ListItemAvatar>
                             <Avatar
                               variant="square"
-                              src={require("../../../../Multimedia/Sistema-svg/user.svg")}
+                              src={require("../../../../Multimedia/Sistema-svg/store.svg")}
                             ></Avatar>
                           </ListItemAvatar>
-
                           <div className="elementoListaProm">
                             <ListItemText
                               //asi podes ir accediendo a todos los datos asi los acomodas como quieras
@@ -182,7 +181,6 @@ function ListaUsuarios(props) {
                                 <CreateIcon />
                               </IconButton>
                             </Tooltip>
-
                             <Dialog
                               fullWidth={fullWidth}
                               maxWidth={maxWidth}
@@ -241,6 +239,23 @@ function ListaUsuarios(props) {
                       );
                     })}
                 </List>
+                {eliminada ? (
+                  <Snackbar
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    open={eliminada}
+                    autoHideDuration={8000}
+                    onClose={handleCloseAlert}
+                  >
+                    <Alert onClose={handleCloseAlert} severity="error">
+                      La promoción se ha eliminado
+                    </Alert>
+                  </Snackbar>
+                ) : (
+                  ""
+                )}
               </div>
             </Grid>
           </CardContent>

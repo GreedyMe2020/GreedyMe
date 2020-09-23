@@ -40,8 +40,8 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
           <ListItemCustom
             id="listItemCustom"
             text="Comercios"
-            src1=""
-            src2=""
+            src1={require("../../../../Multimedia/Sistema-svg/comercio-gris.svg")}
+            src2={require("../../../../Multimedia/Sistema-svg/comercio.svg")}
             className="inicio-img"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
@@ -52,77 +52,26 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
         <List>
           <ListItemCustom
             id="listItemCustom"
-            text="Promocion"
-            src1=""
-            src2=""
+            text="Proveedores"
+            src1={require("../../../../Multimedia/Sistema-svg/proveedor.svg")}
+            src2={require("../../../../Multimedia/Sistema-svg/proveedor-naranja.svg")}
+            className="cargar-cupon"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={1}
+          />
+        </List>
+        <Divider variant="middle" />
+        <List>
+          <ListItemCustom
+            id="listItemCustom"
+            text="Promociones"
+            src1={require("../../../../Multimedia/Sistema-svg/promocion.svg")}
+            src2={require("../../../../Multimedia/Sistema-svg/promocion-naranja.svg")}
             className="cargar-cupon"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
             elementIndex={2}
-          />
-        </List>
-        <Divider variant="middle" />
-        <List>
-          <ListItemCustom
-            id="listItemCustom"
-            text="Lista Promocion"
-            src1=""
-            src2=""
-            className="cargar-cupon"
-            seleccionado={seleccionado}
-            setSeleccionado={setSeleccionado}
-            elementIndex={3}
-          />
-        </List>
-        <Divider variant="middle" />
-        <List>
-          <ListItemCustom
-            id="listItemCustom"
-            text="Proveedores"
-            src1=""
-            src2=""
-            className="cargar-cupon"
-            seleccionado={seleccionado}
-            setSeleccionado={setSeleccionado}
-            elementIndex={4}
-          />
-        </List>
-        <Divider variant="middle" />
-        <List>
-          <ListItemCustom
-            id="listItemCustom"
-            text="Prov"
-            src1=""
-            src2=""
-            className="cargar-cupon"
-            seleccionado={seleccionado}
-            setSeleccionado={setSeleccionado}
-            elementIndex={5}
-          />
-        </List>
-        <Divider variant="middle" />
-        <List>
-          <ListItemCustom
-            id="listItemCustom"
-            text="Lista Prov"
-            src1=""
-            src2=""
-            className="cargar-cupon"
-            seleccionado={seleccionado}
-            setSeleccionado={setSeleccionado}
-            elementIndex={6}
-          />
-        </List>
-        <List>
-          <ListItemCustom
-            id="listItemCustom"
-            text="Lista Prom"
-            src1=""
-            src2=""
-            className="cargar-cupon"
-            seleccionado={seleccionado}
-            setSeleccionado={setSeleccionado}
-            elementIndex={7}
           />
         </List>
       </div>

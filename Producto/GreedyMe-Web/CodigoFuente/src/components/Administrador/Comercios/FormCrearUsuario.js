@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Card } from "react-bootstrap";
 import {
   ValidatorForm,
   TextValidator,
@@ -12,7 +11,6 @@ import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import firebase from "../../../firebase/config";
-import { makeStyles } from "@material-ui/core/styles";
 import SaveIcon from "@material-ui/icons/Save";
 
 //funcion para traer los rubros
@@ -35,19 +33,11 @@ const rubro = () => {
 };
 rubro();
 
-//estilos
-const useStyles = makeStyles((theme) => ({
-  input: {
-    display: "none",
-  },
-}));
-//esto no se que es
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 function FormCrearUsuario(props) {
-  const classes = useStyles();
   //datos de creacion de usuarios
   const [formData, setFormData] = React.useState({
     email: "",
@@ -63,8 +53,6 @@ function FormCrearUsuario(props) {
     facebook: "",
     direccion: "",
   });
-
-  //estos no tengo idea
 
   const [showModal, setModal] = React.useState(false);
   const [open, setOpen] = React.useState(false);

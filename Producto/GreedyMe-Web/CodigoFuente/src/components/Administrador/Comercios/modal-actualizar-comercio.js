@@ -48,20 +48,11 @@ const rubro = () => {
 };
 rubro();
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-    },
-  },
-}));
-
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 function ModalActualizarComercio(props) {
-  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const [formData, setFormData] = React.useState({
@@ -126,7 +117,6 @@ function ModalActualizarComercio(props) {
               errorMessages={["El email no es válido"]}
             />
           </Grid>
-
           <Grid className="inputPerfil2" item xs={12} md={6}>
             <TextValidator
               variant="outlined"
@@ -230,27 +220,27 @@ function ModalActualizarComercio(props) {
             />
           </Grid>
         </Grid>
-        <div className="btnCont">
+        <Grid item xs={12} md={12} className="admin-btn-cont">
           <Button
             variant="contained"
-            id="btnAdminPerfil"
-            className="btnAdminPerfil"
+            id="btn-azul"
+            className="btn-azul"
             type="submit"
             startIcon={<SaveIcon />}
           >
             Guardar cambios
           </Button>
-          <Snackbar
-            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-            open={open}
-            autoHideDuration={8000}
-            onClose={handleClose}
-          >
-            <Alert onClose={handleClose} severity="success">
-              El comercio se ha actualizado correctamente!!
-            </Alert>
-          </Snackbar>
-        </div>
+        </Grid>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={open}
+          autoHideDuration={8000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="success">
+            El comercio se ha actualizado correctamente!!
+          </Alert>
+        </Snackbar>
       </ValidatorForm>
     </div>
   );
