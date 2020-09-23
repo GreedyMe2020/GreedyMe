@@ -15,16 +15,8 @@ import Inicio from "../Principal/inicio";
 import Notificaciones from "../Notificaciones/principalNotif";
 import Cupon from "../Cupon/cargarCupon";
 import Estadisticas from "../Estadisticas/estadisticas.js";
-
-//pagina vacia
-
+import AyudaYSoporte from "../Perfil/AyudaYSoporte/ayuda-soporte";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-//pruebas style
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,11 +48,7 @@ function MainPage() {
       );
     }
     if (seleccionado === 1) {
-      return (
-        <h3>
-          <Cupon />
-        </h3>
-      );
+      return <Cupon />;
     }
     if (seleccionado === 3) {
       return <MisPromociones setCantPromos={setCantPromos} />;
@@ -78,7 +66,7 @@ function MainPage() {
       return <Suscripciones />;
     }
     if (seleccionado === 8) {
-      return <h3>Ayuda y soporte</h3>;
+      return <AyudaYSoporte />;
     }
   };
 
