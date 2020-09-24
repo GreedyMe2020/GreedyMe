@@ -79,7 +79,7 @@ export default function ModalPromos(props) {
   return (
     <div>
       <div className="prom-title-container">
-        <h1>Mis promociones</h1>
+        <h1>Mis beneficios</h1>
       </div>
       <div id="subtitulo-container">
         <div className={classes.search}>
@@ -103,7 +103,7 @@ export default function ModalPromos(props) {
             onClick={handleClickOpen}
             id="cargar-promosubmit"
           >
-            Nueva promoción
+            Nuevo beneficio
           </Button>
         </div>
       </div>

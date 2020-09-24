@@ -64,7 +64,7 @@ function FormTipoPromocion(props) {
             <TextValidator
               variant="outlined"
               id="outlined-basic"
-              label="Tipo promoción"
+              label="Tipo beneficio"
               fullWidth
               required
               onChange={handleChange}
@@ -80,7 +80,7 @@ function FormTipoPromocion(props) {
               type="submit"
               startIcon={<SaveIcon />}
             >
-              Guardar tipo promoción
+              Guardar tipo beneficio
             </Button>
           </Grid>
         </Grid>
