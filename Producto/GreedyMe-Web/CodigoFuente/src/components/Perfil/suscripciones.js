@@ -172,7 +172,7 @@ function Suscripciones(props) {
                     <Box lineHeight={1.75} m={1}>
                       Publicidad dentro de la aplicación
                     </Box>,
-                    "Recompensas propias en GreedyStore",
+                    "Recompensas propias en GreedyShop",
                   ]}
                   style1="planes-title planes-premuim-1"
                   style2="planes-precio planes-premuim-2"
