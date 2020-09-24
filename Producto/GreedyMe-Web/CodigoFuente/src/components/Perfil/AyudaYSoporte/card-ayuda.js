@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function CardAyuda() {
+export function CardAyuda(props) {
   const classes = useStyles();
   return (
     <div className="contenedor-todo-ayuda">
@@ -43,83 +43,107 @@ export function CardAyuda() {
             }
             className={classes.root}
           >
-            <ListItem button onClick={<PreguntasPerfil />}>
-              <ListItemIcon>
-                <img
-                  width="24px"
-                  height="24px"
-                  src={perfil}
-                  className="image-o"
-                />
-              </ListItemIcon>
-              <ListItemText primary="Perfil" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <img
-                  width="24px"
-                  height="24px"
-                  src={promociones}
-                  className="image-o"
-                />
-              </ListItemIcon>
-              <ListItemText primary="Beneficios" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <img
-                  width="24px"
-                  height="24px"
-                  src={cupones}
-                  className="image-o"
-                />
-              </ListItemIcon>
-              <ListItemText primary="Cupones" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <img
-                  width="24px"
-                  height="24px"
-                  src={estadisticas}
-                  className="image-o"
-                />
-              </ListItemIcon>
-              <ListItemText primary="Estadísticas" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <img
-                  width="24px"
-                  height="24px"
-                  src={notificaciones}
-                  className="image-o"
-                />
-              </ListItemIcon>
-              <ListItemText primary="Notificaciones" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <img
-                  width="28px"
-                  height="28px"
-                  src={suscripciones}
-                  className="image-o"
-                />
-              </ListItemIcon>
-              <ListItemText primary="Suscripciones" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <img
-                  width="26px"
-                  height="26px"
-                  src={greedyShop}
-                  className="image-o"
-                />
-              </ListItemIcon>
-              <ListItemText primary="Greedy Shop" />
-            </ListItem>
+            <Link to={"/main/" + props.auth.uid + "/ayuda-y-soporte/perfil"}>
+              <ListItem button>
+                <ListItemIcon>
+                  <img
+                    width="24px"
+                    height="24px"
+                    src={perfil}
+                    className="image-o"
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Perfil" />
+              </ListItem>
+            </Link>
+            <Link
+              to={"/main/" + props.auth.uid + "/ayuda-y-soporte/beneficios"}
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <img
+                    width="24px"
+                    height="24px"
+                    src={promociones}
+                    className="image-o"
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Beneficios" />
+              </ListItem>
+            </Link>
+            <Link to={"/main/" + props.auth.uid + "/ayuda-y-soporte/cupones"}>
+              <ListItem button>
+                <ListItemIcon>
+                  <img
+                    width="24px"
+                    height="24px"
+                    src={cupones}
+                    className="image-o"
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Cupones" />
+              </ListItem>
+            </Link>
+            <Link
+              to={"/main/" + props.auth.uid + "/ayuda-y-soporte/estadisticas"}
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <img
+                    width="24px"
+                    height="24px"
+                    src={estadisticas}
+                    className="image-o"
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Estadísticas" />
+              </ListItem>
+            </Link>
+            <Link
+              to={"/main/" + props.auth.uid + "/ayuda-y-soporte/notificaciones"}
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <img
+                    width="24px"
+                    height="24px"
+                    src={notificaciones}
+                    className="image-o"
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Notificaciones" />
+              </ListItem>
+            </Link>
+            <Link
+              to={"/main/" + props.auth.uid + "/ayuda-y-soporte/suscripciones"}
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <img
+                    width="28px"
+                    height="28px"
+                    src={suscripciones}
+                    className="image-o"
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Suscripciones" />
+              </ListItem>
+            </Link>
+            <Link
+              to={"/main/" + props.auth.uid + "/ayuda-y-soporte/greedy-shop"}
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <img
+                    width="26px"
+                    height="26px"
+                    src={greedyShop}
+                    className="image-o"
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Greedy Shop" />
+              </ListItem>
+            </Link>
           </List>
         </CardContent>
       </Card>

@@ -23,12 +23,10 @@ const App = () => {
         <Landing path="/" />
         <Registro path="login" />
         <Principal path="main/:id">
-          <MainPage path=":mainId" />
+          <MainPage path="/*" />
         </Principal>
-        {/* <Promociones path="/main/:id/promociones" /> */}
         <OlvidoContraseña path="forgotpassword" />
-        {/* <PerfilComercio path="/main/:id/profile" />
-        <CambiarContraseña path="/main/:id/newpassword" /> */}
+        {/*<CambiarContraseña path="/main/:id/newpassword" /> */}
         <Administrador path="admin">
           <MainPage path=":adminId" />
         </Administrador>

@@ -1,11 +1,11 @@
 import * as React from "react";
+import { Router } from "@reach/router";
 import { Link } from "@reach/router";
 import { connect } from "react-redux";
 import { signOut } from "../../redux/actions/authActions";
 import { crearPromocion } from "../../redux/actions/promActions";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
-import CargaPromociones from "../Promociones/cargaPromociones";
 import MisPromociones from "../Promociones/misPromociones";
 import Perfil from "../Perfil/Perfil";
 import NavBarSup from "../../components/Principal/navBarSuperior";
@@ -17,6 +17,13 @@ import Cupon from "../Cupon/cargarCupon";
 import Estadisticas from "../Estadisticas/estadisticas.js";
 import AyudaYSoporte from "../Perfil/AyudaYSoporte/ayuda-soporte";
 import { makeStyles } from "@material-ui/core/styles";
+import PreguntasPerfil from "../Perfil/AyudaYSoporte/Preguntas/preguntas-perfil";
+import PreguntasBeneficios from "../Perfil/AyudaYSoporte/Preguntas/preguntas-beneficios";
+import PreguntasCupon from "../Perfil/AyudaYSoporte/Preguntas/preguntas-cupon";
+import PreguntasEstadisticas from "../Perfil/AyudaYSoporte/Preguntas/preguntas-estadisticas";
+import PreguntasGreedyShop from "../Perfil/AyudaYSoporte/Preguntas/preguntas-greedyshop";
+import PreguntasNotificaciones from "../Perfil/AyudaYSoporte/Preguntas/preguntas-notificaciones";
+import PreguntasSuscripcion from "../Perfil/AyudaYSoporte/Preguntas/preguntas-suscripciones";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -109,10 +116,10 @@ function MainPage(props) {
         <main className={classes.content}>
           <Toolbar />
           {/*getOpcionSeleccionada(seleccionado)*/}
-          {/* <Link to="./promociones">
-            <button>Cargar promoción</button>
-          </Link> */}
-          {props.mainId == "inicio" ? (
+
+          {/* {props.children === <PreguntasPerfil /> ? (
+            <PreguntasPerfil />
+          ) : props.mainId == "inicio" ? (
             <Inicio
               seleccionado={seleccionado}
               setSeleccionado={setSeleccionado}
@@ -120,8 +127,6 @@ function MainPage(props) {
             />
           ) : props.mainId == "cargar-cupon" ? (
             <Cupon />
-          ) : props.mainId == "cargar-promocion" ? (
-            <CargaPromociones />
           ) : props.mainId == "mis-beneficios" ? (
             <MisPromociones setCantPromos={setCantPromos} />
           ) : props.mainId == "estadisticas" ? (
@@ -133,10 +138,36 @@ function MainPage(props) {
           ) : props.mainId === "suscripciones" ? (
             <Suscripciones />
           ) : props.mainId === "ayuda-y-soporte" ? (
-            "Ayuda y soporte wey"
+            <AyudaYSoporte />
           ) : (
-            "Ninguno es eto"
-          )}
+            ""
+          )} */}
+
+          <Router>
+            <Inicio
+              path="inicio"
+              seleccionado={seleccionado}
+              setSeleccionado={setSeleccionado}
+              cantPromos={cantPromos}
+            />
+            <Cupon path="cargar-cupon" />
+            <MisPromociones
+              path="mis-beneficios"
+              setCantPromos={setCantPromos}
+            />
+            <Notificaciones path="notificaciones" />
+            <Estadisticas path="estadisticas" cantPromos={cantPromos} />
+            <Perfil path="perfil" />
+            <Suscripciones path="suscripciones" />
+            <AyudaYSoporte path="ayuda-y-soporte" />
+            <PreguntasPerfil path="ayuda-y-soporte/perfil" />
+            <PreguntasBeneficios path="ayuda-y-soporte/beneficios" />
+            <PreguntasCupon path="ayuda-y-soporte/cupones" />
+            <PreguntasEstadisticas path="ayuda-y-soporte/estadisticas" />
+            <PreguntasNotificaciones path="ayuda-y-soporte/notificaciones" />
+            <PreguntasSuscripcion path="ayuda-y-soporte/suscripciones" />
+            <PreguntasGreedyShop path="ayuda-y-soporte/greedy-shop" />
+          </Router>
         </main>
       </div>
     </div>

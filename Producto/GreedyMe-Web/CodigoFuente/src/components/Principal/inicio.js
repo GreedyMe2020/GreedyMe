@@ -11,6 +11,7 @@ import { Redirect, Link } from "@reach/router";
 import Statistics from "../../../Multimedia/Sistema-svg/statistics-inicio.svg";
 import Notificaciones from "../../../Multimedia/Sistema-svg/notificaciones-inicio.svg";
 import HacermePremium from "../Notificaciones/haztePremium";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -53,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Inicio(props) {
+function Inicio(props) {
   const classes = useStyles();
 
   return (
@@ -65,7 +66,10 @@ export default function Inicio(props) {
             <p>Gestioná los descuentos que utilizan los clientes en tu local</p>
           </CardContent>
           <CardActions className="inicio-cont-boton">
-            <Link to="/main/:id/cargar-cupon" className="link">
+            <Link
+              to={"/main/" + props.auth.uid + "/cargar-cupon"}
+              className="link"
+            >
               <Button
                 variant="contained"
                 id="inicio-button"
@@ -86,7 +90,10 @@ export default function Inicio(props) {
             <p>{props.cantPromos}</p>
           </CardContent>
           <CardActions className="inicio-cont-boton">
-            <Link to="/main/:id/mis-beneficios" className="link">
+            <Link
+              to={"/main/" + props.auth.uid + "/mis-beneficios"}
+              className="link"
+            >
               <Button
                 variant="contained"
                 id="inicio-button"
@@ -111,7 +118,10 @@ export default function Inicio(props) {
             </p>
           </CardContent>
           <CardActions className="inicio-cont-boton">
-            <Link to="/main/:id/estadisticas" className="link">
+            <Link
+              to={"/main/" + props.auth.uid + "/estadisticas"}
+              className="link"
+            >
               <Button
                 variant="contained"
                 id="inicio-button"
@@ -133,7 +143,10 @@ export default function Inicio(props) {
             <p>Gestioná las notificaciones que envias a los usuarios.</p>
           </CardContent>
           <CardActions className="inicio-cont-boton">
-            <Link to="/main/:id/notificaciones" className="link">
+            <Link
+              to={"/main/" + props.auth.uid + "/notificaciones"}
+              className="link"
+            >
               <Button
                 variant="contained"
                 id="inicio-button"
@@ -171,7 +184,7 @@ export default function Inicio(props) {
             <p>Hacenos cualquier pregunta y conseguí la ayuda que necesitas.</p>
             <CardActions className="inicio-cont-boton">
               <Typography color="textSecondary" gutterBottom>
-                <Link to="/main/:id/ayuda-y-soporte">
+                <Link to={"/main/" + props.auth.uid + "/ayuda-y-soporte"}>
                   Visitá el Centro de Ayuda
                 </Link>
               </Typography>
@@ -186,3 +199,12 @@ export default function Inicio(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    auth: state.firebase.auth,
+  };
+};
+
+export default connect(mapStateToProps)(Inicio);
