@@ -11,7 +11,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DialogComponent from "../../Dialog";
 import Tooltip from "@material-ui/core/Tooltip";
-import { Grid, Avatar } from "@material-ui/core";
+import { Grid, Avatar, CssBaseline } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
@@ -21,7 +21,7 @@ import FormTipoPromocion from "./FormTipoPromocion";
 import FormPromocion from "./FormPromocion";
 import ModalAdministradorPr from "../modal-admin-pr";
 import { eliminarTipoPromocion } from "../../../redux/actions/adminActions";
-
+import _ from "lodash";
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
 
@@ -118,7 +118,7 @@ function ListaPromocion(props) {
                                     {item.tipo}
                                   </Typography>
                                   {item.lista.map((ite) => {
-                                    return ite.valor;
+                                    return ite.valor + " - ";
                                   })}
                                 </React.Fragment>
                               }

@@ -152,7 +152,7 @@ function ListaUsuarios(props) {
                                   {user.CUIT}
                                 </React.Fragment>
                               }
-                              secondary={"web: " + user.web}
+                              secondary={"rubro: " + user.rubro}
                             />
                           </div>
                           <ListItemSecondaryAction>

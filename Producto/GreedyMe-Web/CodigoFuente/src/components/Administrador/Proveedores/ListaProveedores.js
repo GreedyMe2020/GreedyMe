@@ -119,10 +119,10 @@ function ListaProveedores(props) {
                                   </Typography>
                                   {item.lista
                                     ? item.lista.map((ite) => {
-                                        return ite.nombre;
+                                        return ite.nombre + " - ";
                                       })
                                     : item.bancos.map((ite) => {
-                                        return ite.nombre;
+                                        return ite.nombre + " - ";
                                       })}
                                 </React.Fragment>
                               }

@@ -1,3 +1,4 @@
+import _ from "lodash";
 export const signUp = (nuevoUsuario) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
@@ -75,6 +76,25 @@ export const eliminarUsuarioComercio = (usuario) => {
       });
   };
 };
+
+export const cargarPromocion = (formData) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const firestore = getFirestore();
+    firestore
+      .collection("tipoPromocion")
+      .doc(formData.id)
+      .update({
+        lista: formData.lista,
+      })
+      .then(() => {
+        dispatch({ type: "CARGAR_PROMOCION" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_PROMOCION", error });
+      });
+  };
+};
 export const cargarTipoPromocion = (formData) => {
   return (dispatch, getState, { getFirestore }) => {
     //codigo asincrono
@@ -107,6 +127,71 @@ export const eliminarTipoPromocion = (formData) => {
       })
       .catch((error) => {
         dispatch({ type: "FALLO_ELIMINACION_TIPO_PROMOCION", error });
+      });
+  };
+};
+
+export const cargarProveedor = (formData) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const proveedores = getState().firestore.ordered.proveedorServicio;
+
+    const indiceACambiar = _.findIndex(proveedores, function (o) {
+      return o.tipo === formData.tipoProveedor;
+    });
+
+    const id = proveedores[indiceACambiar].id;
+
+    const lista = proveedores[indiceACambiar].lista;
+
+    const listaNueva = _.concat(lista, {
+      nombre: formData.valueProveedor,
+      photoURL: null,
+    });
+    console.log(listaNueva);
+    const firestore = getFirestore();
+    firestore
+      .collection("proveedorServicio")
+      .doc(id)
+      .update({
+        lista: listaNueva,
+      })
+      .then(() => {
+        dispatch({ type: "CARGAR_PROVEEDOR" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_PROVEEDOR", error });
+      });
+  };
+};
+
+export const cargarBanco = (formData) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const proveedores = getState().firestore.ordered.proveedorServicio;
+    const indiceACambiar = _.findIndex(proveedores, function (o) {
+      return o.id === "ndbKpkm6GorM0g5kHNkF";
+    });
+    console.log(indiceACambiar);
+    const lista = proveedores[indiceACambiar].bancos;
+    console.log(lista);
+    const listaNueva = _.concat(lista, {
+      nombre: formData.valueProveedor,
+      photoURL: null,
+    });
+    console.log(listaNueva);
+    const firestore = getFirestore();
+    firestore
+      .collection("proveedorServicio")
+      .doc(formData.id)
+      .update({
+        bancos: listaNueva,
+      })
+      .then(() => {
+        dispatch({ type: "CARGAR_BANCO" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_BANCO", error });
       });
   };
 };

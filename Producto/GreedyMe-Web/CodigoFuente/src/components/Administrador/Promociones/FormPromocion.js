@@ -13,6 +13,8 @@ import {
   TextValidator,
 } from "react-material-ui-form-validator";
 import Grid from "@material-ui/core/Grid";
+import { cargarPromocion } from "../../../redux/actions/adminActions";
+import _ from "lodash";
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -50,12 +52,22 @@ function FormPromocion(props) {
   });
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formData.tipoPromo === "Descuento") {
-      console.log("descuento");
-    } else if (formData.tipoPromo === "Promoción") {
-      console.log("promocion");
-    }
+    const promociones = props.tipoPromo;
+    const indiceACambiar = _.findIndex(promociones, function (o) {
+      return o.tipo === formData.tipoPromo;
+    });
+    const id = promociones[indiceACambiar].id;
+    const lista = promociones[indiceACambiar].lista;
+
+    const listaNueva = _.concat(lista, { valor: formData.valuePromo });
+    console.log(lista);
+    console.log(listaNueva);
+    props.cargarPromocion({
+      tipoPromo: formData.tipoPromo,
+      valuePromo: formData.valuePromo,
+      id: id,
+      lista: listaNueva,
+    });
   };
 
   const handleChange = (event) => {
@@ -131,7 +143,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    cargarPromocion: (formData) => dispatch(cargarPromocion(formData)),
+  };
 };
 
 export default compose(
