@@ -24,6 +24,7 @@ import {
   SelectValidator,
 } from "react-material-ui-form-validator";
 import firebase from "../../firebase/config";
+import "firebase/analytics";
 const firestore = firebase.firestore();
 
 const proveedor = [];
@@ -213,6 +214,7 @@ function ModalPromociones(props) {
       setHelperText("*Este campo es obligatorio");
       setError(true);
     } else {
+      firebase.analytics().logEvent("promocion_creada");
       props.crear(formData, id, state, value, desdeVigencia, hastaVigencia);
       setOpen(true);
     }
