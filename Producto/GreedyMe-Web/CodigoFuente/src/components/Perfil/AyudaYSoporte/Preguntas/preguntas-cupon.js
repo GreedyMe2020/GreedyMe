@@ -1,11 +1,31 @@
 import * as React from "react";
-import Accordion from "@material-ui/core/Accordion";
 import AccordionPreguntas from "./accordion-preguntas";
+import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import { Link } from "@reach/router";
 
-export default function PreguntasCupon() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginLeft: "5%",
+    marginRight: "5%",
+    marginTop: "30px",
+  },
+}));
+
+function PreguntasCupon(props) {
+  const classes = useStyles();
   return (
     <div>
-      <Accordion>
+      <div className="prom-title-container">
+        <h1>Ayuda y soporte técnico</h1>
+      </div>
+      <Link
+        to={"/main/" + props.auth.uid + "/ayuda-y-soporte"}
+        className="ayuda-link-volver"
+      >
+        Volver
+      </Link>
+      <div className={classes.root}>
         <AccordionPreguntas
           pregunta="Como otorgar el código del beneficio aplicado a mi cliente"
           respuesta=""
@@ -23,7 +43,15 @@ export default function PreguntasCupon() {
           respuesta=" 
           "
         />
-      </Accordion>
+      </div>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+  };
+};
+
+export default connect(mapStateToProps)(PreguntasCupon);

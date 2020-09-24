@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import { connect } from "react-redux";
 import firebase from "../../firebase/config";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,85 +76,77 @@ function NuevaContraseña(props) {
 
   return (
     <div>
-      <NavBarSup
-        appBar={classes.appBar}
-        seleccionado={seleccionado}
-        setSeleccionado={setSeleccionado}
-      />
-
       <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
-        <Card id="cardAdminCuenta">
-          <Card.Body className="contCardPerfil1">
-            <div className="inputPerfil">
-              <div className="inputPerfil">
-                <TextValidator
-                  id="outlined-password-input"
-                  label="Contraseña Actual"
-                  type="password"
-                  autoComplete="current-password"
-                  variant="outlined"
-                  required
-                  value={formData.contraseñaActual}
-                  onChange={handleChange}
-                  name="contraseñaActual"
-                  fullWidth
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
-                />
-              </div>
-              <div className="inputPerfil">
-                <TextValidator
-                  id="outlined-password-input"
-                  label="Nueva Contraseña"
-                  type="password"
-                  autoComplete="current-password"
-                  variant="outlined"
-                  required
-                  value={formData.nuevaContraseña}
-                  onChange={handleChange}
-                  name="nuevaContraseña"
-                  fullWidth
-                  validators={[
-                    "matchRegexp:^(?=.{8,16}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])",
-                  ]}
-                  errorMessages={[
-                    "La contraseña debe entre 8 y 16 caracteres y, por lo menos una mayúscula, una minúscula y un número",
-                  ]}
-                />
-              </div>
-              <div className="inputPerfil">
-                <TextValidator
-                  id="outlined-password-input"
-                  label="Repite la Contraseña"
-                  type="password"
-                  autoComplete="current-password"
-                  variant="outlined"
-                  required
-                  value={formData.repeticion}
-                  onChange={handleChange}
-                  name="repeticion"
-                  fullWidth
-                  validators={["isPasswordMatch", "required"]}
-                  errorMessages={[
-                    "Las contraseñas deben ser iguales",
-                    "*Este campo es obligatorio",
-                  ]}
-                />
-              </div>
+        <Grid container spacing={1}>
+          <Grid item xs={12} md={12}>
+            <TextValidator
+              id="outlined-password-input"
+              label="Contraseña Actual"
+              type="password"
+              autoComplete="current-password"
+              variant="outlined"
+              required
+              value={formData.contraseñaActual}
+              onChange={handleChange}
+              name="contraseñaActual"
+              fullWidth
+              validators={["required"]}
+              errorMessages={["*Este campo es obligatorio"]}
+            />
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <TextValidator
+              id="outlined-password-input"
+              label="Nueva Contraseña"
+              type="password"
+              autoComplete="current-password"
+              variant="outlined"
+              required
+              value={formData.nuevaContraseña}
+              onChange={handleChange}
+              name="nuevaContraseña"
+              fullWidth
+              validators={[
+                "matchRegexp:^(?=.{8,16}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])",
+              ]}
+              errorMessages={[
+                "La contraseña debe entre 8 y 16 caracteres y, por lo menos una mayúscula, una minúscula y un número",
+              ]}
+            />
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <TextValidator
+              id="outlined-password-input"
+              label="Repite la Contraseña"
+              type="password"
+              autoComplete="current-password"
+              variant="outlined"
+              required
+              value={formData.repeticion}
+              onChange={handleChange}
+              name="repeticion"
+              fullWidth
+              validators={["isPasswordMatch", "required"]}
+              errorMessages={[
+                "Las contraseñas deben ser iguales",
+                "*Este campo es obligatorio",
+              ]}
+            />
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <div className="perfil-btnCont">
+              <Button
+                variant="contained"
+                id="btn-azul"
+                className="btnAdminPerfil"
+                type="submit"
+                startIcon={<SaveIcon />}
+              >
+                Guardar cambios
+              </Button>
             </div>
-          </Card.Body>
-        </Card>
-        <div className="btnCont">
-          <Button
-            variant="contained"
-            id="btnAdminPerfil"
-            className="btnAdminPerfil"
-            type="submit"
-            startIcon={<SaveIcon />}
-          >
-            Guardar cambios
-          </Button>
-        </div>
+          </Grid>
+        </Grid>
       </ValidatorForm>
     </div>
   );

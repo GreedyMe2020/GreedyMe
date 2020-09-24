@@ -45,6 +45,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogComponent from "../Dialog";
 import { IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+
 /* import { db } from "../firebase/config"; */
 const libraries = ["places"];
 const rubros = [];
@@ -110,7 +111,7 @@ function Perfil(props) {
   const [open, setOpen] = React.useState(false);
   const [openModificar, setOpenModificar] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
-  const [maxWidth, setMaxWidth] = React.useState("md");
+  const [maxWidth, setMaxWidth] = React.useState("xs");
   const handleClickOpenModificar = () => {
     setOpenModificar(true);
   };

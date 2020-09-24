@@ -1,11 +1,31 @@
 import * as React from "react";
-import Accordion from "@material-ui/core/Accordion";
 import AccordionPreguntas from "./accordion-preguntas";
+import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "@reach/router";
+import { connect } from "react-redux";
 
-export default function PreguntasPerfil() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginLeft: "5%",
+    marginRight: "5%",
+    marginTop: "30px",
+  },
+}));
+
+function PreguntasPerfil(props) {
+  const classes = useStyles();
   return (
     <div>
-      <Accordion>
+      <div className="prom-title-container">
+        <h1>Ayuda y soporte técnico</h1>
+      </div>
+      <Link
+        to={"/main/" + props.auth.uid + "/ayuda-y-soporte"}
+        className="ayuda-link-volver"
+      >
+        Volver
+      </Link>
+      <div className={classes.root}>
         <AccordionPreguntas
           pregunta="Quiero cambiar datos de mi cuenta (opcionales, obligatorios)"
           respuesta="Para cambiar los datos de tu cuenta, debes primero iniciar sesión.
@@ -38,7 +58,15 @@ export default function PreguntasPerfil() {
             Luego el personal de GreedyMe se pondrá en contacto para continuar con el proceso.
             "
         />
-      </Accordion>
+      </div>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+  };
+};
+
+export default connect(mapStateToProps)(PreguntasPerfil);

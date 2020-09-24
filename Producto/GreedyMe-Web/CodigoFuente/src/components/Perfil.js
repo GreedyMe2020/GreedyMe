@@ -29,19 +29,6 @@ function Perfil(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  /*  const [color, setColor] = React.useState(false);
-
-  React.useEffect(() => {
-    if (seleccionado === elementIndex) {
-      setColor(true);
-    } else {
-      setColor(false);
-    }
-  }, [seleccionado]);
-
-  const fontstyles = {
-    color: color ? "#fd5f00" : "#868686",
-  }; */
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
