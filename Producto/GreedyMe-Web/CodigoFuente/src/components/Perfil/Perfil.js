@@ -262,7 +262,7 @@ function Perfil(props) {
               </DialogTitle>
               <DialogContent dividers>
                 <DialogContentText>
-                  <NuevaContraseña />
+                  <NuevaContraseña setOpenModificar />
                 </DialogContentText>
               </DialogContent>
             </Dialog>

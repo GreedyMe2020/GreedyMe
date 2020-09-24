@@ -61,7 +61,7 @@ function NuevaContraseña(props) {
             setCambio(false);
           });
       } else {
-        console.log("no paso naranja");
+        console.log("Error, no se pudo cambiar la contraseña");
       }
     });
   };

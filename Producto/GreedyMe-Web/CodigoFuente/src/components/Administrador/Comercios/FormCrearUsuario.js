@@ -274,7 +274,7 @@ function FormCrearUsuario(props) {
             onClose={handleClose}
           >
             <Alert onClose={handleClose} severity="success">
-              El comercio se ha creado correctamente!!
+              ¡El comercio se ha creado correctamente!
             </Alert>
           </Snackbar>
         </div>

@@ -147,7 +147,7 @@ function ListaPromocion(props) {
                               setCurrentId={setCurrentId}
                               title={"¿Estás seguro de eliminar el beneficio?"}
                               text={
-                                "Una vez que aceptes eliminar el beneficio, el misma no podrá ser recuperada."
+                                "Una vez que aceptes eliminar el beneficio, el mismo no podrá ser recuperado."
                               }
                               btnText={"Eliminar"}
                             />
@@ -156,7 +156,7 @@ function ListaPromocion(props) {
                       );
                     })}
                 </List>
-                {/* {eliminada ? (
+                {eliminada ? (
                   <Snackbar
                     anchorOrigin={{
                       vertical: "bottom",
@@ -167,12 +167,12 @@ function ListaPromocion(props) {
                     onClose={handleCloseAlert}
                   >
                     <Alert onClose={handleCloseAlert} severity="error">
-                      La promoción se ha eliminado
+                      El beneficio se ha eliminado
                     </Alert>
                   </Snackbar>
                 ) : (
                   ""
-                )} */}
+                )}
               </div>
             </Grid>
           </CardContent>

@@ -97,6 +97,13 @@ $background-color: #ececec;
     justify-content: center;
     flex-flow: row;
     align-items: center;
+    #btnAdminPerfil {
+      background-color: #262262;
+      color: white;
+      margin-top: 35px;
+      font-weight: 500;
+      margin-bottom: 30px;
+    }
   }
 
   .tituloCardAdminP2 {

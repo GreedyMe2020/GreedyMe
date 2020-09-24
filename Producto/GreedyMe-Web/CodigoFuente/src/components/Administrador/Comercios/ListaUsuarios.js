@@ -31,6 +31,7 @@ import {
   modificarUsuarioComercio,
 } from "../../../redux/actions/adminActions";
 import FormCrearUsuario from "./FormCrearUsuario";
+import Snackbar from "@material-ui/core/Snackbar";
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -250,7 +251,7 @@ function ListaUsuarios(props) {
                     onClose={handleCloseAlert}
                   >
                     <Alert onClose={handleCloseAlert} severity="error">
-                      La promoción se ha eliminado
+                      El comercio se ha eliminado
                     </Alert>
                   </Snackbar>
                 ) : (
