@@ -44,9 +44,12 @@ function InicioSesion(props) {
   };
 
   const form = React.createRef();
-  if (props.auth.uid === "dwbVGIccUOT7bWyKeAPz1NQanS02")
-    return <Redirect to="/admin" />;
-  if (props.auth.uid) return <Redirect to={"/main/" + props.auth.uid} />;
+  if (props.auth.uid === "dwbVGIccUOT7bWyKeAPz1NQanS02") {
+    return <Redirect to="/admin/comercios" />;
+  } else {
+    if (props.auth.uid)
+      return <Redirect to={"/main/" + props.auth.uid + "/inicio"} />;
+  }
 
   return (
     <div className="inicio-sesion-container">

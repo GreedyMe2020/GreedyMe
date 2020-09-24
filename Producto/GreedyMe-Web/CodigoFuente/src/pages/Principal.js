@@ -6,11 +6,7 @@ import { Redirect, Link } from "@reach/router";
 
 function Principal(props) {
   if (!props.auth.uid) return <Redirect to="/login" />;
-  return (
-    <div>
-      <MainPage />
-    </div>
-  );
+  return <div>{props.children}</div>;
 }
 
 const mapStateToProps = (state) => {

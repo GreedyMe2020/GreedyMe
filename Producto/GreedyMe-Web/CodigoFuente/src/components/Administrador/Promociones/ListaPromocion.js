@@ -83,14 +83,14 @@ function ListaPromocion(props) {
   return (
     <div>
       <ModalAdministradorPr
-        title="Promociones"
-        button="Cargar promoción"
-        button2="Cargar tipo promoción"
-        titleModal="Cargar nueva promoción"
-        titleModal2="Cargar nuevo tipo de promoción"
+        title="Beneficios"
+        button="Cargar beneficio"
+        button2="Cargar tipo beneficio"
+        titleModal="Cargar nuevo beneficio"
+        titleModal2="Cargar nuevo tipo de beneficio"
         openContent={<FormPromocion />}
         openContent2={<FormTipoPromocion />}
-        placeholder="Buscar promoción…"
+        placeholder="Buscar beneficio…"
       />
       <div className="contenedorTodo">
         <Card className="cardPromo">
@@ -145,9 +145,9 @@ function ListaPromocion(props) {
                               setEliminar={setEliminar}
                               setEliminada={setEliminada}
                               setCurrentId={setCurrentId}
-                              title={"¿Estás seguro de eliminar la promoción?"}
+                              title={"¿Estás seguro de eliminar el beneficio?"}
                               text={
-                                "Una vez que aceptes eliminar la promoción, la misma no podrá ser recuperada."
+                                "Una vez que aceptes eliminar el beneficio, el misma no podrá ser recuperada."
                               }
                               btnText={"Eliminar"}
                             />

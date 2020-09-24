@@ -1,0 +1,105 @@
+//Google fonts
+@import url(http://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Raleway:wght@500;600&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Roboto&display=swap);
+
+//Inter (thin, medium & bold 700)
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap);
+
+//Variables
+$logo-font: "Raleway", sans-serif;
+$text-font: "Inter", sans-serif;
+
+$white-color: #ffffff;
+$grey-color: #e1e1e1;
+$green-color: #76b39d;
+$logo-green-color: #78e3bc;
+$logo-blue-color: #262262;
+$dark-blue-color: #1e1b4d;
+$logo-orange-color: #f7941e;
+$dark-orange-color: #fd5f00;
+$background-color: #ececec;
+
+.subtitulo-ayuda {
+  margin-left: 5%;
+  margin-top: 10px;
+}
+
+.contenedor-ayuda-todo {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 5% 1fr 0.2fr 1.3fr 5%;
+  grid-template-rows: 1fr 0.4fr;
+  justify-items: flex;
+  align-items: flex-start;
+  .card-ayuda {
+    grid-column: 2/3;
+    grid-row: 1/2;
+  }
+  .img-ayuda {
+    grid-column: 4/5;
+    grid-row: 1/2;
+    margin-top: 30px;
+  }
+  .card-ponte-contacto {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    border-radius: 10px;
+    margin-top: 1rem;
+    box-shadow: 0px 10px 10px 0px #e1e1e1;
+    .contenedor-card-ayuda {
+      border-radius: 10px;
+      margin-top: 1.2rem;
+      box-shadow: 0px 10px 10px 0px #e1e1e1;
+      text-align: center;
+      .contacto-ayuda {
+        background-color: #f7941e;
+        color: white;
+        padding-top: 25px;
+        .link-ayuda,
+        .link-ayuda:hover {
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.contenedor-todo-ayuda {
+  color: black;
+  .card-t-ayuda {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 1.2rem;
+    box-shadow: 0px 10px 10px 0px #e1e1e1;
+    .card-content-ayuda {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .contenedor-ayuda-todo {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 5% 1fr 0.2fr 1fr 5%;
+    grid-template-rows: 1fr 1fr;
+    justify-items: flex;
+    align-items: flex-start;
+    .card-ayuda {
+      grid-column: 2/3;
+      grid-row: 1/3;
+    }
+    .img-ayuda {
+      grid-column: 4/5;
+      grid-row: 1/2;
+    }
+    .card-ponte-contacto {
+      grid-column: 4/5;
+      grid-row: 2/3;
+      margin-top: 0px;
+      margin-left: 25px;
+    }
+  }
+}

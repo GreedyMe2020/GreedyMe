@@ -24,6 +24,7 @@ import {
   SelectValidator,
 } from "react-material-ui-form-validator";
 import firebase from "../../firebase/config";
+import "firebase/analytics";
 const firestore = firebase.firestore();
 
 const proveedor = [];
@@ -213,6 +214,7 @@ function ModalPromociones(props) {
       setHelperText("*Este campo es obligatorio");
       setError(true);
     } else {
+      firebase.analytics().logEvent("promocion_creada");
       props.crear(formData, id, state, value, desdeVigencia, hastaVigencia);
       setOpen(true);
     }
@@ -297,12 +299,12 @@ function ModalPromociones(props) {
         ref={form}
         onSubmit={handleSubmit}
       >
-        <p className="subtit-p">Promoción</p>
+        <p className="subtit-p">Beneficio</p>
         <div className="col-subgrid">
           <SelectValidator
             className="select-tipopromo"
             fullWidth
-            label="Tipo de promoción"
+            label="Tipo de beneficio"
             onChange={handleChange}
             name="tipoPromo"
             value={formData.tipoPromo}
@@ -320,7 +322,7 @@ function ModalPromociones(props) {
             <SelectValidator
               variant="outlined"
               className="selectpromo"
-              label="Valor de la Promoción"
+              label="Valor del beneficio"
               fullWidth
               onChange={handleChange}
               name="valuePromo"
@@ -339,7 +341,7 @@ function ModalPromociones(props) {
             <SelectValidator
               className="selectpromo"
               fullWidth
-              label="Valor de la Promoción"
+              label="Valor del beneficio"
               onChange={handleChange}
               name="valuePromo"
               value={formData.valuePromo}
@@ -457,7 +459,7 @@ function ModalPromociones(props) {
           ) : null}
         </div>
         <Divider className="dividerH" />
-        <p className="subtit">Periodo de vigencia de la promoción</p>
+        <p className="subtit">Periodo de vigencia del beneficio</p>
         <div className="col-subgrid-3">
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <DatePicker
@@ -494,7 +496,7 @@ function ModalPromociones(props) {
         </div>
         <Divider className="dividerH" />
         <div className="contenedorCol2">
-          <p className="subtit">¿Qué días aplica la promoción?</p>
+          <p className="subtit">¿Qué días aplica el beneficio?</p>
           <FormControl
             required
             error={errorD}
@@ -643,7 +645,7 @@ function ModalPromociones(props) {
               id="cargar-promo-submit"
               type="submit"
             >
-              Cargar promoción
+              Cargar beneficio
             </Button>
           </div>
           <Snackbar
@@ -653,7 +655,7 @@ function ModalPromociones(props) {
             onClose={handleClose}
           >
             <Alert onClose={handleClose} severity="success">
-              La promoción se cargo correctamente!
+              El beneficio se cargo correctamente!
             </Alert>
             {/* <Alert onClose={handleClose} severity="error">
               Faltan campos de completar

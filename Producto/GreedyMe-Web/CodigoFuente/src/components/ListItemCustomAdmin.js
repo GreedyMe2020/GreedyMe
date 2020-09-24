@@ -3,22 +3,30 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Router, Link } from "@reach/router";
-import { connect } from "react-redux";
 
-function ListItemCustom(props) {
+export default function ListItemCustomAdmin({
+  text,
+  src1,
+  src2,
+  id,
+  className,
+  seleccionado,
+  setSeleccionado,
+  elementIndex,
+}) {
   const [color, setColor] = React.useState(false);
 
   React.useEffect(() => {
-    if (props.seleccionado === props.elementIndex) {
+    if (seleccionado === elementIndex) {
       setColor(true);
     } else {
       setColor(false);
     }
-  }, [props.seleccionado]);
+  }, [seleccionado]);
 
   const handleClick = (e) => {
     e.preventDefault();
-    props.setSeleccionado(props.elementIndex);
+    setSeleccionado(elementIndex);
   };
 
   const styles = {
@@ -40,45 +48,33 @@ function ListItemCustom(props) {
 
   return (
     <div
-      id={props.id}
-      className={props.className}
+      id={id}
+      className={className}
       onClick={handleClick}
       style={borderstyle}
     >
-      <Link
-        to={"/main/" + props.auth.uid + "/" + props.id}
-        className="link"
-        style={fontstyles}
-      >
+      <Link to={"/admin/" + id} className="link" style={fontstyles}>
         <ListItem button>
           <ListItemIcon>
             <img
               width="22px"
               height="22px"
-              src={props.src1}
+              src={src1}
               className="image-o"
               style={styleso}
             />
             <img
               width="22px"
               height="22px"
-              src={props.src2}
+              src={src2}
               className="image-t"
               style={styles}
             />
           </ListItemIcon>
 
-          <ListItemText primary={props.text} />
+          <ListItemText primary={text} />
         </ListItem>
       </Link>
     </div>
   );
 }
-
-const mapStateToProps = (state) => {
-  return {
-    auth: state.firebase.auth,
-  };
-};
-
-export default connect(mapStateToProps)(ListItemCustom);
