@@ -25,43 +25,10 @@ import {
 } from "react-material-ui-form-validator";
 import firebase from "../../firebase/config";
 import { SettingsCellOutlined } from "@material-ui/icons";
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
+import _ from "lodash";
 const firestore = firebase.firestore();
-
-const proveedor = [];
-const proveedorServicio = () => {
-  firestore
-    .collection("proveedorServicio")
-    .orderBy("tipo")
-    .get()
-    .then((snapShots) => {
-      snapShots.forEach((doc) => {
-        const data = doc.data();
-        proveedor.push({
-          ...data,
-          id: doc.id,
-        });
-      });
-    });
-};
-proveedorServicio();
-
-const tipoPromo = [];
-const promo = () => {
-  firestore
-    .collection("tipoPromocion")
-    .orderBy("tipo")
-    .get()
-    .then((snapShots) => {
-      snapShots.forEach((doc) => {
-        const data = doc.data();
-        tipoPromo.push({
-          ...data,
-          id: doc.id,
-        });
-      });
-    });
-};
-promo();
 
 const bancos = [];
 const banco = () => {
@@ -241,10 +208,14 @@ function ModalPromocionesActualizar(props) {
     setValorPromo([]);
 
     //esto no corre en el primer render, se ejecuta luego del return
-    if (formData.tipoPromo === "Descuento") {
-      setValorPromo(tipoPromo[0].lista);
-    } else {
-      setValorPromo(tipoPromo[1].lista);
+    if (formData.tipoPromo) {
+      if (props.tipoPromo) {
+        const todosTiposPromos = props.tipoPromo;
+        const indiceACambiar = _.findIndex(todosTiposPromos, function (o) {
+          return o.tipo === formData.tipoPromo;
+        });
+        setValorPromo(props.tipoPromo[indiceACambiar].lista);
+      }
     }
   }, [formData.tipoPromo, setFormData]);
 
@@ -257,17 +228,20 @@ function ModalPromocionesActualizar(props) {
     setValorBanco([]);
 
     //esto no corre en el primer render, se ejecuta luego del return
-    if (formData.tipoProveedor === "Cartera Digital") {
-      setValorProveedor(proveedor[0].lista);
-    } else if (formData.tipoProveedor === "Club") {
-      setValorProveedor(proveedor[1].lista);
-    } else if (formData.tipoProveedor === "Propias") {
-      setValorProveedor(proveedor[2].lista);
-    } else if (formData.tipoProveedor === "Tarjetas de crédito") {
-      setValorProveedor(proveedor[3].lista);
-      setValorBanco(bancos[0].bancos);
-    } else if (formData.tipoProveedor === "Tarjetas de débito") {
-      setValorProveedor(proveedor[4].lista);
+    if (formData.tipoProveedor) {
+      if (props.proveedores) {
+        const todosProveedores = props.proveedores;
+        const indiceACambiar = _.findIndex(todosProveedores, function (o) {
+          return o.tipo === formData.tipoProveedor;
+        });
+        setValorProveedor(props.proveedores[indiceACambiar].lista);
+      }
+    }
+
+    if (
+      formData.tipoProveedor === "Tarjetas de crédito" ||
+      formData.tipoProveedor === "Tarjetas de débito"
+    ) {
       setValorBanco(bancos[0].bancos);
     }
   }, [formData.tipoProveedor, setFormData]);
@@ -293,11 +267,12 @@ function ModalPromocionesActualizar(props) {
             validators={["required"]}
             errorMessages={["*Este campo es obligatorio"]}
           >
-            {tipoPromo.map((option) => (
-              <MenuItem key={option.tipo} value={option.tipo}>
-                {option.tipo}
-              </MenuItem>
-            ))}
+            {props.tipoPromo &&
+              props.tipoPromo.map((option) => (
+                <MenuItem key={option.tipo} value={option.tipo}>
+                  {option.tipo}
+                </MenuItem>
+              ))}
           </SelectValidator>
           {formData.tipoPromo ? (
             <SelectValidator
@@ -357,11 +332,12 @@ function ModalPromocionesActualizar(props) {
             validators={["required"]}
             errorMessages={["*Este campo es obligatorio"]}
           >
-            {proveedor.map((option) => (
-              <MenuItem key={option.tipo} value={option.tipo}>
-                {option.tipo}
-              </MenuItem>
-            ))}
+            {props.proveedores &&
+              props.proveedores.map((option) => (
+                <MenuItem key={option.tipo} value={option.tipo}>
+                  {option.tipo}
+                </MenuItem>
+              ))}
           </SelectValidator>
           {formData.tipoProveedor === "Tarjetas de débito" ||
           formData.tipoProveedor === "Tarjetas de crédito" ? (
@@ -651,7 +627,15 @@ function ModalPromocionesActualizar(props) {
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
+    proveedores: state.firestore.ordered.proveedorServicio,
+    tipoPromo: state.firestore.ordered.tipoPromocion,
   };
 };
 
-export default connect(mapStateToProps)(ModalPromocionesActualizar);
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([
+    { collection: "proveedorServicio", orderBy: "tipo" },
+    { collection: "tipoPromocion" },
+  ])
+)(ModalPromocionesActualizar);

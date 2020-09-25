@@ -7,12 +7,16 @@ const initState = {
   errorEliminacion: null,
   tipoPromo: null,
   tipoPromoFalla: null,
+  promo: null,
+  promoFalla: null,
   tipoPromoEliminada: null,
   tipoPromoEliminacionFalla: null,
   tipoProveedor: null,
   tipoProveedorFalla: null,
   tipoProveedorEliminada: null,
   tipoProveedorEliminacionFalla: null,
+  proveedor: null,
+  proveedorFalla: null,
 };
 
 const adminReducer = (state = initState, action) => {
@@ -57,13 +61,25 @@ const adminReducer = (state = initState, action) => {
       console.log("se creo el nuevo tipo");
       return {
         ...state,
-        tipoPromo: "Se creo una nueva promo ",
+        tipoPromo: "Se creo un nuevo tipo promo ",
       };
     case "ERROR_TIPO_PROMOCION":
       console.log("fallo el nuevo tipo");
       return {
         ...state,
-        tipoPromoFalla: "fallo la nueva promo",
+        tipoPromoFalla: "fallo la nueva tipo promo",
+      };
+    case "CARGAR_PROMOCION":
+      console.log("se creo nueva promocion");
+      return {
+        ...state,
+        promo: "Se creo una nueva promo ",
+      };
+    case "ERROR_PROMOCION":
+      console.log("fallo el nuevo promo");
+      return {
+        ...state,
+        promoFalla: "fallo la nueva promo",
       };
     case "TIPO_PROMOCION_ELIMINADO":
       console.log("se elimino el tipo promo");
@@ -100,6 +116,18 @@ const adminReducer = (state = initState, action) => {
       return {
         ...state,
         tipoProveedorEliminacionFalla: "fallo la eliminacion proveedor",
+      };
+    case "CARGAR_PROVEEDOR":
+      console.log("se creo nueva PROVEEDOR");
+      return {
+        ...state,
+        proveedor: "Se creo una nueva proveedor ",
+      };
+    case "ERROR_PROVEEDOR":
+      console.log("fallo el nuevo proveedor");
+      return {
+        ...state,
+        proveedorFalla: "fallo la nueva proveedor",
       };
     default:
       return state;

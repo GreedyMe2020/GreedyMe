@@ -13,6 +13,11 @@ import {
   TextValidator,
 } from "react-material-ui-form-validator";
 import Grid from "@material-ui/core/Grid";
+import {
+  cargarProveedor,
+  cargarBanco,
+} from "../../../redux/actions/adminActions";
+import _ from "lodash";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,17 +52,16 @@ function FormProveedores(props) {
   });
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formData.tipoProveedor === "Club") {
-      console.log("club");
-    } else if (formData.tipoProveedor === "Tarjetas de débito") {
-      console.log("Tarjetas de debito");
-    } else if (formData.tipoProveedor === "Tarjetas de crédito") {
-      console.log("tarjetas de credito");
-    } else if (formData.tipoProveedor === "Cartera Digital") {
-      console.log("cartera digital");
-    } else if (formData.tipoProveedor === "Bancos") {
-      console.log("Bancoss");
+    if (formData.tipoProveedor === "Bancos") {
+      props.cargarBanco({
+        id: "ndbKpkm6GorM0g5kHNkF",
+        valueProveedor: formData.valueProveedor,
+      });
+    } else {
+      props.cargarProveedor({
+        tipoProveedor: formData.tipoProveedor,
+        valueProveedor: formData.valueProveedor,
+      });
     }
   };
 
@@ -137,7 +141,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    cargarProveedor: (formData) => dispatch(cargarProveedor(formData)),
+    cargarBanco: (formData) => dispatch(cargarBanco(formData)),
+  };
 };
 
 export default compose(

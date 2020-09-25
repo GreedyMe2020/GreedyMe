@@ -31,6 +31,7 @@ import {
   modificarUsuarioComercio,
 } from "../../../redux/actions/adminActions";
 import FormCrearUsuario from "./FormCrearUsuario";
+import Snackbar from "@material-ui/core/Snackbar";
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -80,9 +81,10 @@ function ListaUsuarios(props) {
     setOpenAlert(false);
   };
 
-  //Estados de los comercios
-  //const [comercio, setComercio] = React.useState(comercio);
-  //const [comercio2, setComercio2] = React.useState(comercio);
+  //estados solo para el buscador
+  const [usuarios, setUsuarios] = React.useState(props.usuarios);
+  const [usuarios2, setUsuarios2] = React.useState(props.usuarios);
+  const [text, setText] = React.useState("");
 
   //Estados para setear comercio a eliminar, y eliminarlo
   const [eliminar, setEliminar] = React.useState(null);
@@ -90,6 +92,10 @@ function ListaUsuarios(props) {
 
   //Snackbar cuando se elimina
   const [eliminada, setEliminada] = React.useState(false);
+
+  React.useEffect(() => {
+    setUsuarios(props.usuarios);
+  }, []);
 
   //Eliminar un comercio de la BD y renderizar la eliminacion
   React.useEffect(() => {
@@ -99,6 +105,23 @@ function ListaUsuarios(props) {
       });
     }
   }, [currentId]);
+
+  //funcion para buscar
+  const filter = (text) => {
+    if (props.usuarios) {
+      let textoBuscar = text.target.value;
+      const datos = props.usuarios;
+      const newDatos = datos.filter(function (item) {
+        const itemNombreComercio = item.nombreComercio.toUpperCase();
+        const itemRubro = item.rubro.toUpperCase();
+        const campo = itemNombreComercio + " " + itemRubro;
+        const textData = textoBuscar.toUpperCase();
+        return campo.indexOf(textData) > -1;
+      });
+      setUsuarios(newDatos);
+      setText(text);
+    }
+  };
 
   //abre y cierra el modal de modificar (el lapiz)
   const handleClickOpenModificar = () => {
@@ -116,6 +139,7 @@ function ListaUsuarios(props) {
   const actualizarComercio = (formData) => {
     props.modificarUsuarioComercio(formData);
   };
+
   return (
     <div>
       <ModalAdministrador
@@ -123,6 +147,7 @@ function ListaUsuarios(props) {
         titleModal="Cargar nuevo comercio"
         button="Nuevo comercio"
         openContent={<FormCrearUsuario crearComercio={crearComercio} />}
+        onChange={(text) => filter(text)}
       />
 
       <div className="contenedorTodo">
@@ -152,7 +177,7 @@ function ListaUsuarios(props) {
                                   {user.CUIT}
                                 </React.Fragment>
                               }
-                              secondary={"web: " + user.web}
+                              secondary={"rubro: " + user.rubro}
                             />
                           </div>
                           <ListItemSecondaryAction>
@@ -250,7 +275,7 @@ function ListaUsuarios(props) {
                     onClose={handleCloseAlert}
                   >
                     <Alert onClose={handleCloseAlert} severity="error">
-                      La promoción se ha eliminado
+                      El usuario se ha eliminado
                     </Alert>
                   </Snackbar>
                 ) : (
