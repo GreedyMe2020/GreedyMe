@@ -27,7 +27,7 @@ function PreguntasPerfil(props) {
       </Link>
       <div className={classes.root}>
         <AccordionPreguntas
-          pregunta="Quiero cambiar datos de mi cuenta (opcionales, obligatorios)"
+          pregunta="Quiero cambiar datos de mi cuenta"
           respuesta="Para cambiar los datos de tu cuenta, debes primero iniciar sesión.
           Una vez iniciada la sesión, en la sección superior derecha de la página principal encontraras un icono de una persona. Haciendo clic en él, seleccionas la sección Mi Perfil.
           Al ser redirigido a dicha sección encontraras un formulario con todos tus datos personales, debes tener en cuenta que algunos de ellos son editables mientras que otros no, así como también existen datos obligatorios y opcionales.

@@ -161,7 +161,7 @@ export function CardAyuda(props) {
                     className="image-o"
                   />
                 </ListItemIcon>
-                <ListItemText primary="Greedy Shop" />
+                <ListItemText primary="GreedyShop" />
               </ListItem>
             </Link>
           </List>
