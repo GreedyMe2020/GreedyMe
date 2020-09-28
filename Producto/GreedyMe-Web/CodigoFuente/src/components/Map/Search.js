@@ -11,14 +11,35 @@ import {
 
 import "@reach/combobox/styles.css";
 import { makeStyles } from "@material-ui/core/styles";
+import { ControlCameraRounded, Directions } from "@material-ui/icons";
+import { CardColumns } from "react-bootstrap";
 
 const libraries = ["places"];
 const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
+  comboBox: {
+    border: 0,
+    margin: 0,
+    display: "inline-flex",
+    padding: 0,
+    position: "relative",
+    "min-width": 0,
+    "flex-direction": "column",
+    "vertical-align": "top",
+  },
+
+  multiInput: {
+    padding: "18.5px 14px",
+    width: "100%",
+    "box-shadow": "none",
+    "border-color": "rgba(0, 0, 0, 0.23)",
+    font: "inherit",
+    color: "currentColor",
+    "font-size": "1rem",
+    "letter-spacing": "inherit",
+  },
+  titulo: {
+    transform: "transalate(14px, -6px) scale(0.75)",
+    color: "rgba(0, 0, 0, 0.38)",
   },
 }));
 
@@ -61,7 +82,13 @@ export default function Search({ obtenerDireccion, actual }) {
   return (
     <div onLoad={handleLoad}>
       <Combobox onSelect={handleSelect}>
-        <ComboboxInput value={value} onChange={handleInput} disabled={!ready} />
+        <ComboboxInput
+          value={value}
+          onChange={handleInput}
+          disabled={!ready}
+          placeholder="Dirección"
+          className={classes.multiInput}
+        />
         <ComboboxPopover>
           <ComboboxList>
             {status === "OK" &&
