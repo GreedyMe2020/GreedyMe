@@ -1,3 +1,5 @@
+import secondaryApp from "../../firebase/configSecondary";
+
 export const crearPromocion = (
   promocion,
   id,
@@ -27,6 +29,25 @@ export const crearPromocion = (
         photoURL: promocion.photoURL,
         diaAplicacion: dias,
         medioPago: value,
+      })
+      .then(() => {
+        const bd = secondaryApp.firestore();
+        bd.collection("promociones").doc(id).set({
+          idComercio: promocion.id,
+          tipoPromo: promocion.tipoPromo,
+          valuePromo: promocion.valuePromo,
+          otraPromo: promocion.otraPromo,
+          tipoProveedor: promocion.tipoProveedor,
+          valueProveedor: promocion.valueProveedor,
+          otroProveedor: promocion.otroProveedor,
+          desdeVigencia: desdeVigencia,
+          hastaVigencia: hastaVigencia,
+          visible: false,
+          descripcion: promocion.descripcion,
+          photoURL: promocion.photoURL,
+          diaAplicacion: dias,
+          medioPago: value,
+        });
       })
       .then(() => {
         dispatch({ type: "CREAR_PROMOCION" });
@@ -60,11 +81,27 @@ export const actualizarPromocion = (
         otroProveedor: promocion.otroProveedor,
         desdeVigencia: desdeVigencia,
         hastaVigencia: hastaVigencia,
-        visible: false,
         descripcion: promocion.descripcion,
         photoURL: promocion.photoURL,
         diaAplicacion: dias,
         medioPago: value,
+      })
+      .then(() => {
+        const bd = secondaryApp.firestore();
+        bd.collection("promociones").doc(promocion.idProm).update({
+          tipoPromo: promocion.tipoPromo,
+          valuePromo: promocion.valuePromo,
+          otraPromo: promocion.otraPromo,
+          tipoProveedor: promocion.tipoProveedor,
+          valueProveedor: promocion.valueProveedor,
+          otroProveedor: promocion.otroProveedor,
+          desdeVigencia: desdeVigencia,
+          hastaVigencia: hastaVigencia,
+          descripcion: promocion.descripcion,
+          photoURL: promocion.photoURL,
+          diaAplicacion: dias,
+          medioPago: value,
+        });
       })
       .then(() => {
         dispatch({ type: "ACTUALIZAR_PROMOCION", promocion });
@@ -85,6 +122,10 @@ export const eliminarPromocion = (promocion) => {
       .doc(promocion.idProm)
       .delete()
       .then(() => {
+        const bd = secondaryApp.firestore();
+        bd.collection("promociones").doc(promocion.idProm).delete();
+      })
+      .then(() => {
         dispatch({ type: "ELIMINAR_PROMOCION" });
       })
       .catch((error) => {
@@ -103,6 +144,12 @@ export const cambiarVisibilidad = (promocion) => {
       .doc(promocion.idProm)
       .update({
         visible: promocion.visible,
+      })
+      .then(() => {
+        const bd = secondaryApp.firestore();
+        bd.collection("promociones").doc(promocion.idProm).update({
+          visible: promocion.visible,
+        });
       })
       .then(() => {
         dispatch({ type: "CAMBIAR_VISIBILIDAD" });

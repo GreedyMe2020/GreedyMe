@@ -1,9 +1,6 @@
 export const signIn = (usuario) => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
-    if (usuario.email === "admin") {
-      usuario.email = "greedyme.contacto@gmail.com";
-    }
     firebase
       .auth()
       .signInWithEmailAndPassword(usuario.email, usuario.password)
@@ -42,5 +39,3 @@ export const forgotPass = (usuario) => {
       });
   };
 };
-
-
