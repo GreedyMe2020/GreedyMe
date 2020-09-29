@@ -27,7 +27,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import CloseIcon from "@material-ui/icons/Close";
 import "firebase/analytics";
-
 import {
   cambiarVisibilidad,
   actualizarPromocion,

@@ -55,12 +55,38 @@ function ListaProveedores(props) {
 
   //Snackbar cuando se elimina
   const [eliminada, setEliminada] = React.useState(false);
+  //estados para buscadores
+  const [listaProveedores, setListaProveedores] = React.useState(
+    props.proveedores
+  );
+  const [text, setText] = React.useState("");
+  const [texto, setTexto] = React.useState(false);
 
   const handleClose = () => {
     setOpen(false);
   };
   const handleMouseDownPromo = (event) => {
     event.preventDefault();
+  };
+
+  const filter = (text) => {
+    if (props.proveedores) {
+      let textoBuscar = text.target.value;
+      const datos = props.proveedores;
+      const newDatos = datos.filter(function (item) {
+        const tipo = item.tipo ? item.tipo.toUpperCase() : "bancos";
+        const campo = tipo;
+        const textData = textoBuscar.toUpperCase();
+        return campo.indexOf(textData) > -1;
+      });
+      setListaProveedores(newDatos);
+      setText(text);
+      if (text.target.value != "") {
+        setTexto(true);
+      } else {
+        setTexto(false);
+      }
+    }
   };
 
   React.useEffect(() => {
@@ -91,6 +117,7 @@ function ListaProveedores(props) {
         openContent={<FormProveedores />}
         openContent2={<FormTipoProveedores />}
         placeholder="Buscar proveedor…"
+        onChange={(text) => filter(text)}
       />
       <div className="contenedorTodo">
         <Card className="cardPromo">
@@ -98,67 +125,133 @@ function ListaProveedores(props) {
             <Grid item xs={12} md={12}>
               <div className={classes.demo}>
                 <List>
-                  {props.proveedores &&
-                    props.proveedores.map((item) => {
-                      return (
-                        <ListItem key={item.id}>
-                          <ListItemAvatar>
-                            <Avatar
-                              variant="square"
-                              src={require("../../../../Multimedia/Sistema-svg/id-card.svg")}
-                            ></Avatar>
-                          </ListItemAvatar>
+                  {props.proveedores && texto === false
+                    ? props.proveedores.map((item) => {
+                        return (
+                          <ListItem key={item.id}>
+                            <ListItemAvatar>
+                              <Avatar
+                                variant="square"
+                                src={require("../../../../Multimedia/Sistema-svg/id-card.svg")}
+                              ></Avatar>
+                            </ListItemAvatar>
 
-                          <div className="elementoListaProm">
-                            <ListItemText
-                              //asi podes ir accediendo a todos los datos asi los acomodas como quieras
-                              primary={
-                                <React.Fragment>
-                                  <Typography className={classes.inline}>
-                                    {item.tipo ? item.tipo : "Bancos"}
-                                  </Typography>
-                                  {item.lista
-                                    ? item.lista.map((ite) => {
-                                        return ite.nombre + " - ";
-                                      })
-                                    : item.bancos.map((ite) => {
-                                        return ite.nombre + " - ";
-                                      })}
-                                </React.Fragment>
-                              }
-                            />
-                          </div>
-                          <ListItemSecondaryAction>
-                            <Tooltip title="Eliminar" arrow>
-                              <IconButton
-                                onClick={() => {
-                                  setEliminar(item.id);
-                                  setOpen(true);
-                                }}
-                                edge="end"
-                                aria-label="Eliminar"
-                              >
-                                <DeleteIcon />
-                              </IconButton>
-                            </Tooltip>
-                            <DialogComponent
-                              open={open}
-                              setOpen={setOpen}
-                              handleClose={handleClose}
-                              eliminar={eliminar}
-                              setEliminar={setEliminar}
-                              setEliminada={setEliminada}
-                              setCurrentId={setCurrentId}
-                              title={"¿Estás seguro de eliminar la promoción?"}
-                              text={
-                                "Una vez que aceptes eliminar la promoción, la misma no podrá ser recuperada."
-                              }
-                              btnText={"Eliminar"}
-                            />
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                      );
-                    })}
+                            <div className="elementoListaProm">
+                              <ListItemText
+                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                                primary={
+                                  <React.Fragment>
+                                    <Typography className={classes.inline}>
+                                      {item.tipo ? item.tipo : "Bancos"}
+                                    </Typography>
+                                    {item.lista
+                                      ? item.lista.map((ite) => {
+                                          return ite.nombre + " - ";
+                                        })
+                                      : item.bancos.map((ite) => {
+                                          return ite.nombre + " - ";
+                                        })}
+                                  </React.Fragment>
+                                }
+                              />
+                            </div>
+                            <ListItemSecondaryAction>
+                              <Tooltip title="Eliminar" arrow>
+                                <IconButton
+                                  onClick={() => {
+                                    setEliminar(item.id);
+                                    setOpen(true);
+                                  }}
+                                  edge="end"
+                                  aria-label="Eliminar"
+                                >
+                                  <DeleteIcon />
+                                </IconButton>
+                              </Tooltip>
+                              <DialogComponent
+                                open={open}
+                                setOpen={setOpen}
+                                handleClose={handleClose}
+                                eliminar={eliminar}
+                                setEliminar={setEliminar}
+                                setEliminada={setEliminada}
+                                setCurrentId={setCurrentId}
+                                title={
+                                  "¿Estás seguro de eliminar la promoción?"
+                                }
+                                text={
+                                  "Una vez que aceptes eliminar la promoción, la misma no podrá ser recuperada."
+                                }
+                                btnText={"Eliminar"}
+                              />
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        );
+                      })
+                    : listaProveedores
+                    ? listaProveedores.map((item) => {
+                        return (
+                          <ListItem key={item.id}>
+                            <ListItemAvatar>
+                              <Avatar
+                                variant="square"
+                                src={require("../../../../Multimedia/Sistema-svg/id-card.svg")}
+                              ></Avatar>
+                            </ListItemAvatar>
+
+                            <div className="elementoListaProm">
+                              <ListItemText
+                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                                primary={
+                                  <React.Fragment>
+                                    <Typography className={classes.inline}>
+                                      {item.tipo ? item.tipo : "Bancos"}
+                                    </Typography>
+                                    {item.lista
+                                      ? item.lista.map((ite) => {
+                                          return ite.nombre + " - ";
+                                        })
+                                      : item.bancos.map((ite) => {
+                                          return ite.nombre + " - ";
+                                        })}
+                                  </React.Fragment>
+                                }
+                              />
+                            </div>
+                            <ListItemSecondaryAction>
+                              <Tooltip title="Eliminar" arrow>
+                                <IconButton
+                                  onClick={() => {
+                                    setEliminar(item.id);
+                                    setOpen(true);
+                                  }}
+                                  edge="end"
+                                  aria-label="Eliminar"
+                                >
+                                  <DeleteIcon />
+                                </IconButton>
+                              </Tooltip>
+                              <DialogComponent
+                                open={open}
+                                setOpen={setOpen}
+                                handleClose={handleClose}
+                                eliminar={eliminar}
+                                setEliminar={setEliminar}
+                                setEliminada={setEliminada}
+                                setCurrentId={setCurrentId}
+                                title={
+                                  "¿Estás seguro de eliminar la promoción?"
+                                }
+                                text={
+                                  "Una vez que aceptes eliminar la promoción, la misma no podrá ser recuperada."
+                                }
+                                btnText={"Eliminar"}
+                              />
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        );
+                      })
+                    : null}
                 </List>
                 {/* {eliminada ? (
                   <Snackbar
