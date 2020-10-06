@@ -32,7 +32,8 @@ import {
 } from "../../../redux/actions/adminActions";
 import FormCrearUsuario from "./FormCrearUsuario";
 import Snackbar from "@material-ui/core/Snackbar";
-
+import firebase from "../../../firebase/config";
+import _ from "lodash";
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
 
@@ -82,8 +83,9 @@ function ListaUsuarios(props) {
   };
 
   //estados solo para el buscador
-  const [usuarios, setUsuarios] = React.useState(props.usuarios);
-  const [usuarios2, setUsuarios2] = React.useState(props.usuarios);
+
+  const [listaUsuarios, setListaUsuarios] = React.useState(props.usuarios);
+  const [texto, setTexto] = React.useState(false);
   const [text, setText] = React.useState("");
 
   //Estados para setear comercio a eliminar, y eliminarlo
@@ -92,10 +94,6 @@ function ListaUsuarios(props) {
 
   //Snackbar cuando se elimina
   const [eliminada, setEliminada] = React.useState(false);
-
-  React.useEffect(() => {
-    setUsuarios(props.usuarios);
-  }, []);
 
   //Eliminar un comercio de la BD y renderizar la eliminacion
   React.useEffect(() => {
@@ -118,8 +116,13 @@ function ListaUsuarios(props) {
         const textData = textoBuscar.toUpperCase();
         return campo.indexOf(textData) > -1;
       });
-      setUsuarios(newDatos);
+      setListaUsuarios(newDatos);
       setText(text);
+      if (text.target.value != "") {
+        setTexto(true);
+      } else {
+        setTexto(false);
+      }
     }
   };
 
@@ -156,113 +159,221 @@ function ListaUsuarios(props) {
             <Grid item xs={12} md={12}>
               <div className={classes.demo}>
                 <List>
-                  {props.usuarios &&
-                    props.usuarios.map((user) => {
-                      return (
-                        <ListItem key={user.id}>
-                          <ListItemAvatar>
-                            <Avatar
-                              variant="square"
-                              src={require("../../../../Multimedia/Sistema-svg/store.svg")}
-                            ></Avatar>
-                          </ListItemAvatar>
-                          <div className="elementoListaProm">
-                            <ListItemText
-                              //asi podes ir accediendo a todos los datos asi los acomodas como quieras
-                              primary={
-                                <React.Fragment>
-                                  <Typography className={classes.inline}>
-                                    {user.nombreComercio}
-                                  </Typography>
-                                  {user.CUIT}
-                                </React.Fragment>
-                              }
-                              secondary={"rubro: " + user.rubro}
-                            />
-                          </div>
-                          <ListItemSecondaryAction>
-                            <Tooltip title="Editar" arrow>
-                              <IconButton
-                                aria-label="Editar"
-                                onClick={() => {
-                                  setModificar({
-                                    id: user.id,
-                                    email: user.email,
-                                    CUIT: user.CUIT,
-                                    nombreComercio: user.nombreComercio,
-                                    web: user.web,
-                                    contraseña: user.contraseña,
-                                    repetirContraseña: user.repetirContraseña,
-                                    sucursal: user.sucursal,
-                                    rubro: user.rubro,
-                                    telefono: user.telefono,
-                                    instagram: user.instagram,
-                                    facebook: user.facebook,
-                                    direccion: user.direccion,
-                                  });
-                                  handleClickOpenModificar();
-                                }}
-                              >
-                                <CreateIcon />
-                              </IconButton>
-                            </Tooltip>
-                            <Dialog
-                              fullWidth={fullWidth}
-                              maxWidth={maxWidth}
-                              open={openModificar}
-                            >
-                              <DialogTitle id="dialog-title-prom">
-                                <h5>Modificar comercio</h5>
+                  {props.usuarios && texto === false
+                    ? props.usuarios.map((user) => {
+                        return (
+                          <ListItem key={user.id}>
+                            <ListItemAvatar>
+                              <Avatar
+                                variant="square"
+                                src={require("../../../../Multimedia/Sistema-svg/store.svg")}
+                              ></Avatar>
+                            </ListItemAvatar>
+                            <div className="elementoListaProm">
+                              <ListItemText
+                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                                primary={
+                                  <React.Fragment>
+                                    <Typography className={classes.inline}>
+                                      {user.nombreComercio}
+                                    </Typography>
+                                    {user.CUIT}
+                                  </React.Fragment>
+                                }
+                                secondary={"rubro: " + user.rubro}
+                              />
+                            </div>
+                            <ListItemSecondaryAction>
+                              <Tooltip title="Editar" arrow>
                                 <IconButton
-                                  aria-label="close"
-                                  id="btn"
-                                  className={classes.cruz}
-                                  onClick={handleCloseModificar}
+                                  aria-label="Editar"
+                                  onClick={() => {
+                                    setModificar({
+                                      id: user.id,
+                                      email: user.email,
+                                      CUIT: user.CUIT,
+                                      nombreComercio: user.nombreComercio,
+                                      web: user.web,
+                                      contraseña: user.contraseña,
+                                      repetirContraseña: user.repetirContraseña,
+                                      sucursal: user.sucursal,
+                                      rubro: user.rubro,
+                                      telefono: user.telefono,
+                                      instagram: user.instagram,
+                                      facebook: user.facebook,
+                                      direccion: user.direccion,
+                                    });
+                                    handleClickOpenModificar();
+                                  }}
                                 >
-                                  <CloseIcon />
+                                  <CreateIcon />
                                 </IconButton>
-                              </DialogTitle>
-                              <DialogContent dividers>
-                                <DialogContentText>
-                                  <ModalActualizarComercio
-                                    comercio={modificar}
-                                    actualizar={actualizarComercio}
-                                  />
-                                </DialogContentText>
-                              </DialogContent>
-                            </Dialog>
-
-                            <Tooltip title="Eliminar" arrow>
-                              <IconButton
-                                onClick={() => {
-                                  setEliminar(user.id);
-                                  setOpen(true);
-                                  console.log(user.id);
-                                }}
-                                edge="end"
-                                aria-label="Eliminar"
+                              </Tooltip>
+                              <Dialog
+                                fullWidth={fullWidth}
+                                maxWidth={maxWidth}
+                                open={openModificar}
                               >
-                                <DeleteIcon />
-                              </IconButton>
-                            </Tooltip>
-                            <DialogComponent
-                              open={open}
-                              setOpen={setOpen}
-                              handleClose={handleClose}
-                              eliminar={eliminar}
-                              setEliminar={setEliminar}
-                              setEliminada={setEliminada}
-                              setCurrentId={setCurrentId}
-                              title={"¿Estás seguro de eliminar el comercio?"}
-                              text={
-                                "Una vez que aceptes eliminar el comercio, el mismo no podrá ser recuperado."
-                              }
-                              btnText={"Eliminar"}
-                            />
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                      );
-                    })}
+                                <DialogTitle id="dialog-title-prom">
+                                  <h5>Modificar comercio</h5>
+                                  <IconButton
+                                    aria-label="close"
+                                    id="btn"
+                                    className={classes.cruz}
+                                    onClick={handleCloseModificar}
+                                  >
+                                    <CloseIcon />
+                                  </IconButton>
+                                </DialogTitle>
+                                <DialogContent dividers>
+                                  <DialogContentText>
+                                    <ModalActualizarComercio
+                                      comercio={modificar}
+                                      actualizar={actualizarComercio}
+                                    />
+                                  </DialogContentText>
+                                </DialogContent>
+                              </Dialog>
+
+                              <Tooltip title="Eliminar" arrow>
+                                <IconButton
+                                  onClick={() => {
+                                    setEliminar(user.id);
+                                    setOpen(true);
+                                    console.log(user.id);
+                                  }}
+                                  edge="end"
+                                  aria-label="Eliminar"
+                                >
+                                  <DeleteIcon />
+                                </IconButton>
+                              </Tooltip>
+                              <DialogComponent
+                                open={open}
+                                setOpen={setOpen}
+                                handleClose={handleClose}
+                                eliminar={eliminar}
+                                setEliminar={setEliminar}
+                                setEliminada={setEliminada}
+                                setCurrentId={setCurrentId}
+                                title={"¿Estás seguro de eliminar el comercio?"}
+                                text={
+                                  "Una vez que aceptes eliminar el comercio, el mismo no podrá ser recuperado."
+                                }
+                                btnText={"Eliminar"}
+                              />
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        );
+                      })
+                    : listaUsuarios
+                    ? listaUsuarios.map((user) => {
+                        return (
+                          <ListItem key={user.id}>
+                            <ListItemAvatar>
+                              <Avatar
+                                variant="square"
+                                src={require("../../../../Multimedia/Sistema-svg/store.svg")}
+                              ></Avatar>
+                            </ListItemAvatar>
+                            <div className="elementoListaProm">
+                              <ListItemText
+                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                                primary={
+                                  <React.Fragment>
+                                    <Typography className={classes.inline}>
+                                      {user.nombreComercio}
+                                    </Typography>
+                                    {user.CUIT}
+                                  </React.Fragment>
+                                }
+                                secondary={"rubro: " + user.rubro}
+                              />
+                            </div>
+                            <ListItemSecondaryAction>
+                              <Tooltip title="Editar" arrow>
+                                <IconButton
+                                  aria-label="Editar"
+                                  onClick={() => {
+                                    setModificar({
+                                      id: user.id,
+                                      email: user.email,
+                                      CUIT: user.CUIT,
+                                      nombreComercio: user.nombreComercio,
+                                      web: user.web,
+                                      contraseña: user.contraseña,
+                                      repetirContraseña: user.repetirContraseña,
+                                      sucursal: user.sucursal,
+                                      rubro: user.rubro,
+                                      telefono: user.telefono,
+                                      instagram: user.instagram,
+                                      facebook: user.facebook,
+                                      direccion: user.direccion,
+                                    });
+                                    handleClickOpenModificar();
+                                  }}
+                                >
+                                  <CreateIcon />
+                                </IconButton>
+                              </Tooltip>
+                              <Dialog
+                                fullWidth={fullWidth}
+                                maxWidth={maxWidth}
+                                open={openModificar}
+                              >
+                                <DialogTitle id="dialog-title-prom">
+                                  <h5>Modificar comercio</h5>
+                                  <IconButton
+                                    aria-label="close"
+                                    id="btn"
+                                    className={classes.cruz}
+                                    onClick={handleCloseModificar}
+                                  >
+                                    <CloseIcon />
+                                  </IconButton>
+                                </DialogTitle>
+                                <DialogContent dividers>
+                                  <DialogContentText>
+                                    <ModalActualizarComercio
+                                      comercio={modificar}
+                                      actualizar={actualizarComercio}
+                                    />
+                                  </DialogContentText>
+                                </DialogContent>
+                              </Dialog>
+
+                              <Tooltip title="Eliminar" arrow>
+                                <IconButton
+                                  onClick={() => {
+                                    setEliminar(user.id);
+                                    setOpen(true);
+                                    console.log(user.id);
+                                  }}
+                                  edge="end"
+                                  aria-label="Eliminar"
+                                >
+                                  <DeleteIcon />
+                                </IconButton>
+                              </Tooltip>
+                              <DialogComponent
+                                open={open}
+                                setOpen={setOpen}
+                                handleClose={handleClose}
+                                eliminar={eliminar}
+                                setEliminar={setEliminar}
+                                setEliminada={setEliminada}
+                                setCurrentId={setCurrentId}
+                                title={"¿Estás seguro de eliminar el comercio?"}
+                                text={
+                                  "Una vez que aceptes eliminar el comercio, el mismo no podrá ser recuperado."
+                                }
+                                btnText={"Eliminar"}
+                              />
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        );
+                      })
+                    : null}
                 </List>
                 {eliminada ? (
                   <Snackbar

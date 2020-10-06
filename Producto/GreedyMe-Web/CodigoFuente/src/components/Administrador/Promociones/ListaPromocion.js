@@ -56,6 +56,12 @@ function ListaPromocion(props) {
   //Snackbar cuando se elimina
   const [eliminada, setEliminada] = React.useState(false);
 
+  const [listaPromociones, setListaPromociones] = React.useState(
+    props.tipoPromo
+  );
+  const [text, setText] = React.useState("");
+  const [texto, setTexto] = React.useState(false);
+
   React.useEffect(() => {
     if (currentId) {
       props.eliminarTipoPromocion({
@@ -71,6 +77,26 @@ function ListaPromocion(props) {
     event.preventDefault();
   };
 
+  const filter = (text) => {
+    if (props.tipoPromo) {
+      let textoBuscar = text.target.value;
+      const datos = props.tipoPromo;
+      const newDatos = datos.filter(function (item) {
+        const tipo = item.tipo.toUpperCase();
+        const campo = tipo;
+        const textData = textoBuscar.toUpperCase();
+        return campo.indexOf(textData) > -1;
+      });
+      setListaPromociones(newDatos);
+      setText(text);
+      if (text.target.value != "") {
+        setTexto(true);
+      } else {
+        setTexto(false);
+      }
+    }
+  };
+
   const [openAlert, setOpenAlert] = React.useState(false);
 
   const handleCloseAlert = (event, reason) => {
@@ -79,6 +105,7 @@ function ListaPromocion(props) {
     }
     setOpenAlert(false);
   };
+
   const form = React.createRef();
   return (
     <div>
@@ -91,6 +118,7 @@ function ListaPromocion(props) {
         openContent={<FormPromocion />}
         openContent2={<FormTipoPromocion />}
         placeholder="Buscar beneficio…"
+        onChange={(text) => filter(text)}
       />
       <div className="contenedorTodo">
         <Card className="cardPromo">
@@ -98,63 +126,125 @@ function ListaPromocion(props) {
             <Grid item xs={12} md={12}>
               <div className={classes.demo}>
                 <List>
-                  {props.tipoPromo &&
-                    props.tipoPromo.map((item) => {
-                      return (
-                        <ListItem key={item.id}>
-                          <ListItemAvatar>
-                            <Avatar
-                              variant="square"
-                              src={require("../../../../Multimedia/Sistema-svg/price-tag (5).svg")}
-                            ></Avatar>
-                          </ListItemAvatar>
+                  {props.tipoPromo && texto === false
+                    ? props.tipoPromo.map((item) => {
+                        return (
+                          <ListItem key={item.id}>
+                            <ListItemAvatar>
+                              <Avatar
+                                variant="square"
+                                src={require("../../../../Multimedia/Sistema-svg/price-tag (5).svg")}
+                              ></Avatar>
+                            </ListItemAvatar>
 
-                          <div className="elementoListaProm">
-                            <ListItemText
-                              //asi podes ir accediendo a todos los datos asi los acomodas como quieras
-                              primary={
-                                <React.Fragment>
-                                  <Typography className={classes.inline}>
-                                    {item.tipo}
-                                  </Typography>
-                                  {item.lista.map((ite) => {
-                                    return ite.valor + " - ";
-                                  })}
-                                </React.Fragment>
-                              }
-                            />
-                          </div>
-                          <ListItemSecondaryAction>
-                            <Tooltip title="Eliminar" arrow>
-                              <IconButton
-                                onClick={() => {
-                                  setEliminar(item.id);
-                                  setOpen(true);
-                                }}
-                                edge="end"
-                                aria-label="Eliminar"
-                              >
-                                <DeleteIcon />
-                              </IconButton>
-                            </Tooltip>
-                            <DialogComponent
-                              open={open}
-                              setOpen={setOpen}
-                              handleClose={handleClose}
-                              eliminar={eliminar}
-                              setEliminar={setEliminar}
-                              setEliminada={setEliminada}
-                              setCurrentId={setCurrentId}
-                              title={"¿Estás seguro de eliminar el beneficio?"}
-                              text={
-                                "Una vez que aceptes eliminar el beneficio, el mismo no podrá ser recuperado."
-                              }
-                              btnText={"Eliminar"}
-                            />
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                      );
-                    })}
+                            <div className="elementoListaProm">
+                              <ListItemText
+                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                                primary={
+                                  <React.Fragment>
+                                    <Typography className={classes.inline}>
+                                      {item.tipo}
+                                    </Typography>
+                                    {item.lista.map((ite) => {
+                                      return ite.valor + " - ";
+                                    })}
+                                  </React.Fragment>
+                                }
+                              />
+                            </div>
+                            <ListItemSecondaryAction>
+                              <Tooltip title="Eliminar" arrow>
+                                <IconButton
+                                  onClick={() => {
+                                    setEliminar(item.id);
+                                    setOpen(true);
+                                  }}
+                                  edge="end"
+                                  aria-label="Eliminar"
+                                >
+                                  <DeleteIcon />
+                                </IconButton>
+                              </Tooltip>
+                              <DialogComponent
+                                open={open}
+                                setOpen={setOpen}
+                                handleClose={handleClose}
+                                eliminar={eliminar}
+                                setEliminar={setEliminar}
+                                setEliminada={setEliminada}
+                                setCurrentId={setCurrentId}
+                                title={
+                                  "¿Estás seguro de eliminar el beneficio?"
+                                }
+                                text={
+                                  "Una vez que aceptes eliminar el beneficio, el misma no podrá ser recuperada."
+                                }
+                                btnText={"Eliminar"}
+                              />
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        );
+                      })
+                    : listaPromociones
+                    ? listaPromociones.map((item) => {
+                        return (
+                          <ListItem key={item.id}>
+                            <ListItemAvatar>
+                              <Avatar
+                                variant="square"
+                                src={require("../../../../Multimedia/Sistema-svg/price-tag (5).svg")}
+                              ></Avatar>
+                            </ListItemAvatar>
+
+                            <div className="elementoListaProm">
+                              <ListItemText
+                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                                primary={
+                                  <React.Fragment>
+                                    <Typography className={classes.inline}>
+                                      {item.tipo}
+                                    </Typography>
+                                    {item.lista.map((ite) => {
+                                      return ite.valor + " - ";
+                                    })}
+                                  </React.Fragment>
+                                }
+                              />
+                            </div>
+                            <ListItemSecondaryAction>
+                              <Tooltip title="Eliminar" arrow>
+                                <IconButton
+                                  onClick={() => {
+                                    setEliminar(item.id);
+                                    setOpen(true);
+                                  }}
+                                  edge="end"
+                                  aria-label="Eliminar"
+                                >
+                                  <DeleteIcon />
+                                </IconButton>
+                              </Tooltip>
+                              <DialogComponent
+                                open={open}
+                                setOpen={setOpen}
+                                handleClose={handleClose}
+                                eliminar={eliminar}
+                                setEliminar={setEliminar}
+                                setEliminada={setEliminada}
+                                setCurrentId={setCurrentId}
+                                title={
+                                  "¿Estás seguro de eliminar el beneficio?"
+                                }
+                                text={
+                                  "Una vez que aceptes eliminar el beneficio, el misma no podrá ser recuperada."
+                                }
+                                btnText={"Eliminar"}
+                              />
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        );
+                      })
+                    : null}
                 </List>
                 {eliminada ? (
                   <Snackbar
