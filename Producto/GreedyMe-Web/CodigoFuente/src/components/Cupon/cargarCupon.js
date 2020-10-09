@@ -4,19 +4,53 @@ import CardContent from "@material-ui/core/CardContent";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import firebase from "../../firebase/config";
+import { format } from "date-fns";
+//Funcion para traer promociones 
+let promociones = [];
+const promocion = () => {
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      const id = user.uid;
+      const firestore = firebase.firestore();
+      firestore
+        .collection("usuarioComercio")
+        .doc(id)
+        .collection("promociones")
+        .onSnapshot(function (snapShots) {
+          promociones = [];
+          snapShots.forEach((doc) => {
+            const data = doc.data();
+            promociones.push({
+              ...data,
+              id: doc.id,
+            });
+          });
+        });
+    }
+  });
+};
+//y aca se ejecuta la funcion de arriba
+promocion();
 
 function Cupon() {
-  const beneficios = [
-    { name: "3x2 Club Personal, válida desde el" },
-    { name: "20% Nuevo club, válida desde el" },
-    { name: "5*2 Club La Voz, válida desde el" },
-    { name: "4x2 Talleres, válida desde el" },
-    { name: "APEPE La Voz, válida desde el" },
-    { name: "PEPE La Voz, válida desde el" },
-    { name: "1x2 Club Personal, válida desde el" },
-    { name: "4x2 OLA, válida desde el" },
-    { name: "5*2 PEPE La Voz, válida desde el" },
-  ];
+
+  //Estados de las promociones
+  const [promos, setPromos] = React.useState(promociones);
+  const beneficios = []
+  promociones.map((promo) => {
+    beneficios.push({name: promo.tipoProveedor + " " + promo.valueProveedor + " " + promo.otroProveedor + " " + promo.tipoPromo + " " + promo.valuePromo + " " + promo.otraPromo + "válida desde el " +
+    format(
+      promo.desdeVigencia.toDate(),
+      "dd/MM/yyyy"
+    ) +
+    " hasta el " +
+    format(
+      promo.hastaVigencia.toDate(),
+      "dd/MM/yyyy"
+    ) })
+  })
+
 
   const options = beneficios.map((option) => {
     const firstLetter = option.name[0].toUpperCase();
