@@ -341,8 +341,6 @@ export default function FormDialog() {
                   fullWidth
                   name="sucursal"
                   value={formData.sucursal}
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
                 />
               </Grid>
               <Grid item xs={12} md={6}>

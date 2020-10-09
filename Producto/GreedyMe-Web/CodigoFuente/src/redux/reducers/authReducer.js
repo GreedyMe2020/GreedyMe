@@ -35,7 +35,12 @@ const authReducer = (state = initState, action) => {
         mailError: "email invalido",
         mandoMail: null,
       };
-
+    case "RESETEAR_VALORES_INICIO_SESION":
+      console.log("se resetearon");
+      return {
+        ...state,
+        authError: null,
+      };
     default:
       return state;
   }

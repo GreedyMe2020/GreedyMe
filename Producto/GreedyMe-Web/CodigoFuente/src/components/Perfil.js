@@ -113,7 +113,15 @@ function Perfil(props) {
                       className="nombreComerc"
                       primary={props.profile.nombreComercio}
                     />
-                    <p className="planPrem">Plan Premium</p>
+                    <p className="planPrem">
+                      {props.profile.tipoSuscripcion === 0
+                        ? "Plan Básico"
+                        : props.profile.tipoSuscripcion === 1
+                        ? "Plan Estándar"
+                        : props.profile.tipoSuscripcion === 2
+                        ? "Plan Premium"
+                        : null}
+                    </p>
                   </div>
                 </ListItem>
               </div>

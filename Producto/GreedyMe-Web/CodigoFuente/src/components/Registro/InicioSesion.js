@@ -1,7 +1,10 @@
 import React from "react";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { connect } from "react-redux";
-import { signIn } from "../../redux/actions/authActions";
+import {
+  signIn,
+  resetearValoresInicioSesion,
+} from "../../redux/actions/authActions";
 import { Redirect, Link } from "@reach/router";
 import { Card } from "react-bootstrap";
 import Button from "@material-ui/core/Button";
@@ -40,6 +43,7 @@ function InicioSesion(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    props.resetearValoresInicioSesion();
     props.signIn(values);
   };
 
@@ -173,6 +177,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signIn: (user) => dispatch(signIn(user)),
+    resetearValoresInicioSesion: () => dispatch(resetearValoresInicioSesion()),
   };
 };
 
