@@ -30,6 +30,8 @@ import MuiAlert from "@material-ui/lab/Alert";
 import { connect } from "react-redux";
 import firebase from "../../firebase/config";
 import { format } from "date-fns";
+import MenuItem from "@material-ui/core/MenuItem";
+
 
 const useStyles = makeStyles((theme) => ({
   demo: {
@@ -58,6 +60,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
 }));
+
+const notificados =[
+  {value: 'Usuarios con comerico favorito'},
+  {value:'Usuarios cercanos a mi comercio'},
+  {value: 'Todos los usuarios'}
+]
 
 //Funcion para traer promociones 
 let promociones = [];
@@ -104,6 +112,7 @@ function ProgramarNotificaciones(props) {
   }); */
 
   const [promos, setPromos] = React.useState(promociones);
+
   const beneficios = []
   promociones.map((promo) => {
     beneficios.push({name: promo.tipoProveedor + " " + promo.valueProveedor + " " + promo.otroProveedor + " " + promo.tipoPromo + " " + promo.valuePromo + " " + promo.otraPromo + "válida desde el " +
@@ -144,6 +153,13 @@ function ProgramarNotificaciones(props) {
   //Estado para la fecha y hora de envio de notif
   const [envioNotif, handleEnvioNotif] = React.useState(new Date());
   const [selectedDate, handleDateChange] = useState(new Date());
+
+  //Estados para los tipos de notificaciones hardcodeados
+  const [notificaciones, setNotificaciones] = React.useState('');
+
+  const handleChangeNotificaciones = (event) => {
+    setNotificaciones(event.target.value);
+  }
 
   const handleChangeEnvioUbicacion = (event) => {
     setStateGeo({ ...stateGeo, [event.target.name]: event.target.checked });
@@ -213,13 +229,19 @@ function ProgramarNotificaciones(props) {
                   className="select-tipo-cliente"
                   fullWidth
                   label="Tipo de cliente"
-                  onChange={handleChangeCliente}
+                  onChange={handleChangeNotificaciones}
                   name="tipoCliente"
+                  value={notificaciones}
                   //value={formData.tipoCliente}
                   variant="outlined"
                   validators={["required"]}
                   errorMessages={["*Este campo es obligatorio"]}
                 >
+                  {notificados.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.value}
+                    </MenuItem>
+                  ))}
                   {/* ACA DEBERIA IR "TODOS LOS USUARIOS o USUARIOS DE LOCALES FAVORITOS
                 {proveedor.map((option) => (
                   <MenuItem key={option.tipo} value={option.tipo}>
