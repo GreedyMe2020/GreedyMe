@@ -1,11 +1,31 @@
 import * as React from "react";
-import Accordion from "@material-ui/core/Accordion";
 import AccordionPreguntas from "./accordion-preguntas";
+import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import { Link } from "@reach/router";
 
-export default function PreguntasNotificaciones() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginLeft: "5%",
+    marginRight: "5%",
+    marginTop: "30px",
+  },
+}));
+
+function PreguntasNotificaciones(props) {
+  const classes = useStyles();
   return (
     <div>
-      <Accordion>
+      <div className="prom-title-container">
+        <h1>Ayuda y soporte técnico</h1>
+      </div>
+      <Link
+        to={"/main/" + props.auth.uid + "/ayuda-y-soporte"}
+        className="ayuda-link-volver"
+      >
+        Volver
+      </Link>
+      <div className={classes.root}>
         <AccordionPreguntas
           pregunta=" Quiero notificar a los clientes sobre un beneficio de mi tienda"
           respuesta="Para enviar una notificación a los usuarios de la plataforma acerca de un beneficio determinado, deberás dirigirte a la sección Notificaciones desde la barra lateral de la pantalla.
@@ -51,7 +71,15 @@ export default function PreguntasNotificaciones() {
           Por lo tanto, para acceder a alguna característica que no está incluida en tu plan, deberás suscribirte a uno mayor a través de la sección Suscripciones de la página de GreedyMe. 
           "
         />
-      </Accordion>
+      </div>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+  };
+};
+
+export default connect(mapStateToProps)(PreguntasNotificaciones);

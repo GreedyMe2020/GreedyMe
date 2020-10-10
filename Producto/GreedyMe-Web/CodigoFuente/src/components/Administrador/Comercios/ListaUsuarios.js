@@ -287,7 +287,7 @@ function ListaUsuarios(props) {
                                     {user.CUIT}
                                   </React.Fragment>
                                 }
-                                secondary={"rubro: " + user.rubro}
+                                secondary={"Rubro: " + user.rubro}
                               />
                             </div>
                             <ListItemSecondaryAction>
@@ -382,11 +382,11 @@ function ListaUsuarios(props) {
                       horizontal: "left",
                     }}
                     open={eliminada}
-                    autoHideDuration={8000}
+                    autoHideDuration={7000}
                     onClose={handleCloseAlert}
                   >
                     <Alert onClose={handleCloseAlert} severity="error">
-                      El usuario se ha eliminado
+                      El comercio se ha eliminado
                     </Alert>
                   </Snackbar>
                 ) : (

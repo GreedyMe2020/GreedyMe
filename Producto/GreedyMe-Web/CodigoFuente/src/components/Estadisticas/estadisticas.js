@@ -25,6 +25,37 @@ const currencies = [
   },
 ];
 
+const meses = [
+  {
+    value: "Enero",
+  },
+  {
+    value: "Febrero",
+  },
+  {
+    value: "Marzo",
+  },
+  {
+    value: "Abril",
+  },{
+    value: "Mayo",
+  },{
+    value: "Junio",
+  },{
+    value: "Julio",
+  },{
+    value: "Agosto",
+  },{
+    value: "Septiembre",
+  },{
+    value: "Octubre",
+  },{
+    value: "Noviembre",
+  },{
+    value: "Diciembre",
+  },
+];
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -38,10 +69,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Estadisticas(props) {
   const classes = useStyles();
-  const [currency, setCurrency] = React.useState("EUR");
+  const [currency, setCurrency] = React.useState("");
+  const [mes, setMes] = React.useState("");
 
   const handleChange = (event) => {
     setCurrency(event.target.value);
+  };
+
+  const handleMes = (event) => {
+    setMes(event.target.value);
   };
 
   return (
@@ -57,11 +93,11 @@ export default function Estadisticas(props) {
                 id="est-input-mes"
                 select
                 label="Seleccione un mes"
-                value={currency}
-                onChange={handleChange}
+                value={mes}
+                onChange={handleMes}
                 variant="outlined"
               >
-                {currencies.map((option) => (
+                {meses.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.value}
                   </MenuItem>

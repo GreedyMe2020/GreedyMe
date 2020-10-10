@@ -238,7 +238,7 @@ function ModalActualizarComercio(props) {
           onClose={handleClose}
         >
           <Alert onClose={handleClose} severity="success">
-            El comercio se ha actualizado correctamente!!
+            ¡El comercio se ha actualizado correctamente!
           </Alert>
         </Snackbar>
       </ValidatorForm>

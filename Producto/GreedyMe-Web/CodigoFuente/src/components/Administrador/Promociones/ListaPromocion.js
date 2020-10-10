@@ -20,6 +20,7 @@ import Typography from "@material-ui/core/Typography";
 import FormTipoPromocion from "./FormTipoPromocion";
 import FormPromocion from "./FormPromocion";
 import ModalAdministradorPr from "../modal-admin-pr";
+import Snackbar from "@material-ui/core/Snackbar";
 import { eliminarTipoPromocion } from "../../../redux/actions/adminActions";
 import _ from "lodash";
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
@@ -97,13 +98,11 @@ function ListaPromocion(props) {
     }
   };
 
-  const [openAlert, setOpenAlert] = React.useState(false);
-
-  const handleCloseAlert = (event, reason) => {
+  const handleCloseSnack = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    setOpenAlert(false);
+    setOpenSnack(false);
   };
 
   const form = React.createRef();
@@ -246,7 +245,7 @@ function ListaPromocion(props) {
                       })
                     : null}
                 </List>
-                {/* {eliminada ? (
+                {eliminada ? (
                   <Snackbar
                     anchorOrigin={{
                       vertical: "bottom",
@@ -254,15 +253,15 @@ function ListaPromocion(props) {
                     }}
                     open={eliminada}
                     autoHideDuration={8000}
-                    onClose={handleCloseAlert}
+                    onClose={handleCloseSnack}
                   >
-                    <Alert onClose={handleCloseAlert} severity="error">
-                      La promoción se ha eliminado
+                    <Alert onClose={handleCloseSnack} severity="error">
+                      El beneficio se ha eliminado
                     </Alert>
                   </Snackbar>
                 ) : (
                   ""
-                )} */}
+                )}
               </div>
             </Grid>
           </CardContent>
