@@ -18,6 +18,8 @@ import {
   cargarBanco,
 } from "../../../redux/actions/adminActions";
 import _ from "lodash";
+import Snackbar from "@material-ui/core/Snackbar";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,6 +52,8 @@ function FormProveedores(props) {
     tipoProveedor: "",
     valueProveedor: "",
   });
+  //Estado para manejar el snackbar
+  const [open, setOpen] = React.useState(false);
 
   const handleSubmit = (e) => {
     if (formData.tipoProveedor === "Bancos") {
@@ -57,17 +61,29 @@ function FormProveedores(props) {
         id: "ndbKpkm6GorM0g5kHNkF",
         valueProveedor: formData.valueProveedor,
       });
+      //Abro el snackbar
+      setOpen(true);
     } else {
       props.cargarProveedor({
         tipoProveedor: formData.tipoProveedor,
         valueProveedor: formData.valueProveedor,
       });
+      //Abro el snackbar
+      setOpen(true);
     }
   };
 
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
+  };
+
+  //Funcion para cerrar el snackbar
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
 
   const form = React.createRef();
@@ -127,6 +143,16 @@ function FormProveedores(props) {
             </Button>
           </Grid>
         </Grid>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={open}
+          autoHideDuration={8000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="success">
+            ¡Se guardó el proveedor correctamente!
+          </Alert>
+        </Snackbar>
       </ValidatorForm>
     </div>
   );

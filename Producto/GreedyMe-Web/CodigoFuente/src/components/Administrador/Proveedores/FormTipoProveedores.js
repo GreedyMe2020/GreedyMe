@@ -9,6 +9,8 @@ import { connect } from "react-redux";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { cargarTipoProveedor } from "../../../redux/actions/adminActions";
 import Grid from "@material-ui/core/Grid";
+import Snackbar from "@material-ui/core/Snackbar";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,13 +43,25 @@ function FormTipoProveedores(props) {
     tipoProveedor: "",
   });
 
+  //Estado para manejar el snackbar
+  const [open, setOpen] = React.useState(false);
+
   const handleSubmit = (e) => {
     props.cargarTipoProveedor(formData);
+    setOpen(true);
   };
 
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
+  };
+
+  //Funcion para cerrar el snackbar
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
 
   const form = React.createRef();
@@ -83,6 +97,16 @@ function FormTipoProveedores(props) {
             </Button>
           </Grid>
         </Grid>
+        <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+            open={open}
+            autoHideDuration={8000}
+            onClose={handleClose}
+          >
+            <Alert onClose={handleClose} severity="success">
+              ¡Se guardó el tipo de proveedor correctamente!
+            </Alert>
+          </Snackbar>
       </ValidatorForm>
     </div>
   );
