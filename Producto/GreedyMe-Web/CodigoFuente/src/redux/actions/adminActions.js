@@ -1,4 +1,5 @@
 import _ from "lodash";
+import secondaryApp from "../../firebase/configSecondary";
 export const signUp = (nuevoUsuario) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
@@ -10,7 +11,7 @@ export const signUp = (nuevoUsuario) => {
         nuevoUsuario.contraseña
       )
       .then((resp) => {
-        return firestore.collection("usuarioComercio").doc(resp.user.uid).set({
+        firestore.collection("usuarioComercio").doc(resp.user.uid).set({
           email: nuevoUsuario.email,
           CUIT: nuevoUsuario.CUIT,
           direccion: "",
@@ -20,7 +21,23 @@ export const signUp = (nuevoUsuario) => {
           rubro: nuevoUsuario.rubro,
           sucursal: nuevoUsuario.sucursal,
           telefono: nuevoUsuario.telefono,
-          photoUrl: null,
+          photoURL: null,
+          tipoSuscripcion: 0,
+          web: nuevoUsuario.web,
+          fechaCreacion: new Date(),
+        });
+        const bd = secondaryApp.firestore();
+        bd.collection("usuarioComercio").doc(resp.user.uid).set({
+          email: nuevoUsuario.email,
+          CUIT: nuevoUsuario.CUIT,
+          direccion: "",
+          facebook: nuevoUsuario.facebook,
+          instagram: nuevoUsuario.instagram,
+          nombreComercio: nuevoUsuario.nombreComercio,
+          rubro: nuevoUsuario.rubro,
+          sucursal: nuevoUsuario.sucursal,
+          telefono: nuevoUsuario.telefono,
+          photoURL: null,
           tipoSuscripcion: 0,
           web: nuevoUsuario.web,
           fechaCreacion: new Date(),
@@ -51,6 +68,20 @@ export const modificarUsuarioComercio = (usuario) => {
         sucursal: usuario.sucursal,
         telefono: usuario.telefono,
         web: usuario.web,
+      })
+      .then(() => {
+        const bd = secondaryApp.firestore();
+        bd.collection("usuarioComercio").doc(usuario.id).update({
+          email: usuario.email,
+          CUIT: usuario.CUIT,
+          facebook: usuario.facebook,
+          instagram: usuario.instagram,
+          nombreComercio: usuario.nombreComercio,
+          rubro: usuario.rubro,
+          sucursal: usuario.sucursal,
+          telefono: usuario.telefono,
+          web: usuario.web,
+        });
       })
       .then(() => {
         dispatch({ type: "USUARIO_MODIFICADO" });

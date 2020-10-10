@@ -27,6 +27,9 @@ import TodayIcon from "@material-ui/icons/Today";
 import { IconButton, InputAdornment } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import { connect } from "react-redux";
+import firebase from "../../firebase/config";
+import { format } from "date-fns";
 
 const useStyles = makeStyles((theme) => ({
   demo: {
@@ -56,11 +59,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//Funcion para traer promociones 
+let promociones = [];
+const promocion = () => {
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      const id = user.uid;
+      const firestore = firebase.firestore();
+      firestore
+        .collection("usuarioComercio")
+        .doc(id)
+        .collection("promociones")
+        .onSnapshot(function (snapShots) {
+          promociones = [];
+          snapShots.forEach((doc) => {
+            const data = doc.data();
+            promociones.push({
+              ...data,
+              id: doc.id,
+            });
+          });
+        });
+    }
+  });
+};
+//y aca se ejecuta la funcion de arriba
+promocion();
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function ProgramarNotificaciones() {
+function ProgramarNotificaciones(props) {
   const classes = useStyles();
   /* const [formData, setFormData] = React.useState({
     id: props.auth.uid,
@@ -73,17 +103,22 @@ function ProgramarNotificaciones() {
     descripcion: "",
   }); */
 
-  const beneficios = [
-    { name: "3x2 Club Personal, válida desde el" },
-    { name: "20% Nuevo club, válida desde el" },
-    { name: "5*2 Club La Voz, válida desde el" },
-    { name: "4x2 Talleres, válida desde el" },
-    { name: "APEPE La Voz, válida desde el" },
-    { name: "PEPE La Voz, válida desde el" },
-    { name: "1x2 Club Personal, válida desde el" },
-    { name: "4x2 OLA, válida desde el" },
-    { name: "5*2 PEPE La Voz, válida desde el" },
-  ];
+  const [promos, setPromos] = React.useState(promociones);
+  const beneficios = []
+  promociones.map((promo) => {
+    beneficios.push({name: promo.tipoProveedor + " " + promo.valueProveedor + " " + promo.otroProveedor + " " + promo.tipoPromo + " " + promo.valuePromo + " " + promo.otraPromo + "válida desde el " +
+    format(
+      promo.desdeVigencia.toDate(),
+      "dd/MM/yyyy"
+    ) +
+    " hasta el " +
+    format(
+      promo.hastaVigencia.toDate(),
+      "dd/MM/yyyy"
+    ) })
+  })
+
+  
 
   const options = beneficios.map((option) => {
     const firstLetter = option.name[0].toUpperCase();
@@ -137,10 +172,7 @@ function ProgramarNotificaciones() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // props.editarDatos(formData);
-    // setSubmitted({ submitted: true }, () => {
-    //   setTimeout(() => setSubmitted({ submitted: false }), 5000);
-    // });
+    
   };
 
   const form = React.createRef();
@@ -158,8 +190,7 @@ function ProgramarNotificaciones() {
                   className="text-usuario"
                   id="outlined-disabled"
                   label="Nombre del comercio"
-                  value="Adidongas"
-                  //value={props.profile.nombreComercio}
+                  value={props.profile.nombreComercio}
                   variant="outlined"
                   name="usuario"
                 />
@@ -169,8 +200,7 @@ function ProgramarNotificaciones() {
                   className="text-sucursal"
                   id="outlined-disabled"
                   label="Sucursal"
-                  value="Pationgo Olmos"
-                  //value={props.profile.sucursal}
+                  value={props.profile.sucursal}
                   variant="outlined"
                   name="sucursal"
                 />
@@ -335,4 +365,18 @@ function ProgramarNotificaciones() {
   );
 }
 
-export default ProgramarNotificaciones;
+
+const mapStateToProps = (state) => {
+  return {
+    profile: state.firebase.profile,
+    auth: state.firebase.auth,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProgramarNotificaciones);
