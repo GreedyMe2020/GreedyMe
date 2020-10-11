@@ -10,8 +10,6 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { cargarTipoProveedor } from "../../../redux/actions/adminActions";
 import Grid from "@material-ui/core/Grid";
 import Snackbar from "@material-ui/core/Snackbar";
-
-
 const useStyles = makeStyles((theme) => ({
   root: {
     gridColumn: "2/4",
@@ -98,15 +96,15 @@ function FormTipoProveedores(props) {
           </Grid>
         </Grid>
         <Snackbar
-            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-            open={open}
-            autoHideDuration={8000}
-            onClose={handleClose}
-          >
-            <Alert onClose={handleClose} severity="success">
-              ¡Se guardó el tipo de proveedor correctamente!
-            </Alert>
-          </Snackbar>
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={open}
+          autoHideDuration={8000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="success">
+            ¡Se guardó el tipo de proveedor correctamente!
+          </Alert>
+        </Snackbar>
       </ValidatorForm>
     </div>
   );

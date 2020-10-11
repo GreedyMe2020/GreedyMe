@@ -50,9 +50,6 @@ const useStyles = makeStyles((theme) => ({
   inline: {
     display: "block",
   },
-  root: {
-    opacity: 0.5,
-  },
 }));
 
 function Alert(props) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
@@ -6,6 +6,7 @@ import { MenuItem } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
+import firebase from "../../../firebase/config";
 import { connect } from "react-redux";
 import {
   ValidatorForm,
@@ -19,7 +20,9 @@ import {
 } from "../../../redux/actions/adminActions";
 import _ from "lodash";
 import Snackbar from "@material-ui/core/Snackbar";
-
+import Avatar from "@material-ui/core/Avatar";
+import { subirFoto, eliminarFoto } from "../../../redux/actions/comActions";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
   cont: {
     flexGrow: 1,
   },
+  input: {
+    display: "none",
+  },
 }));
 
 function Alert(props) {
@@ -48,6 +54,8 @@ function Alert(props) {
 
 function FormProveedores(props) {
   const classes = useStyles();
+  // const [picture, setPicture] = useState(props.profile.photoURL);
+
   const [formData, setFormData] = React.useState({
     tipoProveedor: "",
     valueProveedor: "",
@@ -73,6 +81,10 @@ function FormProveedores(props) {
     }
   };
 
+  const handleDelete = () => {
+    setPicture(null);
+    props.eliminarFoto({ id: props.auth.uid });
+  };
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
@@ -86,6 +98,41 @@ function FormProveedores(props) {
     setOpen(false);
   };
 
+  /* const handleUpload = (event) => {
+    const file = event.target.files[0];
+    const storageRef = firebase
+      .storage()
+      .ref(`/fotosUsuariosComercios/${file.name}`);
+    const task = storageRef.put(file);
+    task.on(
+      "state_changed",
+      function (snapshot) {
+        switch (snapshot.state) {
+          case firebase.storage.TaskState.PAUSED: // or 'paused'
+            console.log("Upload is paused");
+            break;
+          case firebase.storage.TaskState.RUNNING: // or 'running'
+            console.log("Upload is running");
+            break;
+        }
+      },
+      function (error) {
+        console.log(error);
+      },
+      function () {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          setPicture(downloadURL);
+          props.subirFoto({
+            id: props.auth.uid,
+            url: downloadURL,
+          });
+        });
+      } 
+    ); 
+  }; */
+
   const form = React.createRef();
   return (
     <div className="contenedorTodo">
@@ -95,6 +142,59 @@ function FormProveedores(props) {
         onSubmit={handleSubmit}
       >
         <Grid container className={classes.cont} spacing={1}>
+          <div
+            style={{
+              display: "grid",
+              paddingLeft: 10,
+              paddingRight: 10,
+            }}
+          >
+            <div
+              style={{
+                gridColumn: 1 / 2,
+                gridRow: 1 / 3,
+              }}
+            >
+              <Avatar
+                //src={picture}
+                alt="imagen proveedor"
+                style={{
+                  width: 100,
+                  height: 100,
+                  marginBottom: 10,
+                }}
+              ></Avatar>
+            </div>
+            <div style={{ gridColumn: 2 / 3, gridRow: 1 / 2 }}>
+              <input
+                accept="image/*"
+                className={classes.input}
+                id="contained-button-file"
+                multiple
+                type="file"
+                //onChange={handleUpload}
+              />
+              <label htmlFor="contained-button-file">
+                <Button
+                  variant="contained"
+                  style={{
+                    backgroundColor: "#76b39d",
+                    color: "white",
+                    fontSize: 13,
+                  }}
+                  component="span"
+                  startIcon={<PhotoCamera />}
+                >
+                  Cargar imagen
+                </Button>
+              </label>
+            </div>
+            <div style={{ gridColumn: 2 / 3, gridRow: 2 / 3 }}>
+              <a className="eliminar-img" onClick={""}>
+                Eliminar imagen
+              </a>
+            </div>
+          </div>
           <Grid item xs={12} md={12}>
             <SelectValidator
               className="select-tipopromo"
