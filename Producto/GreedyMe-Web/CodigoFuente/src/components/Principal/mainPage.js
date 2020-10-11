@@ -81,7 +81,7 @@ function MainPage(props) {
               path="mis-beneficios"
               setCantPromos={setCantPromos}
             />
-            <Notificaciones path="notificaciones" />
+            <Notificaciones path="notificaciones" setSeleccionado={setSeleccionado}/>
             <Estadisticas path="estadisticas" cantPromos={cantPromos} />
             <Perfil path="perfil" />
             <Suscripciones path="suscripciones" />

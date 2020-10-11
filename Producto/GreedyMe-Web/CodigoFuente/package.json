@@ -22,6 +22,7 @@
     "file-loader": "^6.1.0",
     "parcel-bundler": "^1.12.4",
     "prettier": "^2.0.5",
+    "sass": "^1.27.0",
     "url-loader": "^4.1.0"
   },
   "dependencies": {
