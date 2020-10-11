@@ -198,7 +198,7 @@ function Inicio(props) {
         </Card>
 
         <div className="inicio-6">
-          <HacermePremium />
+          <HacermePremium setSeleccionado={props.setSeleccionado}/>
         </div>
       </div>
     </div>
