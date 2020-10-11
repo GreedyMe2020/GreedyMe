@@ -323,10 +323,8 @@ function Perfil(props) {
                   name="web"
                   label="Sitio web"
                   value={formData.web}
-                  validators={[
-                    "matchRegexp:^(http://www.|https://www.|http://|https://)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$",
-                  ]}
-                  errorMessages={["La dirección no es válida"]}
+                  validators={["matchRegexp:https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}",]}
+                  errorMessages={["La dirección no es válida debe comenzar con http:// o https://"]}
                 />
               </Grid>
 
@@ -339,7 +337,7 @@ function Perfil(props) {
                   onChange={handleChange}
                   name="sucursal"
                   value={formData.sucursal}
-                  validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                  validators={["matchRegexp:^([a-zA-Z-z0-9 ]){1,30}$"]}
                   errorMessages={["La sucursal no es válida"]}
                 />
               </Grid>
@@ -353,7 +351,7 @@ function Perfil(props) {
                   required
                   name="telefono"
                   value={formData.telefono}
-                  validators={["matchRegexp:^([0-9 ]){2,20}$"]}
+                  validators={["matchRegexp:^([0-9]){1,20}$"]}
                   errorMessages={["El teléfono no es válido"]}
                 />
               </Grid>
@@ -386,7 +384,7 @@ function Perfil(props) {
                   onChange={handleChange}
                   name="instagram"
                   value={formData.instagram}
-                  validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                  validators={["matchRegexp:^([a-zA-Z-z0-9_.]){1,30}$"]}
                   errorMessages={["El usuario no es válido"]}
                 />
               </Grid>
@@ -399,7 +397,7 @@ function Perfil(props) {
                   onChange={handleChange}
                   name="facebook"
                   value={formData.facebook}
-                  validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                  validators={["matchRegexp:^([a-zA-Z ]){1,30}$"]}
                   errorMessages={["El usuario no es válido"]}
                 />
               </Grid>
@@ -423,7 +421,6 @@ function Perfil(props) {
             id="btnAdminPerfil"
             className="btnAdminPerfil"
             type="submit"
-            onClick={handleSubmit}
             startIcon={<SaveIcon />}
           >
             Guardar cambios
