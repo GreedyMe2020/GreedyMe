@@ -174,16 +174,24 @@ export const cargarProveedor = (formData) => {
     const id = proveedores[indiceACambiar].id;
 
     const lista = proveedores[indiceACambiar].lista;
+    const listaLimpia = []
+    lista.map((item) => {
+      if(item.nombre.toLowerCase() !== ""){
+        listaLimpia.push({nombre: item.nombre, photoURL: item.photoURL})
+      }
+
+    })
+    
     const lista2= []
     lista.map((item) => {
-      if(item.nombre.toLowerCase() !== "otro" && item.nombre.toLowerCase() !== "todas" && item.nombre.toLowerCase() !== "todos"){
+      if(item.nombre.toLowerCase() !== "otro" && item.nombre.toLowerCase() !== "todas" && item.nombre.toLowerCase() !== "todos" && item.nombre !== ""){
         lista2.push({name: item.nombre})
       }
         
       
     })
     
-    const listaNueva = _.concat(lista, {
+    const listaNueva = _.concat(listaLimpia, {
       nombre: formData.valueProveedor,
       photoURL: null,
     });
