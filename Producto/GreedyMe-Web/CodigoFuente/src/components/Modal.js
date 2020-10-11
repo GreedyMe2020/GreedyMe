@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ButtonEj } from "../components/Button";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import SaveIcon from "@material-ui/icons/Save";
 import {
   ValidatorForm,
   TextValidator,
@@ -121,8 +122,10 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[500],
   },
   submitButton: {
-    float: "right",
-    marginRight: "-5px",
+    textAlign: "center",
+  },
+  border: {
+    paddingRight: 8,
   },
 }));
 
@@ -243,6 +246,7 @@ export default function FormDialog() {
                   label="Nombre"
                   variant="outlined"
                   onChange={handleChange}
+                  className={classes.border}
                   fullWidth
                   name="nombre"
                   value={formData.nombre}
@@ -259,6 +263,7 @@ export default function FormDialog() {
                   label="Apellido"
                   variant="outlined"
                   onChange={handleChange}
+                  className={classes.border}
                   fullWidth
                   name="apellido"
                   value={formData.apellido}
@@ -276,6 +281,7 @@ export default function FormDialog() {
                   label="Email"
                   variant="outlined"
                   onChange={handleChange}
+                  className={classes.border}
                   fullWidth
                   name="email"
                   value={formData.email}
@@ -294,6 +300,7 @@ export default function FormDialog() {
                   variant="outlined"
                   onChange={handleChange}
                   fullWidth
+                  className={classes.border}
                   name="telefono"
                   value={formData.telefono}
                   required
@@ -310,6 +317,7 @@ export default function FormDialog() {
                   label="Nombre del comercio"
                   variant="outlined"
                   onChange={handleChange}
+                  className={classes.border}
                   fullWidth
                   name="comercio"
                   value={formData.comercio}
@@ -323,13 +331,16 @@ export default function FormDialog() {
                   label="Sitio web"
                   variant="outlined"
                   onChange={handleChange}
+                  className={classes.border}
                   fullWidth
                   name="web"
                   value={formData.web}
                   validators={[
-                    "matchRegexp:https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}",
+                    "matchRegexp:https?://(www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}",
                   ]}
-                  errorMessages={["La dirección no es válida debe comenzar con http:// o https://"]}
+                  errorMessages={[
+                    "La dirección no es válida debe comenzar con http:// o https://",
+                  ]}
                 />
               </Grid>
 
@@ -339,6 +350,7 @@ export default function FormDialog() {
                   variant="outlined"
                   onChange={handleChange}
                   fullWidth
+                  className={classes.border}
                   name="sucursal"
                   value={formData.sucursal}
                 />
@@ -348,6 +360,7 @@ export default function FormDialog() {
                   label="Rubro"
                   variant="outlined"
                   onChange={handleChange}
+                  className={classes.border}
                   fullWidth
                   name="rubro"
                   value={formData.rubro}
@@ -369,6 +382,7 @@ export default function FormDialog() {
                   label="Dudas"
                   multiline
                   value={formData.dudas}
+                  className={classes.border}
                   onChange={handleChange}
                   fullWidth
                   name="dudas"
@@ -377,13 +391,13 @@ export default function FormDialog() {
               </Grid>
 
               <Grid item md={12} xs={12}>
-                <div>
+                <div className={classes.submitButton}>
                   <Button
-                    color="primary"
                     variant="contained"
-                    className={classes.submitButton}
+                    id="btn-azul"
                     type="submit"
                     onClick={handleSend}
+                    startIcon={<SaveIcon />}
                   >
                     Enviar
                   </Button>

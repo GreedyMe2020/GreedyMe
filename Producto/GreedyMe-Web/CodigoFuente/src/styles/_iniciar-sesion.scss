@@ -119,20 +119,17 @@ html {
           .MuiCheckbox-colorSecondary.Mui-checked {
             color: $dark-orange-color;
           }
-
           span {
             font-size: 0.93rem;
           }
         }
       }
-
       .contenedor-submit {
         display: flex;
         flex-flow: column wrap;
         justify-items: center;
         align-items: center;
         margin-top: 0.8rem;
-
         #inicio-sesion-button {
           color: $dark-orange-color;
           border-color: $dark-orange-color;

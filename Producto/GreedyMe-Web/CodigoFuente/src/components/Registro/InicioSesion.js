@@ -58,15 +58,12 @@ function InicioSesion(props) {
     <div className="inicio-sesion-container">
       <div className="nav-container">
         <nav>
-          <Link
-            to={"/"}
-            className="link"
-          >
+          <Link to={"/"} className="link">
             <div id="titulo">
               <h1 className="gre">gre</h1>
               <h1 className="edy">edy</h1>
               <h1 className="me">me</h1>
-            </div>   
+            </div>
           </Link>
         </nav>
       </div>
@@ -123,7 +120,7 @@ function InicioSesion(props) {
                         </IconButton>
                       </InputAdornment>
                     }
-                    labelWidth={85}
+                    labelWidth={92}
                   />
                 </FormControl>
               </Grid>
