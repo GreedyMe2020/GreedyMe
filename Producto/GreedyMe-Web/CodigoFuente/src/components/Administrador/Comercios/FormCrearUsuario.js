@@ -99,6 +99,7 @@ function FormCrearUsuario(props) {
               name="nombreComercio"
               onChange={handleChange}
               required
+              style={{ paddingRight: 15, paddingBottom: 10 }}
             />
           </Grid>
           <Grid className="inputPerfil2" item xs={12} md={6}>
@@ -111,6 +112,7 @@ function FormCrearUsuario(props) {
               onChange={handleChange}
               name="email"
               required
+              style={{ paddingBottom: 10 }}
               validators={["isEmail"]}
               errorMessages={["El email no es válido"]}
             />
@@ -125,6 +127,7 @@ function FormCrearUsuario(props) {
               value={formData.contraseña}
               name="contraseña"
               onChange={handleChange}
+              style={{ paddingRight: 15, paddingBottom: 10 }}
               fullWidth
               required
               validators={[
@@ -144,6 +147,7 @@ function FormCrearUsuario(props) {
               variant="outlined"
               value={formData.repetirContraseña}
               name="repetirContraseña"
+              style={{ paddingBottom: 10 }}
               onChange={handleChange}
               fullWidth
               required
@@ -161,6 +165,7 @@ function FormCrearUsuario(props) {
               fullWidth
               name="CUIT"
               onChange={handleChange}
+              style={{ paddingRight: 15, paddingBottom: 10 }}
               value={formData.CUIT}
               label="CUIT"
               required
@@ -174,6 +179,7 @@ function FormCrearUsuario(props) {
               variant="outlined"
               fullWidth
               onChange={handleChange}
+              style={{ paddingBottom: 10 }}
               name="web"
               label="Sitio web"
               value={formData.web}
@@ -191,6 +197,7 @@ function FormCrearUsuario(props) {
               id="outlined-basic"
               fullWidth
               onChange={handleChange}
+              style={{ paddingRight: 15, paddingBottom: 10 }}
               name="sucursal"
               value={formData.sucursal}
               validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
@@ -203,6 +210,7 @@ function FormCrearUsuario(props) {
               id="outlined-basic"
               label="Teléfono"
               fullWidth
+              style={{ paddingBottom: 10 }}
               onChange={handleChange}
               name="telefono"
               value={formData.telefono}
@@ -216,6 +224,7 @@ function FormCrearUsuario(props) {
               id="outlined-basic"
               label="Rubro"
               onChange={handleChange}
+              style={{ paddingRight: 15, paddingBottom: 10 }}
               name="rubro"
               fullWidth
               required
@@ -235,6 +244,7 @@ function FormCrearUsuario(props) {
               variant="outlined"
               id="outlined-basic"
               label="Instagram"
+              style={{ paddingBottom: 10 }}
               fullWidth
               onChange={handleChange}
               name="instagram"
@@ -248,6 +258,7 @@ function FormCrearUsuario(props) {
               variant="outlined"
               id="outlined-basic"
               label="Facebook"
+              style={{ paddingBottom: 10 }}
               fullWidth
               onChange={handleChange}
               name="facebook"

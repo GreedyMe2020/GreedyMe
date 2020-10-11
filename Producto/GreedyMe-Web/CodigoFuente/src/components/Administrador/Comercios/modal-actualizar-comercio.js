@@ -1,31 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
 import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
-import { withStyles } from "@material-ui/core/styles";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import {
-  MenuItem,
-  FormControlLabel,
-  TextField,
-  Checkbox,
-  Button,
-  Divider,
-  Grid,
-} from "@material-ui/core";
+import { MenuItem, Button, Grid } from "@material-ui/core";
 import {
   ValidatorForm,
   SelectValidator,
   TextValidator,
 } from "react-material-ui-form-validator";
 import firebase from "../../../firebase/config";
-import { SettingsCellOutlined } from "@material-ui/icons";
 import SaveIcon from "@material-ui/icons/Save";
 
 //funcion para traer los rubros
@@ -88,7 +71,7 @@ function ModalActualizarComercio(props) {
 
   const form = React.createRef();
   return (
-    <div className="contTodo">
+    <div className="perfil-validator-form">
       <ValidatorForm ref={form} onSubmit={handleSubmit}>
         <Grid container spacing={1}>
           <Grid className="inputPerfil2" item xs={12} md={6}>
@@ -101,6 +84,7 @@ function ModalActualizarComercio(props) {
               name="nombreComercio"
               onChange={handleChange}
               required
+              style={{ paddingRight: 15, paddingBottom: 10 }}
             />
           </Grid>
           <Grid className="inputPerfil2" item xs={12} md={6}>
@@ -111,6 +95,7 @@ function ModalActualizarComercio(props) {
               value={formData.email}
               variant="outlined"
               onChange={handleChange}
+              style={{ paddingBottom: 10 }}
               name="email"
               required
               validators={["isEmail"]}
@@ -125,6 +110,7 @@ function ModalActualizarComercio(props) {
               name="CUIT"
               onChange={handleChange}
               value={formData.CUIT}
+              style={{ paddingRight: 15, paddingBottom: 10 }}
               label="CUIT"
               required
               validators={["matchRegexp:^([0-9 ]){11}$"]}
@@ -137,6 +123,7 @@ function ModalActualizarComercio(props) {
               variant="outlined"
               fullWidth
               onChange={handleChange}
+              style={{ paddingBottom: 10 }}
               name="web"
               label="Sitio web"
               value={formData.web}
@@ -154,6 +141,7 @@ function ModalActualizarComercio(props) {
               id="outlined-basic"
               fullWidth
               onChange={handleChange}
+              style={{ paddingRight: 15, paddingBottom: 10 }}
               name="sucursal"
               value={formData.sucursal}
               validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
@@ -167,6 +155,7 @@ function ModalActualizarComercio(props) {
               label="Teléfono"
               fullWidth
               onChange={handleChange}
+              style={{ paddingBottom: 10 }}
               name="telefono"
               value={formData.telefono}
               validators={["matchRegexp:^([0-9 ]){2,20}$"]}
@@ -179,6 +168,7 @@ function ModalActualizarComercio(props) {
               id="outlined-basic"
               label="Rubro"
               onChange={handleChange}
+              style={{ paddingRight: 15, paddingBottom: 10 }}
               name="rubro"
               fullWidth
               required
@@ -200,6 +190,7 @@ function ModalActualizarComercio(props) {
               label="Instagram"
               fullWidth
               onChange={handleChange}
+              style={{ paddingBottom: 10 }}
               name="instagram"
               value={formData.instagram}
               validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
@@ -215,6 +206,7 @@ function ModalActualizarComercio(props) {
               onChange={handleChange}
               name="facebook"
               value={formData.facebook}
+              style={{ paddingBottom: 10 }}
               validators={["matchRegexp:^([a-zA-Z ]){2,30}$"]}
               errorMessages={["El usuario no es válido"]}
             />

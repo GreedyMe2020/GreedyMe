@@ -50,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
   inline: {
     display: "block",
   },
+  root: {
+    opacity: 0.5,
+  },
 }));
 
 function Alert(props) {
@@ -213,6 +216,7 @@ function ListaUsuarios(props) {
                                 fullWidth={fullWidth}
                                 maxWidth={maxWidth}
                                 open={openModificar}
+                                className={classes.root}
                               >
                                 <DialogTitle id="dialog-title-prom">
                                   <h5>Modificar comercio</h5>
