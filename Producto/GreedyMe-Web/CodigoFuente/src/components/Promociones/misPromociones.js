@@ -330,7 +330,6 @@ function MisPromociones(props) {
     }
     console.log(dias);
   }
-
   return (
     <div>
       <ModalPromos
@@ -467,6 +466,7 @@ function MisPromociones(props) {
                               fullWidth={fullWidth}
                               maxWidth={maxWidth}
                               open={openModificar}
+                              style={{ backgroundColor: "transparent" }}
                             >
                               <DialogTitle id="dialog-title-prom">
                                 <h5>Modificar beneficio</h5>

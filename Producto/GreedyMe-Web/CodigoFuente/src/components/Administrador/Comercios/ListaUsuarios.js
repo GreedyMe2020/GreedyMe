@@ -213,6 +213,7 @@ function ListaUsuarios(props) {
                                 fullWidth={fullWidth}
                                 maxWidth={maxWidth}
                                 open={openModificar}
+                                className={classes.root}
                               >
                                 <DialogTitle id="dialog-title-prom">
                                   <h5>Modificar comercio</h5>
