@@ -8,6 +8,7 @@ import { Card } from "react-bootstrap";
 import Grid from "@material-ui/core/Grid";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import { Link } from "@reach/router";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -44,11 +45,16 @@ function ReestablecerContraseña(props) {
     <div className="reestablecer-contra-container">
       <div className="nav-container">
         <nav>
-          <div id="titulo">
-            <h1 className="gre">gre</h1>
-            <h1 className="edy">edy</h1>
-            <h1 className="me">me</h1>
-          </div>
+          <Link
+            to={"/"}
+            className="link"
+          >
+            <div id="titulo">
+              <h1 className="gre">gre</h1>
+              <h1 className="edy">edy</h1>
+              <h1 className="me">me</h1>
+            </div>   
+          </Link>
         </nav>
       </div>
 

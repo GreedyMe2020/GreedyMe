@@ -21,7 +21,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-
 function InicioSesion(props) {
   const [values, setValues] = React.useState({
     email: "",
@@ -59,11 +58,16 @@ function InicioSesion(props) {
     <div className="inicio-sesion-container">
       <div className="nav-container">
         <nav>
-          <div id="titulo">
-            <h1 className="gre">gre</h1>
-            <h1 className="edy">edy</h1>
-            <h1 className="me">me</h1>
-          </div>
+          <Link
+            to={"/"}
+            className="link"
+          >
+            <div id="titulo">
+              <h1 className="gre">gre</h1>
+              <h1 className="edy">edy</h1>
+              <h1 className="me">me</h1>
+            </div>   
+          </Link>
         </nav>
       </div>
 

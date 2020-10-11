@@ -358,7 +358,7 @@ function ModalPromociones(props) {
           </SelectValidator>
           {formData.tipoProveedor === "Tarjetas de débito" ||
           formData.tipoProveedor === "Tarjetas de crédito" ? (
-            <div>
+            <>
               <SelectValidator
                 variant="outlined"
                 className="selectproveedor"
@@ -396,7 +396,7 @@ function ModalPromociones(props) {
                   </MenuItem>
                 ))}
               </SelectValidator>
-            </div>
+            </>
           ) : null}
 
           {formData.tipoProveedor !== "Tarjetas de débito" &&
