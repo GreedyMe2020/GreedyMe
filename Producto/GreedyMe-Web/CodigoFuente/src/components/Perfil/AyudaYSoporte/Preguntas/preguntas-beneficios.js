@@ -1,11 +1,31 @@
 import * as React from "react";
-import Accordion from "@material-ui/core/Accordion";
 import AccordionPreguntas from "./accordion-preguntas";
+import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import { Link } from "@reach/router";
 
-export default function PreguntasBeneficios() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginLeft: "5%",
+    marginRight: "5%",
+    marginTop: "30px",
+  },
+}));
+
+function PreguntasBeneficios(props) {
+  const classes = useStyles();
   return (
     <div>
-      <Accordion>
+      <div className="prom-title-container">
+        <h1>Ayuda y soporte técnico</h1>
+      </div>
+      <Link
+        to={"/main/" + props.auth.uid + "/ayuda-y-soporte"}
+        className="ayuda-link-volver"
+      >
+        Volver
+      </Link>
+      <div className={classes.root}>
         <AccordionPreguntas
           pregunta="Quiero cargar un beneficio nuevo"
           respuesta="Para cargar un beneficio nuevo, deberás dirigirte a la sección Mis beneficios desde la barra lateral de la pantalla.
@@ -58,7 +78,15 @@ export default function PreguntasBeneficios() {
           Por último, deberás confirmar la acción mediante el cuadro de dialogo que se mostrara. Esta acción es irreversible, si eliminas un beneficio por error, deberás cargarlo nuevamente. Al eliminar un beneficio, se invalidarán todos los cupones vinculados al mismo de las cuentas de los clientes.
           "
         />
-      </Accordion>
+      </div>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+  };
+};
+
+export default connect(mapStateToProps)(PreguntasBeneficios);

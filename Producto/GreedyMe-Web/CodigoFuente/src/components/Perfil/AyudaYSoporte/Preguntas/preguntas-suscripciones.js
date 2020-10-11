@@ -1,11 +1,31 @@
 import * as React from "react";
-import Accordion from "@material-ui/core/Accordion";
 import AccordionPreguntas from "./accordion-preguntas";
+import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import { Link } from "@reach/router";
 
-export default function PreguntasSuscripcion() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginLeft: "5%",
+    marginRight: "5%",
+    marginTop: "30px",
+  },
+}));
+
+function PreguntasSuscripcion(props) {
+  const classes = useStyles();
   return (
     <div>
-      <Accordion>
+      <div className="prom-title-container">
+        <h1>Ayuda y soporte técnico</h1>
+      </div>
+      <Link
+        to={"/main/" + props.auth.uid + "/ayuda-y-soporte"}
+        className="ayuda-link-volver"
+      >
+        Volver
+      </Link>
+      <div className={classes.root}>
         <AccordionPreguntas
           pregunta="Quiero saber a qué plan estoy suscripto"
           respuesta="Para visualizar cual es la suscripción con la que cuenta tu comercio, deberás dirigirte a la sección superior derecha de la página principal encontrarás un icono de una persona. Haciendo clic allí, justo debajo del nombre de tu comercio, aparece el tipo de suscripción actual.
@@ -31,7 +51,15 @@ export default function PreguntasSuscripcion() {
           Por último, debajo de la columna de cada plan, se encuentra un botón permitiendo actualizar el plan de tu comercio. Para anular la suscripción solo deberás cambiarte al plan base, ya que es gratuito para todos los usuarios de la plataforma.
           "
         />
-      </Accordion>
+      </div>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+  };
+};
+
+export default connect(mapStateToProps)(PreguntasSuscripcion);

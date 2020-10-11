@@ -18,8 +18,6 @@ import notificaciones from "../../../../Multimedia/Sistema-svg/notificacion.svg"
 import suscripciones from "../../../../Multimedia/Sistema-svg/suscripcion.svg";
 import greedyShop from "../../../../Multimedia/Sistema-svg/greedyShop.png";
 
-import PreguntasPerfil from "./Preguntas/preguntas-perfil";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -30,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(4),
   },
 }));
+
+const fontstyles = {
+  color: "#868686",
+};
 
 export function CardAyuda(props) {
   const classes = useStyles();
@@ -43,7 +45,11 @@ export function CardAyuda(props) {
             }
             className={classes.root}
           >
-            <Link to={"/main/" + props.auth.uid + "/ayuda-y-soporte/perfil"}>
+            <Link
+              to={"/main/" + props.auth.uid + "/ayuda-y-soporte/perfil"}
+              className="link"
+              style={fontstyles}
+            >
               <ListItem button>
                 <ListItemIcon>
                   <img
@@ -58,6 +64,8 @@ export function CardAyuda(props) {
             </Link>
             <Link
               to={"/main/" + props.auth.uid + "/ayuda-y-soporte/beneficios"}
+              className="link"
+              style={fontstyles}
             >
               <ListItem button>
                 <ListItemIcon>
@@ -71,7 +79,11 @@ export function CardAyuda(props) {
                 <ListItemText primary="Beneficios" />
               </ListItem>
             </Link>
-            <Link to={"/main/" + props.auth.uid + "/ayuda-y-soporte/cupones"}>
+            <Link
+              to={"/main/" + props.auth.uid + "/ayuda-y-soporte/cupones"}
+              className="link"
+              style={fontstyles}
+            >
               <ListItem button>
                 <ListItemIcon>
                   <img
@@ -86,6 +98,8 @@ export function CardAyuda(props) {
             </Link>
             <Link
               to={"/main/" + props.auth.uid + "/ayuda-y-soporte/estadisticas"}
+              className="link"
+              style={fontstyles}
             >
               <ListItem button>
                 <ListItemIcon>
@@ -101,6 +115,8 @@ export function CardAyuda(props) {
             </Link>
             <Link
               to={"/main/" + props.auth.uid + "/ayuda-y-soporte/notificaciones"}
+              className="link"
+              style={fontstyles}
             >
               <ListItem button>
                 <ListItemIcon>
@@ -116,6 +132,8 @@ export function CardAyuda(props) {
             </Link>
             <Link
               to={"/main/" + props.auth.uid + "/ayuda-y-soporte/suscripciones"}
+              className="link"
+              style={fontstyles}
             >
               <ListItem button>
                 <ListItemIcon>
@@ -131,6 +149,8 @@ export function CardAyuda(props) {
             </Link>
             <Link
               to={"/main/" + props.auth.uid + "/ayuda-y-soporte/greedy-shop"}
+              className="link"
+              style={fontstyles}
             >
               <ListItem button>
                 <ListItemIcon>

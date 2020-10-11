@@ -1,11 +1,31 @@
 import * as React from "react";
-import Accordion from "@material-ui/core/Accordion";
 import AccordionPreguntas from "./accordion-preguntas";
+import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import { Link } from "@reach/router";
 
-export default function PreguntasCupon() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginLeft: "5%",
+    marginRight: "5%",
+    marginTop: "30px",
+  },
+}));
+
+function PreguntasCupon(props) {
+  const classes = useStyles();
   return (
     <div>
-      <Accordion>
+      <div className="prom-title-container">
+        <h1>Ayuda y soporte técnico</h1>
+      </div>
+      <Link
+        to={"/main/" + props.auth.uid + "/ayuda-y-soporte"}
+        className="ayuda-link-volver"
+      >
+        Volver
+      </Link>
+      <div className={classes.root}>
         <AccordionPreguntas
           pregunta="Como otorgar el código del beneficio aplicado a mi cliente"
           respuesta="Cuando un cliente utiliza un beneficio en tu local que se encuentra cargado en tu perfil, el mismo puede acceder a recompensas dentro de la aplicación. Para ello, necesita validar el beneficio una vez utilizado, ingresando un código de validación por su celular. Dicho código debe ser entregado por el vendedor que haya efectuado la venta.
@@ -33,7 +53,15 @@ export default function PreguntasCupon() {
           Además, los datos de los códigos validados junto con otros más colaboran a la elaboración de estadísticas de interés para el comercio.           
           "
         />
-      </Accordion>
+      </div>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+  };
+};
+
+export default connect(mapStateToProps)(PreguntasCupon);
