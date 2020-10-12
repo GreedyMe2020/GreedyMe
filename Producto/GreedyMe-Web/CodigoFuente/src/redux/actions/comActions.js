@@ -140,12 +140,18 @@ export const cambiarContraseña = (formData) => {
             user.updatePassword(formData.nuevaContraseña);
           })
           .then(() => {
-            dispatch({ type: 'CAMBIAR_CONTRASEÑA' });
+            dispatch({ type: 'CAMBIO_PASSWORD' });
           })
           .catch((error) => {
-            dispatch({ type: 'ERROR_CONTRASEÑA', error });
+            dispatch({ type: 'ERROR_PASSWORD', error });
           });
       }
     });
+  };
+};
+
+export const resetearValoresCambiarContraseña = () => {
+  return (dispatch, getState, { getFirestore }) => {
+    dispatch({ type: "RESETEAR_VALORES_CAMBIAR_PASSWORD" });
   };
 };

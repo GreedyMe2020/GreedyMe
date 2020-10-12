@@ -12,6 +12,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import firebase from "../../../firebase/config";
 import SaveIcon from "@material-ui/icons/Save";
+import { resetearValoresCreacionComercio } from "../../../redux/actions/adminActions";
 
 //funcion para traer los rubros
 const rubros = [];
@@ -56,12 +57,20 @@ function FormCrearUsuario(props) {
 
   const [showModal, setModal] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
     setOpen(false);
+  };
+
+  const handleClose2 = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen2(false);
   };
   //funcion para poner lo que escribe en el formdata
   const handleChange = (event) => {
@@ -71,11 +80,37 @@ function FormCrearUsuario(props) {
   //funcion para crear el usuario
   const handleSubmit = (e) => {
     e.preventDefault();
-
     props.crearComercio(formData);
-
-    setOpen(true);
   };
+
+  const abrirCarteldeConfirmacion = React.useEffect(() => {
+    if(props.usuarioCreado !== null){
+      setOpen(true);
+      props.resetearValoresCreacionComercio()
+      setFormData({
+        email: "",
+        CUIT: "",
+        nombreComercio: "",
+        web: "",
+        contraseña: "",
+        repetirContraseña: "",
+        sucursal: "",
+        rubro: "",
+        telefono: "",
+        instagram: "",
+        facebook: "",
+        direccion: "",
+      })
+    }
+  },[props.usuarioCreado] )
+
+  const abrirCarteldeError = React.useEffect(() => {
+    if(props.usuarioFalla !== null){
+      setOpen2(true);
+      props.resetearValoresCreacionComercio()
+    }
+  },[props.usuarioFalla] )
+
   ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
     if (value !== formData.contraseña) {
       return false;
@@ -277,31 +312,45 @@ function FormCrearUsuario(props) {
             startIcon={<SaveIcon />}
           >
             Crear comercio
-          </Button>
-          <Snackbar
-            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-            open={open}
-            autoHideDuration={8000}
-            onClose={handleClose}
-          >
-            <Alert onClose={handleClose} severity="success">
-              ¡El comercio se ha creado correctamente!
-            </Alert>
-          </Snackbar>
+          </Button>    
         </div>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={open}
+          autoHideDuration={8000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="success">
+            ¡El comercio se ha creado correctamente!
+          </Alert>
+        </Snackbar>
+          <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={open2}
+          autoHideDuration={8000}
+          onClose={handleClose2}
+        >
+          <Alert onClose={handleClose2} severity="error">
+            El email ya esta siendo utilizado.
+          </Alert>
+        </Snackbar>
       </ValidatorForm>
     </div>
   );
 }
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
     usuarioFalla: state.admin.usuarioFalla,
+    usuarioCreado: state.admin.usuarioCreado
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    resetearValoresCreacionComercio: () => dispatch(resetearValoresCreacionComercio()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormCrearUsuario);

@@ -79,7 +79,7 @@ function ListaUsuarios(props) {
     if (reason === "clickaway") {
       return;
     }
-    setOpenAlert(false);
+    setEliminada(false);
   };
 
   //estados solo para el buscador

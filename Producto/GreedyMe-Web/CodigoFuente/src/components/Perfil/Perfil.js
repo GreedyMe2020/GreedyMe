@@ -173,12 +173,11 @@ function Perfil(props) {
     setValorCarga(0)
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     props.editarDatos(formData);
-    setSubmitted({ submitted: true }, () => {
+    /*setSubmitted({ submitted: true }, () => {
       setTimeout(() => setSubmitted({ submitted: false }), 5000);
-    });
+    });*/
 
     setOpen(true);
   };

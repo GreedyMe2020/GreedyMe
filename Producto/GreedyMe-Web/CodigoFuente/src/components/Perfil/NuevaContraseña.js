@@ -8,7 +8,9 @@ import SaveIcon from "@material-ui/icons/Save";
 import { connect } from "react-redux";
 import firebase from "../../firebase/config";
 import Grid from "@material-ui/core/Grid";
-import { cambiarContraseña } from "../../redux/actions/comActions"
+import { cambiarContraseña, resetearValoresCambiarContraseña } from "../../redux/actions/comActions"
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,17 +37,63 @@ function NuevaContraseña(props) {
     nuevaContraseña: "",
     repeticion: "",
   });
+  //estados de los carteles
+  const [openContraseña, setOpenContraseña] = React.useState(false);
+  const [open2Contraseña, setOpen2Contraseña] = React.useState(false);
+  //funciones para cerrar carteles
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenContraseña(false);
+  };
 
-  const handleChange = (event) => {
+  const handleClose2 = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen2Contraseña(false);
+  };
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+
+  const handleChange2 = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit2 = () => {
     props.cambiarContraseña(formData)
+    setFormData({
+      contraseñaActual: "",
+      nuevaContraseña: "",
+      repeticion: "", 
+    })
   };
 
+  //Effects para abrir carteles
+  /*const abrirCarteldeConfirmacion = React.useEffect(() => {
+    if(props.contraseña !== null){
+      setOpenContraseña(true);
+      props.resetearValoresCambiarContraseña()
+      setFormData({
+        contraseñaActual: "",
+        nuevaContraseña: "",
+        repeticion: "",
+      })
+    }
+  },[props.contraseña] )
+
+  const abrirCarteldeError = React.useEffect(() => {
+    if(props.contraseñaError !== null){
+      setOpen2Contraseña(true);
+      props.resetearValoresCambiarContraseña()
+    }
+  },[props.contraseñaError] )*/
+
+  //validacion para que los campos sean iguales
   ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
     if (value !== formData.nuevaContraseña) {
       return false;
@@ -56,7 +104,7 @@ function NuevaContraseña(props) {
 
   return (
     <div>
-      <ValidatorForm ref={form2} onSubmit={handleSubmit} id="validator-form">
+      <ValidatorForm ref={form2} onSubmit={handleSubmit2} id="validator-form">
         <Grid container spacing={1}>
           <Grid item xs={12} md={12}>
             <TextValidator
@@ -67,7 +115,7 @@ function NuevaContraseña(props) {
               variant="outlined"
               required
               value={formData.contraseñaActual}
-              onChange={handleChange}
+              onChange={handleChange2}
               name="contraseñaActual"
               fullWidth
               validators={["required"]}
@@ -83,7 +131,7 @@ function NuevaContraseña(props) {
               variant="outlined"
               required
               value={formData.nuevaContraseña}
-              onChange={handleChange}
+              onChange={handleChange2}
               name="nuevaContraseña"
               fullWidth
               validators={[
@@ -103,7 +151,7 @@ function NuevaContraseña(props) {
               variant="outlined"
               required
               value={formData.repeticion}
-              onChange={handleChange}
+              onChange={handleChange2}
               name="repeticion"
               fullWidth
               validators={["isPasswordMatch", "required"]}
@@ -127,6 +175,26 @@ function NuevaContraseña(props) {
             </div>
           </Grid>
         </Grid>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={openContraseña}
+          autoHideDuration={8000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="success">
+            ¡La contraseña ha sido modificada correctamente!
+          </Alert>
+        </Snackbar>
+          <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={open2Contraseña}
+          autoHideDuration={8000}
+          onClose={handleClose2}
+        >
+          <Alert onClose={handleClose2} severity="error">
+            La contraseña actual es incorrecta.
+          </Alert>
+        </Snackbar>
       </ValidatorForm>
     </div>
   );
@@ -135,12 +203,15 @@ function NuevaContraseña(props) {
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
+    contraseña: state.comercio.contraseña,
+    contraseñaError: state.comercio.contraseñaError,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     cambiarContraseña: (formData) => dispatch(cambiarContraseña(formData)),
+    resetearValoresCambiarContraseña: () => dispatch(resetearValoresCambiarContraseña()),
   };
 };
 

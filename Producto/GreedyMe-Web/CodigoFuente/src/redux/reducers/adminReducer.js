@@ -26,12 +26,14 @@ const adminReducer = (state = initState, action) => {
       return {
         ...state,
         usuarioCreado: "Se creo un nuevo usuario",
+        usuarioFall: null,
       };
     case "FALLO_CREACION":
       console.log("fallo");
       return {
         ...state,
-        usuarioFalla: action.error.message,
+        usuarioFalla: "fallo la creacion de usuario",
+        usuarioCreado: null
       };
     case "USUARIO_MODIFICADO":
       console.log("se modifico");
@@ -128,6 +130,13 @@ const adminReducer = (state = initState, action) => {
       return {
         ...state,
         proveedorFalla: "fallo la nueva proveedor",
+      };
+    case "RESETEAR_VALORES_CREACION_COMERCIO":
+      console.log("se resetearon");
+      return {
+        ...state,
+        usuarioCreado: null,
+        usuarioFalla: null
       };
     default:
       return state;
