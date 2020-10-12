@@ -53,17 +53,17 @@ function ReestablecerContraseña(props) {
   return (
     <div className="reestablecer-contra-container">
       <div className="nav-container">
-        <nav>
-          <Link
+        <nav>          
+          <div id="titulo">
+            <Link
             to={"/"}
-            className="link"
-          >
-            <div id="titulo">
+            className="link subtitulo"
+            >
               <h1 className="gre">gre</h1>
               <h1 className="edy">edy</h1>
               <h1 className="me">me</h1>
-            </div>   
-          </Link>
+            </Link>
+          </div>   
         </nav>
       </div>
 

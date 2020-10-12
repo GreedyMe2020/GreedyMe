@@ -224,18 +224,20 @@ function FormProveedores(props) {
                   </Button>
                 </label>
               </div>
+              <div className="ml-1">
+                {valorCarga === 0 
+                ? null
+                : <progress value={valorCarga} max="100"></progress>}                
+              </div>
               <div className={classes.elim}>
                 <a className="eliminar-img" onClick={handleDelete}>
                   Eliminar imagen
                 </a>
               </div>
-
+              
             </div>
-            
           </div>
-          <div className="ml-1">
-            <progress value={valorCarga} max="100"></progress>
-          </div>
+          
           <Grid item xs={12} md={12}>
             <SelectValidator
               className="select-tipoprove"

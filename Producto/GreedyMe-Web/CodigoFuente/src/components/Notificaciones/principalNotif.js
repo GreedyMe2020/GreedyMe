@@ -2,6 +2,7 @@ import React from "react";
 import ProgramarNotificaciones from "./programarNotif";
 import LateralNotificaciones from "./cardLateralNotif";
 import HacermePremium from "./haztePremium";
+import { connect } from "react-redux";
 
 
 
@@ -22,12 +23,21 @@ function Notificaciones(props) {
           <LateralNotificaciones />
         </div>
         <div className="card-lateral-premium">
-          <HacermePremium setSeleccionado={props.setSeleccionado}
-/>
+          {props.profile.tipoSuscripcion === 2 
+          ? null
+          : <HacermePremium setSeleccionado={props.setSeleccionado}/>}
         </div>
       </div>
     </div>
   );
 }
 
-export default Notificaciones;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    profile: state.firebase.profile,
+  };
+};
+
+
+export default connect(mapStateToProps)(Notificaciones);
