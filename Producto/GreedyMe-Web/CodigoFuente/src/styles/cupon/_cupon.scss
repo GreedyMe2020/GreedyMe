@@ -32,11 +32,17 @@ $background-color: #ececec;
     margin-right: 5%;
     margin-top: 1.2rem;
   }
+  .input-buscador-beneficio {
+    margin-bottom: 1rem;
+    .texto-beneficio {
+      margin-bottom: 25px;
+    }
+  }
   .generar-cupon {
     margin-top: 1.2rem;
     margin-bottom: 1rem;
     .texto-cupon {
-      margin-bottom: 10px;
+      margin-bottom: 25px;
     }
     .generador-cupon {
       display: grid;

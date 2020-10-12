@@ -184,7 +184,12 @@ function Inicio(props) {
             <p>Hacenos cualquier pregunta y conseguí la ayuda que necesitas.</p>
             <CardActions className="inicio-cont-boton">
               <Typography color="textSecondary" gutterBottom>
-                <Link to={"/main/" + props.auth.uid + "/ayuda-y-soporte"}>
+                <Link
+                  to={"/main/" + props.auth.uid + "/ayuda-y-soporte"}
+                  onClick={() => {
+                    props.setSeleccionado(8);
+                  }}
+                >
                   Visitá el Centro de Ayuda
                 </Link>
               </Typography>
@@ -193,7 +198,7 @@ function Inicio(props) {
         </Card>
 
         <div className="inicio-6">
-          <HacermePremium />
+          <HacermePremium setSeleccionado={props.setSeleccionado}/>
         </div>
       </div>
     </div>

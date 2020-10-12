@@ -1,7 +1,10 @@
 import React from "react";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { connect } from "react-redux";
-import { signIn } from "../../redux/actions/authActions";
+import {
+  signIn,
+  resetearValoresInicioSesion,
+} from "../../redux/actions/authActions";
 import { Redirect, Link } from "@reach/router";
 import { Card } from "react-bootstrap";
 import Button from "@material-ui/core/Button";
@@ -18,7 +21,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import FormControl from "@material-ui/core/FormControl";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-
 function InicioSesion(props) {
   const [values, setValues] = React.useState({
     email: "",
@@ -40,6 +42,7 @@ function InicioSesion(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    props.resetearValoresInicioSesion();
     props.signIn(values);
   };
 
@@ -55,11 +58,13 @@ function InicioSesion(props) {
     <div className="inicio-sesion-container">
       <div className="nav-container">
         <nav>
-          <div id="titulo">
-            <h1 className="gre">gre</h1>
-            <h1 className="edy">edy</h1>
-            <h1 className="me">me</h1>
-          </div>
+          <Link to={"/"} className="link">
+            <div id="titulo">
+              <h1 className="gre">gre</h1>
+              <h1 className="edy">edy</h1>
+              <h1 className="me">me</h1>
+            </div>
+          </Link>
         </nav>
       </div>
 
@@ -115,7 +120,7 @@ function InicioSesion(props) {
                         </IconButton>
                       </InputAdornment>
                     }
-                    labelWidth={85}
+                    labelWidth={92}
                   />
                 </FormControl>
               </Grid>
@@ -173,6 +178,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signIn: (user) => dispatch(signIn(user)),
+    resetearValoresInicioSesion: () => dispatch(resetearValoresInicioSesion()),
   };
 };
 

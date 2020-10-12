@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
@@ -6,6 +6,7 @@ import { MenuItem } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
+import firebase from "../../../firebase/config";
 import { connect } from "react-redux";
 import {
   ValidatorForm,
@@ -18,6 +19,10 @@ import {
   cargarBanco,
 } from "../../../redux/actions/adminActions";
 import _ from "lodash";
+import Snackbar from "@material-ui/core/Snackbar";
+import Avatar from "@material-ui/core/Avatar";
+import { subirFoto, eliminarFoto } from "../../../redux/actions/comActions";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +43,45 @@ const useStyles = makeStyles((theme) => ({
   cont: {
     flexGrow: 1,
   },
+  input: {
+    display: "none",
+  },
+  contenedor: {
+    display: "grid",
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginTop: 10,
+    gridTemplateColumns: "1fr 2fr",
+    gridTemplateRows: "1fr",
+  },
+  avatar: {
+    gridColumn: 1 / 2,
+    gridRow: 1 / 3,
+  },
+  ava: {
+    width: 100,
+    height: 100,
+    marginBottom: 10,
+  },
+  botones: {
+    gridColumn: 2 / 3,
+    gridRow: 1 / 2,
+    justifySelf: "center",
+    alignSelf: "center",
+    marginLeft: 35,
+  },
+  boton: {
+    backgroundColor: "#76b39d",
+    color: "white",
+    fontSize: 13,
+  },
+  elim: {
+    cursor: "pointer",
+    color: "#707070",
+    fontSize: 15,
+    marginLeft: 27,
+    top: 5,
+  },
 }));
 
 function Alert(props) {
@@ -46,10 +90,14 @@ function Alert(props) {
 
 function FormProveedores(props) {
   const classes = useStyles();
+  // const [picture, setPicture] = useState(props.profile.photoURL);
+
   const [formData, setFormData] = React.useState({
     tipoProveedor: "",
     valueProveedor: "",
   });
+  //Estado para manejar el snackbar
+  const [open, setOpen] = React.useState(false);
 
   const handleSubmit = (e) => {
     if (formData.tipoProveedor === "Bancos") {
@@ -57,18 +105,69 @@ function FormProveedores(props) {
         id: "ndbKpkm6GorM0g5kHNkF",
         valueProveedor: formData.valueProveedor,
       });
+      //Abro el snackbar
+      setOpen(true);
     } else {
       props.cargarProveedor({
         tipoProveedor: formData.tipoProveedor,
         valueProveedor: formData.valueProveedor,
       });
+      //Abro el snackbar
+      setOpen(true);
     }
   };
 
+  const handleDelete = () => {
+    setPicture(null);
+    props.eliminarFoto({ id: props.auth.uid });
+  };
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
   };
+
+  //Funcion para cerrar el snackbar
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  /* const handleUpload = (event) => {
+    const file = event.target.files[0];
+    const storageRef = firebase
+      .storage()
+      .ref(`/fotosUsuariosComercios/${file.name}`);
+    const task = storageRef.put(file);
+    task.on(
+      "state_changed",
+      function (snapshot) {
+        switch (snapshot.state) {
+          case firebase.storage.TaskState.PAUSED: // or 'paused'
+            console.log("Upload is paused");
+            break;
+          case firebase.storage.TaskState.RUNNING: // or 'running'
+            console.log("Upload is running");
+            break;
+        }
+      },
+      function (error) {
+        console.log(error);
+      },
+      function () {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          setPicture(downloadURL);
+          props.subirFoto({
+            id: props.auth.uid,
+            url: downloadURL,
+          });
+        });
+      } 
+    ); 
+  }; */
 
   const form = React.createRef();
   return (
@@ -79,9 +178,45 @@ function FormProveedores(props) {
         onSubmit={handleSubmit}
       >
         <Grid container className={classes.cont} spacing={1}>
+          <div className={classes.contenedor}>
+            <div className={classes.avatar}>
+              <Avatar
+                //src={picture}
+                alt="imagen proveedor"
+                className={classes.ava}
+              ></Avatar>
+            </div>
+            <div className={classes.botones}>
+              <div>
+                <input
+                  accept="image/*"
+                  className={classes.input}
+                  id="contained-button-file"
+                  multiple
+                  type="file"
+                  //onChange={handleUpload}
+                />
+                <label htmlFor="contained-button-file">
+                  <Button
+                    variant="contained"
+                    className={classes.boton}
+                    component="span"
+                    startIcon={<PhotoCamera />}
+                  >
+                    Cargar imagen
+                  </Button>
+                </label>
+              </div>
+              <div className={classes.elim}>
+                <a className="eliminar-img" onClick={""}>
+                  Eliminar imagen
+                </a>
+              </div>
+            </div>
+          </div>
           <Grid item xs={12} md={12}>
             <SelectValidator
-              className="select-tipopromo"
+              className="select-tipoprove"
               fullWidth
               label="Tipo de proveedor"
               onChange={handleChange}
@@ -127,6 +262,16 @@ function FormProveedores(props) {
             </Button>
           </Grid>
         </Grid>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={open}
+          autoHideDuration={8000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="success">
+            ¡Se guardó el proveedor correctamente!
+          </Alert>
+        </Snackbar>
       </ValidatorForm>
     </div>
   );

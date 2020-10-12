@@ -29,19 +29,6 @@ function Perfil(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  /*  const [color, setColor] = React.useState(false);
-
-  React.useEffect(() => {
-    if (seleccionado === elementIndex) {
-      setColor(true);
-    } else {
-      setColor(false);
-    }
-  }, [seleccionado]);
-
-  const fontstyles = {
-    color: color ? "#fd5f00" : "#868686",
-  }; */
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -113,7 +100,15 @@ function Perfil(props) {
                       className="nombreComerc"
                       primary={props.profile.nombreComercio}
                     />
-                    <p className="planPrem">Plan Premium</p>
+                    <p className="planPrem">
+                      {props.profile.tipoSuscripcion === 0
+                        ? "Plan Básico"
+                        : props.profile.tipoSuscripcion === 1
+                        ? "Plan Estándar"
+                        : props.profile.tipoSuscripcion === 2
+                        ? "Plan Premium"
+                        : null}
+                    </p>
                   </div>
                 </ListItem>
               </div>

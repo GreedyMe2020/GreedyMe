@@ -1,11 +1,31 @@
 import * as React from "react";
-import Accordion from "@material-ui/core/Accordion";
 import AccordionPreguntas from "./accordion-preguntas";
+import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
+import { Link } from "@reach/router";
 
-export default function PreguntasEstadisticas() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginLeft: "5%",
+    marginRight: "5%",
+    marginTop: "30px",
+  },
+}));
+
+function PreguntasEstadisticas(props) {
+  const classes = useStyles();
   return (
     <div>
-      <Accordion>
+      <div className="prom-title-container">
+        <h1>Ayuda y soporte técnico</h1>
+      </div>
+      <Link
+        to={"/main/" + props.auth.uid + "/ayuda-y-soporte"}
+        className="ayuda-link-volver"
+      >
+        Volver
+      </Link>
+      <div className={classes.root}>
         <AccordionPreguntas
           pregunta="Quiero crear una estadística nueva"
           respuesta="Para crear una estadística nueva, deberás dirigirte a la sección Estadísticas desde la barra lateral de la pantalla.
@@ -40,7 +60,15 @@ export default function PreguntasEstadisticas() {
           Además, los datos de los códigos validados junto con otros más colaboran a la elaboración de estadísticas de interés para el comercio.
           "
         />
-      </Accordion>
+      </div>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+  };
+};
+
+export default connect(mapStateToProps)(PreguntasEstadisticas);

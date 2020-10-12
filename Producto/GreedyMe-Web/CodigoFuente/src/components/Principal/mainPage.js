@@ -24,6 +24,7 @@ import PreguntasEstadisticas from "../Perfil/AyudaYSoporte/Preguntas/preguntas-e
 import PreguntasGreedyShop from "../Perfil/AyudaYSoporte/Preguntas/preguntas-greedyshop";
 import PreguntasNotificaciones from "../Perfil/AyudaYSoporte/Preguntas/preguntas-notificaciones";
 import PreguntasSuscripcion from "../Perfil/AyudaYSoporte/Preguntas/preguntas-suscripciones";
+import OnRouteChange from "../Router-scroll";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,66 +40,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-/* const Main = (props) => {
-  return (
-    <main className={props.className}>
-      <Toolbar />
-      {getOpcionSeleccionada(seleccionado)}
-      { <Link to="./promociones">
-            <button>Cargar promoción</button>
-          </Link> }
-      {props.mainId == "inicio" ? (
-        <Inicio
-          seleccionado={seleccionado}
-          setSeleccionado={setSeleccionado}
-          cantPromos={cantPromos}
-        />
-      ) : props.mainId == "cargar-cupon" ? (
-        <Cupon />
-      ) : (
-        "No es ninguno de los dos"
-      )}
-    </main>
-  );
-}; */
-
 function MainPage(props) {
   const classes = useStyles();
+  //Estado para ver que componente esta seleccionado en main
   const [seleccionado, setSeleccionado] = React.useState(0);
+  //Estado para manejar la cantidad de promociones activas de un usuario y pasarlo para visualizacion
   const [cantPromos, setCantPromos] = React.useState(0);
 
-  /* const getOpcionSeleccionada = (seleccionado) => {
-    if (seleccionado === 0) {
-      return (
-        <Inicio
-          seleccionado={seleccionado}
-          setSeleccionado={setSeleccionado}
-          cantPromos={cantPromos}
-        />
-      );
-    }
-    if (seleccionado === 1) {
-      return <Cupon />;
-    }
-    if (seleccionado === 3) {
-      return <MisPromociones setCantPromos={setCantPromos} />;
-    }
-    if (seleccionado === 4) {
-      return <Estadisticas cantPromos={cantPromos} />;
-    }
-    if (seleccionado === 5) {
-      return <Notificaciones />;
-    }
-    if (seleccionado === 6) {
-      return <Perfil />;
-    }
-    if (seleccionado === 7) {
-      return <Suscripciones />;
-    }
-    if (seleccionado === 8) {
-      return <AyudaYSoporte />;
-    }
-  }; */
+  const handleSeleccionado = (elem) => {
+    setSeleccionado(elem);
+  };
 
   return (
     <div className="main-container">
@@ -115,33 +66,8 @@ function MainPage(props) {
         />
         <main className={classes.content}>
           <Toolbar />
-          {/*getOpcionSeleccionada(seleccionado)*/}
 
-          {/* {props.children === <PreguntasPerfil /> ? (
-            <PreguntasPerfil />
-          ) : props.mainId == "inicio" ? (
-            <Inicio
-              seleccionado={seleccionado}
-              setSeleccionado={setSeleccionado}
-              cantPromos={cantPromos}
-            />
-          ) : props.mainId == "cargar-cupon" ? (
-            <Cupon />
-          ) : props.mainId == "mis-beneficios" ? (
-            <MisPromociones setCantPromos={setCantPromos} />
-          ) : props.mainId == "estadisticas" ? (
-            <Estadisticas cantPromos={cantPromos} />
-          ) : props.mainId == "notificaciones" ? (
-            <Notificaciones />
-          ) : props.mainId === "perfil" ? (
-            <Perfil />
-          ) : props.mainId === "suscripciones" ? (
-            <Suscripciones />
-          ) : props.mainId === "ayuda-y-soporte" ? (
-            <AyudaYSoporte />
-          ) : (
-            ""
-          )} */}
+          {/*  */}
 
           <Router>
             <Inicio
@@ -155,7 +81,7 @@ function MainPage(props) {
               path="mis-beneficios"
               setCantPromos={setCantPromos}
             />
-            <Notificaciones path="notificaciones" />
+            <Notificaciones path="notificaciones" setSeleccionado={setSeleccionado}/>
             <Estadisticas path="estadisticas" cantPromos={cantPromos} />
             <Perfil path="perfil" />
             <Suscripciones path="suscripciones" />
@@ -168,6 +94,11 @@ function MainPage(props) {
             <PreguntasSuscripcion path="ayuda-y-soporte/suscripciones" />
             <PreguntasGreedyShop path="ayuda-y-soporte/greedy-shop" />
           </Router>
+          <OnRouteChange
+            action={() => {
+              window.scrollTo(0, 0);
+            }}
+          />
         </main>
       </div>
     </div>

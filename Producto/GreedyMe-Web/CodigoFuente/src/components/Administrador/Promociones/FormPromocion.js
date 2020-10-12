@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import { MenuItem } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { connect } from "react-redux";
@@ -51,6 +52,9 @@ function FormPromocion(props) {
     valuePromo: "",
   });
 
+  //Estado para manejar el snackbar
+  const [open, setOpen] = React.useState(false);
+
   const handleSubmit = (e) => {
     const promociones = props.tipoPromo;
     const indiceACambiar = _.findIndex(promociones, function (o) {
@@ -68,11 +72,20 @@ function FormPromocion(props) {
       id: id,
       lista: listaNueva,
     });
+    setOpen(true);
   };
 
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
+  };
+
+  //Funcion para cerrar el snackbar
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
 
   const form = React.createRef();
@@ -86,7 +99,7 @@ function FormPromocion(props) {
         <Grid container className={classes.cont} spacing={1}>
           <Grid item xs={12} md={12}>
             <SelectValidator
-              className="select-tipopromo"
+              className="select-tipoprove"
               fullWidth
               label="Tipo de beneficio"
               onChange={handleChange}
@@ -129,6 +142,16 @@ function FormPromocion(props) {
             </Button>
           </Grid>
         </Grid>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={open}
+          autoHideDuration={8000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="success">
+            ¡Se guardó el beneficio correctamente!
+          </Alert>
+        </Snackbar>
       </ValidatorForm>
     </div>
   );

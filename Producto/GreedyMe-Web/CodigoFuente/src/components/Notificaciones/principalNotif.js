@@ -3,7 +3,9 @@ import ProgramarNotificaciones from "./programarNotif";
 import LateralNotificaciones from "./cardLateralNotif";
 import HacermePremium from "./haztePremium";
 
-function Notificaciones() {
+
+
+function Notificaciones(props) {
   return (
     <div>
       <div className="prom-title-container">
@@ -20,7 +22,8 @@ function Notificaciones() {
           <LateralNotificaciones />
         </div>
         <div className="card-lateral-premium">
-          <HacermePremium />
+          <HacermePremium setSeleccionado={props.setSeleccionado}
+/>
         </div>
       </div>
     </div>
