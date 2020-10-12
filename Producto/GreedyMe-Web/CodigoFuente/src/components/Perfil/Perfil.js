@@ -81,6 +81,21 @@ const useStyles = makeStyles((theme) => ({
     top: "8px",
     color: theme.palette.grey[500],
   },
+  comboBox: {
+    "box-shadow": "none",
+  },
+
+  multiInput: {
+    border: "1px",
+    padding: "18.5px 14px",
+    width: "100%",
+    "box-shadow": "none",
+    "border-color": "rgba(0, 0, 0, 0.23)",
+    font: "inherit",
+    color: "currentColor",
+    "font-size": "1rem",
+    "letter-spacing": "inherit",
+  },
 }));
 
 function Alert(props) {
