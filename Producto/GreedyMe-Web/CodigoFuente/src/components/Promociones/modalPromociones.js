@@ -184,6 +184,24 @@ function ModalPromociones(props) {
       firebase.analytics().logEvent("promocion_creada");
       props.crear(formData, id, state, value, desdeVigencia, hastaVigencia);
       setOpen(true);
+      formData.tipoPromo = ""
+      formData.valuePromo= ""
+      formData.otraPromo= ""
+      formData.tipoProveedor= ""
+      formData.valueProveedor= ""
+      formData.otroProveedor= ""
+      formData.descripcion= ""
+      state.lunes= false
+      state.martes= false
+      state.miercoles= false
+      state.jueves= false
+      state.viernes= false
+      state.sabado= false
+      state.domingo= false
+      state.todoslosdias= true
+      handleDesdeVigencia(new Date())
+      handleHastaVigencia(new Date())
+      setValue({ value: false })
     }
   };
   const handleClose = (event, reason) => {

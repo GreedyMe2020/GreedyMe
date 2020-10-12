@@ -45,3 +45,15 @@ export const resetearValoresInicioSesion = () => {
     dispatch({ type: "RESETEAR_VALORES_INICIO_SESION" });
   };
 };
+
+export const resetearValoresReestablecerContraseña = () => {
+  return (dispatch, getState, { getFirestore }) => {
+    dispatch({ type: "RESETEAR_VALORES_REESTABLECER_CONTRASEÑA" });
+  };
+};
+
+export const resetearValorReestablecerContraseña = () => {
+  return (dispatch, getState, { getFirestore }) => {
+    dispatch({ type: "RESETEAR_VALOR_REESTABLECER_CONTRASEÑA" });
+  };
+};

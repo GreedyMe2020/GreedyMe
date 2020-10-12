@@ -46,6 +46,7 @@ function FormTipoProveedores(props) {
 
   const handleSubmit = (e) => {
     props.cargarTipoProveedor(formData);
+    formData.tipoProveedor = ""
     setOpen(true);
   };
 

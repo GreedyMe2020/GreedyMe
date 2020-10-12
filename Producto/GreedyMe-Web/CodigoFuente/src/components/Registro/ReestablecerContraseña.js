@@ -1,7 +1,7 @@
 import React from "react";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { connect } from "react-redux";
-import { forgotPass } from "../../redux/actions/authActions";
+import { forgotPass, resetearValoresReestablecerContraseña,  resetearValorReestablecerContraseña} from "../../redux/actions/authActions";
 import { Redirect } from "@reach/router";
 import Button from "@material-ui/core/Button";
 import { Card } from "react-bootstrap";
@@ -35,11 +35,20 @@ function ReestablecerContraseña(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.forgotPass(formData);
-    setOpen(true);
+    formData.email = ""
+    props.resetearValorReestablecerContraseña()
+    
   };
 
+  const abrirCarteldeConfirmacion = React.useEffect(() => {
+    if(props.mandoMail !== null){
+      setOpen(true);
+      props.resetearValoresReestablecerContraseña()
+    }
+  },[props.mandoMail] )
+
   const form = React.createRef();
-  if (props.mandoMail) return <Redirect to="/login" />;
+
   if (props.auth.uid) return <Redirect to={"/main/" + props.auth.uid} />;
   return (
     <div className="reestablecer-contra-container">
@@ -135,6 +144,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     forgotPass: (user) => dispatch(forgotPass(user)),
+    resetearValoresReestablecerContraseña: () => dispatch(resetearValoresReestablecerContraseña()),
+    resetearValorReestablecerContraseña: () => dispatch(resetearValorReestablecerContraseña()),
   };
 };
 

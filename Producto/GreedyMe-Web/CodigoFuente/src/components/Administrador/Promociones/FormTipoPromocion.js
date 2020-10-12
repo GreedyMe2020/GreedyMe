@@ -49,6 +49,7 @@ function FormTipoPromocion(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.cargarTipoPromocion(formData);
+    formData.tipoPromocion = ""
     setOpen(true);
   };
 

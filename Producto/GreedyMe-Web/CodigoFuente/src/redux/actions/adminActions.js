@@ -193,7 +193,7 @@ export const cargarProveedor = (formData) => {
     
     const listaNueva = _.concat(listaLimpia, {
       nombre: formData.valueProveedor,
-      photoURL: null,
+      photoURL: formData.downloadURL,
     });
 
     const listaNueva2 = _.concat(lista2, {
@@ -313,3 +313,4 @@ export const eliminarTipoProveedor = (formData) => {
       });
   };
 };
+

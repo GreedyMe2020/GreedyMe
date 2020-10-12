@@ -122,3 +122,30 @@ export const editarSuscripcion = (datos) => {
       });
   };
 };
+
+
+export const cambiarContraseña = (formData) => {
+  return (dispatch, getState, { getFirestore, getFirebase }) => {
+    //codigo asincrono
+    const firebase = getFirebase();
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        var credentials = firebase.auth.EmailAuthProvider.credential(
+          user.email,
+          formData.contraseñaActual,
+        );
+        user
+          .reauthenticateWithCredential(credentials)
+          .then(() => {
+            user.updatePassword(formData.nuevaContraseña);
+          })
+          .then(() => {
+            dispatch({ type: 'CAMBIAR_CONTRASEÑA' });
+          })
+          .catch((error) => {
+            dispatch({ type: 'ERROR_CONTRASEÑA', error });
+          });
+      }
+    });
+  };
+};
