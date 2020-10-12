@@ -46,6 +46,42 @@ const useStyles = makeStyles((theme) => ({
   input: {
     display: "none",
   },
+  contenedor: {
+    display: "grid",
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginTop: 10,
+    gridTemplateColumns: "1fr 2fr",
+    gridTemplateRows: "1fr",
+  },
+  avatar: {
+    gridColumn: 1 / 2,
+    gridRow: 1 / 3,
+  },
+  ava: {
+    width: 100,
+    height: 100,
+    marginBottom: 10,
+  },
+  botones: {
+    gridColumn: 2 / 3,
+    gridRow: 1 / 2,
+    justifySelf: "center",
+    alignSelf: "center",
+    marginLeft: 35,
+  },
+  boton: {
+    backgroundColor: "#76b39d",
+    color: "white",
+    fontSize: 13,
+  },
+  elim: {
+    cursor: "pointer",
+    color: "#707070",
+    fontSize: 15,
+    marginLeft: 27,
+    top: 5,
+  },
 }));
 
 function Alert(props) {
@@ -146,57 +182,42 @@ function FormProveedores(props) {
         onSubmit={handleSubmit}
       >
         <Grid container className={classes.cont} spacing={1}>
-          <div
-            style={{
-              display: "grid",
-              paddingLeft: 10,
-              paddingRight: 10,
-            }}
-          >
-            <div
-              style={{
-                gridColumn: 1 / 2,
-                gridRow: 1 / 3,
-              }}
-            >
+          <div className={classes.contenedor}>
+            <div className={classes.avatar}>
               <Avatar
                 src={picture}
                 alt="imagen proveedor"
-                style={{
-                  width: 100,
-                  height: 100,
-                  marginBottom: 10,
-                }}
+                className={classes.ava}
               ></Avatar>
             </div>
-            <div style={{ gridColumn: 2 / 3, gridRow: 1 / 2 }}>
-              <input
-                accept="image/*"
-                className={classes.input}
-                id="contained-button-file"
-                multiple
-                type="file"
-                onChange={handleUpload}
-              />
-              <label htmlFor="contained-button-file">
-                <Button
-                  variant="contained"
-                  style={{
-                    backgroundColor: "#76b39d",
-                    color: "white",
-                    fontSize: 13,
-                  }}
-                  component="span"
-                  startIcon={<PhotoCamera />}
-                >
-                  Cargar imagen
-                </Button>
-              </label>
-            </div>
-            <div style={{ gridColumn: 2 / 3, gridRow: 2 / 3 }}>
-              <a className="eliminar-img" onClick={handleDelete}>
-                Eliminar imagen
-              </a>
+
+            <div className={classes.botones}>
+              <div>
+                <input
+                  accept="image/*"
+                  className={classes.input}
+                  id="contained-button-file"
+                  multiple
+                  type="file"
+                  //onChange={handleUpload}
+                />
+                <label htmlFor="contained-button-file">
+                  <Button
+                    variant="contained"
+                    className={classes.boton}
+                    component="span"
+                    startIcon={<PhotoCamera />}
+                  >
+                    Cargar imagen
+                  </Button>
+                </label>
+              </div>
+              <div className={classes.elim}>
+                <a className="eliminar-img" onClick={""}>
+                  Eliminar imagen
+                </a>
+              </div>
+
             </div>
             <div>
                 <progress value={valorCarga} max="100">{valorCarga}</progress>
@@ -204,7 +225,7 @@ function FormProveedores(props) {
           </div>
           <Grid item xs={12} md={12}>
             <SelectValidator
-              className="select-tipopromo"
+              className="select-tipoprove"
               fullWidth
               label="Tipo de proveedor"
               onChange={handleChange}

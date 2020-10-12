@@ -32,7 +32,6 @@ import firebase from "../../firebase/config";
 import { format } from "date-fns";
 import MenuItem from "@material-ui/core/MenuItem";
 
-
 const useStyles = makeStyles((theme) => ({
   demo: {
     backgroundColor: theme.palette.background.paper,
@@ -61,12 +60,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const notificados =[
-  {value: 'Usuarios con comerico favorito'},
-  {value: 'Todos los usuarios'}
-]
+const notificados = [
+  { value: "Usuarios con comerico favorito" },
+  { value: "Todos los usuarios" },
+];
 
-//Funcion para traer promociones 
+//Funcion para traer promociones
 let promociones = [];
 const promocion = () => {
   firebase.auth().onAuthStateChanged(function (user) {
@@ -112,21 +111,27 @@ function ProgramarNotificaciones(props) {
 
   const [promos, setPromos] = React.useState(promociones);
 
-  const beneficios = []
+  const beneficios = [];
   promociones.map((promo) => {
-    beneficios.push({name: promo.tipoProveedor + " " + promo.valueProveedor + " " + promo.otroProveedor + " " + promo.tipoPromo + " " + promo.valuePromo + " " + promo.otraPromo + "válida desde el " +
-    format(
-      promo.desdeVigencia.toDate(),
-      "dd/MM/yyyy"
-    ) +
-    " hasta el " +
-    format(
-      promo.hastaVigencia.toDate(),
-      "dd/MM/yyyy"
-    ) })
-  })
-
-  
+    beneficios.push({
+      name:
+        promo.tipoProveedor +
+        " " +
+        promo.valueProveedor +
+        " " +
+        promo.otroProveedor +
+        " " +
+        promo.tipoPromo +
+        " " +
+        promo.valuePromo +
+        " " +
+        promo.otraPromo +
+        "válida desde el " +
+        format(promo.desdeVigencia.toDate(), "dd/MM/yyyy") +
+        " hasta el " +
+        format(promo.hastaVigencia.toDate(), "dd/MM/yyyy"),
+    });
+  });
 
   const options = beneficios.map((option) => {
     const firstLetter = option.name[0].toUpperCase();
@@ -154,11 +159,11 @@ function ProgramarNotificaciones(props) {
   const [selectedDate, handleDateChange] = useState(new Date());
 
   //Estados para los tipos de notificaciones hardcodeados
-  const [notificaciones, setNotificaciones] = React.useState('');
+  const [notificaciones, setNotificaciones] = React.useState("");
 
   const handleChangeNotificaciones = (event) => {
     setNotificaciones(event.target.value);
-  }
+  };
 
   const handleChangeEnvioUbicacion = (event) => {
     setStateGeo({ ...stateGeo, [event.target.name]: event.target.checked });
@@ -187,7 +192,6 @@ function ProgramarNotificaciones(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
   };
 
   const form = React.createRef();
@@ -241,12 +245,6 @@ function ProgramarNotificaciones(props) {
                       {option.value}
                     </MenuItem>
                   ))}
-                  {/* ACA DEBERIA IR "TODOS LOS USUARIOS o USUARIOS DE LOCALES FAVORITOS
-                {proveedor.map((option) => (
-                  <MenuItem key={option.tipo} value={option.tipo}>
-                    {option.tipo}
-                  </MenuItem>
-                ))} */}
                 </SelectValidator>
               </div>
               <div className="input-buscador-beneficio">
@@ -266,7 +264,7 @@ function ProgramarNotificaciones(props) {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="Buscar beneficio"
+                      label="Beneficio"
                       variant="outlined"
                     />
                   )}
@@ -386,7 +384,6 @@ function ProgramarNotificaciones(props) {
   );
 }
 
-
 const mapStateToProps = (state) => {
   return {
     profile: state.firebase.profile,
@@ -395,9 +392,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    
-  };
+  return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProgramarNotificaciones);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProgramarNotificaciones);

@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import firebase from "../../firebase/config";
 import { format } from "date-fns";
-//Funcion para traer promociones 
+//Funcion para traer promociones
 let promociones = [];
 const promocion = () => {
   firebase.auth().onAuthStateChanged(function (user) {
@@ -34,23 +34,29 @@ const promocion = () => {
 promocion();
 
 function Cupon() {
-
   //Estados de las promociones
   const [promos, setPromos] = React.useState(promociones);
-  const beneficios = []
+  const beneficios = [];
   promociones.map((promo) => {
-    beneficios.push({name: promo.tipoProveedor + " " + promo.valueProveedor + " " + promo.otroProveedor + " " + promo.tipoPromo + " " + promo.valuePromo + " " + promo.otraPromo + "válida desde el " +
-    format(
-      promo.desdeVigencia.toDate(),
-      "dd/MM/yyyy"
-    ) +
-    " hasta el " +
-    format(
-      promo.hastaVigencia.toDate(),
-      "dd/MM/yyyy"
-    ) })
-  })
-
+    beneficios.push({
+      name:
+        promo.tipoProveedor +
+        " " +
+        promo.valueProveedor +
+        " " +
+        promo.otroProveedor +
+        " " +
+        promo.tipoPromo +
+        " " +
+        promo.valuePromo +
+        " " +
+        promo.otraPromo +
+        "válida desde el " +
+        format(promo.desdeVigencia.toDate(), "dd/MM/yyyy") +
+        " hasta el " +
+        format(promo.hastaVigencia.toDate(), "dd/MM/yyyy"),
+    });
+  });
 
   const options = beneficios.map((option) => {
     const firstLetter = option.name[0].toUpperCase();

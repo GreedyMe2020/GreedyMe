@@ -99,7 +99,7 @@ function FormPromocion(props) {
         <Grid container className={classes.cont} spacing={1}>
           <Grid item xs={12} md={12}>
             <SelectValidator
-              className="select-tipopromo"
+              className="select-tipoprove"
               fullWidth
               label="Tipo de beneficio"
               onChange={handleChange}
