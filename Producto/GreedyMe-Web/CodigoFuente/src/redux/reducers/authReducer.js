@@ -41,6 +41,20 @@ const authReducer = (state = initState, action) => {
         ...state,
         authError: null,
       };
+    case "RESETEAR_VALOR_REESTABLECER_CONTRASEÑA":
+      console.log("se resetearon");
+      return {
+        ...state,
+        mailError: null
+      };
+    case "RESETEAR_VALORES_REESTABLECER_CONTRASEÑA":
+      console.log("se resetearon");
+      return {
+        ...state,
+        mandoMail: null,
+        mailError: null
+      };
+    
     default:
       return state;
   }

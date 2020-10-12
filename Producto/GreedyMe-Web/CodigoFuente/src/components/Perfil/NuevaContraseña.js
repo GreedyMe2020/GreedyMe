@@ -8,6 +8,7 @@ import SaveIcon from "@material-ui/icons/Save";
 import { connect } from "react-redux";
 import firebase from "../../firebase/config";
 import Grid from "@material-ui/core/Grid";
+import { cambiarContraseña } from "../../redux/actions/comActions"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,28 +43,7 @@ function NuevaContraseña(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        var credentials = firebase.auth.EmailAuthProvider.credential(
-          user.email,
-          formData.contraseñaActual
-        );
-        user
-          .reauthenticateWithCredential(credentials)
-          .then(function () {
-            user.updatePassword(formData.nuevaContraseña);
-          })
-          .then(() => {
-            setCambio(true);
-            console.log(cambio);
-          })
-          .catch(function (error) {
-            setCambio(false);
-          });
-      } else {
-        console.log("Error, no se pudo cambiar la contraseña");
-      }
-    });
+    props.cambiarContraseña(formData)
   };
 
   ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
@@ -72,11 +52,11 @@ function NuevaContraseña(props) {
     }
     return true;
   });
-  const form = React.createRef();
+  const form2 = React.createRef();
 
   return (
     <div>
-      <ValidatorForm ref={form} onSubmit={handleSubmit} id="validator-form">
+      <ValidatorForm ref={form2} onSubmit={handleSubmit} id="validator-form">
         <Grid container spacing={1}>
           <Grid item xs={12} md={12}>
             <TextValidator
@@ -158,4 +138,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(NuevaContraseña);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    cambiarContraseña: (formData) => dispatch(cambiarContraseña(formData)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NuevaContraseña);

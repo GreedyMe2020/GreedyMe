@@ -107,14 +107,27 @@ function FormProveedores(props) {
       props.cargarBanco({
         id: "ndbKpkm6GorM0g5kHNkF",
         valueProveedor: formData.valueProveedor,
+        downloadURL: formData.downloadURL
       });
+      setPicture(null)
+      setValorCarga(0)
+      formData.tipoProveedor = ""
+      formData.valueProveedor = ""
+      formData.downloadURL = null
       //Abro el snackbar
       setOpen(true);
     } else {
       props.cargarProveedor({
         tipoProveedor: formData.tipoProveedor,
         valueProveedor: formData.valueProveedor,
+        downloadURL: formData.downloadURL
       });
+      formData.tipoProveedor = ""
+      formData.valueProveedor = ""
+      formData.downloadURL = null
+      //setFormData(...formData)
+      setPicture(null)
+      setValorCarga(0)
       //Abro el snackbar
       setOpen(true);
     }
@@ -167,7 +180,6 @@ function FormProveedores(props) {
           setPicture(downloadURL);
           formData.downloadURL = downloadURL
           setFormData({...formData})
-          console.log(formData)
         });
       } 
     ); 
@@ -199,7 +211,7 @@ function FormProveedores(props) {
                   id="contained-button-file"
                   multiple
                   type="file"
-                  //onChange={handleUpload}
+                  onChange={handleUpload}
                 />
                 <label htmlFor="contained-button-file">
                   <Button
@@ -213,15 +225,16 @@ function FormProveedores(props) {
                 </label>
               </div>
               <div className={classes.elim}>
-                <a className="eliminar-img" onClick={""}>
+                <a className="eliminar-img" onClick={handleDelete}>
                   Eliminar imagen
                 </a>
               </div>
 
             </div>
-            <div>
-                <progress value={valorCarga} max="100">{valorCarga}</progress>
-            </div>
+            
+          </div>
+          <div className="ml-1">
+            <progress value={valorCarga} max="100"></progress>
           </div>
           <Grid item xs={12} md={12}>
             <SelectValidator

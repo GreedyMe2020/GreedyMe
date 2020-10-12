@@ -72,6 +72,8 @@ function FormPromocion(props) {
       id: id,
       lista: listaNueva,
     });
+    formData.tipoPromo = ""
+    formData.valuePromo = ""
     setOpen(true);
   };
 
