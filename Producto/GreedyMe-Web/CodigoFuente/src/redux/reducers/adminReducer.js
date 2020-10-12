@@ -33,6 +33,12 @@ const adminReducer = (state = initState, action) => {
         ...state,
         usuarioFalla: action.error.message,
       };
+    case "RESETEAR_VALORES_USUARIO":
+      console.log("resetear_fallo");
+      return {
+        ...state,
+        usuarioFalla: null,
+      };
     case "USUARIO_MODIFICADO":
       console.log("se modifico");
       return {
