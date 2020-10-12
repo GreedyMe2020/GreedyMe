@@ -314,3 +314,8 @@ export const eliminarTipoProveedor = (formData) => {
   };
 };
 
+export const resetearValoresCreacionComercio = () => {
+  return (dispatch, getState, { getFirestore }) => {
+    dispatch({ type: "RESETEAR_VALORES_CREACION_COMERCIO" });
+  };
+};

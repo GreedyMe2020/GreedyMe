@@ -35,14 +35,13 @@ function ReestablecerContraseña(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.forgotPass(formData);
-    formData.email = ""
     props.resetearValorReestablecerContraseña()
-    
   };
 
   const abrirCarteldeConfirmacion = React.useEffect(() => {
     if(props.mandoMail !== null){
       setOpen(true);
+      formData.email = ""
       props.resetearValoresReestablecerContraseña()
     }
   },[props.mandoMail] )
@@ -114,7 +113,7 @@ function ReestablecerContraseña(props) {
                   </p>
                 ) : (
                   <Snackbar
-                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
                     open={open}
                     autoHideDuration={8000}
                     onClose={handleClose}
