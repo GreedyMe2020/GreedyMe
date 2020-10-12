@@ -54,11 +54,14 @@ function Alert(props) {
 
 function FormProveedores(props) {
   const classes = useStyles();
-  // const [picture, setPicture] = useState(props.profile.photoURL);
+
+  const [picture, setPicture] = useState(null);
+  const [valorCarga, setValorCarga] = useState(0)
 
   const [formData, setFormData] = React.useState({
     tipoProveedor: "",
     valueProveedor: "",
+    downloadURL: null,
   });
   //Estado para manejar el snackbar
   const [open, setOpen] = React.useState(false);
@@ -83,7 +86,9 @@ function FormProveedores(props) {
 
   const handleDelete = () => {
     setPicture(null);
-    props.eliminarFoto({ id: props.auth.uid });
+    setValorCarga(0)
+    formData.downloadURL = null
+    setFormData({...formData})
   };
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
@@ -98,21 +103,21 @@ function FormProveedores(props) {
     setOpen(false);
   };
 
-  /* const handleUpload = (event) => {
+  const handleUpload = (event) => {
     const file = event.target.files[0];
     const storageRef = firebase
       .storage()
-      .ref(`/fotosUsuariosComercios/${file.name}`);
+      .ref(`/proveedores/${file.name}`);
     const task = storageRef.put(file);
     task.on(
       "state_changed",
-      function (snapshot) {
+      function (snapshot) {      
         switch (snapshot.state) {
           case firebase.storage.TaskState.PAUSED: // or 'paused'
-            console.log("Upload is paused");
             break;
           case firebase.storage.TaskState.RUNNING: // or 'running'
-            console.log("Upload is running");
+            let porcentaje = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setValorCarga(porcentaje)
             break;
         }
       },
@@ -124,14 +129,13 @@ function FormProveedores(props) {
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
           setPicture(downloadURL);
-          props.subirFoto({
-            id: props.auth.uid,
-            url: downloadURL,
-          });
+          formData.downloadURL = downloadURL
+          setFormData({...formData})
+          console.log(formData)
         });
       } 
     ); 
-  }; */
+  }; 
 
   const form = React.createRef();
   return (
@@ -156,7 +160,7 @@ function FormProveedores(props) {
               }}
             >
               <Avatar
-                //src={picture}
+                src={picture}
                 alt="imagen proveedor"
                 style={{
                   width: 100,
@@ -172,7 +176,7 @@ function FormProveedores(props) {
                 id="contained-button-file"
                 multiple
                 type="file"
-                //onChange={handleUpload}
+                onChange={handleUpload}
               />
               <label htmlFor="contained-button-file">
                 <Button
@@ -190,9 +194,12 @@ function FormProveedores(props) {
               </label>
             </div>
             <div style={{ gridColumn: 2 / 3, gridRow: 2 / 3 }}>
-              <a className="eliminar-img" onClick={""}>
+              <a className="eliminar-img" onClick={handleDelete}>
                 Eliminar imagen
               </a>
+            </div>
+            <div>
+                <progress value={valorCarga} max="100">{valorCarga}</progress>
             </div>
           </div>
           <Grid item xs={12} md={12}>
@@ -270,6 +277,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     cargarProveedor: (formData) => dispatch(cargarProveedor(formData)),
     cargarBanco: (formData) => dispatch(cargarBanco(formData)),
+
   };
 };
 
