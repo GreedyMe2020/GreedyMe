@@ -11,49 +11,43 @@ export const signUp = (nuevoUsuario) => {
         nuevoUsuario.contraseña
       )
       .then((resp) => {
-        if (resp.additionalUserInfo.isNewUser) {
-          firestore.collection("usuarioComercio").doc(resp.user.uid).set({
-            email: nuevoUsuario.email,
-            CUIT: nuevoUsuario.CUIT,
-            direccion: "",
-            facebook: nuevoUsuario.facebook,
-            instagram: nuevoUsuario.instagram,
-            nombreComercio: nuevoUsuario.nombreComercio,
-            rubro: nuevoUsuario.rubro,
-            sucursal: nuevoUsuario.sucursal,
-            telefono: nuevoUsuario.telefono,
-            photoURL: null,
-            tipoSuscripcion: 0,
-            web: nuevoUsuario.web,
-            fechaCreacion: new Date(),
-          });
-          const bd = secondaryApp.firestore();
-          bd.collection("usuarioComercio")
-            .doc(resp.user.uid)
-            .set({
-              email: nuevoUsuario.email,
-              CUIT: nuevoUsuario.CUIT,
-              direccion: "",
-              facebook: nuevoUsuario.facebook,
-              instagram: nuevoUsuario.instagram,
-              nombreComercio: nuevoUsuario.nombreComercio,
-              rubro: nuevoUsuario.rubro,
-              sucursal: nuevoUsuario.sucursal,
-              telefono: nuevoUsuario.telefono,
-              photoURL: null,
-              tipoSuscripcion: 0,
-              web: nuevoUsuario.web,
-              fechaCreacion: new Date(),
-            })
-            .then(() => {
-              dispatch({ type: "USUARIO_CREADO" });
-            })
-            .catch((error) => {
-              dispatch({ type: "FALLO_CREACION", error });
-            });
-        } else {
-          dispatch({ type: "FALLO_CREACION" });
-        }
+        firestore.collection("usuarioComercio").doc(resp.user.uid).set({
+          email: nuevoUsuario.email,
+          CUIT: nuevoUsuario.CUIT,
+          direccion: "",
+          facebook: nuevoUsuario.facebook,
+          instagram: nuevoUsuario.instagram,
+          nombreComercio: nuevoUsuario.nombreComercio,
+          rubro: nuevoUsuario.rubro,
+          sucursal: nuevoUsuario.sucursal,
+          telefono: nuevoUsuario.telefono,
+          photoURL: null,
+          tipoSuscripcion: 0,
+          web: nuevoUsuario.web,
+          fechaCreacion: new Date(),
+        });
+        const bd = secondaryApp.firestore();
+        bd.collection("usuarioComercio").doc(resp.user.uid).set({
+          email: nuevoUsuario.email,
+          CUIT: nuevoUsuario.CUIT,
+          direccion: "",
+          facebook: nuevoUsuario.facebook,
+          instagram: nuevoUsuario.instagram,
+          nombreComercio: nuevoUsuario.nombreComercio,
+          rubro: nuevoUsuario.rubro,
+          sucursal: nuevoUsuario.sucursal,
+          telefono: nuevoUsuario.telefono,
+          photoURL: null,
+          tipoSuscripcion: 0,
+          web: nuevoUsuario.web,
+          fechaCreacion: new Date(),
+        });
+      })
+      .then(() => {
+        dispatch({ type: "USUARIO_CREADO" });
+      })
+      .catch((error) => {
+        dispatch({ type: "FALLO_CREACION", error });
       });
   };
 };
@@ -180,25 +174,23 @@ export const cargarProveedor = (formData) => {
     const id = proveedores[indiceACambiar].id;
 
     const lista = proveedores[indiceACambiar].lista;
-    const listaLimpia = [];
+    const listaLimpia = []
     lista.map((item) => {
-      if (item.nombre.toLowerCase() !== "") {
-        listaLimpia.push({ nombre: item.nombre, photoURL: item.photoURL });
+      if(item.nombre.toLowerCase() !== ""){
+        listaLimpia.push({nombre: item.nombre, photoURL: item.photoURL})
       }
-    });
 
-    const lista2 = [];
+    })
+    
+    const lista2= []
     lista.map((item) => {
-      if (
-        item.nombre.toLowerCase() !== "otro" &&
-        item.nombre.toLowerCase() !== "todas" &&
-        item.nombre.toLowerCase() !== "todos" &&
-        item.nombre !== ""
-      ) {
-        lista2.push({ name: item.nombre });
+      if(item.nombre.toLowerCase() !== "otro" && item.nombre.toLowerCase() !== "todas" && item.nombre.toLowerCase() !== "todos" && item.nombre !== ""){
+        lista2.push({name: item.nombre})
       }
-    });
-
+        
+      
+    })
+    
     const listaNueva = _.concat(listaLimpia, {
       nombre: formData.valueProveedor,
       photoURL: formData.downloadURL,
@@ -208,14 +200,17 @@ export const cargarProveedor = (formData) => {
       name: formData.valueProveedor,
     });
 
+    
+    
     const firestore = getFirestore();
-    firestore.collection("proveedorServicio").doc(id).update({
-      lista: listaNueva,
-    });
-    const bd = secondaryApp.firestore();
-    bd.collection("proveedorServicio")
+    firestore
+      .collection("proveedorServicio")
       .doc(id)
-      .update({ lista: listaNueva2 })
+      .update({
+        lista: listaNueva,
+      })
+    const bd = secondaryApp.firestore();
+    bd.collection("proveedorServicio").doc(id).update({ lista: listaNueva2 })
       .then(() => {
         dispatch({ type: "CARGAR_PROVEEDOR" });
       })
@@ -232,37 +227,34 @@ export const cargarBanco = (formData) => {
     const indiceACambiar = _.findIndex(proveedores, function (o) {
       return o.id === "ndbKpkm6GorM0g5kHNkF";
     });
-
+    
     const lista = proveedores[indiceACambiar].bancos;
-
+    
     const listaNueva = _.concat(lista, {
       nombre: formData.valueProveedor,
       photoURL: null,
     });
 
-    const lista2 = [];
+    const lista2= []
     lista.map((item) => {
-      if (
-        item.nombre.toLowerCase() !== "otro" &&
-        item.nombre.toLowerCase() !== "todas" &&
-        item.nombre.toLowerCase() !== "todos"
-      ) {
-        lista2.push({ name: item.nombre });
-      }
-    });
+      if(item.nombre.toLowerCase() !== "otro" && item.nombre.toLowerCase() !== "todas" && item.nombre.toLowerCase() !== "todos"){
+        lista2.push({name: item.nombre})
+      }    
+    })
     const listaNueva2 = _.concat(lista2, {
       name: formData.valueProveedor,
     });
-    console.log(listaNueva2);
-
+    console.log(listaNueva2)
+    
     const firestore = getFirestore();
-    firestore.collection("proveedorServicio").doc(formData.id).update({
-      bancos: listaNueva,
-    });
-    const bd = secondaryApp.firestore();
-    bd.collection("proveedorServicio")
+    firestore
+      .collection("proveedorServicio")
       .doc(formData.id)
-      .update({ lista: listaNueva2 })
+      .update({
+        bancos: listaNueva,
+      })
+    const bd = secondaryApp.firestore();
+    bd.collection("proveedorServicio").doc(formData.id).update({ lista: listaNueva2 })
       .then(() => {
         dispatch({ type: "CARGAR_BANCO" });
       })
@@ -276,13 +268,9 @@ export const cargarTipoProveedor = (formData) => {
   return (dispatch, getState, { getFirestore }) => {
     var caracteres = "abcdefghijkmnpqrtuvwxyzABCDEFGHJKMNPQRTUVWXYZ2346789";
     var identificacion = "";
-    for (var i = 0; i < 20; i++) {
-      identificacion += caracteres.charAt(
-        Math.floor(Math.random() * caracteres.length)
-      );
-    }
+    for (var i=0; i<20; i++) {identificacion +=caracteres.charAt(Math.floor(Math.random()*caracteres.length))}; 
     //codigo asincrono
-    console.log(identificacion);
+    console.log(identificacion)
     const firestore = getFirestore();
     firestore
       .collection("proveedorServicio")
@@ -290,14 +278,12 @@ export const cargarTipoProveedor = (formData) => {
       .set({
         tipo: formData.tipoProveedor,
         lista: [{ nombre: "", photoURL: "" }],
-      });
-    const bd = secondaryApp.firestore();
-    bd.collection("proveedorServicio")
-      .doc(identificacion)
-      .set({
-        name: formData.tipoProveedor,
-        lista: [{ name: "" }],
       })
+    const bd = secondaryApp.firestore();
+    bd.collection("proveedorServicio").doc(identificacion).set({
+      name: formData.tipoProveedor,
+      lista: [{ name: ""}],
+    })
       .then(() => {
         dispatch({ type: "CARGAR_TIPO_PROVEEDOR" });
       })
@@ -310,9 +296,13 @@ export const cargarTipoProveedor = (formData) => {
 export const eliminarTipoProveedor = (formData) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
-    firestore.collection("proveedorServicio").doc(formData.id).delete();
+    firestore
+      .collection("proveedorServicio")
+      .doc(formData.id)
+      .delete()
     const bd = secondaryApp.firestore();
-    bd.collection("proveedorServicio")
+    bd
+      .collection("proveedorServicio")
       .doc(formData.id)
       .delete()
       .then(() => {
@@ -324,12 +314,3 @@ export const eliminarTipoProveedor = (formData) => {
   };
 };
 
-export const setUsuarioFalla = (flag) => {
-  return (dispatch, getState, { getFirestore }) => {
-    if (flag === "True") {
-      dispatch({ type: "FALLO_CREACION" });
-    } else {
-      dispatch({ type: "RESETEAR_VALORES_USUARIO" });
-    }
-  };
-};

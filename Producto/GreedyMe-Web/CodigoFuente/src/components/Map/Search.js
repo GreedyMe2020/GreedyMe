@@ -17,12 +17,17 @@ import { CardColumns } from "react-bootstrap";
 const libraries = ["places"];
 const useStyles = makeStyles((theme) => ({
   comboBox: {
-    "box-shadow": "none",
-    "aria-expanded": "false",
+    border: 0,
+    margin: 0,
+    display: "inline-flex",
+    padding: 0,
+    position: "relative",
+    "min-width": 0,
+    "flex-direction": "column",
+    "vertical-align": "top",
   },
 
   multiInput: {
-    border: "1px",
     padding: "18.5px 14px",
     width: "100%",
     "box-shadow": "none",

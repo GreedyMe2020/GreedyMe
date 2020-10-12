@@ -12,7 +12,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import firebase from "../../../firebase/config";
 import SaveIcon from "@material-ui/icons/Save";
-import { setUsuarioFalla } from "../../../redux/actions/adminActions";
 
 //funcion para traer los rubros
 const rubros = [];
@@ -72,7 +71,9 @@ function FormCrearUsuario(props) {
   //funcion para crear el usuario
   const handleSubmit = (e) => {
     e.preventDefault();
+
     props.crearComercio(formData);
+
     setOpen(true);
   };
   ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
@@ -300,9 +301,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    setUsuarioFalla: (flag) => dispatch(setUsuarioFalla(flag)),
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormCrearUsuario);
