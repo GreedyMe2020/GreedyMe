@@ -341,7 +341,7 @@ function ModalPromocionesActualizar(props) {
           </SelectValidator>
           {formData.tipoProveedor === "Tarjetas de débito" ||
           formData.tipoProveedor === "Tarjetas de crédito" ? (
-            <div>
+            <>
               <SelectValidator
                 variant="outlined"
                 className="selectproveedor"
@@ -379,7 +379,7 @@ function ModalPromocionesActualizar(props) {
                   </MenuItem>
                 ))}
               </SelectValidator>
-            </div>
+            </>
           ) : null}
 
           {formData.tipoProveedor !== "Tarjetas de débito" &&
@@ -612,7 +612,7 @@ function ModalPromocionesActualizar(props) {
             onClose={handleClose}
           >
             <Alert onClose={handleClose} severity="success">
-              La promoción se actualizo correctamente!
+              ¡La promoción se actualizo correctamente!
             </Alert>
             {/* <Alert onClose={handleClose} severity="error">
               Faltan campos de completar
