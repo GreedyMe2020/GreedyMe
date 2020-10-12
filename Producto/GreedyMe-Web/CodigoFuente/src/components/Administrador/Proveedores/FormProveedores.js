@@ -90,11 +90,14 @@ function Alert(props) {
 
 function FormProveedores(props) {
   const classes = useStyles();
-  // const [picture, setPicture] = useState(props.profile.photoURL);
+
+  const [picture, setPicture] = useState(null);
+  const [valorCarga, setValorCarga] = useState(0)
 
   const [formData, setFormData] = React.useState({
     tipoProveedor: "",
     valueProveedor: "",
+    downloadURL: null,
   });
   //Estado para manejar el snackbar
   const [open, setOpen] = React.useState(false);
@@ -104,14 +107,27 @@ function FormProveedores(props) {
       props.cargarBanco({
         id: "ndbKpkm6GorM0g5kHNkF",
         valueProveedor: formData.valueProveedor,
+        downloadURL: formData.downloadURL
       });
+      setPicture(null)
+      setValorCarga(0)
+      formData.tipoProveedor = ""
+      formData.valueProveedor = ""
+      formData.downloadURL = null
       //Abro el snackbar
       setOpen(true);
     } else {
       props.cargarProveedor({
         tipoProveedor: formData.tipoProveedor,
         valueProveedor: formData.valueProveedor,
+        downloadURL: formData.downloadURL
       });
+      formData.tipoProveedor = ""
+      formData.valueProveedor = ""
+      formData.downloadURL = null
+      //setFormData(...formData)
+      setPicture(null)
+      setValorCarga(0)
       //Abro el snackbar
       setOpen(true);
     }
@@ -119,7 +135,9 @@ function FormProveedores(props) {
 
   const handleDelete = () => {
     setPicture(null);
-    props.eliminarFoto({ id: props.auth.uid });
+    setValorCarga(0)
+    formData.downloadURL = null
+    setFormData({...formData})
   };
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
@@ -134,21 +152,21 @@ function FormProveedores(props) {
     setOpen(false);
   };
 
-  /* const handleUpload = (event) => {
+  const handleUpload = (event) => {
     const file = event.target.files[0];
     const storageRef = firebase
       .storage()
-      .ref(`/fotosUsuariosComercios/${file.name}`);
+      .ref(`/proveedores/${file.name}`);
     const task = storageRef.put(file);
     task.on(
       "state_changed",
-      function (snapshot) {
+      function (snapshot) {      
         switch (snapshot.state) {
           case firebase.storage.TaskState.PAUSED: // or 'paused'
-            console.log("Upload is paused");
             break;
           case firebase.storage.TaskState.RUNNING: // or 'running'
-            console.log("Upload is running");
+            let porcentaje = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setValorCarga(porcentaje)
             break;
         }
       },
@@ -160,14 +178,12 @@ function FormProveedores(props) {
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
           setPicture(downloadURL);
-          props.subirFoto({
-            id: props.auth.uid,
-            url: downloadURL,
-          });
+          formData.downloadURL = downloadURL
+          setFormData({...formData})
         });
       } 
     ); 
-  }; */
+  }; 
 
   const form = React.createRef();
   return (
@@ -181,11 +197,12 @@ function FormProveedores(props) {
           <div className={classes.contenedor}>
             <div className={classes.avatar}>
               <Avatar
-                //src={picture}
+                src={picture}
                 alt="imagen proveedor"
                 className={classes.ava}
               ></Avatar>
             </div>
+
             <div className={classes.botones}>
               <div>
                 <input
@@ -194,7 +211,7 @@ function FormProveedores(props) {
                   id="contained-button-file"
                   multiple
                   type="file"
-                  //onChange={handleUpload}
+                  onChange={handleUpload}
                 />
                 <label htmlFor="contained-button-file">
                   <Button
@@ -207,13 +224,20 @@ function FormProveedores(props) {
                   </Button>
                 </label>
               </div>
+              <div className="ml-1">
+                {valorCarga === 0 
+                ? null
+                : <progress value={valorCarga} max="100"></progress>}                
+              </div>
               <div className={classes.elim}>
-                <a className="eliminar-img" onClick={""}>
+                <a className="eliminar-img" onClick={handleDelete}>
                   Eliminar imagen
                 </a>
               </div>
+              
             </div>
           </div>
+          
           <Grid item xs={12} md={12}>
             <SelectValidator
               className="select-tipoprove"
@@ -289,6 +313,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     cargarProveedor: (formData) => dispatch(cargarProveedor(formData)),
     cargarBanco: (formData) => dispatch(cargarBanco(formData)),
+
   };
 };
 

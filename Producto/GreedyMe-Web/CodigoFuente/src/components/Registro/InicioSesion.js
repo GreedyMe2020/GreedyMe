@@ -57,14 +57,14 @@ function InicioSesion(props) {
   return (
     <div className="inicio-sesion-container">
       <div className="nav-container">
-        <nav>
-          <Link to={"/"} className="link">
-            <div id="titulo">
+        <nav>     
+          <div id="titulo">
+            <Link to={"/"} className="link subtitulo">
               <h1 className="gre">gre</h1>
               <h1 className="edy">edy</h1>
               <h1 className="me">me</h1>
-            </div>
-          </Link>
+            </Link>
+          </div>          
         </nav>
       </div>
 

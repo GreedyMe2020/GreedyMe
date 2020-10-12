@@ -121,6 +121,7 @@ function Perfil(props) {
     lng: null,
   });
   const [picture, setPicture] = useState(props.profile.photoURL);
+  const [valorCarga, setValorCarga] = useState(0)
   const [submitted, setSubmitted] = React.useState(false);
   const [showModal, setModal] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -159,7 +160,8 @@ function Perfil(props) {
             console.log("Upload is paused");
             break;
           case firebase.storage.TaskState.RUNNING: // or 'running'
-            console.log("Upload is running");
+            let porcentaje = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setValorCarga(porcentaje)
             break;
         }
       },
@@ -183,6 +185,7 @@ function Perfil(props) {
   const handleDelete = () => {
     setPicture(null);
     props.eliminarFoto({ id: props.auth.uid });
+    setValorCarga(0)
   };
 
   const handleSubmit = (e) => {
@@ -308,6 +311,9 @@ function Perfil(props) {
               <a className="eliminar-img" onClick={handleDelete}>
                 Eliminar imagen
               </a>
+              <div className="mt-2">
+                <progress value={valorCarga} max="100"></progress>
+              </div>
             </div>
           </Card.Body>
         </Card>
