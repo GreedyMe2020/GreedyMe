@@ -73,9 +73,9 @@ function NuevaContraseña(props) {
     })
   };
 
-  //Effects para abrir carteles
-  /*const abrirCarteldeConfirmacion = React.useEffect(() => {
-    if(props.contraseña !== null){
+  /*//Effects para abrir carteles
+  const abrirCarteldeConfirmacion = React.useEffect(() => {
+    if(props.password !== null){
       setOpenContraseña(true);
       props.resetearValoresCambiarContraseña()
       setFormData({
@@ -84,14 +84,14 @@ function NuevaContraseña(props) {
         repeticion: "",
       })
     }
-  },[props.contraseña] )
+  },[props.password] )
 
   const abrirCarteldeError = React.useEffect(() => {
-    if(props.contraseñaError !== null){
+    if(props.passwordError !== null){
       setOpen2Contraseña(true);
       props.resetearValoresCambiarContraseña()
     }
-  },[props.contraseñaError] )*/
+  },[props.passwordError] )*/
 
   //validacion para que los campos sean iguales
   ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
@@ -203,8 +203,8 @@ function NuevaContraseña(props) {
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
-    contraseña: state.comercio.contraseña,
-    contraseñaError: state.comercio.contraseñaError,
+    password: state.comercio.password,
+    passwordError: state.comercio.passwordError,
   };
 };
 
