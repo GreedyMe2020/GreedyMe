@@ -75,7 +75,7 @@ function ListaProveedores(props) {
       let textoBuscar = text.target.value;
       const datos = props.proveedores;
       const newDatos = datos.filter(function (item) {
-        const tipo = item.tipo ? item.tipo.toUpperCase() : "bancos";
+        const tipo = item.tipo ? item.tipo.toUpperCase() : "BANCOS";
         const campo = tipo;
         const textData = textoBuscar.toUpperCase();
         return campo.indexOf(textData) > -1;

@@ -31,22 +31,24 @@ import _ from "lodash";
 const firestore = firebase.firestore();
 
 const bancos = [];
-const banco = () => {
+//const banco = () => {
   firestore
     .collection("proveedorServicio")
     .orderBy("bancos")
-    .get()
-    .then((snapShots) => {
+    .onSnapshot((snapShots) => {
       snapShots.forEach((doc) => {
         const data = doc.data();
         bancos.push({
           ...data,
           id: doc.id,
         });
-      });
-    });
-};
-banco();
+      })
+    })
+    /*.get()
+    .then(
+    });*/
+//};
+//banco();
 
 const useStyles = makeStyles((theme) => ({
   root: {

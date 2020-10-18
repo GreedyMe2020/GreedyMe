@@ -128,7 +128,7 @@ export const cambiarContraseña = (formData) => {
   return (dispatch, getState, { getFirestore, getFirebase }) => {
     //codigo asincrono
     const firebase = getFirebase();
-    firebase.auth().onAuthStateChanged(function (user) {
+    var user = firebase.auth().currentUser;
       if (user) {
         var credentials = firebase.auth.EmailAuthProvider.credential(
           user.email,
@@ -145,8 +145,7 @@ export const cambiarContraseña = (formData) => {
           .catch((error) => {
             dispatch({ type: 'ERROR_PASSWORD', error });
           });
-      }
-    });
+      }  
   };
 };
 
