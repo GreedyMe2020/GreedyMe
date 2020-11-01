@@ -178,9 +178,19 @@ function ListaUsuarios(props) {
                                       {user.nombreComercio}
                                     </Typography>
                                     {user.CUIT}
+                                    <Typography>
+                                    {user.tipoSuscripcion === 0
+                                    ? "Plan Básico"
+                                    : user.tipoSuscripcion === 1
+                                    ? "Plan Estándar"
+                                    : user.tipoSuscripcion === 2
+                                    ? "Plan Premium"
+                                    : null}
+                                    </Typography>
                                   </React.Fragment>
                                 }
                                 secondary={"rubro: " + user.rubro}
+                               
                               />
                             </div>
                             <ListItemSecondaryAction>
@@ -286,6 +296,15 @@ function ListaUsuarios(props) {
                                       {user.nombreComercio}
                                     </Typography>
                                     {user.CUIT}
+                                    <Typography>
+                                    {user.tipoSuscripcion === 0
+                                    ? "Plan Básico"
+                                    : user.tipoSuscripcion === 1
+                                    ? "Plan Estándar"
+                                    : user.tipoSuscripcion === 2
+                                    ? "Plan Premium"
+                                    : null}
+                                    </Typography>
                                   </React.Fragment>
                                 }
                                 secondary={"Rubro: " + user.rubro}
