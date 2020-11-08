@@ -30,8 +30,7 @@ export const crearPromocion = (
         diaAplicacion: dias,
         medioPago: value,
       })
-      .then(() => {
-        const bd = secondaryApp.firestore();
+      const bd = secondaryApp.firestore();
         bd.collection("promociones").doc(id).set({
           idComercio: promocion.id,
           tipoPromo: promocion.tipoPromo,
@@ -47,8 +46,7 @@ export const crearPromocion = (
           photoURL: promocion.photoURL,
           diaAplicacion: dias,
           medioPago: value,
-        });
-      })
+        })
       .then(() => {
         dispatch({ type: "CREAR_PROMOCION" });
       })
@@ -86,8 +84,7 @@ export const actualizarPromocion = (
         diaAplicacion: dias,
         medioPago: value,
       })
-      .then(() => {
-        const bd = secondaryApp.firestore();
+      const bd = secondaryApp.firestore();
         bd.collection("promociones").doc(promocion.idProm).update({
           tipoPromo: promocion.tipoPromo,
           valuePromo: promocion.valuePromo,
@@ -101,8 +98,7 @@ export const actualizarPromocion = (
           photoURL: promocion.photoURL,
           diaAplicacion: dias,
           medioPago: value,
-        });
-      })
+        })
       .then(() => {
         dispatch({ type: "ACTUALIZAR_PROMOCION", promocion });
       })
@@ -121,10 +117,8 @@ export const eliminarPromocion = (promocion) => {
       .collection("promociones")
       .doc(promocion.idProm)
       .delete()
-      .then(() => {
-        const bd = secondaryApp.firestore();
-        bd.collection("promociones").doc(promocion.idProm).delete();
-      })
+      const bd = secondaryApp.firestore();
+      bd.collection("promociones").doc(promocion.idProm).delete()
       .then(() => {
         dispatch({ type: "ELIMINAR_PROMOCION" });
       })
@@ -145,11 +139,9 @@ export const cambiarVisibilidad = (promocion) => {
       .update({
         visible: promocion.visible,
       })
-      .then(() => {
-        const bd = secondaryApp.firestore();
-        bd.collection("promociones").doc(promocion.idProm).update({
-          visible: promocion.visible,
-        });
+      const bd = secondaryApp.firestore();
+      bd.collection("promociones").doc(promocion.idProm).update({
+        visible: promocion.visible,
       })
       .then(() => {
         dispatch({ type: "CAMBIAR_VISIBILIDAD" });

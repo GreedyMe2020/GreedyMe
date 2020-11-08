@@ -32,21 +32,21 @@ const firestore = firebase.firestore();
 
 const bancos = [];
 //const banco = () => {
-  firestore
-    .collection("proveedorServicio")
-    .orderBy("bancos")
-    .onSnapshot((snapShots) => {
-      snapShots.forEach((doc) => {
-        const data = doc.data();
-        bancos.push({
-          ...data,
-          id: doc.id,
-        });
-      })
+firestore
+  .collection("proveedorServicio")
+  .orderBy("bancos")
+  .onSnapshot((snapShots) => {
+    snapShots.forEach((doc) => {
+      const data = doc.data();
+      bancos.push({
+        ...data,
+        id: doc.id,
+      });
     })
-    /*.get()
-    .then(
-    });*/
+  })
+/*.get()
+.then(
+});*/
 //};
 //banco();
 
@@ -183,24 +183,24 @@ function ModalPromociones(props) {
       setHelperText("*Este campo es obligatorio");
       setError(true);
     } else {
-      firebase.analytics().logEvent("promocion_creada");
+      //firebase.analytics().logEvent("promocion_creada");
       props.crear(formData, id, state, value, desdeVigencia, hastaVigencia);
       setOpen(true);
       formData.tipoPromo = ""
-      formData.valuePromo= ""
-      formData.otraPromo= ""
-      formData.tipoProveedor= ""
-      formData.valueProveedor= ""
-      formData.otroProveedor= ""
-      formData.descripcion= ""
-      state.lunes= false
-      state.martes= false
-      state.miercoles= false
-      state.jueves= false
-      state.viernes= false
-      state.sabado= false
-      state.domingo= false
-      state.todoslosdias= true
+      formData.valuePromo = ""
+      formData.otraPromo = ""
+      formData.tipoProveedor = ""
+      formData.valueProveedor = ""
+      formData.otroProveedor = ""
+      formData.descripcion = ""
+      state.lunes = false
+      state.martes = false
+      state.miercoles = false
+      state.jueves = false
+      state.viernes = false
+      state.sabado = false
+      state.domingo = false
+      state.todoslosdias = true
       handleDesdeVigencia(new Date())
       handleHastaVigencia(new Date())
       setValue({ value: false })
@@ -282,7 +282,6 @@ function ModalPromociones(props) {
   const form = React.createRef();
   return (
     <div className="contTodo">
-      {console.log(formData)}
       <ValidatorForm
         className={classes.root}
         ref={form}
@@ -328,19 +327,19 @@ function ModalPromociones(props) {
               ))}
             </SelectValidator>
           ) : (
-            <SelectValidator
-              className="selectpromo"
-              fullWidth
-              label="Valor del beneficio"
-              onChange={handleChange}
-              name="valuePromo"
-              value={formData.valuePromo}
-              variant="outlined"
-              disabled
-              validators={["required"]}
-              errorMessages={["*Este campo es obligatorio"]}
-            ></SelectValidator>
-          )}
+              <SelectValidator
+                className="selectpromo"
+                fullWidth
+                label="Valor del beneficio"
+                onChange={handleChange}
+                name="valuePromo"
+                value={formData.valuePromo}
+                variant="outlined"
+                disabled
+                validators={["required"]}
+                errorMessages={["*Este campo es obligatorio"]}
+              ></SelectValidator>
+            )}
           {formData.valuePromo === "Otro" ? (
             <TextField
               id="outlineddisabled"
@@ -377,36 +376,60 @@ function ModalPromociones(props) {
               ))}
           </SelectValidator>
           {formData.tipoProveedor === "Tarjetas de débito" ||
-          formData.tipoProveedor === "Tarjetas de crédito" ? (
-            <>
-              <SelectValidator
-                variant="outlined"
-                className="selectproveedor"
-                label="Banco"
-                fullWidth
-                onChange={handleChange}
-                name="valueProveedor"
-                required
-                value={formData.valueProveedor}
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
-              >
-                {valorBanco.map((option) => (
-                  <MenuItem key={option.nombre} value={option.nombre}>
-                    {option.nombre}
-                  </MenuItem>
-                ))}
-              </SelectValidator>
+            formData.tipoProveedor === "Tarjetas de crédito" ? (
+              <>
+                <SelectValidator
+                  variant="outlined"
+                  className="selectproveedor"
+                  label="Banco"
+                  fullWidth
+                  onChange={handleChange}
+                  name="valueProveedor"
+                  required
+                  value={formData.valueProveedor}
+                  validators={["required"]}
+                  errorMessages={["*Este campo es obligatorio"]}
+                >
+                  {valorBanco.map((option) => (
+                    <MenuItem key={option.nombre} value={option.nombre}>
+                      {option.nombre}
+                    </MenuItem>
+                  ))}
+                </SelectValidator>
 
+                <SelectValidator
+                  variant="outlined"
+                  className="selectproveedor"
+                  label="Proveedor"
+                  fullWidth
+                  onChange={handleChange}
+                  name="otroProveedor"
+                  required
+                  value={formData.otroProveedor}
+                  validators={["required"]}
+                  errorMessages={["*Este campo es obligatorio"]}
+                >
+                  {valorProveedor.map((option) => (
+                    <MenuItem key={option.nombre} value={option.nombre}>
+                      {option.nombre}
+                    </MenuItem>
+                  ))}
+                </SelectValidator>
+              </>
+            ) : null}
+
+          {formData.tipoProveedor !== "Tarjetas de débito" &&
+            formData.tipoProveedor !== "Tarjetas de crédito" &&
+            formData.tipoProveedor ? (
               <SelectValidator
                 variant="outlined"
                 className="selectproveedor"
                 label="Proveedor"
                 fullWidth
                 onChange={handleChange}
-                name="otroProveedor"
+                name="valueProveedor"
                 required
-                value={formData.otroProveedor}
+                value={formData.valueProveedor}
                 validators={["required"]}
                 errorMessages={["*Este campo es obligatorio"]}
               >
@@ -416,31 +439,7 @@ function ModalPromociones(props) {
                   </MenuItem>
                 ))}
               </SelectValidator>
-            </>
-          ) : null}
-
-          {formData.tipoProveedor !== "Tarjetas de débito" &&
-          formData.tipoProveedor !== "Tarjetas de crédito" &&
-          formData.tipoProveedor ? (
-            <SelectValidator
-              variant="outlined"
-              className="selectproveedor"
-              label="Proveedor"
-              fullWidth
-              onChange={handleChange}
-              name="valueProveedor"
-              required
-              value={formData.valueProveedor}
-              validators={["required"]}
-              errorMessages={["*Este campo es obligatorio"]}
-            >
-              {valorProveedor.map((option) => (
-                <MenuItem key={option.nombre} value={option.nombre}>
-                  {option.nombre}
-                </MenuItem>
-              ))}
-            </SelectValidator>
-          ) : null}
+            ) : null}
           {formData.valueProveedor === "Otro" ? (
             <TextField
               id="outlineddisabled"
