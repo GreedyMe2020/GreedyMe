@@ -31,9 +31,6 @@ const useStyles = makeStyles((theme) => ({
 
 function NuevaContraseña(props) {
   const classes = useStyles();
-  const [seleccionado, setSeleccionado] = React.useState(0);
-  const [opcion, setOpcion] = React.useState(0);
-  const [cambio, setCambio] = useState(false);
 
   const [formData, setFormData] = useState({
     contraseñaActual: "",
