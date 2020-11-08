@@ -84,7 +84,7 @@ function Perfil(props) {
         placement="bottom-end"
       >
         <Paper>
-          <ClickAwayListener onClickAway={handleClose}>
+          <ClickAwayListener onClickAway={handleClose(props.seleccionado)}>
             <MenuList
               autoFocusItem={open}
               id="menu-list-grow"
