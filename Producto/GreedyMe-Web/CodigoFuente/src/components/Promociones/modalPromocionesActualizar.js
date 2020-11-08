@@ -259,7 +259,7 @@ function ModalPromocionesActualizar(props) {
           <SelectValidator
             className="select-tipopromo"
             fullWidth
-            label="Tipo de promoción"
+            label="Tipo de beneficio"
             onChange={handleChange}
             name="tipoPromo"
             value={formData.tipoPromo}
@@ -278,7 +278,7 @@ function ModalPromocionesActualizar(props) {
             <SelectValidator
               variant="outlined"
               className="selectpromo"
-              label="Valor de la Promoción"
+              label="Valor del beneficio"
               fullWidth
               onChange={handleChange}
               name="valuePromo"
@@ -297,7 +297,7 @@ function ModalPromocionesActualizar(props) {
             <SelectValidator
               className="selectpromo"
               fullWidth
-              label="Valor de la Promoción"
+              label="Valor del beneficio"
               onChange={handleChange}
               name="valuePromo"
               value={formData.valuePromo}
