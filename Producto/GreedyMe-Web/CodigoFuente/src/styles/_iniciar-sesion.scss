@@ -87,7 +87,7 @@ html {
     grid-row: 2/3;
     grid-column: 2/3;
     border-radius: 15px;
-    height: 25rem;
+    height: 24rem;
     width: 25rem !important;
     margin: 0.5rem;
     padding: auto;
@@ -110,23 +110,14 @@ html {
         margin-top: 1rem;
         display: flex;
         flex-flow: row wrap;
-        justify-content: space-between;
-        align-content: center;
-
+        align-items: center;
+        justify-content: flex-end;
         #inicio-sesion-password {
           display: inline-flex;
-          align-items: center;
+          align-items: flex-end;
           justify-content: end;
           font-size: 0.93rem;
-        }
-
-        #inicio-sesion-recuerdame {
-          .MuiCheckbox-colorSecondary.Mui-checked {
-            color: $dark-orange-color;
-          }
-          span {
-            font-size: 0.93rem;
-          }
+          margin-right: 2px;
         }
       }
       .contenedor-submit {
@@ -134,7 +125,7 @@ html {
         flex-flow: column wrap;
         justify-items: center;
         align-items: center;
-        margin-top: 0.8rem;
+        margin-top: 0.5rem;
         #inicio-sesion-button {
           color: $dark-orange-color;
           border-color: $dark-orange-color;
