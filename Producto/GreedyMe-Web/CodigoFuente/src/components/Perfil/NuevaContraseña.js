@@ -8,7 +8,10 @@ import SaveIcon from "@material-ui/icons/Save";
 import { connect } from "react-redux";
 import firebase from "../../firebase/config";
 import Grid from "@material-ui/core/Grid";
-import { cambiarContraseña, resetearValoresCambiarContraseña } from "../../redux/actions/comActions"
+import {
+  cambiarContraseña,
+  resetearValoresCambiarContraseña,
+} from "../../redux/actions/comActions";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
@@ -62,12 +65,12 @@ function NuevaContraseña(props) {
   };
 
   const handleSubmit2 = () => {
-    props.cambiarContraseña(formData)
+    props.cambiarContraseña(formData);
     setFormData({
       contraseñaActual: "",
       nuevaContraseña: "",
-      repeticion: "", 
-    })
+      repeticion: "",
+    });
   };
 
   /*//Effects para abrir carteles
@@ -102,7 +105,7 @@ function NuevaContraseña(props) {
   return (
     <div>
       <ValidatorForm ref={form2} onSubmit={handleSubmit2} id="validator-form">
-        <Grid container spacing={1}>
+        <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <TextValidator
               id="outlined-password-input"
@@ -182,7 +185,7 @@ function NuevaContraseña(props) {
             ¡La contraseña ha sido modificada correctamente!
           </Alert>
         </Snackbar>
-          <Snackbar
+        <Snackbar
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           open={open2Contraseña}
           autoHideDuration={8000}
@@ -208,7 +211,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     cambiarContraseña: (formData) => dispatch(cambiarContraseña(formData)),
-    resetearValoresCambiarContraseña: () => dispatch(resetearValoresCambiarContraseña()),
+    resetearValoresCambiarContraseña: () =>
+      dispatch(resetearValoresCambiarContraseña()),
   };
 };
 

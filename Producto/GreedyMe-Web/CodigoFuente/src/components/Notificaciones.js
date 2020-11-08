@@ -65,7 +65,7 @@ export function Notificaciones() {
         aria-label="show 1 new notifications"
       >
         <Badge badgeContent={0} color="secondary">
-          <NotificationsIcon />
+          <NotificationsIcon style={{ fontSize: 27 }} />
         </Badge>
       </IconButton>
       <Popper
@@ -86,7 +86,7 @@ export function Notificaciones() {
               <div className="dividerNotif">
                 <ListItem>
                   <ListItemIcon>
-                    <NotificationsIcon />
+                    <NotificationsIcon style={{ marginRight: 15 }} />
                   </ListItemIcon>
                   <ListItemText primary="Notificaciones" />
                 </ListItem>

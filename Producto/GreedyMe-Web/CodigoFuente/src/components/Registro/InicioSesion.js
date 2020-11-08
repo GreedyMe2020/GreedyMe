@@ -57,14 +57,14 @@ function InicioSesion(props) {
   return (
     <div className="inicio-sesion-container">
       <div className="nav-container">
-        <nav>     
+        <nav>
           <div id="titulo">
             <Link to={"/"} className="link subtitulo">
               <h1 className="gre">gre</h1>
               <h1 className="edy">edy</h1>
               <h1 className="me">me</h1>
             </Link>
-          </div>          
+          </div>
         </nav>
       </div>
 
@@ -125,17 +125,6 @@ function InicioSesion(props) {
                 </FormControl>
               </Grid>
               <div className="check-container">
-                <FormControlLabel
-                  id="inicio-sesion-recuerdame"
-                  control={
-                    <Checkbox
-                      icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                      checkedIcon={<CheckBoxIcon fontSize="small" />}
-                      name="checkedI"
-                    />
-                  }
-                  label="Recuérdame"
-                />
                 <Typography
                   id="inicio-sesion-password"
                   color="textSecondary"
