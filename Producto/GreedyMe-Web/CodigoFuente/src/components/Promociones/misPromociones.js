@@ -37,6 +37,7 @@ import { connect } from "react-redux";
 import _ from "lodash";
 import { crearPromocion } from "../../redux/actions/promActions";
 import Typography from "@material-ui/core/Typography";
+import NoBeneficios from "../../../Multimedia/Sistema-svg/no-beneficios.svg"
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -425,6 +426,12 @@ function MisPromociones(props) {
             <Grid item xs={12} md={12}>
               <div className={classes.demo}>
                 <List>
+                  {promos.length === 0 
+                  ? <div className="no-promo-cont">
+                    <img src={NoBeneficios} alt="NoBeneficios" height="400" width="800"/>
+                    <p className="no-promo-text">No se encontraron beneficios</p>
+                    </div>
+                  : null }
                   {promos &&
                     promos.map((promo) => {
                       return (
