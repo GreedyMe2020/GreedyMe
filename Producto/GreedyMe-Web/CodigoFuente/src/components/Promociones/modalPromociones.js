@@ -98,7 +98,7 @@ function ModalPromociones(props) {
   });
   const [desdeVigencia, handleDesdeVigencia] = React.useState(new Date()); //Estados para cada datePicker
   const [hastaVigencia, handleHastaVigencia] = React.useState(new Date());
-  const [open, setOpen] = React.useState(false);
+  //const [open, setOpen] = React.useState(false);
 
   //esto es para los dias
   const [state, setState] = React.useState({
@@ -185,7 +185,7 @@ function ModalPromociones(props) {
     } else {
       //firebase.analytics().logEvent("promocion_creada");
       props.crear(formData, id, state, value, desdeVigencia, hastaVigencia);
-      setOpen(true);
+      //setOpen(true);
       formData.tipoPromo = ""
       formData.valuePromo = ""
       formData.otraPromo = ""
@@ -210,7 +210,7 @@ function ModalPromociones(props) {
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+    //setOpen(false);
   };
 
   const handleChange = (event) => {
@@ -641,7 +641,7 @@ function ModalPromociones(props) {
               Cargar beneficio
             </Button>
           </div>
-          <Snackbar
+          {/*<Snackbar
             anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
             open={open}
             autoHideDuration={8000}
@@ -650,10 +650,8 @@ function ModalPromociones(props) {
             <Alert onClose={handleClose} severity="success">
               El beneficio se cargo correctamente!
             </Alert>
-            {/* <Alert onClose={handleClose} severity="error">
-              Faltan campos de completar
-            </Alert> */}
-          </Snackbar>
+           
+          </Snackbar>*/}
         </div>
       </ValidatorForm>
     </div>
