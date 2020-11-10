@@ -154,3 +154,24 @@ export const resetearValoresCambiarContraseña = () => {
     dispatch({ type: "RESETEAR_VALORES_CAMBIAR_PASSWORD" });
   };
 };
+
+export const enviarConsulta = (datos) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const firestore = getFirestore();
+    firestore
+      .collection("consulta")
+      .doc()
+      .set({
+        nombreComercio: datos.nombreComercio,
+        email: datos.email,
+        consulta: datos.consulta
+      })
+      .then(() => {
+        dispatch({ type: "ENVIAR_CONSULTA" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_CONSULTA", error });
+      });
+  };
+};

@@ -59,6 +59,18 @@ const comReducer = (state = initState, action) => {
         ...state,
         fotoError: "Ocurrio algun error en la eliminacion de la foto",
       };
+    case "ENVIAR_CONSULTA":
+      console.log("se envio la consulta");
+      return {
+        ...state,
+        consulta: "se envio la consulta",
+      };
+    case "ERROR_CONSULTA":
+      console.log("no se envio la consulta");
+      return {
+        ...state,
+        fotoError: "Ocurrio algun error en el envio de la consulta",
+      };
     case "RESETEAR_VALORES_CAMBIAR_PASSWORD":
       console.log("se resetearon");
       return {

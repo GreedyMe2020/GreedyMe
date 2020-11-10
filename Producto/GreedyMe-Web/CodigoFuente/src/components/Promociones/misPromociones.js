@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-let promociones = [];
+/*let promociones = [];
 const promocion = () => {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
@@ -84,7 +84,7 @@ const promocion = () => {
   });
 };
 //y aca se ejecuta la funcion de arriba
-promocion();
+promocion();*/
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -93,8 +93,8 @@ function Alert(props) {
 function MisPromociones(props) {
   const classes = useStyles();
   //Estados de las promociones
-  const [promos, setPromos] = React.useState(promociones);
-  const [promos2, setPromos2] = React.useState(promociones);
+  const [promos, setPromos] = React.useState([]);
+  const [promos2, setPromos2] = React.useState([]);
 
   //Estado del dialog (abierto/cerrado)
   const [open, setOpen] = React.useState(false);
@@ -127,6 +127,23 @@ function MisPromociones(props) {
   //Para modificar la promo
   const [modificar, setModificar] = React.useState(null);
   const [modificado, setModificado] = React.useState(null);
+
+  //use effect que trae los datos 
+  React.useEffect(() => {
+    const obtenerPromociones = async () => {
+      const firestore = firebase.firestore();
+      try {
+        const promociones = await firestore.collection("usuarioComercio").doc(props.auth.uid).collection("promociones").get()
+        const arrayPromociones = promociones.docs.map(doc => ({id: doc.id, ...doc.data()}))
+        setPromos(arrayPromociones)
+        setPromos2(arrayPromociones)
+      }
+      catch (error){
+        console.log(error)
+      }
+    }
+  obtenerPromociones();
+  }, [])
 
   //Para que la promo del inicio se actualice cuando entras aca
   React.useEffect(() => {
@@ -283,7 +300,8 @@ function MisPromociones(props) {
       promo.diaAplicacion.miercoles === state.miercoles && promo.diaAplicacion.jueves === state.jueves &&
       promo.diaAplicacion.viernes === state.viernes && promo.diaAplicacion.sabado === state.sabado &&
       promo.diaAplicacion.domingo === state.domingo && promo.diaAplicacion.todoslosdias === state.todoslosdias &&
-      promo.medioPago === value && fechaDesde === fechaPromoDesde && fechaHasta === fechaPromoHasta ){
+      promo.medioPago === value && fechaDesde === fechaPromoDesde && fechaHasta === fechaPromoHasta && 
+      promo.otraPromo === formData.otraPromo && promo.otroProveedor === formData.otroProveedor ){
         crearPromo += 1 
       }   
     })
