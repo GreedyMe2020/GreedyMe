@@ -174,14 +174,14 @@ function ModalPromocionesActualizar(props) {
       setError(true);
     } else {
       props.actualizar(formData, state, value, desdeVigencia, hastaVigencia);
-      setOpen(true);
+      //setOpen(true);
     }
   };
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+    //setOpen(false);
   };
 
   const handleChange = (event) => {
@@ -605,7 +605,7 @@ function ModalPromocionesActualizar(props) {
               Actualizar promoción
             </Button>
           </div>
-          <Snackbar
+          {/*<Snackbar
             anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
             open={open}
             autoHideDuration={8000}
@@ -613,11 +613,8 @@ function ModalPromocionesActualizar(props) {
           >
             <Alert onClose={handleClose} severity="success">
               ¡La promoción se actualizo correctamente!
-            </Alert>
-            {/* <Alert onClose={handleClose} severity="error">
-              Faltan campos de completar
-            </Alert> */}
-          </Snackbar>
+            </Alert> 
+          </Snackbar>*/}
         </div>
       </ValidatorForm>
     </div>

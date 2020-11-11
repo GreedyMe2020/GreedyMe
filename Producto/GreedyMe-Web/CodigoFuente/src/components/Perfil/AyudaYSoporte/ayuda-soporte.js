@@ -10,16 +10,44 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import {enviarConsulta} from "../../../redux/actions/comActions";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
-export function AyudaYSoporte() {
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+export function AyudaYSoporte(props) {
   const [open, setOpen] = React.useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const [datos, setDatos] = React.useState({
+    email: props.profile.email,
+    nombreComercio: props.profile.nombreComercio,
+    consulta: ""
+  })
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  const handleSubmit = () => {
+    setOpen(false);
+    props.enviarConsulta(datos);
+    setOpenAlert(true);
+  };
+
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleCloseAlert = () => {
+    setOpenAlert(false);
+  };
+
+  const handleChange = (event) => {
+    datos[event.target.name] = event.target.value;
+    setDatos({ ...datos });
   };
 
   return (
@@ -74,26 +102,46 @@ export function AyudaYSoporte() {
                     <TextField
                       id="text-input"
                       label="Consulta"
+                      name="consulta"
                       style={{ marginTop: "5px" }}
                       multiline
+                      onChange={handleChange}
                       rows={4}
                       variant="outlined"
                       fullWidth
                     />
                   </DialogContent>
                   <DialogActions>
-                    <Button
+                  <Button
                       onClick={handleClose}
+                      color="red"
+                      style={{ marginRight: 10 }}
+                    >
+                      Cancelar
+                    </Button>
+                    <Button
+                      onClick={handleSubmit}
                       color="black"
                       style={{ marginRight: 10 }}
                     >
                       Enviar
                     </Button>
+                    
                   </DialogActions>
                 </Dialog>
               </CardActions>
             </CardContent>
           </Card>
+          <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+            open={openAlert}
+            autoHideDuration={8000}
+            onClose={handleCloseAlert}
+            >
+            <Alert onClose={handleCloseAlert} severity="success">
+              La consulta se ha enviado. En breve nos contactaremos!
+            </Alert>
+          </Snackbar>
         </div>
       </div>
     </div>
@@ -103,7 +151,14 @@ export function AyudaYSoporte() {
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
+    profile: state.firebase.profile,
   };
 };
 
-export default connect(mapStateToProps)(AyudaYSoporte);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    enviarConsulta: (datos) => dispatch(enviarConsulta(datos)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AyudaYSoporte);
