@@ -88,6 +88,7 @@ function Alert(props) {
 }
 
 function Perfil(props) {
+  
   const classes = useStyles();
 
   const [formData, setFormData] = React.useState({
@@ -178,7 +179,7 @@ function Perfil(props) {
     /*setSubmitted({ submitted: true }, () => {
       setTimeout(() => setSubmitted({ submitted: false }), 5000);
     });*/
-
+    console.log('me apretaron')
     setOpen(true);
   };
 
@@ -264,7 +265,7 @@ function Perfil(props) {
               </DialogTitle>
               <DialogContent dividers>
                 <DialogContentText>
-                  <NuevaContraseña setOpenModificar />
+                  <NuevaContraseña />
                 </DialogContentText>
               </DialogContent>
             </Dialog>
@@ -450,6 +451,8 @@ const mapStateToProps = (state) => {
   return {
     profile: state.firebase.profile,
     auth: state.firebase.auth,
+    password: state.comercio.password,
+    passwordError: state.comercio.passwordError,
   };
 };
 
