@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const notificados = [
-  { value: "Usuarios con comerico favorito" },
+  { value: "Usuarios con comercio favorito" },
   { value: "Todos los usuarios" },
 ];
 
