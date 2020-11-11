@@ -9,7 +9,8 @@ import Refresh from "@material-ui/icons/Refresh";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Estadistica from "../../../Multimedia/Sistema-svg/data-estadisticas.svg";
-
+import firebase from "../../firebase/config";
+import { connect } from "react-redux";
 const currencies = [
   {
     value: "2020",
@@ -67,11 +68,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Estadisticas(props) {
+function Estadisticas(props) {
   const classes = useStyles();
   const [currency, setCurrency] = React.useState("");
   const [mes, setMes] = React.useState("");
+  const [cantidadPromos, setCantidadPromos] = React.useState(0);
 
+  React.useEffect(() => {
+    const obtenerPromociones = async () => {
+      const firestore = firebase.firestore();
+      try {
+        const promociones = await firestore.collection("usuarioComercio").doc(props.auth.uid).collection("promociones").get()
+        const arrayPromociones = promociones.docs.map(doc => ({id: doc.id, ...doc.data()}))
+        setCantidadPromos(arrayPromociones.length);
+      }
+      catch (error){
+        console.log(error)
+      }
+    }
+  obtenerPromociones();
+  }, [])
+  
   const handleChange = (event) => {
     setCurrency(event.target.value);
   };
@@ -146,7 +163,7 @@ export default function Estadisticas(props) {
       <div className="est-cards-container">
         <Card id="est-card">
           <CardContent id="est-card-content">
-            <h1>{props.cantPromos}</h1>
+            <h1>{cantidadPromos}</h1>
             <p className="est-titulo">Beneficios cargados</p>
           </CardContent>
         </Card>
@@ -175,3 +192,12 @@ export default function Estadisticas(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    profile: state.firebase.profile,
+    auth: state.firebase.auth,
+  };
+};
+
+export default connect(mapStateToProps)(Estadisticas);

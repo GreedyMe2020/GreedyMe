@@ -65,15 +65,17 @@ function NuevaContraseña(props) {
   };
 
   const handleSubmit2 = () => {
-    props.cambiarContraseña(formData);
-    setFormData({
+    if(formData.nuevaContraseña === formData.repeticion){
+      props.cambiarContraseña(formData);
+      setFormData({
       contraseñaActual: "",
       nuevaContraseña: "",
       repeticion: "",
-    });
+      });
+    }
   };
 
-  /*//Effects para abrir carteles
+  //Effects para abrir carteles
   const abrirCarteldeConfirmacion = React.useEffect(() => {
     if(props.password !== null){
       setOpenContraseña(true);
@@ -91,7 +93,7 @@ function NuevaContraseña(props) {
       setOpen2Contraseña(true);
       props.resetearValoresCambiarContraseña()
     }
-  },[props.passwordError] )*/
+  },[props.passwordError] )
 
   //validacion para que los campos sean iguales
   ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
@@ -104,7 +106,7 @@ function NuevaContraseña(props) {
 
   return (
     <div>
-      <ValidatorForm ref={form2} onSubmit={handleSubmit2} id="validator-form">
+      {/*<ValidatorForm ref={form2} onSubmit={handleSubmit2} id="validator-form">*/}
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <TextValidator
@@ -162,15 +164,16 @@ function NuevaContraseña(props) {
             />
           </Grid>
           <Grid item xs={12} md={12}>
-            <div className="perfil-btnCont">
+            <div className="perfil-btnCont text-center">
               <Button
                 variant="contained"
                 id="btn-azul"
-                className="btnAdminPerfil"
+                //className="btnAdminPerfil"
                 type="submit"
+                onClick={handleSubmit2}
                 startIcon={<SaveIcon />}
               >
-                Guardar cambios
+                Guardar contraseña
               </Button>
             </div>
           </Grid>
@@ -195,7 +198,7 @@ function NuevaContraseña(props) {
             La contraseña actual es incorrecta.
           </Alert>
         </Snackbar>
-      </ValidatorForm>
+      {/*</ValidatorForm>*/}
     </div>
   );
 }

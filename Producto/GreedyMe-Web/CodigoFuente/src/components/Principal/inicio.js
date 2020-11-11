@@ -12,6 +12,7 @@ import Statistics from "../../../Multimedia/Sistema-svg/statistics-inicio.svg";
 import Notificaciones from "../../../Multimedia/Sistema-svg/notificaciones-inicio.svg";
 import HacermePremium from "../Notificaciones/haztePremium";
 import { connect } from "react-redux";
+import firebase from "../../firebase/config";
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -56,7 +57,21 @@ const useStyles = makeStyles((theme) => ({
 
 function Inicio(props) {
   const classes = useStyles();
-
+  const [cantidadPromos, setCantidadPromos] = React.useState(0)
+  React.useEffect(() => {
+    const obtenerPromociones = async () => {
+      const firestore = firebase.firestore();
+      try {
+        const promociones = await firestore.collection("usuarioComercio").doc(props.auth.uid).collection("promociones").get()
+        const arrayPromociones = promociones.docs.map(doc => ({id: doc.id, ...doc.data()}))
+        setCantidadPromos(arrayPromociones.length);
+      }
+      catch (error){
+        console.log(error)
+      }
+    }
+  obtenerPromociones();
+  }, [])
   return (
     <div className="inicio-contenedor-todo">
       <div className="inicio-cont-1">
@@ -87,7 +102,7 @@ function Inicio(props) {
         <Card className="inicio-cont-cupones inicio-2 inicio-cards">
           <CardContent>
             <h1 className="inicio-titulo">Beneficios activos</h1>
-            <p>{props.cantPromos}</p>
+            <p>{cantidadPromos}</p>
           </CardContent>
           <CardActions className="inicio-cont-boton">
             <Link
@@ -208,7 +223,6 @@ function Inicio(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     profile: state.firebase.profile,
     auth: state.firebase.auth,
