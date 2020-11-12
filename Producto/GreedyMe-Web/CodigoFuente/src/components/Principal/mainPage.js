@@ -26,6 +26,7 @@ import PreguntasNotificaciones from "../Perfil/AyudaYSoporte/Preguntas/preguntas
 import PreguntasSuscripcion from "../Perfil/AyudaYSoporte/Preguntas/preguntas-suscripciones";
 import OnRouteChange from "../Router-scroll";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -46,7 +47,7 @@ function MainPage(props) {
   const [seleccionado, setSeleccionado] = React.useState(0);
   //Estado para manejar la cantidad de promociones activas de un usuario y pasarlo para visualizacion
   const [cantPromos, setCantPromos] = React.useState(0);
-
+  
   const handleSeleccionado = (elem) => {
     setSeleccionado(elem);
   };
