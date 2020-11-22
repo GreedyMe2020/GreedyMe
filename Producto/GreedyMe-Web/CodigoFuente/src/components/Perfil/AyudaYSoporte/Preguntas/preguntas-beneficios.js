@@ -78,6 +78,11 @@ function PreguntasBeneficios(props) {
           Por último, deberás confirmar la acción mediante el cuadro de dialogo que se mostrara. Esta acción es irreversible, si eliminas un beneficio por error, deberás cargarlo nuevamente. Al eliminar un beneficio, se invalidarán todos los cupones vinculados al mismo de las cuentas de los clientes.
           "
         />
+        <AccordionPreguntas
+          pregunta="Quiero saber qué sucede con mis beneficios no vigentes"
+          respuesta="Cuando un beneficio registrado no se encuentra más dentro de la fecha de vigencia establecida al momento de su registro, el mismo pasa automáticamente a encontrarse Oculto de tu perfil de comercio.
+          En el caso que desees reactivar dicho beneficio y establecerlo como Visible, primero deberás editarlo y colocarle una fecha de vigencia válida. Una vez editado, podrás establecerlo como Visible desde el ícono de ojo ubicado a la derecha del mismo."
+        />
       </div>
     </div>
   );
