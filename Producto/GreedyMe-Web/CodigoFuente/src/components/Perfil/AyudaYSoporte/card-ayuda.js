@@ -16,7 +16,6 @@ import cupones from "../../../../Multimedia/Sistema-svg/codigo.svg";
 import estadisticas from "../../../../Multimedia/Sistema-svg/estadisticas.svg";
 import notificaciones from "../../../../Multimedia/Sistema-svg/notificacion.svg";
 import suscripciones from "../../../../Multimedia/Sistema-svg/suscripcion.svg";
-import greedyShop from "../../../../Multimedia/Sistema-svg/greedyShop.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -145,23 +144,6 @@ export function CardAyuda(props) {
                   />
                 </ListItemIcon>
                 <ListItemText primary="Suscripciones" />
-              </ListItem>
-            </Link>
-            <Link
-              to={"/main/" + props.auth.uid + "/ayuda-y-soporte/greedy-shop"}
-              className="link"
-              style={fontstyles}
-            >
-              <ListItem button>
-                <ListItemIcon>
-                  <img
-                    width="26px"
-                    height="26px"
-                    src={greedyShop}
-                    className="image-o"
-                  />
-                </ListItemIcon>
-                <ListItemText primary="GreedyShop" />
               </ListItem>
             </Link>
           </List>
