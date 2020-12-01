@@ -107,7 +107,7 @@ function Perfil(props) {
     lng: null,
   });
   const [picture, setPicture] = useState(props.profile.photoURL);
-  const [valorCarga, setValorCarga] = useState(0)
+  const [valorCarga, setValorCarga] = useState(0);
   const [submitted, setSubmitted] = React.useState(false);
   const [showModal, setModal] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -146,8 +146,9 @@ function Perfil(props) {
             console.log("Upload is paused");
             break;
           case firebase.storage.TaskState.RUNNING: // or 'running'
-            let porcentaje = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            setValorCarga(porcentaje)
+            let porcentaje =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setValorCarga(porcentaje);
             break;
         }
       },
@@ -171,7 +172,7 @@ function Perfil(props) {
   const handleDelete = () => {
     setPicture(null);
     props.eliminarFoto({ id: props.auth.uid });
-    setValorCarga(0)
+    setValorCarga(0);
   };
 
   const handleSubmit = () => {
@@ -329,8 +330,12 @@ function Perfil(props) {
                   name="web"
                   label="Sitio web"
                   value={formData.web}
-                  validators={["matchRegexp:https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}",]}
-                  errorMessages={["La dirección no es válida debe comenzar con http:// o https://"]}
+                  validators={[
+                    "matchRegexp:https?://(www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}",
+                  ]}
+                  errorMessages={[
+                    "La dirección no es válida debe comenzar con http:// o https://",
+                  ]}
                 />
               </Grid>
 
@@ -403,7 +408,7 @@ function Perfil(props) {
                   onChange={handleChange}
                   name="facebook"
                   value={formData.facebook}
-                  validators={["matchRegexp:^([a-zA-Z ]){1,30}$"]}
+                  validators={["matchRegexp:^([a-zA-Z-z0-9_.]){1,30}$"]}
                   errorMessages={["El usuario no es válido"]}
                 />
               </Grid>
