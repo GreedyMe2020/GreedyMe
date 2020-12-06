@@ -6,65 +6,103 @@ import Button from "@material-ui/core/Button";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import firebase from "../../firebase/config";
 import { format } from "date-fns";
-//Funcion para traer promociones
-let promociones = [];
-const promocion = () => {
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      const id = user.uid;
+import { connect } from "react-redux";
+import { generarCodigo } from "../../redux/actions/comActions"
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
+//funcion de las alertas
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+function Cupon(props) {
+  //estado para el codigo
+  const [codigo, setCodigo] =  React.useState("");
+  //estado de lo que se renderiza
+  const [options, setOptions] = React.useState([]);
+  //estado input value
+  const [value, setValue] = React.useState(options[0]);
+  const [inputValue, setInputValue] = React.useState('');
+  //estado para abrir la alerta
+  const [open, setOpen] = React.useState(false);
+
+   //use effect que trae los datos 
+   React.useEffect(() => {
+    const obtenerPromociones = async () => {
       const firestore = firebase.firestore();
-      firestore
-        .collection("usuarioComercio")
-        .doc(id)
-        .collection("promociones")
-        .onSnapshot(function (snapShots) {
-          promociones = [];
-          snapShots.forEach((doc) => {
-            const data = doc.data();
-            promociones.push({
-              ...data,
-              id: doc.id,
-            });
+      try {
+        const promociones = await firestore.collection("usuarioComercio").doc(props.auth.uid).collection("promociones").get()
+        const arrayPromociones = promociones.docs.map(doc => ({id: doc.id, ...doc.data()}))
+        const beneficios = [];
+        arrayPromociones.map((promo) => {
+          beneficios.push({
+            id: promo.id,
+            name:
+              promo.tipoPromo +
+              " " +
+              (promo.valuePromo === "Otro"
+                ? promo.otraPromo
+                : promo.valuePromo) +
+              " " +
+              (promo.valueProveedor === "Otro"
+                ? promo.otroProveedor
+                : promo.valueProveedor === 'Todos' ? 'Todos los Bancos' : promo.valueProveedor) +
+              ", " +
+              (promo.tipoProveedor === "Tarjetas de crédito" || promo.tipoProveedor === "Tarjetas de débito" ? promo.otroProveedor + " " : "")
+              +
+              (promo.otroProveedor === "Todas" ? "las Tarjetas " : "")
+              +
+              "válida desde el " +
+              format(
+                promo.desdeVigencia.toDate(),
+                "dd/MM/yyyy"
+              ) +
+              " hasta el " +
+              format(
+                promo.hastaVigencia.toDate(),
+                "dd/MM/yyyy"
+              ) +
+              "."
           });
         });
+        const opciones = beneficios.map((option) => {
+          const firstLetter = option.name[0].toUpperCase();
+          return {
+            firstLetter: /[0-9]/.test(firstLetter) ? firstLetter : firstLetter,
+            ...option,
+          };
+        });
+        setOptions(opciones)
+      }
+      catch (error){
+        console.log(error)
+      }
     }
-  });
-};
-//y aca se ejecuta la funcion de arriba
-promocion();
+  obtenerPromociones();
+  }, [])
 
-function Cupon() {
-  //Estados de las promociones
-  const [promos, setPromos] = React.useState(promociones);
-  const beneficios = [];
-  promociones.map((promo) => {
-    beneficios.push({
-      name:
-        promo.tipoProveedor +
-        " " +
-        promo.valueProveedor +
-        " " +
-        promo.otroProveedor +
-        " " +
-        promo.tipoPromo +
-        " " +
-        promo.valuePromo +
-        " " +
-        promo.otraPromo +
-        "válida desde el " +
-        format(promo.desdeVigencia.toDate(), "dd/MM/yyyy") +
-        " hasta el " +
-        format(promo.hastaVigencia.toDate(), "dd/MM/yyyy"),
-    });
-  });
+  //funcion para cuando apreta generar codigo
+  const handleSubmit = () => {
+    var caracteres = "abcdefghijkmnpqrtuvwxyz12346789";
+    var contraseña = "";
+    for (var i=0; i<5; i++) {contraseña +=caracteres.charAt(Math.floor(Math.random()*caracteres.length))}; 
+    if(value){
+      props.generarCodigo(contraseña, value.id)
+      setCodigo(contraseña)
+    } else {
+      setOpen(true)
+    }
+  }
 
-  const options = beneficios.map((option) => {
-    const firstLetter = option.name[0].toUpperCase();
-    return {
-      firstLetter: /[0-9]/.test(firstLetter) ? firstLetter : firstLetter,
-      ...option,
-    };
-  });
+  //cierra la alerta
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
   return (
     <div>
       <div className="prom-title-container">
@@ -79,6 +117,14 @@ function Cupon() {
             <Autocomplete
               className="buscador-ben"
               fullWidth
+              value={value}
+              onChange={(event, newValue) => {
+                setValue(newValue);
+              }}
+              inputValue={inputValue}
+              onInputChange={(event, newInputValue) => {
+                setInputValue(newInputValue);
+              }}
               validators={["required"]}
               errorMessages={["*Este campo es obligatorio"]}
               options={options.sort(
@@ -102,21 +148,48 @@ function Cupon() {
                 label="Código"
                 className="input-cupon"
                 variant="outlined"
-                disabled
+                value={codigo}
+                name="codigo"
               ></TextField>
               <Button
                 variant="contained"
                 className="btn-generar-cup"
                 type="submit"
+                onClick={handleSubmit}
               >
                 Generar código
               </Button>
             </div>
           </div>
         </CardContent>
+        <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+            open={open}
+            autoHideDuration={8000}
+            onClose={handleClose}
+          >
+            <Alert onClose={handleClose} severity="error">
+              Debes seleccionar un beneficio.
+            </Alert>
+          </Snackbar>
       </Card>
     </div>
   );
 }
 
-export default Cupon;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+    codigo: state.comercio.codigo,
+    codigoError: state.comercio.codigoError,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    generarCodigo: (codigo, idCupon) => dispatch(generarCodigo(codigo, idCupon)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cupon);
+
