@@ -25,6 +25,8 @@ export const signUp = (nuevoUsuario) => {
           tipoSuscripcion: 0,
           web: nuevoUsuario.web,
           fechaCreacion: new Date(),
+          contadorPreguntas: 0,
+          sumadorPreguntas: 0
         });
         const bd = secondaryApp.firestore();
         bd.collection("usuarioComercio").doc(resp.user.uid).set({

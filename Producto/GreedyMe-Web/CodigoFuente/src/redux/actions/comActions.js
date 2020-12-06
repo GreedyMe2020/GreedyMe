@@ -175,3 +175,24 @@ export const enviarConsulta = (datos) => {
       });
   };
 };
+
+export const generarCodigo = (codigo, idCupon) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const firestore = getFirestore();
+    firestore
+      .collection("codigoCupon")
+      .doc()
+      .set({
+        codigo: codigo,
+        idCupon: idCupon,
+        validado: false
+      })
+      .then(() => {
+        dispatch({ type: "GUARDAR_CODIGO" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_CODIGO", error });
+      });
+  };
+};
