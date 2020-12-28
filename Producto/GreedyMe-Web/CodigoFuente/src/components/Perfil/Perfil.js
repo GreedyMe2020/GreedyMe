@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Search from "../Map/Search";
-import NavBarSup from "../../components/Principal/navBarSuperior";
 import { Card } from "react-bootstrap";
 import {
   ValidatorForm,
@@ -8,12 +7,10 @@ import {
   SelectValidator,
 } from "react-material-ui-form-validator";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-import classes from "../../components/Modal";
 import Avatar from "@material-ui/core/Avatar";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -27,22 +24,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import SaveIcon from "@material-ui/icons/Save";
 import Map from "../Map/Map";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox";
-import usePlacesAutocomplete from "use-places-autocomplete";
-import { useLoadScript } from "@react-google-maps/api";
 import NuevaContraseña from "../Perfil/NuevaContraseña.js";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogComponent from "../Dialog";
 import { IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 
@@ -88,7 +74,6 @@ function Alert(props) {
 }
 
 function Perfil(props) {
-  
   const classes = useStyles();
 
   const [formData, setFormData] = React.useState({
@@ -180,7 +165,7 @@ function Perfil(props) {
     /*setSubmitted({ submitted: true }, () => {
       setTimeout(() => setSubmitted({ submitted: false }), 5000);
     });*/
-    console.log('me apretaron')
+    console.log("me apretaron");
     setOpen(true);
   };
 

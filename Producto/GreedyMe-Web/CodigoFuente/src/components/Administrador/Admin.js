@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { signOut } from "../../redux/actions/authActions";
-import FormCrearUsuario from "./Comercios/FormCrearUsuario";
 import ListaUsuarios from "./Comercios/ListaUsuarios";
 import NavSup from "./Navbars/NavSup";
 import NavIzq from "./Navbars/NavIzq";
@@ -10,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import ListaPromocion from "./Promociones/ListaPromocion";
 import ListaProveedores from "./Proveedores/ListaProveedores";
-import Estadisticas from "./Estadisticas/Estadisticas"
+import Estadisticas from "./Estadisticas/Estadisticas";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +40,7 @@ function Admin(props) {
       return <ListaPromocion />;
     }
     if (seleccionado === 3) {
-      return <Estadisticas />
+      return <Estadisticas />;
     }
   };
 

@@ -37,7 +37,7 @@ import { connect } from "react-redux";
 import _ from "lodash";
 import { crearPromocion } from "../../redux/actions/promActions";
 import Typography from "@material-ui/core/Typography";
-import NoBeneficios from "../../../Multimedia/Sistema-svg/no-beneficios.svg"
+import NoBeneficios from "../../../Multimedia/Sistema-svg/no-beneficios.svg";
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -99,7 +99,6 @@ function MisPromociones(props) {
   //Estado del dialog (abierto/cerrado)
   const [open, setOpen] = React.useState(false);
 
-
   //Estados para setear la promo a eliminar, y eliminar la promo
   const [eliminar, setEliminar] = React.useState(null);
   const [currentId, setCurrentId] = React.useState(null);
@@ -128,22 +127,28 @@ function MisPromociones(props) {
   const [modificar, setModificar] = React.useState(null);
   const [modificado, setModificado] = React.useState(null);
 
-  //use effect que trae los datos 
+  //use effect que trae los datos
   React.useEffect(() => {
     const obtenerPromociones = async () => {
       const firestore = firebase.firestore();
       try {
-        const promociones = await firestore.collection("usuarioComercio").doc(props.auth.uid).collection("promociones").get()
-        const arrayPromociones = promociones.docs.map(doc => ({id: doc.id, ...doc.data()}))
-        setPromos(arrayPromociones)
-        setPromos2(arrayPromociones)
+        const promociones = await firestore
+          .collection("usuarioComercio")
+          .doc(props.auth.uid)
+          .collection("promociones")
+          .get();
+        const arrayPromociones = promociones.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setPromos(arrayPromociones);
+        setPromos2(arrayPromociones);
+      } catch (error) {
+        console.log(error);
       }
-      catch (error){
-        console.log(error)
-      }
-    }
-  obtenerPromociones();
-  }, [])
+    };
+    obtenerPromociones();
+  }, []);
 
   //Para que la promo del inicio se actualice cuando entras aca
   React.useEffect(() => {
@@ -284,36 +289,41 @@ function MisPromociones(props) {
     let fechaPromoHasta = format(
       firebase.firestore.Timestamp.fromDate(hastaVigencia).toDate(),
       "dd/MM/yyyy"
-    )
+    );
     promos.forEach((promo) => {
-      let fechaDesde = format(
-        promo.desdeVigencia.toDate(),
-        "dd/MM/yyyy"
-      )
-      let fechaHasta = format(
-        promo.hastaVigencia.toDate(),
-        "dd/MM/yyyy"
-      )
-      if(promo.tipoPromo === formData.tipoPromo && promo.valuePromo === formData.valuePromo  && 
-      promo.tipoProveedor === formData.tipoProveedor && promo.valueProveedor === formData.valueProveedor && 
-      promo.diaAplicacion.lunes === state.lunes && promo.diaAplicacion.martes === state.martes &&
-      promo.diaAplicacion.miercoles === state.miercoles && promo.diaAplicacion.jueves === state.jueves &&
-      promo.diaAplicacion.viernes === state.viernes && promo.diaAplicacion.sabado === state.sabado &&
-      promo.diaAplicacion.domingo === state.domingo && promo.diaAplicacion.todoslosdias === state.todoslosdias &&
-      promo.medioPago === value && fechaDesde === fechaPromoDesde && fechaHasta === fechaPromoHasta && 
-      promo.otraPromo === formData.otraPromo && promo.otroProveedor === formData.otroProveedor ){
-        crearPromo += 1 
-      }   
-    })
-    if(crearPromo === 0){
+      let fechaDesde = format(promo.desdeVigencia.toDate(), "dd/MM/yyyy");
+      let fechaHasta = format(promo.hastaVigencia.toDate(), "dd/MM/yyyy");
+      if (
+        promo.tipoPromo === formData.tipoPromo &&
+        promo.valuePromo === formData.valuePromo &&
+        promo.tipoProveedor === formData.tipoProveedor &&
+        promo.valueProveedor === formData.valueProveedor &&
+        promo.diaAplicacion.lunes === state.lunes &&
+        promo.diaAplicacion.martes === state.martes &&
+        promo.diaAplicacion.miercoles === state.miercoles &&
+        promo.diaAplicacion.jueves === state.jueves &&
+        promo.diaAplicacion.viernes === state.viernes &&
+        promo.diaAplicacion.sabado === state.sabado &&
+        promo.diaAplicacion.domingo === state.domingo &&
+        promo.diaAplicacion.todoslosdias === state.todoslosdias &&
+        promo.medioPago === value &&
+        fechaDesde === fechaPromoDesde &&
+        fechaHasta === fechaPromoHasta &&
+        promo.otraPromo === formData.otraPromo &&
+        promo.otroProveedor === formData.otroProveedor
+      ) {
+        crearPromo += 1;
+      }
+    });
+    if (crearPromo === 0) {
       setPromocionCreada(true);
       props.crearPromocion(
-      formData,
-      id,
-      state,
-      value,
-      desdeVigencia,
-      hastaVigencia
+        formData,
+        id,
+        state,
+        value,
+        desdeVigencia,
+        hastaVigencia
       );
       setNuevaPromo({
         id: id,
@@ -330,12 +340,10 @@ function MisPromociones(props) {
         visible: false,
         diaAplicacion: state,
         medioPago: value,
-      }); 
+      });
     } else {
-      setMensajeAlerta(true)
+      setMensajeAlerta(true);
     }
-    
-    
   };
 
   const actualizar = (formData, state, value, desdeVigencia, hastaVigencia) => {
@@ -347,27 +355,31 @@ function MisPromociones(props) {
     let fechaPromoHasta = format(
       firebase.firestore.Timestamp.fromDate(hastaVigencia).toDate(),
       "dd/MM/yyyy"
-    )
+    );
     promos.forEach((promo) => {
-      let fechaDesde = format(
-        promo.desdeVigencia.toDate(),
-        "dd/MM/yyyy"
-      )
-      let fechaHasta = format(
-        promo.hastaVigencia.toDate(),
-        "dd/MM/yyyy"
-      )
-      if(promo.tipoPromo === formData.tipoPromo && promo.valuePromo === formData.valuePromo  && 
-      promo.tipoProveedor === formData.tipoProveedor && promo.valueProveedor === formData.valueProveedor && 
-      promo.diaAplicacion.lunes === state.lunes && promo.diaAplicacion.martes === state.martes &&
-      promo.diaAplicacion.miercoles === state.miercoles && promo.diaAplicacion.jueves === state.jueves &&
-      promo.diaAplicacion.viernes === state.viernes && promo.diaAplicacion.sabado === state.sabado &&
-      promo.diaAplicacion.domingo === state.domingo && promo.diaAplicacion.todoslosdias === state.todoslosdias &&
-      promo.medioPago === value && fechaDesde === fechaPromoDesde && fechaHasta === fechaPromoHasta ){
-        crearPromo += 1 
-      }   
-    })
-    if(crearPromo === 0){
+      let fechaDesde = format(promo.desdeVigencia.toDate(), "dd/MM/yyyy");
+      let fechaHasta = format(promo.hastaVigencia.toDate(), "dd/MM/yyyy");
+      if (
+        promo.tipoPromo === formData.tipoPromo &&
+        promo.valuePromo === formData.valuePromo &&
+        promo.tipoProveedor === formData.tipoProveedor &&
+        promo.valueProveedor === formData.valueProveedor &&
+        promo.diaAplicacion.lunes === state.lunes &&
+        promo.diaAplicacion.martes === state.martes &&
+        promo.diaAplicacion.miercoles === state.miercoles &&
+        promo.diaAplicacion.jueves === state.jueves &&
+        promo.diaAplicacion.viernes === state.viernes &&
+        promo.diaAplicacion.sabado === state.sabado &&
+        promo.diaAplicacion.domingo === state.domingo &&
+        promo.diaAplicacion.todoslosdias === state.todoslosdias &&
+        promo.medioPago === value &&
+        fechaDesde === fechaPromoDesde &&
+        fechaHasta === fechaPromoHasta
+      ) {
+        crearPromo += 1;
+      }
+    });
+    if (crearPromo === 0) {
       setPromocionActualizada(true);
       props.actualizarPromocion(
         formData,
@@ -395,7 +407,6 @@ function MisPromociones(props) {
     } else {
       setMensajeAlerta(true);
     }
-    
   };
 
   const [openModificar, setOpenModificar] = React.useState(false);
@@ -444,12 +455,19 @@ function MisPromociones(props) {
             <Grid item xs={12} md={12}>
               <div className={classes.demo}>
                 <List>
-                  {promos.length === 0 
-                  ? <div className="no-promo-cont">
-                    <img src={NoBeneficios} alt="NoBeneficios" height="400" width="800"/>
-                    <p className="no-promo-text">No se encontraron beneficios</p>
+                  {promos.length === 0 ? (
+                    <div className="no-promo-cont">
+                      <img
+                        src={NoBeneficios}
+                        alt="NoBeneficios"
+                        height="400"
+                        width="800"
+                      />
+                      <p className="no-promo-text">
+                        No se encontraron beneficios
+                      </p>
                     </div>
-                  : null }
+                  ) : null}
                   {promos &&
                     promos.map((promo) => {
                       return (
@@ -486,12 +504,19 @@ function MisPromociones(props) {
                                       " " +
                                       (promo.valueProveedor === "Otro"
                                         ? promo.otroProveedor
-                                        : promo.valueProveedor === 'Todos' ? 'Todos los Bancos' : promo.valueProveedor) +
+                                        : promo.valueProveedor === "Todos"
+                                        ? "Todos los Bancos"
+                                        : promo.valueProveedor) +
                                       ", " +
-                                      (promo.tipoProveedor === "Tarjetas de crédito" || promo.tipoProveedor === "Tarjetas de débito" ? promo.otroProveedor + " " : "")
-                                      +
-                                      (promo.otroProveedor === "Todas" ? "las Tarjetas " : "")
-                                      +
+                                      (promo.tipoProveedor ===
+                                        "Tarjetas de crédito" ||
+                                      promo.tipoProveedor ===
+                                        "Tarjetas de débito"
+                                        ? promo.otroProveedor + " "
+                                        : "") +
+                                      (promo.otroProveedor === "Todas"
+                                        ? "las Tarjetas "
+                                        : "") +
                                       "válida desde el " +
                                       format(
                                         promo.desdeVigencia.toDate(),
@@ -642,7 +667,6 @@ function MisPromociones(props) {
                               }
                               btnText={"Eliminar"}
                             />
-                            
                           </ListItemSecondaryAction>
                         </ListItem>
                       );
@@ -724,24 +748,24 @@ function MisPromociones(props) {
                     {/* <Alert onClose={handleClose} severity="error">
                       Faltan campos de completar
                     </Alert> */}
-                </Snackbar>
+                  </Snackbar>
                 ) : (
                   ""
                 )}
                 {promocionActualizada ? (
                   <Snackbar
-                  anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-                  open={promocionActualizada}
-                  autoHideDuration={8000}
-                  onClose={handleCloseAlert}
-                >
-                  <Alert onClose={handleCloseAlert} severity="success">
-                    ¡El beneficio se actualizo correctamente!
-                  </Alert>
-                  {/* <Alert onClose={handleClose} severity="error">
+                    anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                    open={promocionActualizada}
+                    autoHideDuration={8000}
+                    onClose={handleCloseAlert}
+                  >
+                    <Alert onClose={handleCloseAlert} severity="success">
+                      ¡El beneficio se actualizo correctamente!
+                    </Alert>
+                    {/* <Alert onClose={handleClose} severity="error">
                     Faltan campos de completar
                   </Alert> */}
-                </Snackbar>
+                  </Snackbar>
                 ) : (
                   ""
                 )}
