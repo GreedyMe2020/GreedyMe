@@ -77,6 +77,19 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
         <Divider variant="middle" />
         <List>
           <ListItemCustomAdmin
+            id="greedyShop"
+            text="GreedyShop"
+            src1={require("../../../../Multimedia/Sistema-svg/greedyShop.svg")}
+            src2={require("../../../../Multimedia/Sistema-svg/greedyShop-naranja.svg")}
+            className="cargar-cupon"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={3}
+          />
+        </List>
+        <Divider variant="middle" />
+        <List>
+          <ListItemCustomAdmin
             id="estadisticas"
             text="Estadísticas"
             src1={require("../../../../Multimedia/Sistema-svg/statistics-grey.svg")}
@@ -84,7 +97,7 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
             className="estadisticas"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
-            elementIndex={3}
+            elementIndex={4}
           />
         </List>
       </div>

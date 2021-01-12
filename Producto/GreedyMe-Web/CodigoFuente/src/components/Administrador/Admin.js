@@ -11,6 +11,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import ListaPromocion from "./Promociones/ListaPromocion";
 import ListaProveedores from "./Proveedores/ListaProveedores";
 import Estadisticas from "./Estadisticas/Estadisticas"
+import GreedyShop from "./GreedyShop/Greedy-shop";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +42,9 @@ function Admin(props) {
       return <ListaPromocion />;
     }
     if (seleccionado === 3) {
+      return <GreedyShop />
+    }
+    if (seleccionado === 4) {
       return <Estadisticas />
     }
   };
