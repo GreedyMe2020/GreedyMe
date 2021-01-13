@@ -77,6 +77,43 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
         <Divider variant="middle" />
         <List>
           <ListItemCustomAdmin
+            id="greedyShop"
+            text="GreedyPremios"
+            src1={require("../../../../Multimedia/Sistema-svg/trofeo.svg")}
+            src2={require("../../../../Multimedia/Sistema-svg/trofeo-naranja.svg")}
+            className="cargar-cupon"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={3}
+          />
+        </List>
+        <List>
+          <ListItemCustomAdmin
+            id="productos-canjeados"
+            text="GreedyCanjes"
+            src1={require("../../../../Multimedia/Sistema-svg/shopping-cart.svg")}
+            src2={require("../../../../Multimedia/Sistema-svg/shopping-cart-naranja.svg")}
+            className="cargar-cupon"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={4}
+          />
+        </List>
+        <List>
+          <ListItemCustomAdmin
+            id="punto-retiro"
+            text="Puntos de retiro"
+            src1={require("../../../../Multimedia/Sistema-svg/pin.svg")}
+            src2={require("../../../../Multimedia/Sistema-svg/pin-naranja.svg")}
+            className="cargar-cupon"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={5}
+          />
+        </List>
+        <Divider variant="middle" />
+        <List>
+          <ListItemCustomAdmin
             id="estadisticas"
             text="Estadísticas"
             src1={require("../../../../Multimedia/Sistema-svg/statistics-grey.svg")}
@@ -84,7 +121,7 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
             className="estadisticas"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
-            elementIndex={3}
+            elementIndex={6}
           />
         </List>
       </div>
