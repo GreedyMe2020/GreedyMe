@@ -78,13 +78,37 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
         <List>
           <ListItemCustomAdmin
             id="greedyShop"
-            text="GreedyShop"
-            src1={require("../../../../Multimedia/Sistema-svg/greedyShop.svg")}
-            src2={require("../../../../Multimedia/Sistema-svg/greedyShop-naranja.svg")}
+            text="GreedyPremios"
+            src1={require("../../../../Multimedia/Sistema-svg/trofeo.svg")}
+            src2={require("../../../../Multimedia/Sistema-svg/trofeo-naranja.svg")}
             className="cargar-cupon"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
             elementIndex={3}
+          />
+        </List>
+        <List>
+          <ListItemCustomAdmin
+            id="productos-canjeados"
+            text="GreedyCanjes"
+            src1={require("../../../../Multimedia/Sistema-svg/shopping-cart.svg")}
+            src2={require("../../../../Multimedia/Sistema-svg/shopping-cart-naranja.svg")}
+            className="cargar-cupon"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={4}
+          />
+        </List>
+        <List>
+          <ListItemCustomAdmin
+            id="punto-retiro"
+            text="Puntos de retiro"
+            src1={require("../../../../Multimedia/Sistema-svg/pin.svg")}
+            src2={require("../../../../Multimedia/Sistema-svg/pin-naranja.svg")}
+            className="cargar-cupon"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={5}
           />
         </List>
         <Divider variant="middle" />
@@ -97,7 +121,7 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
             className="estadisticas"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
-            elementIndex={4}
+            elementIndex={6}
           />
         </List>
       </div>
