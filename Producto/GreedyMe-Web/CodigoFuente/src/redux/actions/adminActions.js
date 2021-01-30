@@ -25,6 +25,8 @@ export const signUp = (nuevoUsuario) => {
           tipoSuscripcion: 0,
           web: nuevoUsuario.web,
           fechaCreacion: new Date(),
+          contadorPreguntas: 0,
+          sumadorPreguntas: 0
         });
         const bd = secondaryApp.firestore();
         bd.collection("usuarioComercio").doc(resp.user.uid).set({
@@ -99,6 +101,10 @@ export const eliminarUsuarioComercio = (usuario) => {
       .collection("usuarioComercio")
       .doc(usuario.id)
       .delete()
+      .then(() => {
+        const bd = secondaryApp.firestore();
+        bd.collection("usuarioComercio").doc(usuario.id).delete()
+      })
       .then(() => {
         dispatch({ type: "USUARIO_ELIMINADO" });
       })
@@ -176,21 +182,21 @@ export const cargarProveedor = (formData) => {
     const lista = proveedores[indiceACambiar].lista;
     const listaLimpia = []
     lista.map((item) => {
-      if(item.nombre.toLowerCase() !== ""){
-        listaLimpia.push({nombre: item.nombre, photoURL: item.photoURL})
+      if (item.nombre.toLowerCase() !== "") {
+        listaLimpia.push({ nombre: item.nombre, photoURL: item.photoURL })
       }
 
     })
-    
-    const lista2= []
+
+    const lista2 = []
     lista.map((item) => {
-      if(item.nombre.toLowerCase() !== "otro" && item.nombre.toLowerCase() !== "todas" && item.nombre.toLowerCase() !== "todos" && item.nombre !== ""){
-        lista2.push({name: item.nombre})
+      if (item.nombre.toLowerCase() !== "otro" && item.nombre.toLowerCase() !== "todas" && item.nombre.toLowerCase() !== "todos" && item.nombre !== "") {
+        lista2.push({ name: item.nombre })
       }
-        
-      
+
+
     })
-    
+
     const listaNueva = _.concat(listaLimpia, {
       nombre: formData.valueProveedor,
       photoURL: formData.downloadURL,
@@ -200,8 +206,8 @@ export const cargarProveedor = (formData) => {
       name: formData.valueProveedor,
     });
 
-    
-    
+
+
     const firestore = getFirestore();
     firestore
       .collection("proveedorServicio")
@@ -227,25 +233,25 @@ export const cargarBanco = (formData) => {
     const indiceACambiar = _.findIndex(proveedores, function (o) {
       return o.id === "ndbKpkm6GorM0g5kHNkF";
     });
-    
+
     const lista = proveedores[indiceACambiar].bancos;
-    
+
     const listaNueva = _.concat(lista, {
       nombre: formData.valueProveedor,
       photoURL: null,
     });
 
-    const lista2= []
+    const lista2 = []
     lista.map((item) => {
-      if(item.nombre.toLowerCase() !== "otro" && item.nombre.toLowerCase() !== "todas" && item.nombre.toLowerCase() !== "todos"){
-        lista2.push({name: item.nombre})
-      }    
+      if (item.nombre.toLowerCase() !== "otro" && item.nombre.toLowerCase() !== "todas" && item.nombre.toLowerCase() !== "todos") {
+        lista2.push({ name: item.nombre })
+      }
     })
     const listaNueva2 = _.concat(lista2, {
       name: formData.valueProveedor,
     });
     console.log(listaNueva2)
-    
+
     const firestore = getFirestore();
     firestore
       .collection("proveedorServicio")
@@ -268,7 +274,7 @@ export const cargarTipoProveedor = (formData) => {
   return (dispatch, getState, { getFirestore }) => {
     var caracteres = "abcdefghijkmnpqrtuvwxyzABCDEFGHJKMNPQRTUVWXYZ2346789";
     var identificacion = "";
-    for (var i=0; i<20; i++) {identificacion +=caracteres.charAt(Math.floor(Math.random()*caracteres.length))}; 
+    for (var i = 0; i < 20; i++) { identificacion += caracteres.charAt(Math.floor(Math.random() * caracteres.length)) };
     //codigo asincrono
     console.log(identificacion)
     const firestore = getFirestore();
@@ -282,7 +288,7 @@ export const cargarTipoProveedor = (formData) => {
     const bd = secondaryApp.firestore();
     bd.collection("proveedorServicio").doc(identificacion).set({
       name: formData.tipoProveedor,
-      lista: [{ name: ""}],
+      lista: [{ name: "" }],
     })
       .then(() => {
         dispatch({ type: "CARGAR_TIPO_PROVEEDOR" });

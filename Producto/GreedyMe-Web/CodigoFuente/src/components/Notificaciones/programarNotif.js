@@ -12,16 +12,11 @@ import {
   TimePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import InputBase from "@material-ui/core/InputBase";
-import SearchIcon from "@material-ui/icons/Search";
-import Paper from "@material-ui/core/Paper";
 import {
   ValidatorForm,
   SelectValidator,
 } from "react-material-ui-form-validator";
 import Button from "@material-ui/core/Button";
-
-import SnoozeIcon from "@material-ui/icons/Snooze";
 import AlarmIcon from "@material-ui/icons/AddAlarm";
 import TodayIcon from "@material-ui/icons/Today";
 import { IconButton, InputAdornment } from "@material-ui/core";
@@ -61,36 +56,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const notificados = [
-  { value: "Usuarios con comerico favorito" },
+  { value: "Usuarios con comercio favorito" },
   { value: "Todos los usuarios" },
 ];
-
-//Funcion para traer promociones
-let promociones = [];
-const promocion = () => {
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      const id = user.uid;
-      const firestore = firebase.firestore();
-      firestore
-        .collection("usuarioComercio")
-        .doc(id)
-        .collection("promociones")
-        .onSnapshot(function (snapShots) {
-          promociones = [];
-          snapShots.forEach((doc) => {
-            const data = doc.data();
-            promociones.push({
-              ...data,
-              id: doc.id,
-            });
-          });
-        });
-    }
-  });
-};
-//y aca se ejecuta la funcion de arriba
-promocion();
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -98,51 +66,83 @@ function Alert(props) {
 
 function ProgramarNotificaciones(props) {
   const classes = useStyles();
-  /* const [formData, setFormData] = React.useState({
-    id: props.auth.uid,
-    usuario: "",
-    sucursal: "",
-    tipoCliente: "",
-    promocion: "",
-    programarEnvio: "",
-    ubicacion: "",
-    descripcion: "",
-  }); */
+  //estado de lo que se renderiza
+  const [options, setOptions] = React.useState([]);
 
-  const [promos, setPromos] = React.useState(promociones);
+  //use effect que trae los datos 
+  React.useEffect(() => {
+    const obtenerPromociones = async () => {
+      const firestore = firebase.firestore();
+      try {
+        const promociones = await firestore.collection("usuarioComercio").doc(props.auth.uid).collection("promociones").get()
+        const arrayPromociones = promociones.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+        const beneficios = [];
+        arrayPromociones.map((promo) => {
+          beneficios.push({
+            name:
+              promo.tipoPromo +
+              " " +
+              (promo.valuePromo === "Otro"
+                ? promo.otraPromo
+                : promo.valuePromo) +
+              " " +
+              (promo.valueProveedor === "Otro"
+                ? promo.otroProveedor
+                : promo.valueProveedor === 'Todos' ? 'Todos los Bancos' : promo.valueProveedor) +
+              ", " +
+              (promo.tipoProveedor === "Tarjetas de crédito" || promo.tipoProveedor === "Tarjetas de débito" ? promo.otroProveedor + " " : "")
+              +
+              (promo.otroProveedor === "Todas" ? "las Tarjetas " : "")
+              +
+              "válida desde el " +
+              format(
+                promo.desdeVigencia.toDate(),
+                "dd/MM/yyyy"
+              ) +
+              " hasta el " +
+              format(
+                promo.hastaVigencia.toDate(),
+                "dd/MM/yyyy"
+              ) +
+              "."
+          });
+        });
+        const opciones = beneficios.map((option) => {
+          const firstLetter = option.name[0].toUpperCase();
+          return {
+            firstLetter: /[0-9]/.test(firstLetter) ? firstLetter : firstLetter,
+            ...option,
+          };
+        });
+        setOptions(opciones)
+        setNombreComercio(props.profile.nombreComercio)
+        setSucursalComercio(props.profile.sucursal)
+      }
+      catch (error) {
+        console.log(error)
+      }
+    }
+    obtenerPromociones();
+  }, [])
 
-  const beneficios = [];
-  promociones.map((promo) => {
-    beneficios.push({
-      name:
-        promo.tipoProveedor +
-        " " +
-        promo.valueProveedor +
-        " " +
-        promo.otroProveedor +
-        " " +
-        promo.tipoPromo +
-        " " +
-        promo.valuePromo +
-        " " +
-        promo.otraPromo +
-        "válida desde el " +
-        format(promo.desdeVigencia.toDate(), "dd/MM/yyyy") +
-        " hasta el " +
-        format(promo.hastaVigencia.toDate(), "dd/MM/yyyy"),
-    });
-  });
-
-  const options = beneficios.map((option) => {
-    const firstLetter = option.name[0].toUpperCase();
-    return {
-      firstLetter: /[0-9]/.test(firstLetter) ? firstLetter : firstLetter,
-      ...option,
-    };
-  });
+  /*React.useEffect(() => {
+    const obtenerPerfil = async () => {
+      const firestore = firebase.firestore();
+      try {
+        const perfil = await firestore.collection("usuarioComercio").doc(props.auth.uid).get()
+        const datosPerfil = perfil.docs.data()
+        setNombreComercio(datosPerfil);
+      }
+      catch (error) {
+        console.log(error)
+      }
+    }
+    obtenerPerfil();
+  }, [])*/
 
   //Estados
-
+  const [nombreComercio, setNombreComercio] = React.useState("")
+  const [sucursalComercio, setSucursalComercio] = React.useState("")
   //Estado checked del switch de geolocalizacion
   const [stateGeo, setStateGeo] = React.useState({
     activo: false,
@@ -219,7 +219,7 @@ function ProgramarNotificaciones(props) {
                   className="text-sucursal"
                   id="outlined-disabled"
                   label="Sucursal"
-                  value={props.profile.sucursal}
+                  value={props.profile.sucursalComercio}
                   variant="outlined"
                   name="sucursal"
                 />
@@ -352,8 +352,8 @@ function ProgramarNotificaciones(props) {
                   </MuiPickersUtilsProvider>
                 </div>
               ) : (
-                ""
-              )}
+                  ""
+                )}
 
               <div className="boton-enviar-notificacion">
                 <div>

@@ -11,7 +11,7 @@ export function DescargarApp() {
       <div className="contenedorCel">
         <Image
           className="imgCelular"
-          src={require("../../../Multimedia/Landing/Imagenes/celular.png")}
+          src={require("../../../Multimedia/Landing/Imagenes/celular1.png")}
         />
       </div>
       <div className="contenedorDescarga">

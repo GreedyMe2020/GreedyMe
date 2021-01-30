@@ -84,7 +84,6 @@ function Suscripciones(props) {
                     <Box lineHeight={1.7} m={1}>
                       -
                     </Box>,
-                    "-",
                   ]}
                   style1="planes-title planes-basico-1"
                   style2="planes-precio planes-basico-2"
@@ -128,7 +127,6 @@ function Suscripciones(props) {
                     "Figurar en búsquedas por geolocalización",
                     "-",
                     "Publicidad dentro de la aplicación mobile\n ",
-                    "-",
                   ]}
                   style1="planes-title planes-estandar-1"
                   style2="planes-precio planes-estandar-2"
@@ -172,7 +170,6 @@ function Suscripciones(props) {
                     <Box lineHeight={1.75} m={1}>
                       Publicidad dentro de la aplicación
                     </Box>,
-                    "Recompensas propias en GreedyShop",
                   ]}
                   style1="planes-title planes-premuim-1"
                   style2="planes-precio planes-premuim-2"

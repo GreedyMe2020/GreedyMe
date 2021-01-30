@@ -10,6 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import ListaPromocion from "./Promociones/ListaPromocion";
 import ListaProveedores from "./Proveedores/ListaProveedores";
+import Estadisticas from "./Estadisticas/Estadisticas"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +39,9 @@ function Admin(props) {
     }
     if (seleccionado === 2) {
       return <ListaPromocion />;
+    }
+    if (seleccionado === 3) {
+      return <Estadisticas />
     }
   };
 

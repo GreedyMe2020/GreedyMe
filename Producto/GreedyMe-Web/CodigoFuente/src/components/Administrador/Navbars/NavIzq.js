@@ -74,6 +74,19 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
             elementIndex={2}
           />
         </List>
+        <Divider variant="middle" />
+        <List>
+          <ListItemCustomAdmin
+            id="estadisticas"
+            text="Estadísticas"
+            src1={require("../../../../Multimedia/Sistema-svg/statistics-grey.svg")}
+            src2={require("../../../../Multimedia/Sistema-svg/statistics-orange.svg")}
+            className="estadisticas"
+            seleccionado={seleccionado}
+            setSeleccionado={setSeleccionado}
+            elementIndex={3}
+          />
+        </List>
       </div>
     </Drawer>
   );

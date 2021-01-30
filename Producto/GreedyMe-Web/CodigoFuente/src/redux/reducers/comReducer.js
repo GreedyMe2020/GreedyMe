@@ -5,6 +5,10 @@ const initState = {
   fotoError: null,
   password: null,
   passwordError: null,
+  consulta: null,
+  errorConsulta: null,
+  codigo: null,
+  codigoError: null
 };
 
 const comReducer = (state = initState, action) => {
@@ -58,6 +62,32 @@ const comReducer = (state = initState, action) => {
       return {
         ...state,
         fotoError: "Ocurrio algun error en la eliminacion de la foto",
+      };
+    case "ENVIAR_CONSULTA":
+      console.log("se envio la consulta");
+      return {
+        ...state,
+        consulta: "se envio la consulta",
+      };
+    case "ERROR_CONSULTA":
+      console.log("no se envio la consulta");
+      return {
+        ...state,
+        consultaError: "Ocurrio algun error en el envio de la consulta",
+      };
+    case "GUARDAR_CODIGO":
+      console.log("se guardo el codigo");
+      return {
+        ...state,
+        codigo: "se guardo el codigo",
+        codigoError: null,
+      };
+    case "ERROR_CODIGO":
+      console.log("no se guardo el codigo");
+      return {
+        ...state,
+        codigo: null,
+        codigoError: "Ocurrio algun error al guardar el codigo",
       };
     case "RESETEAR_VALORES_CAMBIAR_PASSWORD":
       console.log("se resetearon");

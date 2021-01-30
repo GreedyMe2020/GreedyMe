@@ -174,14 +174,14 @@ function ModalPromocionesActualizar(props) {
       setError(true);
     } else {
       props.actualizar(formData, state, value, desdeVigencia, hastaVigencia);
-      setOpen(true);
+      //setOpen(true);
     }
   };
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+    //setOpen(false);
   };
 
   const handleChange = (event) => {
@@ -259,7 +259,7 @@ function ModalPromocionesActualizar(props) {
           <SelectValidator
             className="select-tipopromo"
             fullWidth
-            label="Tipo de promoción"
+            label="Tipo de beneficio"
             onChange={handleChange}
             name="tipoPromo"
             value={formData.tipoPromo}
@@ -278,7 +278,7 @@ function ModalPromocionesActualizar(props) {
             <SelectValidator
               variant="outlined"
               className="selectpromo"
-              label="Valor de la Promoción"
+              label="Valor del beneficio"
               fullWidth
               onChange={handleChange}
               name="valuePromo"
@@ -297,7 +297,7 @@ function ModalPromocionesActualizar(props) {
             <SelectValidator
               className="selectpromo"
               fullWidth
-              label="Valor de la Promoción"
+              label="Valor del beneficio"
               onChange={handleChange}
               name="valuePromo"
               value={formData.valuePromo}
@@ -605,7 +605,7 @@ function ModalPromocionesActualizar(props) {
               Actualizar promoción
             </Button>
           </div>
-          <Snackbar
+          {/*<Snackbar
             anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
             open={open}
             autoHideDuration={8000}
@@ -613,11 +613,8 @@ function ModalPromocionesActualizar(props) {
           >
             <Alert onClose={handleClose} severity="success">
               ¡La promoción se actualizo correctamente!
-            </Alert>
-            {/* <Alert onClose={handleClose} severity="error">
-              Faltan campos de completar
-            </Alert> */}
-          </Snackbar>
+            </Alert> 
+          </Snackbar>*/}
         </div>
       </ValidatorForm>
     </div>

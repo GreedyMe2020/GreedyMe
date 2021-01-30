@@ -128,7 +128,7 @@ export const cambiarContraseña = (formData) => {
   return (dispatch, getState, { getFirestore, getFirebase }) => {
     //codigo asincrono
     const firebase = getFirebase();
-    firebase.auth().onAuthStateChanged(function (user) {
+    var user = firebase.auth().currentUser;
       if (user) {
         var credentials = firebase.auth.EmailAuthProvider.credential(
           user.email,
@@ -145,13 +145,54 @@ export const cambiarContraseña = (formData) => {
           .catch((error) => {
             dispatch({ type: 'ERROR_PASSWORD', error });
           });
-      }
-    });
+      }  
   };
 };
 
 export const resetearValoresCambiarContraseña = () => {
   return (dispatch, getState, { getFirestore }) => {
     dispatch({ type: "RESETEAR_VALORES_CAMBIAR_PASSWORD" });
+  };
+};
+
+export const enviarConsulta = (datos) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const firestore = getFirestore();
+    firestore
+      .collection("consulta")
+      .doc()
+      .set({
+        nombreComercio: datos.nombreComercio,
+        email: datos.email,
+        consulta: datos.consulta
+      })
+      .then(() => {
+        dispatch({ type: "ENVIAR_CONSULTA" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_CONSULTA", error });
+      });
+  };
+};
+
+export const generarCodigo = (codigo, idCupon) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const firestore = getFirestore();
+    firestore
+      .collection("codigoCupon")
+      .doc()
+      .set({
+        codigo: codigo,
+        idCupon: idCupon,
+        validado: false
+      })
+      .then(() => {
+        dispatch({ type: "GUARDAR_CODIGO" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_CODIGO", error });
+      });
   };
 };

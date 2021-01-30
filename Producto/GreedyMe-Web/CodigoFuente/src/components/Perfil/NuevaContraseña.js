@@ -8,7 +8,10 @@ import SaveIcon from "@material-ui/icons/Save";
 import { connect } from "react-redux";
 import firebase from "../../firebase/config";
 import Grid from "@material-ui/core/Grid";
-import { cambiarContraseña, resetearValoresCambiarContraseña } from "../../redux/actions/comActions"
+import {
+  cambiarContraseña,
+  resetearValoresCambiarContraseña,
+} from "../../redux/actions/comActions";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
@@ -28,9 +31,6 @@ const useStyles = makeStyles((theme) => ({
 
 function NuevaContraseña(props) {
   const classes = useStyles();
-  const [seleccionado, setSeleccionado] = React.useState(0);
-  const [opcion, setOpcion] = React.useState(0);
-  const [cambio, setCambio] = useState(false);
 
   const [formData, setFormData] = useState({
     contraseñaActual: "",
@@ -65,17 +65,19 @@ function NuevaContraseña(props) {
   };
 
   const handleSubmit2 = () => {
-    props.cambiarContraseña(formData)
-    setFormData({
+    if(formData.nuevaContraseña === formData.repeticion){
+      props.cambiarContraseña(formData);
+      setFormData({
       contraseñaActual: "",
       nuevaContraseña: "",
-      repeticion: "", 
-    })
+      repeticion: "",
+      });
+    }
   };
 
   //Effects para abrir carteles
-  /*const abrirCarteldeConfirmacion = React.useEffect(() => {
-    if(props.contraseña !== null){
+  const abrirCarteldeConfirmacion = React.useEffect(() => {
+    if(props.password !== null){
       setOpenContraseña(true);
       props.resetearValoresCambiarContraseña()
       setFormData({
@@ -84,14 +86,14 @@ function NuevaContraseña(props) {
         repeticion: "",
       })
     }
-  },[props.contraseña] )
+  },[props.password] )
 
   const abrirCarteldeError = React.useEffect(() => {
-    if(props.contraseñaError !== null){
+    if(props.passwordError !== null){
       setOpen2Contraseña(true);
       props.resetearValoresCambiarContraseña()
     }
-  },[props.contraseñaError] )*/
+  },[props.passwordError] )
 
   //validacion para que los campos sean iguales
   ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
@@ -104,8 +106,8 @@ function NuevaContraseña(props) {
 
   return (
     <div>
-      <ValidatorForm ref={form2} onSubmit={handleSubmit2} id="validator-form">
-        <Grid container spacing={1}>
+      {/*<ValidatorForm ref={form2} onSubmit={handleSubmit2} id="validator-form">*/}
+        <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
             <TextValidator
               id="outlined-password-input"
@@ -162,15 +164,16 @@ function NuevaContraseña(props) {
             />
           </Grid>
           <Grid item xs={12} md={12}>
-            <div className="perfil-btnCont">
+            <div className="perfil-btnCont text-center">
               <Button
                 variant="contained"
                 id="btn-azul"
-                className="btnAdminPerfil"
+                //className="btnAdminPerfil"
                 type="submit"
+                onClick={handleSubmit2}
                 startIcon={<SaveIcon />}
               >
-                Guardar cambios
+                Guardar contraseña
               </Button>
             </div>
           </Grid>
@@ -185,7 +188,7 @@ function NuevaContraseña(props) {
             ¡La contraseña ha sido modificada correctamente!
           </Alert>
         </Snackbar>
-          <Snackbar
+        <Snackbar
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           open={open2Contraseña}
           autoHideDuration={8000}
@@ -195,7 +198,7 @@ function NuevaContraseña(props) {
             La contraseña actual es incorrecta.
           </Alert>
         </Snackbar>
-      </ValidatorForm>
+      {/*</ValidatorForm>*/}
     </div>
   );
 }
@@ -203,15 +206,16 @@ function NuevaContraseña(props) {
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
-    contraseña: state.comercio.contraseña,
-    contraseñaError: state.comercio.contraseñaError,
+    password: state.comercio.password,
+    passwordError: state.comercio.passwordError,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     cambiarContraseña: (formData) => dispatch(cambiarContraseña(formData)),
-    resetearValoresCambiarContraseña: () => dispatch(resetearValoresCambiarContraseña()),
+    resetearValoresCambiarContraseña: () =>
+      dispatch(resetearValoresCambiarContraseña()),
   };
 };
 

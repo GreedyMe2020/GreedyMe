@@ -4,6 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 import MenuList from "@material-ui/core/MenuList";
 import IconButton from "@material-ui/core/IconButton";
+import Avatar from "@material-ui/core/Avatar";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -22,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     marginRight: "0.5rem",
+  },
+  small: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
   },
 }));
 
@@ -73,7 +78,11 @@ function Perfil(props) {
         onClick={handleToggle}
         color="inherit"
       >
-        <AccountCircle />
+        <Avatar
+          alt="Perfil"
+          src={props.profile.photoURL}
+          className={classes.small}
+        />
       </IconButton>
       <Popper
         open={open}
@@ -84,7 +93,7 @@ function Perfil(props) {
         placement="bottom-end"
       >
         <Paper>
-          <ClickAwayListener onClickAway={handleClose}>
+          <ClickAwayListener onClickAway={handleClose(props.seleccionado)}>
             <MenuList
               autoFocusItem={open}
               id="menu-list-grow"
@@ -93,7 +102,7 @@ function Perfil(props) {
               <div className="icoPerfil">
                 <ListItem>
                   <ListItemIcon className="iconPerfil">
-                    <AccountCircleRounded fontSize="large" />
+                    <Avatar alt="Perfil" src={props.profile.photoURL} />
                   </ListItemIcon>
                   <div className="contNombrePlanUS">
                     <ListItemText

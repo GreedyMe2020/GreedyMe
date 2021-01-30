@@ -21,10 +21,10 @@ import PreguntasPerfil from "../Perfil/AyudaYSoporte/Preguntas/preguntas-perfil"
 import PreguntasBeneficios from "../Perfil/AyudaYSoporte/Preguntas/preguntas-beneficios";
 import PreguntasCupon from "../Perfil/AyudaYSoporte/Preguntas/preguntas-cupon";
 import PreguntasEstadisticas from "../Perfil/AyudaYSoporte/Preguntas/preguntas-estadisticas";
-import PreguntasGreedyShop from "../Perfil/AyudaYSoporte/Preguntas/preguntas-greedyshop";
 import PreguntasNotificaciones from "../Perfil/AyudaYSoporte/Preguntas/preguntas-notificaciones";
 import PreguntasSuscripcion from "../Perfil/AyudaYSoporte/Preguntas/preguntas-suscripciones";
 import OnRouteChange from "../Router-scroll";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +46,7 @@ function MainPage(props) {
   const [seleccionado, setSeleccionado] = React.useState(0);
   //Estado para manejar la cantidad de promociones activas de un usuario y pasarlo para visualizacion
   const [cantPromos, setCantPromos] = React.useState(0);
-
+  
   const handleSeleccionado = (elem) => {
     setSeleccionado(elem);
   };
@@ -92,7 +92,6 @@ function MainPage(props) {
             <PreguntasEstadisticas path="ayuda-y-soporte/estadisticas" />
             <PreguntasNotificaciones path="ayuda-y-soporte/notificaciones" />
             <PreguntasSuscripcion path="ayuda-y-soporte/suscripciones" />
-            <PreguntasGreedyShop path="ayuda-y-soporte/greedy-shop" />
           </Router>
           <OnRouteChange
             action={() => {
