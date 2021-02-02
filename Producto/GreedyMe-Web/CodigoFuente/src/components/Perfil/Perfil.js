@@ -45,6 +45,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogComponent from "../Dialog";
 import { IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import Geocode from "react-geocode";
 
 /* import { db } from "../firebase/config"; */
 const libraries = ["places"];
@@ -67,8 +68,7 @@ const rubro = () => {
 };
 rubro();
 
-import Geocode from "react-geocode";
-
+//seteo la API de google maps para que me tire las coordenadas de cierta direccion que le pase por parametro
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
 
 const useStyles = makeStyles((theme) => ({
