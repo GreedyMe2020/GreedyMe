@@ -1,30 +1,35 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import SaveIcon from "@material-ui/icons/Save";
-import MuiAlert from "@material-ui/lab/Alert";
-import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
-import { connect } from "react-redux";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { cargarTipoProveedor } from "../../../redux/actions/adminActions";
-import Grid from "@material-ui/core/Grid";
-import Snackbar from "@material-ui/core/Snackbar";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
+import MuiAlert from '@material-ui/lab/Alert';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import { connect } from 'react-redux';
+import {
+  ValidatorForm,
+  TextValidator,
+} from 'react-material-ui-form-validator';
+import { cargarTipoProveedor } from '../../../redux/actions/adminActions';
+import Grid from '@material-ui/core/Grid';
+import Snackbar from '@material-ui/core/Snackbar';
+import { cargarPuntoRetiro } from '../../../redux/actions/adminActions';
+
 const useStyles = makeStyles((theme) => ({
   root: {
-    gridColumn: "2/4",
+    gridColumn: '2/4',
   },
   demo: {
     backgroundColor: theme.palette.background.paper,
   },
   cruz: {
-    position: "absolute",
+    position: 'absolute',
     right: theme.spacing(1),
-    top: "8px",
+    top: '8px',
     color: theme.palette.grey[500],
   },
   inline: {
-    display: "block",
+    display: 'block',
   },
   cont: {
     flexGrow: 1,
@@ -38,25 +43,25 @@ function Alert(props) {
 export default function FormPuntoEntrega(props) {
   const classes = useStyles();
   const [formData, setFormData] = React.useState({
-    direccion: "",
-    localidad: "",
-    provincia: "",
-    pais: "",
+    direccion: '',
+    localidad: '',
+    provincia: '',
+    pais: '',
   });
 
   //Estado para manejar el snackbar
   const [open, setOpen] = React.useState(false);
 
-   const handleSubmit = (e) => {
-    /* props.cargarTipoProveedor(formData); */
-    console.log(formData);
-    formData.direccion = "";
-    formData.localidad = "";
-    formData.provincia = "";
-    formData.pais = "";
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.cargarPuntoRetiro(formData);
+    /*formData.direccion = '';
+    formData.localidad = '';
+    formData.provincia = '';
+    formData.pais = '';*/
     setOpen(true);
   };
-  
+
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
@@ -64,7 +69,7 @@ export default function FormPuntoEntrega(props) {
 
   //Funcion para cerrar el snackbar
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
@@ -140,7 +145,7 @@ export default function FormPuntoEntrega(props) {
           </Grid>
         </Grid>
         <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           open={open}
           autoHideDuration={8000}
           onClose={handleClose}
@@ -153,3 +158,24 @@ export default function FormPuntoEntrega(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    puntoRetiro: state.admin.puntoRetiro,
+    puntoRetiroEliminado: state.admin.puntoRetiroEliminado,
+    puntoRetiroFalla: state.admin.puntoRetiroFalla,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    cargarPuntoRetiro: (formData) =>
+      dispatch(cargarPuntoRetiro(formData)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(FormPuntosEntrega);
