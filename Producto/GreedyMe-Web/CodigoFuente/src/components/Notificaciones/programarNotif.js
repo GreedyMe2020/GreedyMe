@@ -68,6 +68,10 @@ function ProgramarNotificaciones(props) {
   const classes = useStyles();
   //estado de lo que se renderiza
   const [options, setOptions] = React.useState([]);
+  //estado para el nombre del comercio
+  const [nombreComercio, setNombreComercio] = React.useState('');
+  //estado para la sucursal del comercio
+  const [sucursal, setSucursal] = React.useState('');
 
   //use effect que trae los datos 
   React.useEffect(() => {
@@ -115,8 +119,6 @@ function ProgramarNotificaciones(props) {
           };
         });
         setOptions(opciones)
-        setNombreComercio(props.profile.nombreComercio)
-        setSucursalComercio(props.profile.sucursal)
       }
       catch (error) {
         console.log(error)
@@ -125,24 +127,22 @@ function ProgramarNotificaciones(props) {
     obtenerPromociones();
   }, [])
 
-  /*React.useEffect(() => {
+  React.useEffect(() => {
     const obtenerPerfil = async () => {
       const firestore = firebase.firestore();
       try {
-        const perfil = await firestore.collection("usuarioComercio").doc(props.auth.uid).get()
-        const datosPerfil = perfil.docs.data()
-        setNombreComercio(datosPerfil);
+        const perfiles = await firestore.collection("usuarioComercio").where('email', '==', props.auth.email).get()
+        const arrayPerfiles = perfiles.docs.map(doc => ({id: doc.id, ...doc.data()}))
+        setNombreComercio(arrayPerfiles[0].nombreComercio)
+        setSucursal(arrayPerfiles[0].sucursal)
       }
-      catch (error) {
+      catch (error){
         console.log(error)
       }
     }
-    obtenerPerfil();
-  }, [])*/
+  obtenerPerfil();
+  }, [])
 
-  //Estados
-  const [nombreComercio, setNombreComercio] = React.useState("")
-  const [sucursalComercio, setSucursalComercio] = React.useState("")
   //Estado checked del switch de geolocalizacion
   const [stateGeo, setStateGeo] = React.useState({
     activo: false,
@@ -209,7 +209,7 @@ function ProgramarNotificaciones(props) {
                   className="text-usuario"
                   id="outlined-disabled"
                   label="Nombre del comercio"
-                  value={props.profile.nombreComercio}
+                  value={nombreComercio}
                   variant="outlined"
                   name="usuario"
                 />
@@ -219,7 +219,7 @@ function ProgramarNotificaciones(props) {
                   className="text-sucursal"
                   id="outlined-disabled"
                   label="Sucursal"
-                  value={props.profile.sucursalComercio}
+                  value={sucursal}
                   variant="outlined"
                   name="sucursal"
                 />

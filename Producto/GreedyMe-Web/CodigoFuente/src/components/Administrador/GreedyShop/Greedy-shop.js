@@ -24,12 +24,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import CreateIcon from '@material-ui/icons/Create';
 import CloseIcon from '@material-ui/icons/Close';
-/* import ModalActualizarComercio from "../Comercios/modal-actualizar-comercio"; */
-import {
-  signUp,
-  eliminarUsuarioComercio,
-  modificarUsuarioComercio,
-} from '../../../redux/actions/adminActions';
+import {eliminarPremio} from '../../../redux/actions/adminActions';
 import FormProducto from './FormProductos';
 import Snackbar from '@material-ui/core/Snackbar';
 import firebase from '../../../firebase/config';
@@ -56,7 +51,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function ListaUsuarios(props) {
+function ListaUsuarios(props) {
   const classes = useStyles();
 
   //Estado del dialog (abierto/cerrado) y propiedades del dialog
@@ -67,7 +62,13 @@ export default function ListaUsuarios(props) {
   //estado de alerta
   const [openAlert, setOpenAlert] = React.useState(false);
   //estado para Modificar
-  const [modificar, setModificar] = React.useState(null);
+  const [modificar, setModificar] = React.useState({
+    id: "",
+    nombre: "",
+    greedyPoints: "",
+    photoURL: "",
+    descripcion: "",
+});
   const handleClose = () => {
     setOpen(false);
   };
@@ -84,7 +85,7 @@ export default function ListaUsuarios(props) {
 
   //estados solo para el buscador
 
-  const [listaProductos, setListaProductos] = React.useState(null);
+  const [listaProductos, setListaProductos] = React.useState(props.premios);
   const [texto, setTexto] = React.useState(false);
   const [text, setText] = React.useState('');
 
@@ -96,27 +97,26 @@ export default function ListaUsuarios(props) {
   const [eliminada, setEliminada] = React.useState(false);
 
   //Eliminar un producto de la BD y renderizar la eliminacion (cambiarlo para los productos)
-  /* React.useEffect(() => {
+  React.useEffect(() => {
     if (currentId) {
-      props.eliminarUsuarioComercio({
-        id: currentId,
-      });
+      props.eliminarPremio(currentId);
     }
-  }, [currentId]); */
+  }, [currentId]);
 
   //funcion para buscar
-  /* const filter = (text) => {
-    if (props.usuarios) {
+  const filter = (text) => {
+    if (props.premios) {
       let textoBuscar = text.target.value;
-      const datos = props.usuarios;
+      const datos = props.premios;
       const newDatos = datos.filter(function (item) {
-        const itemNombreComercio = item.nombreComercio.toUpperCase();
-        const itemRubro = item.rubro.toUpperCase();
-        const campo = itemNombreComercio + " " + itemRubro;
+        const itemNombrePremio = item.nombre.toUpperCase();
+        const itemGreedyPoints = item.greedyPoints.toUpperCase();
+        const itemDescripcionPremio = item.descripcion.toUpperCase();
+        const campo = itemNombrePremio + " " + itemGreedyPoints + " " + itemDescripcionPremio;
         const textData = textoBuscar.toUpperCase();
         return campo.indexOf(textData) > -1;
       });
-      setListaUsuarios(newDatos);
+      setListaProductos(newDatos);
       setText(text);
       if (text.target.value != "") {
         setTexto(true);
@@ -124,7 +124,7 @@ export default function ListaUsuarios(props) {
         setTexto(false);
       }
     }
-  }; */
+  };
 
   //abre y cierra el modal de modificar (el lapiz)
   const handleClickOpenModificar = () => {
@@ -152,7 +152,7 @@ export default function ListaUsuarios(props) {
         openContent={<FormProducto />}
         placeholder="Buscar producto…"
         width="xs"
-        /* onChange={(text) => filter(text)} */
+        onChange={(text) => filter(text)}
       />
 
       <div className="contenedorTodo">
@@ -161,111 +161,222 @@ export default function ListaUsuarios(props) {
             <Grid item xs={12} md={12}>
               <div className={classes.demo}>
                 <List>
-                  <ListItem key={1}>
-                    <ListItemAvatar>
-                      <Avatar
-                        variant="square"
-                        src={require('../../../../Multimedia/Sistema-svg/cafe.svg')}
-                      ></Avatar>
-                    </ListItemAvatar>
-                    <div className="elementoListaProm">
-                      <ListItemText
-                        //asi podes ir accediendo a todos los datos asi los acomodas como quieras
-                        primary={
-                          <React.Fragment>
-                            <Typography className={classes.inline}>
-                              Taza de café pimpinela.
-                            </Typography>
-                            <Typography>500 GreedyPoints.</Typography>
-                          </React.Fragment>
-                        }
-                        secondary={
-                          'Esta taza me cambió la vida, tremenda taza amigo.'
-                        }
-                      />
-                    </div>
-                    <ListItemSecondaryAction>
-                      <Tooltip title="Editar" arrow>
-                        <IconButton
-                          aria-label="Editar"
-                          onClick={() => {
-                            /* setModificar({
-                                id: user.id,
-                                email: user.email,
-                                CUIT: user.CUIT,
-                                nombreComercio: user.nombreComercio,
-                                web: user.web,
-                                contraseña: user.contraseña,
-                                repetirContraseña: user.repetirContraseña,
-                                sucursal: user.sucursal,
-                                rubro: user.rubro,
-                                telefono: user.telefono,
-                                instagram: user.instagram,
-                                facebook: user.facebook,
-                                direccion: user.direccion,
-                            }); */
-                            handleClickOpenModificar();
-                          }}
-                        >
-                          <CreateIcon />
-                        </IconButton>
-                      </Tooltip>
-                      <Dialog
-                        fullWidth={fullWidth}
-                        maxWidth={maxWidth}
-                        open={openModificar}
-                        onClose={handleCloseModificar}
+                  {props.premios && texto === false ? props.premios.map((premio) => {
+                    return(
+                  <ListItem key={premio.id}>
+                  <ListItemAvatar>
+                    <Avatar
+                      variant="square"
+                      src={premio.photoURL !== null ? premio.photoURL : require('../../../../Multimedia/Sistema-svg/cafe.svg')}
+                    ></Avatar>
+                  </ListItemAvatar>
+                  <div className="elementoListaProm">
+                    <ListItemText
+                      //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                      primary={
+                        <React.Fragment>
+                          <Typography className={classes.inline}>
+                            {premio.nombre}
+                          </Typography>
+                          <Typography>{premio.greedyPoints}</Typography>
+                        </React.Fragment>
+                      }
+                      secondary={
+                        premio.descripcion
+                      }
+                    />
+                  </div>
+                  <ListItemSecondaryAction>
+                    <Tooltip title="Editar" arrow>
+                      <IconButton
+                        aria-label="Editar"
+                        onClick={() => {
+                          setModificar({
+                              id: premio.id,
+                              nombre: premio.nombre,
+                              greedyPoints: premio.greedyPoints,
+                              photoURL: premio.photoURL,
+                              descripcion: premio.descripcion,
+                          });
+                          handleClickOpenModificar();
+                        }}
                       >
-                        <DialogTitle id="dialog-title-prom">
-                          <h5>Modificar producto</h5>
-                          <IconButton
-                            aria-label="close"
-                            id="btn"
-                            className={classes.cruz}
-                            onClick={handleCloseModificar}
-                          >
-                            <CloseIcon />
-                          </IconButton>
-                        </DialogTitle>
-                        <DialogContent dividers>
-                          <DialogContentText>
-                            <FormProducto />{' '}
-                            {/* HAY QUE AGREGARLE PROPS PARA PASARLE LOS DATOS COMO PROPS */}
-                          </DialogContentText>
-                        </DialogContent>
-                      </Dialog>
-
-                      <Tooltip title="Eliminar" arrow>
+                        <CreateIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Dialog
+                      fullWidth={fullWidth}
+                      maxWidth={maxWidth}
+                      open={openModificar}
+                      onClose={handleCloseModificar}
+                    >
+                      <DialogTitle id="dialog-title-prom">
+                        <h5>Modificar producto</h5>
                         <IconButton
-                          onClick={() => {
-                            /* setEliminar(user.id); */
-                            setOpen(true);
-                            /* console.log(user.id); */
-                          }}
-                          edge="end"
-                          aria-label="Eliminar"
+                          aria-label="close"
+                          id="btn"
+                          className={classes.cruz}
+                          onClick={handleCloseModificar}
                         >
-                          <DeleteIcon />
+                          <CloseIcon />
                         </IconButton>
-                      </Tooltip>
-                      <DialogComponent
-                        open={open}
-                        setOpen={setOpen}
-                        handleClose={handleClose}
-                        eliminar={eliminar}
-                        setEliminar={setEliminar}
-                        setEliminada={setEliminada}
-                        setCurrentId={setCurrentId}
-                        title={
-                          '¿Estás seguro de eliminar el producto?'
-                        }
-                        text={
-                          'Una vez que aceptes eliminar el producto, el mismo no podrá ser recuperado.'
-                        }
-                        btnText={'Eliminar'}
-                      />
-                    </ListItemSecondaryAction>
+                      </DialogTitle>
+                      <DialogContent dividers>
+                        <DialogContentText>
+                          <FormProducto 
+                            id={modificar.id} 
+                            nombre={modificar.nombre} 
+                            descripcion={modificar.descripcion} 
+                            greedyPoints={modificar.greedyPoints} 
+                            photoURL={modificar.photoURL} 
+                            modificar={true} />{' '}
+                          {/* HAY QUE AGREGARLE PROPS PARA PASARLE LOS DATOS COMO PROPS */}
+                        </DialogContentText>
+                      </DialogContent>
+                    </Dialog>
+
+                    <Tooltip title="Eliminar" arrow>
+                      <IconButton
+                        onClick={() => {
+                          setEliminar(premio.id);
+                          setOpen(true);
+                        }}
+                        edge="end"
+                        aria-label="Eliminar"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <DialogComponent
+                      open={open}
+                      setOpen={setOpen}
+                      handleClose={handleClose}
+                      eliminar={eliminar}
+                      setEliminar={setEliminar}
+                      setEliminada={setEliminada}
+                      setCurrentId={setCurrentId}
+                      title={
+                        '¿Estás seguro de eliminar el producto?'
+                      }
+                      text={
+                        'Una vez que aceptes eliminar el producto, el mismo no podrá ser recuperado.'
+                      }
+                      btnText={'Eliminar'}
+                    />
+                  </ListItemSecondaryAction>
                   </ListItem>
+                    )
+                  })
+                  
+                  : listaProductos ? listaProductos.map((premio) => {
+                    return(
+                      <ListItem key={premio.id}>
+                  <ListItemAvatar>
+                    <Avatar
+                      variant="square"
+                      src={premio.photoURL !== null ? premio.photoURL : require('../../../../Multimedia/Sistema-svg/cafe.svg')}
+                    ></Avatar>
+                  </ListItemAvatar>
+                  <div className="elementoListaProm">
+                    <ListItemText
+                      //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                      primary={
+                        <React.Fragment>
+                          <Typography className={classes.inline}>
+                            {premio.nombre}
+                          </Typography>
+                          <Typography>{premio.greedyPoints}</Typography>
+                        </React.Fragment>
+                      }
+                      secondary={
+                        premio.descripcion
+                      }
+                    />
+                  </div>
+                  <ListItemSecondaryAction>
+                    <Tooltip title="Editar" arrow>
+                      <IconButton
+                        aria-label="Editar"
+                        onClick={() => {
+                          setModificar({
+                            id: premio.id,
+                            nombre: premio.nombre,
+                            greedyPoints: premio.greedyPoints,
+                            photoURL: premio.photoURL,
+                            descripcion: premio.descripcion,
+                        });
+                          handleClickOpenModificar();
+                        }}
+                      >
+                        <CreateIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Dialog
+                      fullWidth={fullWidth}
+                      maxWidth={maxWidth}
+                      open={openModificar}
+                      onClose={handleCloseModificar}
+                    >
+                      <DialogTitle id="dialog-title-prom">
+                        <h5>Modificar producto</h5>
+                        <IconButton
+                          aria-label="close"
+                          id="btn"
+                          className={classes.cruz}
+                          onClick={handleCloseModificar}
+                        >
+                          <CloseIcon />
+                        </IconButton>
+                      </DialogTitle>
+                      <DialogContent dividers>
+                        <DialogContentText>
+                        <FormProducto 
+                            id={modificar.id} 
+                            nombre={modificar.nombre} 
+                            descripcion={modificar.descripcion} 
+                            greedyPoints={modificar.greedyPoints} 
+                            photoURL={modificar.photoURL} 
+                            modificar={true} />{' '}
+                          {/* HAY QUE AGREGARLE PROPS PARA PASARLE LOS DATOS COMO PROPS */}
+                        </DialogContentText>
+                      </DialogContent>
+                    </Dialog>
+
+                    <Tooltip title="Eliminar" arrow>
+                      <IconButton
+                        onClick={() => {
+                          setEliminar(premio.id);
+                          setOpen(true);
+                        }}
+                        edge="end"
+                        aria-label="Eliminar"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <DialogComponent
+                      open={open}
+                      setOpen={setOpen}
+                      handleClose={handleClose}
+                      eliminar={eliminar}
+                      setEliminar={setEliminar}
+                      setEliminada={setEliminada}
+                      setCurrentId={setCurrentId}
+                      title={
+                        '¿Estás seguro de eliminar el producto?'
+                      }
+                      text={
+                        'Una vez que aceptes eliminar el producto, el mismo no podrá ser recuperado.'
+                      }
+                      btnText={'Eliminar'}
+                    />
+                  </ListItemSecondaryAction>
+                  </ListItem>
+                    ) 
+
+
+                  }): null}
+                  
                 </List>
                 {eliminada ? (
                   <Snackbar
@@ -295,3 +406,21 @@ export default function ListaUsuarios(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    premios: state.firestore.ordered.greedyPremio,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    eliminarPremio: (id) => dispatch(eliminarPremio(id)),
+  };
+};
+
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect([{ collection: "greedyPremio" }])
+)(ListaUsuarios);

@@ -40,7 +40,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function FormPuntoEntrega(props) {
+function FormPuntoEntrega(props) {
   const classes = useStyles();
   const [formData, setFormData] = React.useState({
     direccion: '',
@@ -55,10 +55,12 @@ export default function FormPuntoEntrega(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.cargarPuntoRetiro(formData);
-    /*formData.direccion = '';
-    formData.localidad = '';
-    formData.provincia = '';
-    formData.pais = '';*/
+    setFormData({
+      direccion: '',
+      localidad: '',
+      provincia: '',
+      pais: '',
+    })
     setOpen(true);
   };
 
@@ -178,4 +180,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(FormPuntosEntrega);
+)(FormPuntoEntrega);

@@ -25,7 +25,6 @@ import PreguntasNotificaciones from "../Perfil/AyudaYSoporte/Preguntas/preguntas
 import PreguntasSuscripcion from "../Perfil/AyudaYSoporte/Preguntas/preguntas-suscripciones";
 import OnRouteChange from "../Router-scroll";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -39,11 +38,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ececec",
   },
 }));
+//agarro la ruta actual
+const URLactual = window.location.pathname;
 
 function MainPage(props) {
   const classes = useStyles();
-  //Estado para ver que componente esta seleccionado en main
-  const [seleccionado, setSeleccionado] = React.useState(0);
+  //Estado para ver que componente esta seleccionado en mainº
+  const [seleccionado, setSeleccionado] = React.useState(URLactual.endsWith('inicio') === true ? 0 : 
+  URLactual.endsWith('cargar-cupon') === true ? 1 : URLactual.endsWith('mis-beneficios') === true ? 3 : 
+  URLactual.endsWith('estadisticas') === true ? 4 : URLactual.endsWith('notificaciones') === true ? 5 : null);
   //Estado para manejar la cantidad de promociones activas de un usuario y pasarlo para visualizacion
   const [cantPromos, setCantPromos] = React.useState(0);
   
