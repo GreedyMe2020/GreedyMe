@@ -24,15 +24,9 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import CreateIcon from "@material-ui/icons/Create";
 import CloseIcon from "@material-ui/icons/Close";
-/* import ModalActualizarComercio from "../Comercios/modal-actualizar-comercio"; */
-import {
-  signUp,
-  eliminarUsuarioComercio,
-  modificarUsuarioComercio,
-} from "../../../redux/actions/adminActions";
+import {eliminarPuntoRetiro} from '../../../redux/actions/adminActions';
 import FormPuntoEntrega from "./FormPuntosEntrega";
 import Snackbar from "@material-ui/core/Snackbar";
-import firebase from "../../../firebase/config";
 import _ from "lodash";
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -56,7 +50,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function PuntosEntrega(props) {
+function PuntosEntrega(props) {
   const classes = useStyles();
 
   //Estado del dialog (abierto/cerrado) y propiedades del dialog
@@ -83,7 +77,7 @@ export default function PuntosEntrega(props) {
 
   //estados solo para el buscador
 
-  const [listaProductos, setListaProductos] = React.useState(null);
+  const [listaRetiros, setListaRetiros] = React.useState(props.puntoRetiro);
   const [texto, setTexto] = React.useState(false);
   const [text, setText] = React.useState("");
 
@@ -95,27 +89,27 @@ export default function PuntosEntrega(props) {
   const [eliminada, setEliminada] = React.useState(false);
 
   //Eliminar un producto de la BD y renderizar la eliminacion (cambiarlo para los productos)
-  /* React.useEffect(() => {
+  React.useEffect(() => {
     if (currentId) {
-      props.eliminarUsuarioComercio({
-        id: currentId,
-      });
+      props.eliminarPuntoRetiro(currentId);
     }
-  }, [currentId]); */
+  }, [currentId]);
 
   //funcion para buscar
-  /* const filter = (text) => {
-    if (props.usuarios) {
+  const filter = (text) => {
+    if (props.puntoRetiro) {
       let textoBuscar = text.target.value;
-      const datos = props.usuarios;
+      const datos = props.puntoRetiro;
       const newDatos = datos.filter(function (item) {
-        const itemNombreComercio = item.nombreComercio.toUpperCase();
-        const itemRubro = item.rubro.toUpperCase();
-        const campo = itemNombreComercio + " " + itemRubro;
+        const itemDireccion = item.direccion.toUpperCase();
+        const itemLocalidad = item.localidad.toUpperCase();
+        const itemProvincia = item.provincia.toUpperCase();
+        const itemPais = item.pais.toUpperCase();
+        const campo = itemDireccion + " " + itemLocalidad + " " + itemProvincia + " " + itemPais;
         const textData = textoBuscar.toUpperCase();
         return campo.indexOf(textData) > -1;
       });
-      setListaUsuarios(newDatos);
+      setListaRetiros(newDatos);
       setText(text);
       if (text.target.value != "") {
         setTexto(true);
@@ -123,7 +117,7 @@ export default function PuntosEntrega(props) {
         setTexto(false);
       }
     }
-  }; */
+  }; 
 
   /* const crearComercio = (formData) => {
     props.signUp(formData);
@@ -142,7 +136,7 @@ export default function PuntosEntrega(props) {
         openContent={<FormPuntoEntrega />}
         placeholder="Buscar punto de retiro…"
         width="xs"
-        /* onChange={(text) => filter(text)} */
+        onChange={(text) => filter(text)}
       />
 
       <div className="contenedorTodo">
@@ -151,56 +145,112 @@ export default function PuntosEntrega(props) {
             <Grid item xs={12} md={12}>
               <div className={classes.demo}>
                 <List>
-                    <ListItem key={1}>
-                    <ListItemAvatar>
-                        <Avatar
-                        variant="square"
-                        src={require("../../../../Multimedia/Sistema-svg/location.svg")}
-                        ></Avatar>
-                    </ListItemAvatar>
-                    <div className="elementoListaProm">
-                        <ListItemText
-                        //asi podes ir accediendo a todos los datos asi los acomodas como quieras
-                        primary={
-                            <React.Fragment>
-                            <Typography className={classes.inline}>
-                                Los Pumas 520, Villa Allende.
-                            </Typography>
-                            </React.Fragment>
-                        }
-                        secondary={"Córdoba, Argentina."}
-                        />
-                    </div>
-                    <ListItemSecondaryAction>
-                        <Tooltip title="Eliminar" arrow>
-                        <IconButton
-                            onClick={() => {
-                            /* setEliminar(user.id); */
-                            setOpen(true);
-                            /* console.log(user.id); */
-                            }}
-                            edge="end"
-                            aria-label="Eliminar"
-                        >
-                            <DeleteIcon />
-                        </IconButton>
-                        </Tooltip>
-                        <DialogComponent
-                        open={open}
-                        setOpen={setOpen}
-                        handleClose={handleClose}
-                        eliminar={eliminar}
-                        setEliminar={setEliminar}
-                        setEliminada={setEliminada}
-                        setCurrentId={setCurrentId}
-                        title={"¿Estás seguro de eliminar el punto de retiro?"}
-                        text={
-                            "Una vez que aceptes eliminar el punto de retiro, el mismo no podrá ser recuperado."
-                        }
-                        btnText={"Eliminar"}
-                        />
-                    </ListItemSecondaryAction>
-                    </ListItem>
+                  {props.puntoRetiro && texto === false ? props.puntoRetiro.map((punto) => {
+                    return(
+                      <ListItem key={punto.id}>
+                      <ListItemAvatar>
+                          <Avatar
+                          variant="square"
+                          src={require("../../../../Multimedia/Sistema-svg/location.svg")}
+                          ></Avatar>
+                      </ListItemAvatar>
+                      <div className="elementoListaProm">
+                          <ListItemText
+                          //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                          primary={
+                              <React.Fragment>
+                              <Typography className={classes.inline}>
+                                  {`${punto.direccion}, ${punto.localidad}`}
+                              </Typography>
+                              </React.Fragment>
+                          }
+                          secondary={`${punto.provincia}, ${punto.pais}.`}
+                          />
+                      </div>
+                      <ListItemSecondaryAction>
+                          <Tooltip title="Eliminar" arrow>
+                          <IconButton
+                              onClick={() => {
+                              setEliminar(punto.id);
+                              setOpen(true);
+                              }}
+                              edge="end"
+                              aria-label="Eliminar"
+                          >
+                              <DeleteIcon />
+                          </IconButton>
+                          </Tooltip>
+                          <DialogComponent
+                          open={open}
+                          setOpen={setOpen}
+                          handleClose={handleClose}
+                          eliminar={eliminar}
+                          setEliminar={setEliminar}
+                          setEliminada={setEliminada}
+                          setCurrentId={setCurrentId}
+                          title={"¿Estás seguro de eliminar el punto de retiro?"}
+                          text={
+                              "Una vez que aceptes eliminar el punto de retiro, el mismo no podrá ser recuperado."
+                          }
+                          btnText={"Eliminar"}
+                          />
+                      </ListItemSecondaryAction>
+                      </ListItem>
+                    )
+                  }): listaRetiros ? listaRetiros.map((punto) => {
+                    return(
+                      <ListItem key={punto.id}>
+                      <ListItemAvatar>
+                          <Avatar
+                          variant="square"
+                          src={require("../../../../Multimedia/Sistema-svg/location.svg")}
+                          ></Avatar>
+                      </ListItemAvatar>
+                      <div className="elementoListaProm">
+                          <ListItemText
+                          //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                          primary={
+                              <React.Fragment>
+                              <Typography className={classes.inline}>
+                                  {`${punto.direccion}, ${punto.localidad}`}
+                              </Typography>
+                              </React.Fragment>
+                          }
+                          secondary={`${punto.provincia}, ${punto.pais}.`}
+                          />
+                      </div>
+                      <ListItemSecondaryAction>
+                          <Tooltip title="Eliminar" arrow>
+                          <IconButton
+                              onClick={() => {
+                              setEliminar(punto.id);
+                              setOpen(true);
+                              }}
+                              edge="end"
+                              aria-label="Eliminar"
+                          >
+                              <DeleteIcon />
+                          </IconButton>
+                          </Tooltip>
+                          <DialogComponent
+                          open={open}
+                          setOpen={setOpen}
+                          handleClose={handleClose}
+                          eliminar={eliminar}
+                          setEliminar={setEliminar}
+                          setEliminada={setEliminada}
+                          setCurrentId={setCurrentId}
+                          title={"¿Estás seguro de eliminar el punto de retiro?"}
+                          text={
+                              "Una vez que aceptes eliminar el punto de retiro, el mismo no podrá ser recuperado."
+                          }
+                          btnText={"Eliminar"}
+                          />
+                      </ListItemSecondaryAction>
+                      </ListItem>
+                    )
+                  }) : null}
+                    
                 </List>
                 {eliminada ? (
                   <Snackbar
@@ -227,3 +277,20 @@ export default function PuntosEntrega(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    puntoRetiro: state.firestore.ordered.puntoRetiro,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    eliminarPuntoRetiro: (id) => dispatch(eliminarPuntoRetiro(id)),
+  };
+};
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect([{ collection: "puntoRetiro" }])
+)(PuntosEntrega);

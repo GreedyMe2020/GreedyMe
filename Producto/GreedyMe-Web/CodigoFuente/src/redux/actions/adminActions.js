@@ -351,39 +351,50 @@ export const resetearValoresCreacionComercio = () => {
 
 export const cargarPremio = (datos) => {
   return (dispatch, getState, { getFirestore }) => {
+    var caracteres =
+      'abcdefghijkmnpqrtuvwxyzABCDEFGHJKMNPQRTUVWXYZ2346789';
+    var identificacion = '';
+    for (var i = 0; i < 20; i++) {
+      identificacion += caracteres.charAt(
+        Math.floor(Math.random() * caracteres.length),
+      );
+    }
     const firestore = getFirestore();
     firestore
       .collection('greedyPremio')
-      .doc()
+      .doc(identificacion)
       .set({
         nombre: datos.nombre,
         greedyPoints: datos.greedypoints,
         descripcion: datos.descripcion,
         photoURL: datos.photoURL,
       })
-        const bd = secondaryApp.firestore();
-        bd.collection('greedyPremio').doc().set({
-          nombre: datos.nombre,
-          greedyPoints: datos.greedyPoints,
-          descripcion: datos.descripcion,
-          photoURL: datos.photoURL,
-        })
-      .then(() => {
-        dispatch({ type: 'CARGAR_PREMIO' });
+    const bd = secondaryApp.firestore();
+    bd
+      .collection('greedyPremio')
+      .doc(identificacion)
+      .set({
+        nombre: datos.nombre,
+        greedyPoints: datos.greedypoints,
+        descripcion: datos.descripcion,
+        photoURL: datos.photoURL,
       })
-      .catch((error) => {
-        dispatch({ type: 'ERROR_PREMIO', error });
-      });
+    .then(() => {
+      dispatch({ type: 'CARGAR_PREMIO' });
+    })
+    .catch((error) => {
+      dispatch({ type: 'ERROR_PREMIO', error });
+    });
   };
 };
 
-export const eliminarPremio = (formData) => {
+export const eliminarPremio = (id) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
-    firestore.collection('greedyPremio').doc(formData.id).delete();
+    firestore.collection('greedyPremio').doc(id).delete();
     const bd = secondaryApp.firestore();
     bd.collection('greedyPremio')
-      .doc(formData.id)
+      .doc(id)
       .delete()
       .then(() => {
         dispatch({ type: 'PREMIO_ELIMINADO' });
@@ -394,26 +405,24 @@ export const eliminarPremio = (formData) => {
   };
 };
 
-export const modificarPremio = (data) => {
+export const modificarPremio = (id, formData) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     firestore
       .collection('greedyPremio')
-      .doc(data.id)
+      .doc(id)
       .update({
-        nombre: datos.nombre,
-        greedyPoints: datos.greedyPoints,
-        descripcion: datos.descripcion,
-        photoURL: datos.photoURL,
+        nombre: formData.nombre,
+        greedyPoints: formData.greedypoints,
+        descripcion: formData.descripcion,
+        photoURL: formData.photoURL,
       })
-      .then(() => {
-        const bd = secondaryApp.firestore();
-        bd.collection('greedyPremio').doc(data.id).update({
-          nombre: datos.nombre,
-          greedyPoints: datos.greedyPoints,
-          descripcion: datos.descripcion,
-          photoURL: datos.photoURL,
-        });
+      const bd = secondaryApp.firestore();
+      bd.collection('greedyPremio').doc(id).update({
+        nombre: formData.nombre,
+        greedyPoints: formData.greedypoints,
+        descripcion: formData.descripcion,
+        photoURL: formData.photoURL,
       })
       .then(() => {
         dispatch({ type: 'PREMIO_MODIFICADO' });
@@ -428,24 +437,33 @@ export const modificarPremio = (data) => {
 
 export const cargarPuntoRetiro = (datos) => {
   return (dispatch, getState, { getFirestore }) => {
+    var caracteres =
+      'abcdefghijkmnpqrtuvwxyzABCDEFGHJKMNPQRTUVWXYZ2346789';
+    var identificacion = '';
+    for (var i = 0; i < 20; i++) {
+      identificacion += caracteres.charAt(
+        Math.floor(Math.random() * caracteres.length),
+      );
+    }
     const firestore = getFirestore();
     firestore
       .collection('puntoRetiro')
-      .doc()
+      .doc(identificacion)
       .set({
         direccion: datos.direccion,
         localidad: datos.localidad,
         provincia: datos.provincia,
         pais: datos.pais,
       })
-      .then(() => {
-        const bd = secondaryApp.firestore();
-        bd.collection('puntoRetiro').doc(resp.user.uid).set({
-          direccion: datos.direccion,
-          localidad: datos.localidad,
-          provincia: datos.provincia,
-          pais: datos.pais,
-        });
+    const bd = secondaryApp.firestore();
+    bd
+      .collection('puntoRetiro')
+      .doc(identificacion)
+      .set({
+        direccion: datos.direccion,
+        localidad: datos.localidad,
+        provincia: datos.provincia,
+        pais: datos.pais,
       })
       .then(() => {
         dispatch({ type: 'CARGAR_PUNTO_RETIRO' });
@@ -456,13 +474,13 @@ export const cargarPuntoRetiro = (datos) => {
   };
 };
 
-export const eliminarPuntoRetiro = (formData) => {
+export const eliminarPuntoRetiro = (id) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
-    firestore.collection('puntoRetiro').doc(formData.id).delete();
+    firestore.collection('puntoRetiro').doc(id).delete();
     const bd = secondaryApp.firestore();
     bd.collection('puntoRetiro')
-      .doc(formData.id)
+      .doc(id)
       .delete()
       .then(() => {
         dispatch({ type: 'PUNTO_RETIRO_ELIMINADO' });

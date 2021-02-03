@@ -55,10 +55,12 @@ function FormPuntoEntrega(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.cargarPuntoRetiro(formData);
-    /*formData.direccion = '';
-    formData.localidad = '';
-    formData.provincia = '';
-    formData.pais = '';*/
+    setFormData({
+      direccion: '',
+      localidad: '',
+      provincia: '',
+      pais: '',
+    })
     setOpen(true);
   };
 
