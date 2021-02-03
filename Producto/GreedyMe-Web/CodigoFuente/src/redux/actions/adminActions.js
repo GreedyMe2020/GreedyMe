@@ -357,19 +357,17 @@ export const cargarPremio = (datos) => {
       .doc()
       .set({
         nombre: datos.nombre,
-        greedyPoints: datos.greedyPoints,
+        greedyPoints: datos.greedypoints,
         descripcion: datos.descripcion,
         photoURL: datos.photoURL,
       })
-      .then(() => {
         const bd = secondaryApp.firestore();
-        bd.collection('greedyPremio').doc(resp.user.uid).set({
+        bd.collection('greedyPremio').doc().set({
           nombre: datos.nombre,
           greedyPoints: datos.greedyPoints,
           descripcion: datos.descripcion,
           photoURL: datos.photoURL,
-        });
-      })
+        })
       .then(() => {
         dispatch({ type: 'CARGAR_PREMIO' });
       })

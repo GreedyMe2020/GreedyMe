@@ -92,7 +92,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function FormProducto(props) {
+function FormProductos(props) {
   const classes = useStyles();
 
   //Estados para cargar la imagen y la barra de progreso de carga
@@ -102,7 +102,7 @@ function FormProducto(props) {
   const [formData, setFormData] = React.useState({
     nombre: '',
     descripcion: '',
-    greedyPoints: '',
+    greedypoints: '',
     photoURL: null,
   });
   //Estado para manejar el snackbar
@@ -122,9 +122,10 @@ function FormProducto(props) {
   const handleDelete = () => {
     setPicture(null);
     setValorCarga(0);
-    formData.downloadURL = null;
+    formData.photoURL = null;
     setFormData({ ...formData });
   };
+
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
@@ -168,7 +169,7 @@ function FormProducto(props) {
           .getDownloadURL()
           .then(function (downloadURL) {
             setPicture(downloadURL);
-            formData.downloadURL = downloadURL;
+            formData.photoURL = downloadURL;
             setFormData({ ...formData });
           });
       },
@@ -201,7 +202,7 @@ function FormProducto(props) {
                   id="contained-button-file"
                   multiple
                   type="file"
-                  /* onChange={handleUpload} */
+                  onChange={handleUpload}
                 />
                 <label htmlFor="contained-button-file">
                   <Button
@@ -235,8 +236,8 @@ function FormProducto(props) {
               fullWidth
               required
               onChange={handleChange}
-              name="nombreProducto"
-              value={formData.nombreProducto}
+              name="nombre"
+              value={formData.nombre}
             />
           </Grid>
           <Grid item xs={12} md={12}>
@@ -247,8 +248,8 @@ function FormProducto(props) {
               fullWidth
               required
               onChange={handleChange}
-              name="greedyPoints"
-              value={formData.greedyPoints}
+              name="greedypoints"
+              value={formData.greedypoints}
             />
           </Grid>
           <Grid item xs={12} md={12}>
@@ -259,7 +260,7 @@ function FormProducto(props) {
               fullWidth
               required
               onChange={handleChange}
-              name="descripcionProducto"
+              name="descripcion"
               value={formData.descripcion}
             />
           </Grid>

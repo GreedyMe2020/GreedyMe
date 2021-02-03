@@ -40,7 +40,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function FormPuntoEntrega(props) {
+function FormPuntoEntrega(props) {
   const classes = useStyles();
   const [formData, setFormData] = React.useState({
     direccion: '',
@@ -178,4 +178,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(FormPuntosEntrega);
+)(FormPuntoEntrega);

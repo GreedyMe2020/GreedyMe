@@ -155,7 +155,7 @@ const adminReducer = (state = initState, action) => {
         premio: 'Se creo una nuevo premio',
       };
     case 'PREMIO_ELIMINADO':
-      console.log('se elimino el tipo proveedor');
+      console.log('se elimino el premio');
       return {
         ...state,
         premioEliminado: 'Se elimino el premio ',
