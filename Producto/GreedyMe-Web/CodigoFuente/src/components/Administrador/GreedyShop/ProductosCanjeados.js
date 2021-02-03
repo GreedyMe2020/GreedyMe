@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import List from "@material-ui/core/List";
@@ -29,46 +29,89 @@ import {
 import FormProducto from "./FormProductos";
 import Snackbar from "@material-ui/core/Snackbar";
 import firebase from "../../../firebase/config";
-import _ from "lodash";
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
+import _ from "lodash";
+
+import { format } from "date-fns";
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { createMuiTheme } from '@material-ui/core/styles';
 import MaterialTable from 'material-table'
 
-function createData(ape, nom, prod, est, fecha){
-    return {ape, nom, prod, est, fecha}
+import AddBox from '@material-ui/icons/AddBox';
+import ArrowUpward from '@material-ui/icons/ArrowUpward';
+import Check from '@material-ui/icons/Check';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Clear from '@material-ui/icons/Clear';
+import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import Edit from '@material-ui/icons/Edit';
+import FilterList from '@material-ui/icons/FilterList';
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import Remove from '@material-ui/icons/Remove';
+import SaveAlt from '@material-ui/icons/SaveAlt';
+import Search from '@material-ui/icons/Search';
+import ViewColumn from '@material-ui/icons/ViewColumn';
+import { esES } from '@material-ui/core/locale';
+
+
+function createData(apellido, nombre, producto, estado, fecha){
+    return {apellido, nombre, producto, estado, fecha}
 }
 
 const rows = [
-  createData('Sanchez','Eduardo', 'Taza', 'Yendo', 4.3),
-  createData('Messi', 'Pepe', 'Remera', 'En espera', 4.9),
-  createData('Ertola', 'Carlos', 'Piluso', 'En espera', 6.0),
-  createData('Fuseneco', 'Maria', 'Piluso', 'Yendo', 4.0),
-  createData('Vaca', 'Laura', 'Taza', 'Entregado', 3.9),
-  createData('Duje', 'Franca', 'Remera', 'Yendo', 6.5),
-  createData('Zablosky', 'Juan', 'Gorra', 'Entregado', 4.3),
-  createData('Perez', 'Pablo', 'Lapicera', 'Yendo', 0.0),
-  createData('Albornós', 'Alberto', 'Microondas', 'Yendo', 7.0),
-  createData('Falcucci', 'Dante', 'Tele', 'Yendo', 0.0),
-  createData('Niclis', 'Yazimel', 'Plantita', 'Entregado', 2.0),
-  createData('Cerutti', 'Manuel', 'Piluso', 'Yendo', 37.0),
-  createData('Higuaín', 'Pipa', 'Arco', 'En espera', 4.0),
+  createData('Sanchez','Eduardo', 'Taza', 'Yendo', "04-02-2020"),
+  createData('Messi', 'Pepe', 'Remera', 'En espera', "07-11-2020"),
+  createData('Ertola', 'Carlos', 'Piluso', 'En espera', "20-01-2021"),
+  createData('Fuseneco', 'Maria', 'Piluso', 'Yendo', "14-07-2020"),
+  createData('Vaca', 'Laura', 'Taza', 'Entregado', "30-01-2021"),
+  createData('Duje', 'Franca', 'Remera', 'Yendo', "19-12-2020"),
+  createData('Zablosky', 'Juan', 'Gorra', 'Entregado', "01-01-2021"),
+  createData('Perez', 'Pablo', 'Lapicera', 'Yendo', "31-12-2020"),
+  createData('Albornós', 'Alberto', 'Microondas', 'Yendo', "05-09-2020"),
+  createData('Falcucci', 'Dante', 'Tele', 'Yendo', "15-11-2020"),
+  createData('Niclis', 'Yazimel', 'Plantita', 'Entregado', "03-01-2021"),
+  createData('Cerutti', 'Manuel', 'Piluso', 'Yendo', "17-11-2020"),
+  createData('Higuaín', 'Pipa', 'Arco', 'En espera', "06-08-2020"),
 ];
 
 
+
 export default function ProductosCanjeados(){
+
     const theme = createMuiTheme({
-        palette: {
-          primary: {
-            main: '#4caf50',
-          },
-          secondary: {
-            main: '#ff9100',
-          },
+      palette: {
+        primary: {
+          main: '#4caf50',
         },
-    
-      });
+        secondary: {
+          main: '#ff9100',
+        },
+      },
+    }, esES);
+
+    //Esta variable tiene una referencia a cada uno de los iconos usados en la tabla,
+    //porque sino no los toma.
+    const tableIcons = {
+      Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+      Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+      Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+      Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+      DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+      Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+      Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+      Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+      FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+      LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+      NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+      PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
+      ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+      Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+      SortArrow: forwardRef((props, ref) => <ArrowUpward {...props} ref={ref} />),
+      ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
+      ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+    };
 
     return(
         <div>
@@ -76,34 +119,44 @@ export default function ProductosCanjeados(){
                 <h1>Productos canjeados</h1>
             </div>
             <div className="contenedorTodo">
-            <Card className="cardPromo">
-                <CardContent className="cardContentePromo">
+            <div className="cardPromo">
+                <div className="cardContentePromo">
                     <MuiThemeProvider theme={theme}>
                         <MaterialTable
-                            title="Styling with MuiThemeProvider Preview"
+                            title="Listado de productos canjeados"
                             columns={[
                             {
-                                title: 'Name', field: 'name',
+                              title: 'Apellido', field: 'apellido',
                             },
-                            { title: 'Surname', field: 'surname' },
-                            { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-                            {
-                                title: 'Birth Place',
-                                field: 'birthCity',
-                                lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-                            },
+                            { title: 'Nombre', field: 'nombre' },
+                            { title: 'Producto', field: 'producto' },
+                            { title: 'Estado', field: 'estado' },
+                            { title: 'Fecha', field: 'fecha', type: 'date' },
                             ]}
-                            data={[
-                            { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-                            { name: 'Zerya Betül', surname: 'Baran', birthYear: 2017, birthCity: 34 },
+                            data={rows}    
+                            actions={[
+                              {
+                                tooltip: 'Eliminar filas seleccionadas',
+                                icon: tableIcons.Delete,
+                                onClick: (evt, data) => alert('¿Vas a eliminar estas ' + data.length + ' filas?')
+                              }
                             ]}
+                            icons={tableIcons}
                             options={{
-                            selection: true
+                              selection: true,
+                              headerStyle: {
+                                backgroundColor: '#fcd09f',
+                              },
+                              rowStyle: {
+                                '&:nth-of-type(odd)': {
+                                  backgroundColor: theme.palette.action.hover,
+                                },
+                              }
                             }}
                         />
                         </MuiThemeProvider>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
             </div>
         </div>
     );
