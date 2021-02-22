@@ -150,6 +150,8 @@ function ListaUsuarios(props) {
         button="Nuevo comercio"
         openContent={<FormCrearUsuario crearComercio={crearComercio} />}
         onChange={(text) => filter(text)}
+        placeholder="Buscar comercio…"
+        width="md"
       />
 
       <div className="contenedorTodo">

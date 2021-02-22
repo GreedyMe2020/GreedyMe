@@ -62,7 +62,7 @@ export default function ModalAdministrador(props) {
   const theme = useTheme();
   const classes = useStyles();
   const [fullWidth, setFullWidth] = React.useState(true);
-  const [maxWidth, setMaxWidth] = React.useState("md");
+  const [maxWidth, setMaxWidth] = React.useState(props.width);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -83,7 +83,7 @@ export default function ModalAdministrador(props) {
             <SearchIcon />
           </div>
           <InputBase
-            placeholder="Buscar comercio…"
+            placeholder={props.placeholder}
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput,
