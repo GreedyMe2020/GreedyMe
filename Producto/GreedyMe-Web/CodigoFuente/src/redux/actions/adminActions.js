@@ -47,7 +47,7 @@ export const signUp = (nuevoUsuario) => {
           web: nuevoUsuario.web,
           fechaCreacion: new Date(),
           contadorPreguntas: 0,
-          sumadorPreguntas: 0
+          sumadorPreguntas: 0,
         });
       })
       .then(() => {
@@ -360,31 +360,27 @@ export const cargarPremio = (datos) => {
       );
     }
     const firestore = getFirestore();
-    firestore
-      .collection('greedyPremio')
-      .doc(identificacion)
-      .set({
-        nombre: datos.nombre,
-        greedyPoints: datos.greedypoints,
-        descripcion: datos.descripcion,
-        photoURL: datos.photoURL,
-      })
-    const bd = secondaryApp.firestore();
-    bd
-      .collection('greedyPremio')
-      .doc(identificacion)
-      .set({
-        nombre: datos.nombre,
-        greedyPoints: datos.greedypoints,
-        descripcion: datos.descripcion,
-        photoURL: datos.photoURL,
-      })
-    .then(() => {
-      dispatch({ type: 'CARGAR_PREMIO' });
-    })
-    .catch((error) => {
-      dispatch({ type: 'ERROR_PREMIO', error });
+    firestore.collection('greedyPremio').doc(identificacion).set({
+      nombre: datos.nombre,
+      greedyPoints: datos.greedypoints,
+      descripcion: datos.descripcion,
+      photoURL: datos.photoURL,
     });
+    const bd = secondaryApp.firestore();
+    bd.collection('greedyPremio')
+      .doc(identificacion)
+      .set({
+        nombre: datos.nombre,
+        greedyPoints: datos.greedypoints,
+        descripcion: datos.descripcion,
+        photoURL: datos.photoURL,
+      })
+      .then(() => {
+        dispatch({ type: 'CARGAR_PREMIO' });
+      })
+      .catch((error) => {
+        dispatch({ type: 'ERROR_PREMIO', error });
+      });
   };
 };
 
@@ -408,17 +404,16 @@ export const eliminarPremio = (id) => {
 export const modificarPremio = (id, formData) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
-    firestore
-      .collection('greedyPremio')
+    firestore.collection('greedyPremio').doc(id).update({
+      nombre: formData.nombre,
+      greedyPoints: formData.greedypoints,
+      descripcion: formData.descripcion,
+      photoURL: formData.photoURL,
+    });
+    const bd = secondaryApp.firestore();
+    bd.collection('greedyPremio')
       .doc(id)
       .update({
-        nombre: formData.nombre,
-        greedyPoints: formData.greedypoints,
-        descripcion: formData.descripcion,
-        photoURL: formData.photoURL,
-      })
-      const bd = secondaryApp.firestore();
-      bd.collection('greedyPremio').doc(id).update({
         nombre: formData.nombre,
         greedyPoints: formData.greedypoints,
         descripcion: formData.descripcion,
@@ -446,18 +441,14 @@ export const cargarPuntoRetiro = (datos) => {
       );
     }
     const firestore = getFirestore();
-    firestore
-      .collection('puntoRetiro')
-      .doc(identificacion)
-      .set({
-        direccion: datos.direccion,
-        localidad: datos.localidad,
-        provincia: datos.provincia,
-        pais: datos.pais,
-      })
+    firestore.collection('puntoRetiro').doc(identificacion).set({
+      direccion: datos.direccion,
+      localidad: datos.localidad,
+      provincia: datos.provincia,
+      pais: datos.pais,
+    });
     const bd = secondaryApp.firestore();
-    bd
-      .collection('puntoRetiro')
+    bd.collection('puntoRetiro')
       .doc(identificacion)
       .set({
         direccion: datos.direccion,
