@@ -11,10 +11,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Estadistica from '../../../Multimedia/Sistema-svg/data-estadisticas.svg';
 import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
-import CantidadXDescuento from './cantidadXDescuento';
-import ExperienciaCompra from './experienciaCompra';
-import ComerciosFavoritos from './comerciosFavoritos';
-
 const anios = [
   {
     value: '2020',
@@ -80,35 +76,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Estadisticas(props) {
+function CantidadXDescuento(props) {
   const classes = useStyles();
   //Estado para el reporte de cantidad total de compras por descuento
   const [anio, setAnio] = React.useState('');
   const [mes, setMes] = React.useState('');
+  const [cupon, setCupon] = React.useState('');
+
+  //Estado para cantidad de codigos en general
+  const [cantidadCupones, setCantidadCupones] = React.useState(0);
+
+  //Estado para guardar todos los codigos y despues reprocesarlos segun parametros
+  const [codigosCupon, setCodigosCupon] = React.useState([]);
 
   //Esto se queda?
   const [cantidadPromos, setCantidadPromos] = React.useState(0);
 
   React.useEffect(() => {
-    const obtenerPromociones = async () => {
+    const obtenerCantidadComprasXDescuento = async () => {
       const firestore = firebase.firestore();
       try {
-        const promociones = await firestore
+        const cupones = await firestore
           .collection('usuarioComercio')
           .doc(props.auth.uid)
-          .collection('promociones')
+          .collection('codigoCupon')
           .get();
-        const arrayPromociones = promociones.docs.map((doc) => ({
+        const arrayCupones = cupones.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-        setCantidadPromos(arrayPromociones.length);
+        //Necesito contar los codigos por idCupon.
+        arrayCupones.forEach((cupon) => {
+          var repeats = arrayCupones.filter((cupon) => {
+            return cupon.id;
+          });
+        });
+
+        //Guardo la cantidad de condigos en general
+        setCantidadCupones(arrayCupones.length);
+        //Guardo todos los codigos en el estado "codigosCupòn"
+        setCodigosCupon(arrayCupones);
       } catch (error) {
         console.log(error);
       }
     };
 
-    obtenerPromociones();
+    obtenerCantidadComprasXDescuento();
   }, []);
 
   const handleAnio = (event) => {
@@ -119,10 +132,14 @@ function Estadisticas(props) {
     setMes(event.target.value);
   };
 
+  const handleCupon = (event) => {
+    setMes(event.target.value);
+  };
+
   return (
     <div>
       <div className="prom-title-container">
-        <h1>Estadísticas</h1>
+        <h1>Cantidad total de compras por descuento</h1>
       </div>
       <div id="subtitulo-container">
         <div className="est-filtros-cont">
@@ -160,6 +177,20 @@ function Estadisticas(props) {
                   </MenuItem>
                 ))}
               </TextField>
+              <TextField
+                id="est-input-descuento"
+                select
+                label="Seleccione un descuento"
+                value={cupon}
+                onChange={handleCupon}
+                variant="outlined"
+              >
+                {anios.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.value}
+                  </MenuItem>
+                ))}
+              </TextField>
             </div>
           </form>
         </div>
@@ -189,22 +220,8 @@ function Estadisticas(props) {
       <div className="est-cards-container">
         <Card id="est-card">
           <CardContent id="est-card-content">
-            <h1>{cantidadPromos}</h1>
-            <p className="est-titulo">Beneficios cargados</p>
-          </CardContent>
-        </Card>
-
-        <Card id="est-card">
-          <CardContent id="est-card-content">
-            <h1>120</h1>
-            <p className="est-titulo">Cupones usados</p>
-          </CardContent>
-        </Card>
-
-        <Card id="est-card">
-          <CardContent id="est-card-content">
-            <h2>Club Personal</h2>
-            <p className="est-titulo">Beneficio más utilizado</p>
+            <h1>{cantidadCupones}</h1>
+            <p className="est-titulo">Cantidad de compras</p>
           </CardContent>
         </Card>
       </div>
@@ -215,12 +232,6 @@ function Estadisticas(props) {
           </CardContent>
         </Card>
       </div>
-
-      <CantidadXDescuento />
-
-      <ComerciosFavoritos />
-
-      <ExperienciaCompra />
     </div>
   );
 }
@@ -232,4 +243,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Estadisticas);
+export default connect(mapStateToProps)(CantidadXDescuento);

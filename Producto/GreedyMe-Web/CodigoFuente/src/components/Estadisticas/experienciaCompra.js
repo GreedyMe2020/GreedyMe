@@ -11,10 +11,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Estadistica from '../../../Multimedia/Sistema-svg/data-estadisticas.svg';
 import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
-import CantidadXDescuento from './cantidadXDescuento';
-import ExperienciaCompra from './experienciaCompra';
-import ComerciosFavoritos from './comerciosFavoritos';
-
 const anios = [
   {
     value: '2020',
@@ -80,13 +76,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Estadisticas(props) {
+function ExperienciaCompra(props) {
   const classes = useStyles();
   //Estado para el reporte de cantidad total de compras por descuento
   const [anio, setAnio] = React.useState('');
   const [mes, setMes] = React.useState('');
 
-  //Esto se queda?
+  const [reseñas, setReseñas] = React.useState([]);
+
   const [cantidadPromos, setCantidadPromos] = React.useState(0);
 
   React.useEffect(() => {
@@ -108,6 +105,25 @@ function Estadisticas(props) {
       }
     };
 
+    //RESEÑA
+    const obtenerReseña = async () => {
+      const firestore = firebase.firestore();
+      try {
+        const promociones = await firestore
+          .collection('usuarioComercio')
+          .doc(props.auth.uid)
+          .collection('reseñas')
+          .get();
+        const arrayReseñas = promociones.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        arrayReseñas.forEach((reseñas) => {});
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     obtenerPromociones();
   }, []);
 
@@ -122,7 +138,7 @@ function Estadisticas(props) {
   return (
     <div>
       <div className="prom-title-container">
-        <h1>Estadísticas</h1>
+        <h1>Experiencia de compra del usuario</h1>
       </div>
       <div id="subtitulo-container">
         <div className="est-filtros-cont">
@@ -215,12 +231,6 @@ function Estadisticas(props) {
           </CardContent>
         </Card>
       </div>
-
-      <CantidadXDescuento />
-
-      <ComerciosFavoritos />
-
-      <ExperienciaCompra />
     </div>
   );
 }
@@ -232,4 +242,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Estadisticas);
+export default connect(mapStateToProps)(ExperienciaCompra);
