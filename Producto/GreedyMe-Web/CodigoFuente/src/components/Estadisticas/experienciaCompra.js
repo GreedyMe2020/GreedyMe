@@ -11,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Estadistica from '../../../Multimedia/Sistema-svg/data-estadisticas.svg';
 import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 const anios = [
   {
     value: '2020',
@@ -109,16 +110,12 @@ function ExperienciaCompra(props) {
     const obtenerReseña = async () => {
       const firestore = firebase.firestore();
       try {
-        const promociones = await firestore
+        const reseñas = await firestore
           .collection('usuarioComercio')
           .doc(props.auth.uid)
           .collection('reseñas')
           .get();
-        const arrayReseñas = promociones.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        arrayReseñas.forEach((reseñas) => {});
+        setReseñas(reseñas);
       } catch (error) {
         console.log(error);
       }
@@ -161,6 +158,7 @@ function ExperienciaCompra(props) {
                     {option.value}
                   </MenuItem>
                 ))}
+                {console.log(reseñas)}
               </TextField>
               <TextField
                 id="est-input-mes"

@@ -91,6 +91,8 @@ function CantidadXDescuento(props) {
 
   //Esto se queda?
   const [cantidadPromos, setCantidadPromos] = React.useState(0);
+  //Estado de los beneficios para filtrar cantidad de compras
+  const [beneficios, setBeneficios] = React.useState([]);
 
   React.useEffect(() => {
     const obtenerCantidadComprasXDescuento = async () => {
@@ -121,6 +123,53 @@ function CantidadXDescuento(props) {
       }
     };
 
+    const obtenerPromociones = async () => {
+      const firestore = firebase.firestore();
+      try {
+        const promociones = await firestore
+          .collection('usuarioComercio')
+          .doc(props.auth.uid)
+          .collection('promociones')
+          .get();
+        const arrayPromociones = promociones.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        const beneficios = [];
+        arrayPromociones.map((promo) => {
+          beneficios.push({
+            id: promo.id,
+            name:
+              promo.tipoPromo +
+              ' ' +
+              (promo.valuePromo === 'Otro'
+                ? promo.otraPromo
+                : promo.valuePromo) +
+              ' ' +
+              (promo.valueProveedor === 'Otro'
+                ? promo.otroProveedor
+                : promo.valueProveedor === 'Todos'
+                ? 'Todos los Bancos'
+                : promo.valueProveedor) +
+              ' ' +
+              (promo.tipoProveedor === 'Tarjetas de crédito' ||
+              promo.tipoProveedor === 'Tarjetas de débito'
+                ? promo.otroProveedor + ' '
+                : '') +
+              ' ' +
+              (promo.otroProveedor === 'Todas'
+                ? 'las Tarjetas '
+                : ''),
+          });
+        });
+
+        setBeneficios(beneficios);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    obtenerPromociones();
+
     obtenerCantidadComprasXDescuento();
   }, []);
 
@@ -133,8 +182,66 @@ function CantidadXDescuento(props) {
   };
 
   const handleCupon = (event) => {
-    setMes(event.target.value);
+    //Guardo el id del beneficio para poder contar la cantidad.
+    setCupon(event.target.value);
   };
+
+  const handleRefresh = () => {
+    //FALTA EL IF SI SE SELECCIONÓ O NO EL DESCUENTO.
+    //Tengo que usar cupon que es el "parametro"cupon + codigosCupon que es el array donde estan todos + cantidadCupones
+    let contador = 0;
+    for (let i = 0; i < codigosCupon.length; i++) {
+      if (codigosCupon[i].idCupon === cupon) {
+        if (
+          codigosCupon[i].fechaCreacion <= fechaHasta &&
+          codigosCupon[i].fechaCreacion >= FechaDesde
+        ) {
+          contador++;
+        }
+      }
+    }
+    setCantidadCupones(contador);
+
+    /*for (let i = 0; i < beneficios.length; i++) {
+      for (let j = 0; j < codigosCupon.length; j++) {
+        if (beneficios[i].id === codigosCupon[j].id) {
+          null;
+        }
+      }
+    }*/
+  };
+
+  //PARA EL FRONT @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+  /*<MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker
+                      autoOk
+                      disableToolbar
+                      fullWidth
+                      inputVariant="outlined"
+                      name="desdeVigencia"
+                      label="Disponible desde el"
+                      minDate={new Date()}
+                      format="dd/MM/yyyy"
+                      value={desdeVigencia}
+                      variant="inline"
+                      onChange={(data) => handleDesdeVigencia(data)}
+                    />
+                    <DatePicker
+                      autoOk
+                      disableToolbar
+                      fullWidth
+                      inputVariant="outlined"
+                      name="hastaVigencia"
+                      label="Disponible hasta el"
+                      format="dd/MM/yyyy"
+                      minDate={desdeVigencia}
+                      minDateMessage="*La fecha no puede ser menor al 'desde'"
+                      value={hastaVigencia}
+                      variant="inline"
+                      onChange={(data) => handleHastaVigencia(data)}
+                    ></DatePicker>
+                  </MuiPickersUtilsProvider>*/
 
   return (
     <div>
@@ -162,6 +269,7 @@ function CantidadXDescuento(props) {
                     {option.value}
                   </MenuItem>
                 ))}
+                {console.log({ codigosCupon })}
               </TextField>
               <TextField
                 id="est-input-mes"
@@ -177,6 +285,8 @@ function CantidadXDescuento(props) {
                   </MenuItem>
                 ))}
               </TextField>
+            </div>
+            <div>
               <TextField
                 id="est-input-descuento"
                 select
@@ -185,9 +295,9 @@ function CantidadXDescuento(props) {
                 onChange={handleCupon}
                 variant="outlined"
               >
-                {anios.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.value}
+                {beneficios.map((option) => (
+                  <MenuItem key={option.id} value={option.id}>
+                    {option.name}
                   </MenuItem>
                 ))}
               </TextField>
@@ -198,9 +308,7 @@ function CantidadXDescuento(props) {
           <Tooltip title="Refrescar" arrow>
             <IconButton
               aria-label="Refrescar"
-              onClick={() => {
-                console.log('esto anda refrsh');
-              }}
+              onClick={handleRefresh}
             >
               <Refresh fontSize="large" />
             </IconButton>

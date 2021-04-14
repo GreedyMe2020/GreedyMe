@@ -88,31 +88,12 @@ function CantidadXDescuento(props) {
   const [cantidadPromos, setCantidadPromos] = React.useState(0);
 
   React.useEffect(() => {
-    const obtenerPromociones = async () => {
-      const firestore = firebase.firestore();
-      try {
-        const promociones = await firestore
-          .collection('usuarioComercio')
-          .doc(props.auth.uid)
-          .collection('promociones')
-          .get();
-        const arrayPromociones = promociones.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setCantidadPromos(arrayPromociones.length);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     const obtenerFavoritos = async () => {
       const firestore = firebase.firestore();
       try {
         const cupones = await firestore
           .collection('usuarioComercio')
           .doc(props.auth.uid)
-          .collection('tokensFavoritos')
           .get();
         const arrayFavoritos = cupones.docs.map((doc) => ({
           id: doc.id,
@@ -120,16 +101,15 @@ function CantidadXDescuento(props) {
         }));
 
         //Guardo la cantidad de condigos en general
-        setCantidadFavoritos(arrayFavoritos.length);
+        setCantidadFavoritos(arrayFavoritos.tokensFavoritos.length);
         //Guardo todos los codigos en el estado "codigosCupòn"
-        setFavoritos(arrayFavoritos);
+        setFavoritos(arrayFavoritos.tokensFavoritos);
       } catch (error) {
         console.log(error);
       }
     };
 
     obtenerFavoritos();
-    obtenerPromociones();
   }, []);
 
   const handleAnio = (event) => {
@@ -161,6 +141,9 @@ function CantidadXDescuento(props) {
                 onChange={handleMes}
                 variant="outlined"
               >
+                {console.log(favoritos)}
+
+                {console.log(cantidadFavoritos)}
                 {meses.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.value}
@@ -210,22 +193,10 @@ function CantidadXDescuento(props) {
       <div className="est-cards-container">
         <Card id="est-card">
           <CardContent id="est-card-content">
-            <h1>{cantidadPromos}</h1>
-            <p className="est-titulo">Beneficios cargados</p>
-          </CardContent>
-        </Card>
-
-        <Card id="est-card">
-          <CardContent id="est-card-content">
-            <h1>120</h1>
-            <p className="est-titulo">Cupones usados</p>
-          </CardContent>
-        </Card>
-
-        <Card id="est-card">
-          <CardContent id="est-card-content">
-            <h2>Club Personal</h2>
-            <p className="est-titulo">Beneficio más utilizado</p>
+            <h1>{cantidadFavoritos}</h1>
+            <p className="est-titulo">
+              Cantidad de comercios favoritos
+            </p>
           </CardContent>
         </Card>
       </div>
