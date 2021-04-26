@@ -85,6 +85,7 @@ function Estadisticas(props) {
   //Estado para el reporte de cantidad total de compras por descuento
   const [anio, setAnio] = React.useState('');
   const [mes, setMes] = React.useState('');
+  const [cantidadCupones, setCantidadCupones] = React.useState(0);
 
   //Esto se queda?
   const [cantidadPromos, setCantidadPromos] = React.useState(0);
@@ -108,7 +109,29 @@ function Estadisticas(props) {
       }
     };
 
+    const obtenerCantidadComprasXDescuento = async () => {
+      const firestore = firebase.firestore();
+      try {
+        const cupones = await firestore
+          .collection('usuarioComercio')
+          .doc(props.auth.uid)
+          .collection('codigoCupon')
+          .get();
+        const arrayCupones = cupones.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        //Guardo la cantidad de condigos en general
+        setCantidadCupones(arrayCupones.length);
+        //Guardo todos los codigos en el estado "codigosCupòn"
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     obtenerPromociones();
+    obtenerCantidadComprasXDescuento();
   }, []);
 
   const handleAnio = (event) => {
@@ -196,7 +219,7 @@ function Estadisticas(props) {
 
         <Card id="est-card">
           <CardContent id="est-card-content">
-            <h1>120</h1>
+            <h1>{cantidadCupones}</h1>
             <p className="est-titulo">Cupones usados</p>
           </CardContent>
         </Card>
@@ -205,13 +228,6 @@ function Estadisticas(props) {
           <CardContent id="est-card-content">
             <h2>Club Personal</h2>
             <p className="est-titulo">Beneficio más utilizado</p>
-          </CardContent>
-        </Card>
-      </div>
-      <div className="est-container">
-        <Card className="est-estadisticas">
-          <CardContent id="est-card-content">
-            <img src={Estadistica} alt="Estadistica" />
           </CardContent>
         </Card>
       </div>

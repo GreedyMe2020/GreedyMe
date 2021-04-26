@@ -11,57 +11,27 @@ import CardContent from '@material-ui/core/CardContent';
 import Estadistica from '../../../Multimedia/Sistema-svg/data-estadisticas.svg';
 import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
+import Moment from 'react-moment';
 const anios = [
   {
+    value: '2021',
+    key: 121,
+  },
+  {
     value: '2020',
+    key: 120,
   },
   {
     value: '2019',
+    key: 119,
   },
   {
     value: '2018',
+    key: 118,
   },
   {
     value: '2017',
-  },
-];
-
-const meses = [
-  {
-    value: 'Enero',
-  },
-  {
-    value: 'Febrero',
-  },
-  {
-    value: 'Marzo',
-  },
-  {
-    value: 'Abril',
-  },
-  {
-    value: 'Mayo',
-  },
-  {
-    value: 'Junio',
-  },
-  {
-    value: 'Julio',
-  },
-  {
-    value: 'Agosto',
-  },
-  {
-    value: 'Septiembre',
-  },
-  {
-    value: 'Octubre',
-  },
-  {
-    value: 'Noviembre',
-  },
-  {
-    value: 'Diciembre',
+    key: 117,
   },
 ];
 
@@ -76,50 +46,83 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CantidadXDescuento(props) {
+function ComerciosFavoritos(props) {
   const classes = useStyles();
   //Estado para el reporte de cantidad total de compras por descuento
   const [anio, setAnio] = React.useState('');
-  const [mes, setMes] = React.useState('');
 
   const [cantidadFavoritos, setCantidadFavoritos] = React.useState(0);
   const [favoritos, setFavoritos] = React.useState([]);
 
-  const [cantidadPromos, setCantidadPromos] = React.useState(0);
+  const [cantidadPorMes, setCantidadPorMes] = React.useState([
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+  ]);
+  const [flagChart, setFlagChart] = React.useState(false);
+  // Estado para el gráfico
+  const [chartData, setChartData] = React.useState({});
 
-  React.useEffect(() => {
-    const obtenerFavoritos = async () => {
-      const firestore = firebase.firestore();
-      try {
-        const cupones = await firestore
-          .collection('usuarioComercio')
-          .doc(props.auth.uid)
-          .get();
-        const arrayFavoritos = cupones.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        //Guardo la cantidad de condigos en general
-        setCantidadFavoritos(arrayFavoritos.tokensFavoritos.length);
-        //Guardo todos los codigos en el estado "codigosCupòn"
-        setFavoritos(arrayFavoritos.tokensFavoritos);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    obtenerFavoritos();
-  }, []);
+  const chart = (data) => {
+    setChartData({
+      labels: [
+        'Enero',
+        'Febrero',
+        'Marzo',
+        'Abril',
+        'Mayo',
+        'Junio',
+        'Julio',
+        'Agosto',
+        'Septiembre',
+        'Octubre',
+        'Noviembre',
+        'Diciembre',
+      ],
+      datasets: [
+        {
+          label: 'Cantidad de favoritos',
+          data: data,
+          backgroudColor: ['rgba(75,192,192,0.2'],
+          borderWidth: 4,
+        },
+      ],
+    });
+  };
 
   const handleAnio = (event) => {
     setAnio(event.target.value);
   };
 
-  const handleMes = (event) => {
-    setMes(event.target.value);
+  const handleRefresh = () => {
+    setFlagChart(true);
+    //Usar la variable anio y getAnio() -----> trae como resultado 120 (2020), 121 (2021), etc
+    for (let i = 0; i < favoritos.length; i++) {
+      if (favoritos[i].fecha.toDate().getYear() === anio.key) {
+        //construir array de meses, insertar en la posicion y sumar +1 teniendo en cuenta que enero = [0], febrero = [1]
+      }
+    }
   };
 
+  React.useEffect(() => {
+    if (props.profile.estadisticasFavoritos !== undefined) {
+      //Guardo la cantidad de condigos en general
+      setCantidadFavoritos(
+        props.profile.estadisticasFavoritos.length,
+      );
+      //Guardo todos los codigos en el estado "codigosCupòn"
+      setFavoritos(props.profile.estadisticasFavoritos);
+    }
+  });
   return (
     <div>
       <div className="prom-title-container">
@@ -133,23 +136,6 @@ function CantidadXDescuento(props) {
             autoComplete="off"
           >
             <div>
-              <TextField
-                id="est-input-mes"
-                select
-                label="Seleccione un mes"
-                value={mes}
-                onChange={handleMes}
-                variant="outlined"
-              >
-                {console.log(favoritos)}
-
-                {console.log(cantidadFavoritos)}
-                {meses.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </TextField>
               <TextField
                 id="est-input-mes"
                 select
@@ -171,9 +157,7 @@ function CantidadXDescuento(props) {
           <Tooltip title="Refrescar" arrow>
             <IconButton
               aria-label="Refrescar"
-              onClick={() => {
-                console.log('esto anda refrsh');
-              }}
+              onClick={handleRefresh}
             >
               <Refresh fontSize="large" />
             </IconButton>
@@ -200,13 +184,15 @@ function CantidadXDescuento(props) {
           </CardContent>
         </Card>
       </div>
-      <div className="est-container">
-        <Card className="est-estadisticas">
-          <CardContent id="est-card-content">
-            <img src={Estadistica} alt="Estadistica" />
-          </CardContent>
-        </Card>
-      </div>
+      {flagChart ? (
+        <div className="est-container">
+          <Card className="est-estadisticas">
+            <CardContent id="est-card-content">
+              <img src={Estadistica} alt="Estadistica" />
+            </CardContent>
+          </Card>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -218,4 +204,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(CantidadXDescuento);
+export default connect(mapStateToProps)(ComerciosFavoritos);

@@ -11,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Estadistica from '../../../Multimedia/Sistema-svg/data-estadisticas.svg';
 import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
+import { Pie } from '@reactchartjs/react-chart.js';
 import _ from 'lodash';
 const anios = [
   {
@@ -83,45 +84,148 @@ function ExperienciaCompra(props) {
   const [anio, setAnio] = React.useState('');
   const [mes, setMes] = React.useState('');
 
-  const [reseñas, setReseñas] = React.useState([]);
+  //ESTADO PARA GUARDAR LOS COMENTARIOS
+  const [comentarios, setComentarios] = React.useState([]);
 
   const [cantidadPromos, setCantidadPromos] = React.useState(0);
+  //Gráfico de atención al vendedor
+  const [
+    chartDataAtencionVendedor,
+    setChartAtencionVendedor,
+  ] = React.useState({});
+
+  const chartAtencionVendedor = (
+    countMala,
+    countRegular,
+    countBuena,
+    countMuyBuena,
+    countExcelente,
+  ) => {
+    setChartAtencionVendedor({
+      labels: ['Mala', 'Regular', 'Buena', 'Muy Buena', 'Excelente'],
+      datasets: [
+        {
+          data: [
+            countMala,
+            countRegular,
+            countBuena,
+            countMuyBuena,
+            countExcelente,
+          ],
+          backgroundColor: [
+            '#FF6384',
+            '#63FF84',
+            '#84FF63',
+            '#8463FF',
+            '#6384FF',
+          ],
+        },
+      ],
+    });
+  };
+
+  //Gráfico de atención al vendedor
+  const [
+    chartDataCoincideEsperado,
+    setChartCoincideEsperado,
+  ] = React.useState({});
+
+  const chartCoincideLoEsperado = (countSi, countNo) => {
+    setChartCoincideEsperado({
+      labels: ['Si', 'No'],
+      datasets: [
+        {
+          data: [countSi, countNo],
+          backgroundColor: ['#63FF84', '#FF6384'],
+        },
+      ],
+    });
+  };
+
+  const [
+    chartDataUtilizoBeneficio,
+    setChartUtilizoBeneficio,
+  ] = React.useState({});
+
+  const chartUtilizoElBeneficio = (countSi, countNo) => {
+    setChartUtilizoBeneficio({
+      labels: ['Si', 'No'],
+      datasets: [
+        {
+          data: [countSi, countNo],
+          backgroundColor: ['#63FF84', '#FF6384'],
+        },
+      ],
+    });
+  };
 
   React.useEffect(() => {
-    const obtenerPromociones = async () => {
-      const firestore = firebase.firestore();
-      try {
-        const promociones = await firestore
-          .collection('usuarioComercio')
-          .doc(props.auth.uid)
-          .collection('promociones')
-          .get();
-        const arrayPromociones = promociones.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setCantidadPromos(arrayPromociones.length);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     //RESEÑA
     const obtenerReseña = async () => {
       const firestore = firebase.firestore();
       try {
-        const reseñas = await firestore
+        const reseñasOriginales = await firestore
           .collection('usuarioComercio')
           .doc(props.auth.uid)
           .collection('reseñas')
           .get();
-        setReseñas(reseñas);
+
+        let contadorMala = 0;
+        let contadorRegular = 0;
+        let contadorBueno = 0;
+        let contadorMuyBueno = 0;
+        let contadorExcelente = 0;
+        let contadorEsperadoSi = 0;
+        let contadorEsperadoNo = 0;
+        let contadorBeneficioSi = 0;
+        let contadorBeneficioNo = 0;
+
+        reseñasOriginales.docs.map((doc) => {
+          comentarios.push(doc.data().comentario);
+          if (doc.data().atencionVendedor === 'mala') {
+            contadorMala++;
+          } else if (doc.data().atencionVendedor === 'regular') {
+            contadorRegular++;
+          } else if (doc.data().atencionVendedor === 'buena') {
+            contadorBueno++;
+          } else if (doc.data().atencionVendedor === 'muyBuena') {
+            contadorMuyBueno++;
+          } else if (doc.data().atencionVendedor === 'excelente') {
+            contadorExcelente++;
+          }
+          if (doc.data().coincideLoEsperado === 'si') {
+            contadorEsperadoSi++;
+          } else if (doc.data().coincideLoEsperado === 'no') {
+            contadorEsperadoNo++;
+          }
+          if (doc.data().utilizoBeneficio === 'si') {
+            contadorBeneficioSi++;
+          } else if (doc.data().utilizoBeneficio === 'no') {
+            contadorBeneficioNo++;
+          }
+        });
+        chartAtencionVendedor(
+          contadorMala,
+          contadorRegular,
+          contadorBueno,
+          contadorMuyBueno,
+          contadorExcelente,
+        );
+
+        chartCoincideLoEsperado(
+          contadorEsperadoSi,
+          contadorEsperadoNo,
+        );
+        chartUtilizoElBeneficio(
+          contadorBeneficioSi,
+          contadorBeneficioNo,
+        );
       } catch (error) {
         console.log(error);
       }
     };
 
-    obtenerPromociones();
+    obtenerReseña();
   }, []);
 
   const handleAnio = (event) => {
@@ -158,7 +262,6 @@ function ExperienciaCompra(props) {
                     {option.value}
                   </MenuItem>
                 ))}
-                {console.log(reseñas)}
               </TextField>
               <TextField
                 id="est-input-mes"
@@ -223,9 +326,26 @@ function ExperienciaCompra(props) {
         </Card>
       </div>
       <div className="est-container">
+        <h5>Atención del vendedor</h5>
         <Card className="est-estadisticas">
           <CardContent id="est-card-content">
-            <img src={Estadistica} alt="Estadistica" />
+            <Pie data={chartDataAtencionVendedor} />
+          </CardContent>
+        </Card>
+      </div>
+      <div className="est-container">
+        <h5>Coincide con lo esperado</h5>
+        <Card className="est-estadisticas">
+          <CardContent id="est-card-content">
+            <Pie data={chartDataCoincideEsperado} />
+          </CardContent>
+        </Card>
+      </div>
+      <div className="est-container">
+        <h5>Utilizó beneficio</h5>
+        <Card className="est-estadisticas">
+          <CardContent id="est-card-content">
+            <Pie data={chartDataUtilizoBeneficio} />
           </CardContent>
         </Card>
       </div>

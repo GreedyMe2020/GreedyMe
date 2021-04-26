@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,6 +11,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Estadistica from '../../../Multimedia/Sistema-svg/data-estadisticas.svg';
 import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
+import { Line } from '@reactchartjs/react-chart.js';
+
 const anios = [
   {
     value: '2020',
@@ -71,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
       marginRight: theme.spacing(1),
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
-      width: '25ch',
+      width: '30ch',
     },
   },
 }));
@@ -93,6 +95,39 @@ function CantidadXDescuento(props) {
   const [cantidadPromos, setCantidadPromos] = React.useState(0);
   //Estado de los beneficios para filtrar cantidad de compras
   const [beneficios, setBeneficios] = React.useState([]);
+  // Estado para el gráfico
+  const [chartData, setChartData] = React.useState({});
+
+  const chart = () => {
+    setChartData({
+      labels: [
+        'Enero',
+        'Febrero',
+        'Marzo',
+        'Abril',
+        'Mayo',
+        'Junio',
+        'Julio',
+        'Agosto',
+        'Septiembre',
+        'Octubre',
+        'Noviembre',
+        'Diciembre',
+      ],
+      datasets: [
+        {
+          label: 'Cantidad de compras',
+          data: [1, 1, 1, 1, 1, 1],
+          backgroudColor: ['rgba(75,192,192,0.2'],
+          borderWidth: 4,
+        },
+      ],
+    });
+  };
+
+  useEffect(() => {
+    chart();
+  }, []);
 
   React.useEffect(() => {
     const obtenerCantidadComprasXDescuento = async () => {
@@ -107,12 +142,6 @@ function CantidadXDescuento(props) {
           id: doc.id,
           ...doc.data(),
         }));
-        //Necesito contar los codigos por idCupon.
-        arrayCupones.forEach((cupon) => {
-          var repeats = arrayCupones.filter((cupon) => {
-            return cupon.id;
-          });
-        });
 
         //Guardo la cantidad de condigos en general
         setCantidadCupones(arrayCupones.length);
@@ -192,12 +221,13 @@ function CantidadXDescuento(props) {
     let contador = 0;
     for (let i = 0; i < codigosCupon.length; i++) {
       if (codigosCupon[i].idCupon === cupon) {
-        if (
+        /*if (
           codigosCupon[i].fechaCreacion <= fechaHasta &&
           codigosCupon[i].fechaCreacion >= FechaDesde
         ) {
           contador++;
-        }
+        }*/
+        contador++;
       }
     }
     setCantidadCupones(contador);
@@ -210,6 +240,46 @@ function CantidadXDescuento(props) {
       }
     }*/
   };
+
+  // CONFIGURACION PARA EL GRAFICO
+
+  /*const config = {
+    type: 'line',
+    data: data,
+    options: {
+      responsive: true,
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
+      stacked: false,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Chart.js Line Chart - Multi Axis',
+        },
+      },
+      scales: {
+        y: {
+          type: 'linear',
+          display: true,
+          position: 'left',
+        },
+        y1: {
+          type: 'linear',
+          display: true,
+          position: 'right',
+
+          // grid line settings
+          grid: {
+            drawOnChartArea: false, // only want the grid lines for one axis to show up
+          },
+        },
+      },
+    },
+  };
+
+  
 
   //PARA EL FRONT @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -269,7 +339,6 @@ function CantidadXDescuento(props) {
                     {option.value}
                   </MenuItem>
                 ))}
-                {console.log({ codigosCupon })}
               </TextField>
               <TextField
                 id="est-input-mes"
@@ -285,10 +354,8 @@ function CantidadXDescuento(props) {
                   </MenuItem>
                 ))}
               </TextField>
-            </div>
-            <div>
               <TextField
-                id="est-input-descuento"
+                id="est-input-mes"
                 select
                 label="Seleccione un descuento"
                 value={cupon}
@@ -336,7 +403,7 @@ function CantidadXDescuento(props) {
       <div className="est-container">
         <Card className="est-estadisticas">
           <CardContent id="est-card-content">
-            <img src={Estadistica} alt="Estadistica" />
+            <Line data={chartData} />
           </CardContent>
         </Card>
       </div>
