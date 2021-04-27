@@ -13,6 +13,67 @@ import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
 import { Pie } from '@reactchartjs/react-chart.js';
 import _ from 'lodash';
+import {
+  MuiPickersUtilsProvider,
+  DatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import { createMuiTheme } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
+
+const anios = [
+  {
+    value: '2020',
+  },
+  {
+    value: '2019',
+  },
+  {
+    value: '2018',
+  },
+  {
+    value: '2017',
+  },
+];
+
+const meses = [
+  {
+    value: 'Enero',
+  },
+  {
+    value: 'Febrero',
+  },
+  {
+    value: 'Marzo',
+  },
+  {
+    value: 'Abril',
+  },
+  {
+    value: 'Mayo',
+  },
+  {
+    value: 'Junio',
+  },
+  {
+    value: 'Julio',
+  },
+  {
+    value: 'Agosto',
+  },
+  {
+    value: 'Septiembre',
+  },
+  {
+    value: 'Octubre',
+  },
+  {
+    value: 'Noviembre',
+  },
+  {
+    value: 'Diciembre',
+  },
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +92,11 @@ function ExperienciaCompra(props) {
   //ESTADO PARA GUARDAR LOS COMENTARIOS
   const [comentarios, setComentarios] = React.useState([]);
 
+  //Estado para datePicker
+  const [anioElegido, handleAnioElegido] = React.useState(new Date());
+
+  const [cantidadPromos, setCantidadPromos] = React.useState(0);
+  //Gráfico de atención al vendedor
   const [
     chartDataAtencionVendedor,
     setChartAtencionVendedor,
@@ -171,6 +237,25 @@ function ExperienciaCompra(props) {
     obtenerReseña();
   }, []);
 
+  const handleAnio = (event) => {
+    setAnio(event.target.value);
+  };
+
+  const handleMes = (event) => {
+    setMes(event.target.value);
+  };
+
+  const temaCombo = createMuiTheme({
+    overrides: {
+      MuiInputBase: {
+        input: {
+          backgroundColor: 'white',
+          margin: '4px',
+        },
+      },
+    },
+  });
+
   return (
     <div>
       <div className="prom-title-container">
@@ -182,7 +267,51 @@ function ExperienciaCompra(props) {
             className={classes.root}
             noValidate
             autoComplete="off"
-          ></form>
+          >
+            <div>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <ThemeProvider theme={temaCombo}>
+                  <DatePicker
+                    autoOk
+                    disableToolbar
+                    fullWidth
+                    views={['year']}
+                    inputVariant="outlined"
+                    name="anioElegido"
+                    label="Seleccione un año:"
+                    minDate={new Date('2020')}
+                    maxDate={new Date()}
+                    format="yyyy"
+                    value={anioElegido}
+                    variant="inline"
+                    onChange={(data) => handleAnioElegido(data)}
+                  />
+                </ThemeProvider>
+              </MuiPickersUtilsProvider>
+            </div>
+          </form>
+        </div>
+        <div className="est-icons-cont">
+          <Tooltip title="Refrescar" arrow>
+            <IconButton
+              aria-label="Refrescar"
+              onClick={() => {
+                console.log('esto anda refrsh');
+              }}
+            >
+              <Refresh fontSize="large" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Descargar" arrow>
+            <IconButton
+              aria-label="Descargar"
+              onClick={() => {
+                console.log('esto anda getapp');
+              }}
+            >
+              <GetApp fontSize="large" />
+            </IconButton>
+          </Tooltip>
         </div>
       </div>
       <div className="est-container">

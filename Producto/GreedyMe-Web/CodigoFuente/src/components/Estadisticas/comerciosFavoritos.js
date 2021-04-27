@@ -13,6 +13,11 @@ import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
 import { Line } from '@reactchartjs/react-chart.js';
 import Moment from 'react-moment';
+import { MuiPickersUtilsProvider, DatePicker} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import {createMuiTheme} from "@material-ui/core";
+import {ThemeProvider} from "@material-ui/styles";
+
 const anios = [
   {
     value: '2021',
@@ -72,6 +77,9 @@ function ComerciosFavoritos(props) {
   // Estado para el gráfico
   const [chartData, setChartData] = React.useState({});
 
+  //Estado para datePicker
+  const [anioElegido, handleAnioElegido] = React.useState(new Date()); 
+
   const chart = (data) => {
     setChartData({
       labels: [
@@ -121,6 +129,17 @@ function ComerciosFavoritos(props) {
     chart(cantidadMes);
   };
 
+  const temaCombo = createMuiTheme({
+    overrides: {
+      MuiInputBase: {
+        input: {
+         backgroundColor:'white',
+         margin:'4px',
+        }
+      }
+    }
+  });
+
   React.useEffect(() => {
     if (props.profile.estadisticasFavoritos !== undefined) {
       //Guardo la cantidad de condigos en general
@@ -144,20 +163,27 @@ function ComerciosFavoritos(props) {
             autoComplete="off"
           >
             <div>
-              <TextField
-                id="est-input-mes"
-                select
-                label="Seleccione un año"
-                value={anio}
-                onChange={handleAnio}
-                variant="outlined"
-              >
-                {anios.map((option) => (
-                  <MenuItem key={option.key} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </TextField>
+              {//aca}
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <ThemeProvider theme={temaCombo}>
+                      <DatePicker
+                        autoOk
+                        disableToolbar
+                        fullWidth
+                        views={['year']}
+                        inputVariant="outlined"
+                        name="anioElegido"
+                        label="Seleccione un año:"
+                        minDate={new Date('2020')}
+                        maxDate={new Date()}
+                        format="yyyy"
+                        value={anio}
+                        variant="inline"
+                        onChange={(data) => handleAnioElegido(data)}
+                      />
+                      </ThemeProvider>
+              </MuiPickersUtilsProvider>
+
             </div>
           </form>
         </div>
