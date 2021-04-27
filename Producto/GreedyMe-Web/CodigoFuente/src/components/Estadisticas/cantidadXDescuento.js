@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
       marginRight: theme.spacing(1),
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
-      width: '30ch',
+      width: '35ch',
     },
   },
 }));
@@ -99,6 +99,7 @@ function CantidadXDescuento(props) {
   const [chartData, setChartData] = React.useState({});
 
   const chart = () => {
+    //eje "x" beneficios eje "y" cantidad
     setChartData({
       labels: [
         'Enero',
@@ -316,7 +317,7 @@ function CantidadXDescuento(props) {
   return (
     <div>
       <div className="prom-title-container">
-        <h1>Cantidad total de compras por descuento</h1>
+        <h1>Cantidad total de compras por beneficio</h1>
       </div>
       <div id="subtitulo-container">
         <div className="est-filtros-cont">

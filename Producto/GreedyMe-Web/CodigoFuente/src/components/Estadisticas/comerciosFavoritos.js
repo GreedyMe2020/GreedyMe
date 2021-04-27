@@ -11,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Estadistica from '../../../Multimedia/Sistema-svg/data-estadisticas.svg';
 import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
+import { Line } from '@reactchartjs/react-chart.js';
 import Moment from 'react-moment';
 const anios = [
   {
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
       marginRight: theme.spacing(1),
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
-      width: '25ch',
+      width: '35ch',
     },
   },
 }));
@@ -50,7 +51,6 @@ function ComerciosFavoritos(props) {
   const classes = useStyles();
   //Estado para el reporte de cantidad total de compras por descuento
   const [anio, setAnio] = React.useState('');
-
   const [cantidadFavoritos, setCantidadFavoritos] = React.useState(0);
   const [favoritos, setFavoritos] = React.useState([]);
 
@@ -105,12 +105,20 @@ function ComerciosFavoritos(props) {
 
   const handleRefresh = () => {
     setFlagChart(true);
+    let cantidadMes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     //Usar la variable anio y getAnio() -----> trae como resultado 120 (2020), 121 (2021), etc
     for (let i = 0; i < favoritos.length; i++) {
-      if (favoritos[i].fecha.toDate().getYear() === anio.key) {
-        //construir array de meses, insertar en la posicion y sumar +1 teniendo en cuenta que enero = [0], febrero = [1]
+      if (
+        favoritos[i].fecha.toDate().getFullYear().toString() === anio
+      ) {
+        //construir array de meses, insertar en la posicion y sumar +1 teniendo en cuenta que enero = [0], febrero = [1]a
+        console.log(favoritos[i].fecha.toDate().getMonth());
+        cantidadMes[favoritos[i].fecha.toDate().getMonth()]++;
       }
     }
+    console.log(cantidadMes);
+    setCantidadPorMes(cantidadMes);
+    chart(cantidadMes);
   };
 
   React.useEffect(() => {
@@ -145,7 +153,7 @@ function ComerciosFavoritos(props) {
                 variant="outlined"
               >
                 {anios.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
+                  <MenuItem key={option.key} value={option.value}>
                     {option.value}
                   </MenuItem>
                 ))}
@@ -178,9 +186,7 @@ function ComerciosFavoritos(props) {
         <Card id="est-card">
           <CardContent id="est-card-content">
             <h1>{cantidadFavoritos}</h1>
-            <p className="est-titulo">
-              Cantidad de comercios favoritos
-            </p>
+            <p className="est-titulo">Cantidad de favoritos</p>
           </CardContent>
         </Card>
       </div>
@@ -188,7 +194,7 @@ function ComerciosFavoritos(props) {
         <div className="est-container">
           <Card className="est-estadisticas">
             <CardContent id="est-card-content">
-              <img src={Estadistica} alt="Estadistica" />
+              <Line data={chartData} />
             </CardContent>
           </Card>
         </div>

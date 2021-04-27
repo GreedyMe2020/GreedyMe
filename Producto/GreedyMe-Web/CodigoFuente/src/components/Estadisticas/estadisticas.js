@@ -15,60 +15,6 @@ import CantidadXDescuento from './cantidadXDescuento';
 import ExperienciaCompra from './experienciaCompra';
 import ComerciosFavoritos from './comerciosFavoritos';
 
-const anios = [
-  {
-    value: '2020',
-  },
-  {
-    value: '2019',
-  },
-  {
-    value: '2018',
-  },
-  {
-    value: '2017',
-  },
-];
-
-const meses = [
-  {
-    value: 'Enero',
-  },
-  {
-    value: 'Febrero',
-  },
-  {
-    value: 'Marzo',
-  },
-  {
-    value: 'Abril',
-  },
-  {
-    value: 'Mayo',
-  },
-  {
-    value: 'Junio',
-  },
-  {
-    value: 'Julio',
-  },
-  {
-    value: 'Agosto',
-  },
-  {
-    value: 'Septiembre',
-  },
-  {
-    value: 'Octubre',
-  },
-  {
-    value: 'Noviembre',
-  },
-  {
-    value: 'Diciembre',
-  },
-];
-
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
@@ -82,13 +28,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Estadisticas(props) {
   const classes = useStyles();
-  //Estado para el reporte de cantidad total de compras por descuento
-  const [anio, setAnio] = React.useState('');
-  const [mes, setMes] = React.useState('');
   const [cantidadCupones, setCantidadCupones] = React.useState(0);
-
-  //Esto se queda?
   const [cantidadPromos, setCantidadPromos] = React.useState(0);
+  const [cuponMasUsado, setCuponMasUsado] = React.useState('');
 
   React.useEffect(() => {
     const obtenerPromociones = async () => {
@@ -122,6 +64,31 @@ function Estadisticas(props) {
           ...doc.data(),
         }));
 
+        //Array y función para guardar todos los beneficios por separado
+
+        let arrayAuxCantidad = [];
+        for (let i = 0; i < arrayCupones.length; i++) {
+          arrayAuxCantidad.push(
+            arrayCupones.filter(
+              (x) => x.detalle == arrayCupones[i].detalle,
+            ).length,
+          );
+        }
+        let maximo = 0;
+        let posicion = 0;
+        for (let i = 0; i < arrayAuxCantidad.length; i++) {
+          if (i === 0) {
+            maximo = arrayAuxCantidad[i];
+          }
+          if (arrayAuxCantidad[i] > maximo) {
+            maximo = arrayAuxCantidad[i];
+            posicion = i;
+          }
+        }
+        setCuponMasUsado(
+          arrayCupones[posicion].detalle.split(',')[0],
+        );
+
         //Guardo la cantidad de condigos en general
         setCantidadCupones(arrayCupones.length);
         //Guardo todos los codigos en el estado "codigosCupòn"
@@ -134,14 +101,6 @@ function Estadisticas(props) {
     obtenerCantidadComprasXDescuento();
   }, []);
 
-  const handleAnio = (event) => {
-    setAnio(event.target.value);
-  };
-
-  const handleMes = (event) => {
-    setMes(event.target.value);
-  };
-
   return (
     <div>
       <div className="prom-title-container">
@@ -153,60 +112,7 @@ function Estadisticas(props) {
             className={classes.root}
             noValidate
             autoComplete="off"
-          >
-            <div>
-              <TextField
-                id="est-input-mes"
-                select
-                label="Seleccione un mes"
-                value={mes}
-                onChange={handleMes}
-                variant="outlined"
-              >
-                {meses.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                id="est-input-mes"
-                select
-                label="Seleccione un año"
-                value={anio}
-                onChange={handleAnio}
-                variant="outlined"
-              >
-                {anios.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </div>
-          </form>
-        </div>
-        <div className="est-icons-cont">
-          <Tooltip title="Refrescar" arrow>
-            <IconButton
-              aria-label="Refrescar"
-              onClick={() => {
-                console.log('esto anda refrsh');
-              }}
-            >
-              <Refresh fontSize="large" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Descargar" arrow>
-            <IconButton
-              aria-label="Descargar"
-              onClick={() => {
-                console.log('esto anda getapp');
-              }}
-            >
-              <GetApp fontSize="large" />
-            </IconButton>
-          </Tooltip>
+          ></form>
         </div>
       </div>
       <div className="est-cards-container">
@@ -226,7 +132,7 @@ function Estadisticas(props) {
 
         <Card id="est-card">
           <CardContent id="est-card-content">
-            <h2>Club Personal</h2>
+            <h3>{cuponMasUsado}</h3>
             <p className="est-titulo">Beneficio más utilizado</p>
           </CardContent>
         </Card>

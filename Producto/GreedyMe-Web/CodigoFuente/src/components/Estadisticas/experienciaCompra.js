@@ -13,59 +13,6 @@ import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
 import { Pie } from '@reactchartjs/react-chart.js';
 import _ from 'lodash';
-const anios = [
-  {
-    value: '2020',
-  },
-  {
-    value: '2019',
-  },
-  {
-    value: '2018',
-  },
-  {
-    value: '2017',
-  },
-];
-
-const meses = [
-  {
-    value: 'Enero',
-  },
-  {
-    value: 'Febrero',
-  },
-  {
-    value: 'Marzo',
-  },
-  {
-    value: 'Abril',
-  },
-  {
-    value: 'Mayo',
-  },
-  {
-    value: 'Junio',
-  },
-  {
-    value: 'Julio',
-  },
-  {
-    value: 'Agosto',
-  },
-  {
-    value: 'Septiembre',
-  },
-  {
-    value: 'Octubre',
-  },
-  {
-    value: 'Noviembre',
-  },
-  {
-    value: 'Diciembre',
-  },
-];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,15 +27,10 @@ const useStyles = makeStyles((theme) => ({
 
 function ExperienciaCompra(props) {
   const classes = useStyles();
-  //Estado para el reporte de cantidad total de compras por descuento
-  const [anio, setAnio] = React.useState('');
-  const [mes, setMes] = React.useState('');
 
   //ESTADO PARA GUARDAR LOS COMENTARIOS
   const [comentarios, setComentarios] = React.useState([]);
 
-  const [cantidadPromos, setCantidadPromos] = React.useState(0);
-  //Gráfico de atención al vendedor
   const [
     chartDataAtencionVendedor,
     setChartAtencionVendedor,
@@ -181,6 +123,7 @@ function ExperienciaCompra(props) {
         let contadorBeneficioNo = 0;
 
         reseñasOriginales.docs.map((doc) => {
+          //Guardo los comentarios en un array
           comentarios.push(doc.data().comentario);
           if (doc.data().atencionVendedor === 'mala') {
             contadorMala++;
@@ -228,14 +171,6 @@ function ExperienciaCompra(props) {
     obtenerReseña();
   }, []);
 
-  const handleAnio = (event) => {
-    setAnio(event.target.value);
-  };
-
-  const handleMes = (event) => {
-    setMes(event.target.value);
-  };
-
   return (
     <div>
       <div className="prom-title-container">
@@ -247,83 +182,8 @@ function ExperienciaCompra(props) {
             className={classes.root}
             noValidate
             autoComplete="off"
-          >
-            <div>
-              <TextField
-                id="est-input-mes"
-                select
-                label="Seleccione un mes"
-                value={mes}
-                onChange={handleMes}
-                variant="outlined"
-              >
-                {meses.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                id="est-input-mes"
-                select
-                label="Seleccione un año"
-                value={anio}
-                onChange={handleAnio}
-                variant="outlined"
-              >
-                {anios.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </div>
-          </form>
+          ></form>
         </div>
-        <div className="est-icons-cont">
-          <Tooltip title="Refrescar" arrow>
-            <IconButton
-              aria-label="Refrescar"
-              onClick={() => {
-                console.log('esto anda refrsh');
-              }}
-            >
-              <Refresh fontSize="large" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Descargar" arrow>
-            <IconButton
-              aria-label="Descargar"
-              onClick={() => {
-                console.log('esto anda getapp');
-              }}
-            >
-              <GetApp fontSize="large" />
-            </IconButton>
-          </Tooltip>
-        </div>
-      </div>
-      <div className="est-cards-container">
-        <Card id="est-card">
-          <CardContent id="est-card-content">
-            <h1>{cantidadPromos}</h1>
-            <p className="est-titulo">Beneficios cargados</p>
-          </CardContent>
-        </Card>
-
-        <Card id="est-card">
-          <CardContent id="est-card-content">
-            <h1>120</h1>
-            <p className="est-titulo">Cupones usados</p>
-          </CardContent>
-        </Card>
-
-        <Card id="est-card">
-          <CardContent id="est-card-content">
-            <h2>Club Personal</h2>
-            <p className="est-titulo">Beneficio más utilizado</p>
-          </CardContent>
-        </Card>
       </div>
       <div className="est-container">
         <h5>Atención del vendedor</h5>
