@@ -12,60 +12,10 @@ import Estadistica from '../../../Multimedia/Sistema-svg/data-estadisticas.svg';
 import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
 import { Line } from '@reactchartjs/react-chart.js';
-
-const anios = [
-  {
-    value: '2020',
-  },
-  {
-    value: '2019',
-  },
-  {
-    value: '2018',
-  },
-  {
-    value: '2017',
-  },
-];
-
-const meses = [
-  {
-    value: 'Enero',
-  },
-  {
-    value: 'Febrero',
-  },
-  {
-    value: 'Marzo',
-  },
-  {
-    value: 'Abril',
-  },
-  {
-    value: 'Mayo',
-  },
-  {
-    value: 'Junio',
-  },
-  {
-    value: 'Julio',
-  },
-  {
-    value: 'Agosto',
-  },
-  {
-    value: 'Septiembre',
-  },
-  {
-    value: 'Octubre',
-  },
-  {
-    value: 'Noviembre',
-  },
-  {
-    value: 'Diciembre',
-  },
-];
+import { MuiPickersUtilsProvider, DatePicker} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import {createMuiTheme} from "@material-ui/core";
+import {ThemeProvider} from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -97,6 +47,10 @@ function CantidadXDescuento(props) {
   const [beneficios, setBeneficios] = React.useState([]);
   // Estado para el gráfico
   const [chartData, setChartData] = React.useState({});
+
+  //Estados para cada datePicker
+  const [desdeReporte, handleDesdeReporte] = React.useState(new Date()); 
+  const [hastaReporte, handleHastaReporte] = React.useState(new Date());
 
   const chart = () => {
     setChartData({
@@ -202,18 +156,21 @@ function CantidadXDescuento(props) {
     obtenerCantidadComprasXDescuento();
   }, []);
 
-  const handleAnio = (event) => {
-    setAnio(event.target.value);
-  };
-
-  const handleMes = (event) => {
-    setMes(event.target.value);
-  };
-
   const handleCupon = (event) => {
     //Guardo el id del beneficio para poder contar la cantidad.
     setCupon(event.target.value);
   };
+
+  const temaCombo = createMuiTheme({
+    overrides: {
+      MuiInputBase: {
+        input: {
+         backgroundColor:'white',
+         margin:'2px',
+        }
+      }
+    }
+  });
 
   const handleRefresh = () => {
     //FALTA EL IF SI SE SELECCIONÓ O NO EL DESCUENTO.
@@ -277,41 +234,8 @@ function CantidadXDescuento(props) {
         },
       },
     },
-  };
+  };*/
 
-  
-
-  //PARA EL FRONT @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-  /*<MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <DatePicker
-                      autoOk
-                      disableToolbar
-                      fullWidth
-                      inputVariant="outlined"
-                      name="desdeVigencia"
-                      label="Disponible desde el"
-                      minDate={new Date()}
-                      format="dd/MM/yyyy"
-                      value={desdeVigencia}
-                      variant="inline"
-                      onChange={(data) => handleDesdeVigencia(data)}
-                    />
-                    <DatePicker
-                      autoOk
-                      disableToolbar
-                      fullWidth
-                      inputVariant="outlined"
-                      name="hastaVigencia"
-                      label="Disponible hasta el"
-                      format="dd/MM/yyyy"
-                      minDate={desdeVigencia}
-                      minDateMessage="*La fecha no puede ser menor al 'desde'"
-                      value={hastaVigencia}
-                      variant="inline"
-                      onChange={(data) => handleHastaVigencia(data)}
-                    ></DatePicker>
-                  </MuiPickersUtilsProvider>*/
 
   return (
     <div>
@@ -326,34 +250,38 @@ function CantidadXDescuento(props) {
             autoComplete="off"
           >
             <div>
-              <TextField
-                id="est-input-mes"
-                select
-                label="Seleccione un mes"
-                value={mes}
-                onChange={handleMes}
-                variant="outlined"
-              >
-                {meses.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                id="est-input-mes"
-                select
-                label="Seleccione un año"
-                value={anio}
-                onChange={handleAnio}
-                variant="outlined"
-              >
-                {anios.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </TextField>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <ThemeProvider theme={temaCombo}>
+                      <DatePicker
+                        autoOk
+                        disableToolbar
+                        fullWidth
+                        inputVariant="outlined"
+                        name="desdeReporte"
+                        label="Fecha desde:"
+                        minDate={new Date('2020/01/01')}
+                        maxDate={new Date()}
+                        format="dd/MM/yyyy"
+                        value={desdeReporte}
+                        variant="inline"
+                        onChange={(data) => handleDesdeReporte(data)}
+                      />
+                      <DatePicker
+                        autoOk
+                        disableToolbar
+                        fullWidth
+                        inputVariant="outlined"
+                        name="hastaReporte"
+                        label="Fecha hasta:"
+                        minDate={desdeReporte}
+                        maxDate={new Date()}
+                        format="dd/MM/yyyy"
+                        value={hastaReporte}
+                        variant="inline"
+                        onChange={(data) => handleHastaReporte(data)}
+                      />
+                    </ThemeProvider>
+              </MuiPickersUtilsProvider>
               <TextField
                 id="est-input-mes"
                 select
