@@ -13,6 +13,11 @@ import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
 import { Pie } from '@reactchartjs/react-chart.js';
 import _ from 'lodash';
+import { MuiPickersUtilsProvider, DatePicker} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import {createMuiTheme} from "@material-ui/core";
+import {ThemeProvider} from "@material-ui/styles";
+
 const anios = [
   {
     value: '2020',
@@ -86,6 +91,9 @@ function ExperienciaCompra(props) {
 
   //ESTADO PARA GUARDAR LOS COMENTARIOS
   const [comentarios, setComentarios] = React.useState([]);
+
+  //Estado para datePicker
+  const [anioElegido, handleAnioElegido] = React.useState(new Date()); 
 
   const [cantidadPromos, setCantidadPromos] = React.useState(0);
   //Gráfico de atención al vendedor
@@ -236,6 +244,17 @@ function ExperienciaCompra(props) {
     setMes(event.target.value);
   };
 
+  const temaCombo = createMuiTheme({
+    overrides: {
+      MuiInputBase: {
+        input: {
+         backgroundColor:'white',
+         margin:'4px',
+        }
+      }
+    }
+  });
+
   return (
     <div>
       <div className="prom-title-container">
@@ -249,34 +268,25 @@ function ExperienciaCompra(props) {
             autoComplete="off"
           >
             <div>
-              <TextField
-                id="est-input-mes"
-                select
-                label="Seleccione un mes"
-                value={mes}
-                onChange={handleMes}
-                variant="outlined"
-              >
-                {meses.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                id="est-input-mes"
-                select
-                label="Seleccione un año"
-                value={anio}
-                onChange={handleAnio}
-                variant="outlined"
-              >
-                {anios.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </TextField>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <ThemeProvider theme={temaCombo}>
+                      <DatePicker
+                        autoOk
+                        disableToolbar
+                        fullWidth
+                        views={['year']}
+                        inputVariant="outlined"
+                        name="anioElegido"
+                        label="Seleccione un año:"
+                        minDate={new Date('2020')}
+                        maxDate={new Date()}
+                        format="yyyy"
+                        value={anioElegido}
+                        variant="inline"
+                        onChange={(data) => handleAnioElegido(data)}
+                      />
+                      </ThemeProvider>
+              </MuiPickersUtilsProvider>
             </div>
           </form>
         </div>

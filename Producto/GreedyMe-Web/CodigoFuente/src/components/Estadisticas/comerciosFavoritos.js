@@ -77,7 +77,7 @@ function ComerciosFavoritos(props) {
   // Estado para el gráfico
   const [chartData, setChartData] = React.useState({});
 
-  //Estados para datePicker
+  //Estado para datePicker
   const [anioElegido, handleAnioElegido] = React.useState(new Date()); 
 
   const chart = (data) => {
