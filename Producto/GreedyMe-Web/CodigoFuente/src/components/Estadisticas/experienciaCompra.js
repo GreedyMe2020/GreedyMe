@@ -23,6 +23,9 @@ import { ThemeProvider } from '@material-ui/styles';
 
 const anios = [
   {
+    value: '2021',
+  },
+  {
     value: '2020',
   },
   {
@@ -36,52 +39,13 @@ const anios = [
   },
 ];
 
-const meses = [
-  {
-    value: 'Enero',
-  },
-  {
-    value: 'Febrero',
-  },
-  {
-    value: 'Marzo',
-  },
-  {
-    value: 'Abril',
-  },
-  {
-    value: 'Mayo',
-  },
-  {
-    value: 'Junio',
-  },
-  {
-    value: 'Julio',
-  },
-  {
-    value: 'Agosto',
-  },
-  {
-    value: 'Septiembre',
-  },
-  {
-    value: 'Octubre',
-  },
-  {
-    value: 'Noviembre',
-  },
-  {
-    value: 'Diciembre',
-  },
-];
-
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
       marginRight: theme.spacing(1),
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
-      width: '25ch',
+      width: '35ch',
     },
   },
 }));
@@ -93,9 +57,9 @@ function ExperienciaCompra(props) {
   const [comentarios, setComentarios] = React.useState([]);
 
   //Estado para datePicker
-  const [anioElegido, handleAnioElegido] = React.useState(new Date());
+  const [anio, setAnio] = React.useState('');
 
-  const [cantidadPromos, setCantidadPromos] = React.useState(0);
+  const [reseñas, setReseñas] = React.useState([]);
   //Gráfico de atención al vendedor
   const [
     chartDataAtencionVendedor,
@@ -167,6 +131,58 @@ function ExperienciaCompra(props) {
     });
   };
 
+  const handleRefresh = () => {
+    let contadorMala = 0;
+    let contadorRegular = 0;
+    let contadorBueno = 0;
+    let contadorMuyBueno = 0;
+    let contadorExcelente = 0;
+    let contadorEsperadoSi = 0;
+    let contadorEsperadoNo = 0;
+    let contadorBeneficioSi = 0;
+    let contadorBeneficioNo = 0;
+    setComentarios([]);
+    for (let i = 0; i < reseñas.length; i++) {
+      if (
+        reseñas[i].fecha.toDate().getFullYear().toString() === anio
+      ) {
+        comentarios.push(reseñas[i].comentario);
+        if (reseñas[i].atencionVendedor === 'mala') {
+          contadorMala++;
+        } else if (reseñas[i].atencionVendedor === 'regular') {
+          contadorRegular++;
+        } else if (reseñas[i].atencionVendedor === 'buena') {
+          contadorBueno++;
+        } else if (reseñas[i].atencionVendedor === 'muyBuena') {
+          contadorMuyBueno++;
+        } else if (reseñas[i].atencionVendedor === 'excelente') {
+          contadorExcelente++;
+        }
+        if (reseñas[i].coincideLoEsperado === 'si') {
+          contadorEsperadoSi++;
+        } else if (reseñas[i].coincideLoEsperado === 'no') {
+          contadorEsperadoNo++;
+        }
+        if (reseñas[i].utilizoBeneficio === 'si') {
+          contadorBeneficioSi++;
+        } else if (reseñas[i].utilizoBeneficio === 'no') {
+          contadorBeneficioNo++;
+        }
+      }
+    }
+
+    chartAtencionVendedor(
+      contadorMala,
+      contadorRegular,
+      contadorBueno,
+      contadorMuyBueno,
+      contadorExcelente,
+    );
+
+    chartCoincideLoEsperado(contadorEsperadoSi, contadorEsperadoNo);
+    chartUtilizoElBeneficio(contadorBeneficioSi, contadorBeneficioNo);
+  };
+
   React.useEffect(() => {
     //RESEÑA
     const obtenerReseña = async () => {
@@ -188,6 +204,11 @@ function ExperienciaCompra(props) {
         let contadorBeneficioSi = 0;
         let contadorBeneficioNo = 0;
 
+        const arrayReseñas = reseñasOriginales.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setReseñas(arrayReseñas);
         reseñasOriginales.docs.map((doc) => {
           //Guardo los comentarios en un array
           comentarios.push(doc.data().comentario);
@@ -213,6 +234,7 @@ function ExperienciaCompra(props) {
             contadorBeneficioNo++;
           }
         });
+
         chartAtencionVendedor(
           contadorMala,
           contadorRegular,
@@ -269,25 +291,20 @@ function ExperienciaCompra(props) {
             autoComplete="off"
           >
             <div>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <ThemeProvider theme={temaCombo}>
-                  <DatePicker
-                    autoOk
-                    disableToolbar
-                    fullWidth
-                    views={['year']}
-                    inputVariant="outlined"
-                    name="anioElegido"
-                    label="Seleccione un año:"
-                    minDate={new Date('2020')}
-                    maxDate={new Date()}
-                    format="yyyy"
-                    value={anioElegido}
-                    variant="inline"
-                    onChange={(data) => handleAnioElegido(data)}
-                  />
-                </ThemeProvider>
-              </MuiPickersUtilsProvider>
+              <TextField
+                id="est-input-mes"
+                select
+                label="Seleccione un año"
+                value={anio}
+                onChange={handleAnio}
+                variant="outlined"
+              >
+                {anios.map((option) => (
+                  <MenuItem key={option.key} value={option.value}>
+                    {option.value}
+                  </MenuItem>
+                ))}
+              </TextField>
             </div>
           </form>
         </div>
@@ -295,9 +312,7 @@ function ExperienciaCompra(props) {
           <Tooltip title="Refrescar" arrow>
             <IconButton
               aria-label="Refrescar"
-              onClick={() => {
-                console.log('esto anda refrsh');
-              }}
+              onClick={handleRefresh}
             >
               <Refresh fontSize="large" />
             </IconButton>

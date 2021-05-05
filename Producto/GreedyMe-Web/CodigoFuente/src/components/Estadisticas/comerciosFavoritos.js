@@ -13,10 +13,13 @@ import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
 import { Line } from '@reactchartjs/react-chart.js';
 import Moment from 'react-moment';
-import { MuiPickersUtilsProvider, DatePicker} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-import {createMuiTheme} from "@material-ui/core";
-import {ThemeProvider} from "@material-ui/styles";
+import {
+  MuiPickersUtilsProvider,
+  DatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import { createMuiTheme } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
 
 const anios = [
   {
@@ -77,9 +80,6 @@ function ComerciosFavoritos(props) {
   // Estado para el gráfico
   const [chartData, setChartData] = React.useState({});
 
-  //Estado para datePicker
-  const [anioElegido, handleAnioElegido] = React.useState(new Date()); 
-
   const chart = (data) => {
     setChartData({
       labels: [
@@ -120,11 +120,9 @@ function ComerciosFavoritos(props) {
         favoritos[i].fecha.toDate().getFullYear().toString() === anio
       ) {
         //construir array de meses, insertar en la posicion y sumar +1 teniendo en cuenta que enero = [0], febrero = [1]a
-        console.log(favoritos[i].fecha.toDate().getMonth());
         cantidadMes[favoritos[i].fecha.toDate().getMonth()]++;
       }
     }
-    console.log(cantidadMes);
     setCantidadPorMes(cantidadMes);
     chart(cantidadMes);
   };
@@ -133,11 +131,11 @@ function ComerciosFavoritos(props) {
     overrides: {
       MuiInputBase: {
         input: {
-         backgroundColor:'white',
-         margin:'4px',
-        }
-      }
-    }
+          backgroundColor: 'white',
+          margin: '4px',
+        },
+      },
+    },
   });
 
   React.useEffect(() => {
@@ -163,27 +161,20 @@ function ComerciosFavoritos(props) {
             autoComplete="off"
           >
             <div>
-              {//aca}
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <ThemeProvider theme={temaCombo}>
-                      <DatePicker
-                        autoOk
-                        disableToolbar
-                        fullWidth
-                        views={['year']}
-                        inputVariant="outlined"
-                        name="anioElegido"
-                        label="Seleccione un año:"
-                        minDate={new Date('2020')}
-                        maxDate={new Date()}
-                        format="yyyy"
-                        value={anio}
-                        variant="inline"
-                        onChange={(data) => handleAnioElegido(data)}
-                      />
-                      </ThemeProvider>
-              </MuiPickersUtilsProvider>
-
+              <TextField
+                id="est-input-mes"
+                select
+                label="Seleccione un año"
+                value={anio}
+                onChange={handleAnio}
+                variant="outlined"
+              >
+                {anios.map((option) => (
+                  <MenuItem key={option.key} value={option.value}>
+                    {option.value}
+                  </MenuItem>
+                ))}
+              </TextField>
             </div>
           </form>
         </div>
