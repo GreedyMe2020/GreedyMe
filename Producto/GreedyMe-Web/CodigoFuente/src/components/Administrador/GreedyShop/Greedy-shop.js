@@ -24,7 +24,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import CreateIcon from '@material-ui/icons/Create';
 import CloseIcon from '@material-ui/icons/Close';
-import {eliminarPremio} from '../../../redux/actions/adminActions';
+import { eliminarPremio } from '../../../redux/actions/adminActions';
 import FormProducto from './FormProductos';
 import Snackbar from '@material-ui/core/Snackbar';
 import firebase from '../../../firebase/config';
@@ -63,12 +63,12 @@ function ListaUsuarios(props) {
   const [openAlert, setOpenAlert] = React.useState(false);
   //estado para Modificar
   const [modificar, setModificar] = React.useState({
-    id: "",
-    nombre: "",
-    greedyPoints: "",
-    photoURL: "",
-    descripcion: "",
-});
+    id: '',
+    nombre: '',
+    greedyPoints: '',
+    photoURL: '',
+    descripcion: '',
+  });
   const handleClose = () => {
     setOpen(false);
   };
@@ -85,7 +85,9 @@ function ListaUsuarios(props) {
 
   //estados solo para el buscador
 
-  const [listaProductos, setListaProductos] = React.useState(props.premios);
+  const [listaProductos, setListaProductos] = React.useState(
+    props.premios,
+  );
   const [texto, setTexto] = React.useState(false);
   const [text, setText] = React.useState('');
 
@@ -112,13 +114,18 @@ function ListaUsuarios(props) {
         const itemNombrePremio = item.nombre.toUpperCase();
         const itemGreedyPoints = item.greedyPoints.toUpperCase();
         const itemDescripcionPremio = item.descripcion.toUpperCase();
-        const campo = itemNombrePremio + " " + itemGreedyPoints + " " + itemDescripcionPremio;
+        const campo =
+          itemNombrePremio +
+          ' ' +
+          itemGreedyPoints +
+          ' ' +
+          itemDescripcionPremio;
         const textData = textoBuscar.toUpperCase();
         return campo.indexOf(textData) > -1;
       });
       setListaProductos(newDatos);
       setText(text);
-      if (text.target.value != "") {
+      if (text.target.value != '') {
         setTexto(true);
       } else {
         setTexto(false);
@@ -161,222 +168,245 @@ function ListaUsuarios(props) {
             <Grid item xs={12} md={12}>
               <div className={classes.demo}>
                 <List>
-                  {props.premios && texto === false ? props.premios.map((premio) => {
-                    return(
-                  <ListItem key={premio.id}>
-                  <ListItemAvatar>
-                    <Avatar
-                      variant="square"
-                      src={premio.photoURL !== null ? premio.photoURL : require('../../../../Multimedia/Sistema-svg/cafe.svg')}
-                    ></Avatar>
-                  </ListItemAvatar>
-                  <div className="elementoListaProm">
-                    <ListItemText
-                      //asi podes ir accediendo a todos los datos asi los acomodas como quieras
-                      primary={
-                        <React.Fragment>
-                          <Typography className={classes.inline}>
-                            {premio.nombre}
-                          </Typography>
-                          <Typography>{premio.greedyPoints}</Typography>
-                        </React.Fragment>
-                      }
-                      secondary={
-                        premio.descripcion
-                      }
-                    />
-                  </div>
-                  <ListItemSecondaryAction>
-                    <Tooltip title="Editar" arrow>
-                      <IconButton
-                        aria-label="Editar"
-                        onClick={() => {
-                          setModificar({
-                              id: premio.id,
-                              nombre: premio.nombre,
-                              greedyPoints: premio.greedyPoints,
-                              photoURL: premio.photoURL,
-                              descripcion: premio.descripcion,
-                          });
-                          handleClickOpenModificar();
-                        }}
-                      >
-                        <CreateIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Dialog
-                      fullWidth={fullWidth}
-                      maxWidth={maxWidth}
-                      open={openModificar}
-                      onClose={handleCloseModificar}
-                    >
-                      <DialogTitle id="dialog-title-prom">
-                        <h5>Modificar producto</h5>
-                        <IconButton
-                          aria-label="close"
-                          id="btn"
-                          className={classes.cruz}
-                          onClick={handleCloseModificar}
-                        >
-                          <CloseIcon />
-                        </IconButton>
-                      </DialogTitle>
-                      <DialogContent dividers>
-                        <DialogContentText>
-                          <FormProducto 
-                            id={modificar.id} 
-                            nombre={modificar.nombre} 
-                            descripcion={modificar.descripcion} 
-                            greedyPoints={modificar.greedyPoints} 
-                            photoURL={modificar.photoURL} 
-                            modificar={true} />{' '}
-                          {/* HAY QUE AGREGARLE PROPS PARA PASARLE LOS DATOS COMO PROPS */}
-                        </DialogContentText>
-                      </DialogContent>
-                    </Dialog>
+                  {props.premios && texto === false
+                    ? props.premios.map((premio) => {
+                        return (
+                          <ListItem key={premio.id}>
+                            <ListItemAvatar>
+                              <Avatar
+                                variant="square"
+                                src={
+                                  premio.photoURL !== null
+                                    ? premio.photoURL
+                                    : require('../../../../Multimedia/Sistema-svg/cafe.svg')
+                                }
+                              ></Avatar>
+                            </ListItemAvatar>
+                            <div className="elementoListaProm">
+                              <ListItemText
+                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                                primary={
+                                  <React.Fragment>
+                                    <Typography
+                                      className={classes.inline}
+                                    >
+                                      {premio.nombre}
+                                    </Typography>
+                                    <Typography>
+                                      {premio.greedyPoints}
+                                    </Typography>
+                                  </React.Fragment>
+                                }
+                                secondary={premio.descripcion}
+                              />
+                            </div>
+                            <ListItemSecondaryAction>
+                              <Tooltip title="Editar" arrow>
+                                <IconButton
+                                  aria-label="Editar"
+                                  onClick={() => {
+                                    setModificar({
+                                      id: premio.id,
+                                      nombre: premio.nombre,
+                                      greedyPoints:
+                                        premio.greedyPoints,
+                                      photoURL: premio.photoURL,
+                                      descripcion: premio.descripcion,
+                                    });
+                                    handleClickOpenModificar();
+                                  }}
+                                >
+                                  <CreateIcon />
+                                </IconButton>
+                              </Tooltip>
+                              <Dialog
+                                fullWidth={fullWidth}
+                                maxWidth={maxWidth}
+                                open={openModificar}
+                                onClose={handleCloseModificar}
+                              >
+                                <DialogTitle id="dialog-title-prom">
+                                  <h5>Modificar producto</h5>
+                                  <IconButton
+                                    aria-label="close"
+                                    id="btn"
+                                    className={classes.cruz}
+                                    onClick={handleCloseModificar}
+                                  >
+                                    <CloseIcon />
+                                  </IconButton>
+                                </DialogTitle>
+                                <DialogContent dividers>
+                                  <DialogContentText>
+                                    <FormProducto
+                                      id={modificar.id}
+                                      nombre={modificar.nombre}
+                                      descripcion={
+                                        modificar.descripcion
+                                      }
+                                      greedyPoints={
+                                        modificar.greedyPoints
+                                      }
+                                      photoURL={modificar.photoURL}
+                                      modificar={true}
+                                    />{' '}
+                                    {/* HAY QUE AGREGARLE PROPS PARA PASARLE LOS DATOS COMO PROPS */}
+                                  </DialogContentText>
+                                </DialogContent>
+                              </Dialog>
 
-                    <Tooltip title="Eliminar" arrow>
-                      <IconButton
-                        onClick={() => {
-                          setEliminar(premio.id);
-                          setOpen(true);
-                        }}
-                        edge="end"
-                        aria-label="Eliminar"
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <DialogComponent
-                      open={open}
-                      setOpen={setOpen}
-                      handleClose={handleClose}
-                      eliminar={eliminar}
-                      setEliminar={setEliminar}
-                      setEliminada={setEliminada}
-                      setCurrentId={setCurrentId}
-                      title={
-                        '¿Estás seguro de eliminar el producto?'
-                      }
-                      text={
-                        'Una vez que aceptes eliminar el producto, el mismo no podrá ser recuperado.'
-                      }
-                      btnText={'Eliminar'}
-                    />
-                  </ListItemSecondaryAction>
-                  </ListItem>
-                    )
-                  })
-                  
-                  : listaProductos ? listaProductos.map((premio) => {
-                    return(
-                      <ListItem key={premio.id}>
-                  <ListItemAvatar>
-                    <Avatar
-                      variant="square"
-                      src={premio.photoURL !== null ? premio.photoURL : require('../../../../Multimedia/Sistema-svg/cafe.svg')}
-                    ></Avatar>
-                  </ListItemAvatar>
-                  <div className="elementoListaProm">
-                    <ListItemText
-                      //asi podes ir accediendo a todos los datos asi los acomodas como quieras
-                      primary={
-                        <React.Fragment>
-                          <Typography className={classes.inline}>
-                            {premio.nombre}
-                          </Typography>
-                          <Typography>{premio.greedyPoints}</Typography>
-                        </React.Fragment>
-                      }
-                      secondary={
-                        premio.descripcion
-                      }
-                    />
-                  </div>
-                  <ListItemSecondaryAction>
-                    <Tooltip title="Editar" arrow>
-                      <IconButton
-                        aria-label="Editar"
-                        onClick={() => {
-                          setModificar({
-                            id: premio.id,
-                            nombre: premio.nombre,
-                            greedyPoints: premio.greedyPoints,
-                            photoURL: premio.photoURL,
-                            descripcion: premio.descripcion,
-                        });
-                          handleClickOpenModificar();
-                        }}
-                      >
-                        <CreateIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Dialog
-                      fullWidth={fullWidth}
-                      maxWidth={maxWidth}
-                      open={openModificar}
-                      onClose={handleCloseModificar}
-                    >
-                      <DialogTitle id="dialog-title-prom">
-                        <h5>Modificar producto</h5>
-                        <IconButton
-                          aria-label="close"
-                          id="btn"
-                          className={classes.cruz}
-                          onClick={handleCloseModificar}
-                        >
-                          <CloseIcon />
-                        </IconButton>
-                      </DialogTitle>
-                      <DialogContent dividers>
-                        <DialogContentText>
-                        <FormProducto 
-                            id={modificar.id} 
-                            nombre={modificar.nombre} 
-                            descripcion={modificar.descripcion} 
-                            greedyPoints={modificar.greedyPoints} 
-                            photoURL={modificar.photoURL} 
-                            modificar={true} />{' '}
-                          {/* HAY QUE AGREGARLE PROPS PARA PASARLE LOS DATOS COMO PROPS */}
-                        </DialogContentText>
-                      </DialogContent>
-                    </Dialog>
+                              <Tooltip title="Eliminar" arrow>
+                                <IconButton
+                                  onClick={() => {
+                                    setEliminar(premio.id);
+                                    setOpen(true);
+                                  }}
+                                  edge="end"
+                                  aria-label="Eliminar"
+                                >
+                                  <DeleteIcon />
+                                </IconButton>
+                              </Tooltip>
+                              <DialogComponent
+                                open={open}
+                                setOpen={setOpen}
+                                handleClose={handleClose}
+                                eliminar={eliminar}
+                                setEliminar={setEliminar}
+                                setEliminada={setEliminada}
+                                setCurrentId={setCurrentId}
+                                title={
+                                  '¿Estás seguro de eliminar el producto?'
+                                }
+                                text={
+                                  'Una vez que aceptes eliminar el producto, el mismo no podrá ser recuperado.'
+                                }
+                                btnText={'Eliminar'}
+                              />
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        );
+                      })
+                    : listaProductos
+                    ? listaProductos.map((premio) => {
+                        return (
+                          <ListItem key={premio.id}>
+                            <ListItemAvatar>
+                              <Avatar
+                                variant="square"
+                                src={
+                                  premio.photoURL !== null
+                                    ? premio.photoURL
+                                    : require('../../../../Multimedia/Sistema-svg/cafe.svg')
+                                }
+                              ></Avatar>
+                            </ListItemAvatar>
+                            <div className="elementoListaProm">
+                              <ListItemText
+                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                                primary={
+                                  <React.Fragment>
+                                    <Typography
+                                      className={classes.inline}
+                                    >
+                                      {premio.nombre}
+                                    </Typography>
+                                    <Typography>
+                                      {premio.greedyPoints}
+                                    </Typography>
+                                  </React.Fragment>
+                                }
+                                secondary={premio.descripcion}
+                              />
+                            </div>
+                            <ListItemSecondaryAction>
+                              <Tooltip title="Editar" arrow>
+                                <IconButton
+                                  aria-label="Editar"
+                                  onClick={() => {
+                                    setModificar({
+                                      id: premio.id,
+                                      nombre: premio.nombre,
+                                      greedyPoints:
+                                        premio.greedyPoints,
+                                      photoURL: premio.photoURL,
+                                      descripcion: premio.descripcion,
+                                    });
+                                    handleClickOpenModificar();
+                                  }}
+                                >
+                                  <CreateIcon />
+                                </IconButton>
+                              </Tooltip>
+                              <Dialog
+                                fullWidth={fullWidth}
+                                maxWidth={maxWidth}
+                                open={openModificar}
+                                onClose={handleCloseModificar}
+                              >
+                                <DialogTitle id="dialog-title-prom">
+                                  <h5>Modificar producto</h5>
+                                  <IconButton
+                                    aria-label="close"
+                                    id="btn"
+                                    className={classes.cruz}
+                                    onClick={handleCloseModificar}
+                                  >
+                                    <CloseIcon />
+                                  </IconButton>
+                                </DialogTitle>
+                                <DialogContent dividers>
+                                  <DialogContentText>
+                                    <FormProducto
+                                      id={modificar.id}
+                                      nombre={modificar.nombre}
+                                      descripcion={
+                                        modificar.descripcion
+                                      }
+                                      greedyPoints={
+                                        modificar.greedyPoints
+                                      }
+                                      photoURL={modificar.photoURL}
+                                      modificar={true}
+                                    />{' '}
+                                    {/* HAY QUE AGREGARLE PROPS PARA PASARLE LOS DATOS COMO PROPS */}
+                                  </DialogContentText>
+                                </DialogContent>
+                              </Dialog>
 
-                    <Tooltip title="Eliminar" arrow>
-                      <IconButton
-                        onClick={() => {
-                          setEliminar(premio.id);
-                          setOpen(true);
-                        }}
-                        edge="end"
-                        aria-label="Eliminar"
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <DialogComponent
-                      open={open}
-                      setOpen={setOpen}
-                      handleClose={handleClose}
-                      eliminar={eliminar}
-                      setEliminar={setEliminar}
-                      setEliminada={setEliminada}
-                      setCurrentId={setCurrentId}
-                      title={
-                        '¿Estás seguro de eliminar el producto?'
-                      }
-                      text={
-                        'Una vez que aceptes eliminar el producto, el mismo no podrá ser recuperado.'
-                      }
-                      btnText={'Eliminar'}
-                    />
-                  </ListItemSecondaryAction>
-                  </ListItem>
-                    ) 
-
-
-                  }): null}
-                  
+                              <Tooltip title="Eliminar" arrow>
+                                <IconButton
+                                  onClick={() => {
+                                    setEliminar(premio.id);
+                                    setOpen(true);
+                                  }}
+                                  edge="end"
+                                  aria-label="Eliminar"
+                                >
+                                  <DeleteIcon />
+                                </IconButton>
+                              </Tooltip>
+                              <DialogComponent
+                                open={open}
+                                setOpen={setOpen}
+                                handleClose={handleClose}
+                                eliminar={eliminar}
+                                setEliminar={setEliminar}
+                                setEliminada={setEliminada}
+                                setCurrentId={setCurrentId}
+                                title={
+                                  '¿Estás seguro de eliminar el producto?'
+                                }
+                                text={
+                                  'Una vez que aceptes eliminar el producto, el mismo no podrá ser recuperado.'
+                                }
+                                btnText={'Eliminar'}
+                              />
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        );
+                      })
+                    : null}
                 </List>
                 {eliminada ? (
                   <Snackbar
@@ -419,8 +449,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect([{ collection: "greedyPremio" }])
+  firestoreConnect([{ collection: 'greedyPremio' }]),
 )(ListaUsuarios);

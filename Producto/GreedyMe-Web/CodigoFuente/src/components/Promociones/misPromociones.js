@@ -1,43 +1,43 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import DeleteIcon from "@material-ui/icons/Delete";
-import CreateIcon from "@material-ui/icons/Create";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import Tooltip from "@material-ui/core/Tooltip";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogComponent from "../Dialog";
-import { Grid, Avatar, IconButton } from "@material-ui/core";
-import { format } from "date-fns";
-import ModalPromos from "../../components/modal-button";
-import ModalPromosActualizar from "../../components/Promociones/modal-modificar";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
-import CloseIcon from "@material-ui/icons/Close";
-import "firebase/analytics";
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CreateIcon from '@material-ui/icons/Create';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogComponent from '../Dialog';
+import { Grid, Avatar, IconButton } from '@material-ui/core';
+import { format } from 'date-fns';
+import ModalPromos from '../../components/modal-button';
+import ModalPromosActualizar from '../../components/Promociones/modal-modificar';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import CloseIcon from '@material-ui/icons/Close';
+import 'firebase/analytics';
 import {
   cambiarVisibilidad,
   actualizarPromocion,
   eliminarPromocion,
-} from "../../redux/actions/promActions";
-import firebase from "../../firebase/config";
-import { connect } from "react-redux";
-import _ from "lodash";
-import { crearPromocion } from "../../redux/actions/promActions";
-import Typography from "@material-ui/core/Typography";
-import NoBeneficios from "../../../Multimedia/Sistema-svg/no-beneficios.svg";
+} from '../../redux/actions/promActions';
+import firebase from '../../firebase/config';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+import { crearPromocion } from '../../redux/actions/promActions';
+import Typography from '@material-ui/core/Typography';
+import NoBeneficios from '../../../Multimedia/Sistema-svg/no-beneficios.svg';
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -47,16 +47,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   cruz: {
-    position: "absolute",
+    position: 'absolute',
     right: theme.spacing(1),
-    top: "8px",
+    top: '8px',
     color: theme.palette.grey[500],
   },
   inline: {
-    display: "block",
+    display: 'block',
   },
   proveedor: {
-    height: "0%",
+    height: '0%',
   },
 }));
 
@@ -113,11 +113,14 @@ function MisPromociones(props) {
   const [promocionCreada, setPromocionCreada] = React.useState(false);
 
   //Snackbar cuando se crea una promo igual
-  const [promocionActualizada, setPromocionActualizada] = React.useState(false);
+  const [
+    promocionActualizada,
+    setPromocionActualizada,
+  ] = React.useState(false);
 
   //Estados para crear nuevas promociones
   const [nuevaPromo, setNuevaPromo] = React.useState(null);
-  const [text, setText] = React.useState("");
+  const [text, setText] = React.useState('');
 
   //Estado de visibilidad para mostar u ocultar una promocion en la app mobile
   const [values, setValues] = React.useState(null);
@@ -133,9 +136,9 @@ function MisPromociones(props) {
       const firestore = firebase.firestore();
       try {
         const promociones = await firestore
-          .collection("usuarioComercio")
+          .collection('usuarioComercio')
           .doc(props.auth.uid)
-          .collection("promociones")
+          .collection('promociones')
           .get();
         const arrayPromociones = promociones.docs.map((doc) => ({
           id: doc.id,
@@ -265,13 +268,13 @@ function MisPromociones(props) {
       const itemDescripcion = item.descripcion.toUpperCase();
       const campo =
         itemTipoPromo +
-        " " +
+        ' ' +
         itemValuePromo +
-        " " +
+        ' ' +
         itemProveedor +
-        " " +
+        ' ' +
         itemValueProveedor +
-        " " +
+        ' ' +
         itemDescripcion;
       const textData = textoBuscar.toUpperCase();
       return campo.indexOf(textData) > -1;
@@ -280,19 +283,32 @@ function MisPromociones(props) {
     setText(text);
   };
   //funcion para crear una promo
-  const crear = (formData, id, state, value, desdeVigencia, hastaVigencia) => {
+  const crear = (
+    formData,
+    id,
+    state,
+    value,
+    desdeVigencia,
+    hastaVigencia,
+  ) => {
     let crearPromo = 0;
     let fechaPromoDesde = format(
       firebase.firestore.Timestamp.fromDate(desdeVigencia).toDate(),
-      "dd/MM/yyyy"
+      'dd/MM/yyyy',
     );
     let fechaPromoHasta = format(
       firebase.firestore.Timestamp.fromDate(hastaVigencia).toDate(),
-      "dd/MM/yyyy"
+      'dd/MM/yyyy',
     );
     promos.forEach((promo) => {
-      let fechaDesde = format(promo.desdeVigencia.toDate(), "dd/MM/yyyy");
-      let fechaHasta = format(promo.hastaVigencia.toDate(), "dd/MM/yyyy");
+      let fechaDesde = format(
+        promo.desdeVigencia.toDate(),
+        'dd/MM/yyyy',
+      );
+      let fechaHasta = format(
+        promo.hastaVigencia.toDate(),
+        'dd/MM/yyyy',
+      );
       if (
         promo.tipoPromo === formData.tipoPromo &&
         promo.valuePromo === formData.valuePromo &&
@@ -323,7 +339,7 @@ function MisPromociones(props) {
         state,
         value,
         desdeVigencia,
-        hastaVigencia
+        hastaVigencia,
       );
       setNuevaPromo({
         id: id,
@@ -335,8 +351,12 @@ function MisPromociones(props) {
         otroProveedor: formData.otroProveedor,
         descripcion: formData.descripcion,
         photoURL: formData.photoURL,
-        desdeVigencia: firebase.firestore.Timestamp.fromDate(desdeVigencia),
-        hastaVigencia: firebase.firestore.Timestamp.fromDate(hastaVigencia),
+        desdeVigencia: firebase.firestore.Timestamp.fromDate(
+          desdeVigencia,
+        ),
+        hastaVigencia: firebase.firestore.Timestamp.fromDate(
+          hastaVigencia,
+        ),
         visible: false,
         diaAplicacion: state,
         medioPago: value,
@@ -346,19 +366,31 @@ function MisPromociones(props) {
     }
   };
 
-  const actualizar = (formData, state, value, desdeVigencia, hastaVigencia) => {
+  const actualizar = (
+    formData,
+    state,
+    value,
+    desdeVigencia,
+    hastaVigencia,
+  ) => {
     let crearPromo = 0;
     let fechaPromoDesde = format(
       firebase.firestore.Timestamp.fromDate(desdeVigencia).toDate(),
-      "dd/MM/yyyy"
+      'dd/MM/yyyy',
     );
     let fechaPromoHasta = format(
       firebase.firestore.Timestamp.fromDate(hastaVigencia).toDate(),
-      "dd/MM/yyyy"
+      'dd/MM/yyyy',
     );
     promos.forEach((promo) => {
-      let fechaDesde = format(promo.desdeVigencia.toDate(), "dd/MM/yyyy");
-      let fechaHasta = format(promo.hastaVigencia.toDate(), "dd/MM/yyyy");
+      let fechaDesde = format(
+        promo.desdeVigencia.toDate(),
+        'dd/MM/yyyy',
+      );
+      let fechaHasta = format(
+        promo.hastaVigencia.toDate(),
+        'dd/MM/yyyy',
+      );
       if (
         promo.tipoPromo === formData.tipoPromo &&
         promo.valuePromo === formData.valuePromo &&
@@ -386,7 +418,7 @@ function MisPromociones(props) {
         state,
         value,
         desdeVigencia,
-        hastaVigencia
+        hastaVigencia,
       );
       setModificado({
         id: formData.idProm,
@@ -398,8 +430,12 @@ function MisPromociones(props) {
         otroProveedor: formData.otroProveedor,
         descripcion: formData.descripcion,
         photoURL: formData.photoURL,
-        desdeVigencia: firebase.firestore.Timestamp.fromDate(desdeVigencia),
-        hastaVigencia: firebase.firestore.Timestamp.fromDate(hastaVigencia),
+        desdeVigencia: firebase.firestore.Timestamp.fromDate(
+          desdeVigencia,
+        ),
+        hastaVigencia: firebase.firestore.Timestamp.fromDate(
+          hastaVigencia,
+        ),
         visible: false,
         diaAplicacion: state,
         medioPago: value,
@@ -411,7 +447,7 @@ function MisPromociones(props) {
 
   const [openModificar, setOpenModificar] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
-  const [maxWidth, setMaxWidth] = React.useState("md");
+  const [maxWidth, setMaxWidth] = React.useState('md');
   const handleClickOpenModificar = () => {
     setOpenModificar(true);
   };
@@ -423,7 +459,7 @@ function MisPromociones(props) {
   const [openAlert, setOpenAlert] = React.useState(false);
 
   const handleCloseAlert = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpenAlert(false);
@@ -495,79 +531,85 @@ function MisPromociones(props) {
                               //asi podes ir accediendo a todos los datos asi los acomodas como quieras
                               primary={
                                 <React.Fragment>
-                                  <Typography className={classes.inline}>
+                                  <Typography
+                                    className={classes.inline}
+                                  >
                                     {promo.tipoPromo +
-                                      " " +
-                                      (promo.valuePromo === "Otro"
+                                      ' ' +
+                                      (promo.valuePromo === 'Otro'
                                         ? promo.otraPromo
                                         : promo.valuePromo) +
-                                      " " +
-                                      (promo.valueProveedor === "Otro"
+                                      ' ' +
+                                      (promo.valueProveedor === 'Otro'
                                         ? promo.otroProveedor
-                                        : promo.valueProveedor === "Todos"
-                                        ? "Todos los Bancos"
+                                        : promo.valueProveedor ===
+                                          'Todos'
+                                        ? 'Todos los Bancos'
                                         : promo.valueProveedor) +
-                                      ", " +
+                                      ', ' +
                                       (promo.tipoProveedor ===
-                                        "Tarjetas de crédito" ||
+                                        'Tarjetas de crédito' ||
                                       promo.tipoProveedor ===
-                                        "Tarjetas de débito"
-                                        ? promo.otroProveedor + " "
-                                        : "") +
-                                      (promo.otroProveedor === "Todas"
-                                        ? "las Tarjetas "
-                                        : "") +
-                                      "válida desde el " +
+                                        'Tarjetas de débito'
+                                        ? promo.otroProveedor + ' '
+                                        : '') +
+                                      (promo.otroProveedor === 'Todas'
+                                        ? 'las Tarjetas '
+                                        : '') +
+                                      'válida desde el ' +
                                       format(
                                         promo.desdeVigencia.toDate(),
-                                        "dd/MM/yyyy"
+                                        'dd/MM/yyyy',
                                       ) +
-                                      " hasta el " +
+                                      ' hasta el ' +
                                       format(
                                         promo.hastaVigencia.toDate(),
-                                        "dd/MM/yyyy"
+                                        'dd/MM/yyyy',
                                       ) +
-                                      "."}
+                                      '.'}
                                   </Typography>
-                                  {"Días que aplica: " +
+                                  {'Días que aplica: ' +
                                     ((promo.diaAplicacion.lunes
-                                      ? "Lunes"
-                                      : "") +
-                                      " " +
+                                      ? 'Lunes'
+                                      : '') +
+                                      ' ' +
                                       (promo.diaAplicacion.martes
-                                        ? "Martes"
-                                        : "") +
-                                      " " +
+                                        ? 'Martes'
+                                        : '') +
+                                      ' ' +
                                       (promo.diaAplicacion.miercoles
-                                        ? "Miercoles"
-                                        : "") +
-                                      " " +
+                                        ? 'Miercoles'
+                                        : '') +
+                                      ' ' +
                                       (promo.diaAplicacion.jueves
-                                        ? "Jueves"
-                                        : "") +
-                                      " " +
+                                        ? 'Jueves'
+                                        : '') +
+                                      ' ' +
                                       (promo.diaAplicacion.viernes
-                                        ? "Viernes"
-                                        : "") +
-                                      " " +
+                                        ? 'Viernes'
+                                        : '') +
+                                      ' ' +
                                       (promo.diaAplicacion.sabado
-                                        ? "Sábado"
-                                        : "") +
-                                      " " +
+                                        ? 'Sábado'
+                                        : '') +
+                                      ' ' +
                                       (promo.diaAplicacion.domingo
-                                        ? "Domingo"
-                                        : "") +
-                                      " " +
-                                      (promo.diaAplicacion.todoslosdias
-                                        ? "Todos los días"
-                                        : ""))}
+                                        ? 'Domingo'
+                                        : '') +
+                                      ' ' +
+                                      (promo.diaAplicacion
+                                        .todoslosdias
+                                        ? 'Todos los días'
+                                        : ''))}
                                 </React.Fragment>
                               }
                               secondary={
-                                "Forma de pago: " +
+                                'Forma de pago: ' +
                                 promo.medioPago +
-                                ". " +
-                                (promo.descripcion ? promo.descripcion : "")
+                                '. ' +
+                                (promo.descripcion
+                                  ? promo.descripcion
+                                  : '')
                               }
                             />
                           </div>
@@ -581,13 +623,19 @@ function MisPromociones(props) {
                                     tipoPromo: promo.tipoPromo,
                                     valuePromo: promo.valuePromo,
                                     otraPromo: promo.otraPromo,
-                                    tipoProveedor: promo.tipoProveedor,
-                                    valueProveedor: promo.valueProveedor,
-                                    otroProveedor: promo.otroProveedor,
+                                    tipoProveedor:
+                                      promo.tipoProveedor,
+                                    valueProveedor:
+                                      promo.valueProveedor,
+                                    otroProveedor:
+                                      promo.otroProveedor,
                                     descripcion: promo.descripcion,
-                                    diaAplicacion: promo.diaAplicacion,
-                                    desdeVigencia: promo.desdeVigencia,
-                                    hastaVigencia: promo.hastaVigencia,
+                                    diaAplicacion:
+                                      promo.diaAplicacion,
+                                    desdeVigencia:
+                                      promo.desdeVigencia,
+                                    hastaVigencia:
+                                      promo.hastaVigencia,
                                     photoURL: promo.photoURL,
                                     visible: promo.visible,
                                     medioPago: promo.medioPago,
@@ -602,7 +650,9 @@ function MisPromociones(props) {
                               fullWidth={fullWidth}
                               maxWidth={maxWidth}
                               open={openModificar}
-                              style={{ backgroundColor: "transparent" }}
+                              style={{
+                                backgroundColor: 'transparent',
+                              }}
                             >
                               <DialogTitle id="dialog-title-prom">
                                 <h5>Modificar beneficio</h5>
@@ -661,11 +711,13 @@ function MisPromociones(props) {
                               setEliminar={setEliminar}
                               setEliminada={setEliminada}
                               setCurrentId={setCurrentId}
-                              title={"¿Estás seguro de eliminar el beneficio?"}
-                              text={
-                                "Una vez que aceptes eliminar el beneficio, el mismo no podrá ser recuperado."
+                              title={
+                                '¿Estás seguro de eliminar el beneficio?'
                               }
-                              btnText={"Eliminar"}
+                              text={
+                                'Una vez que aceptes eliminar el beneficio, el mismo no podrá ser recuperado.'
+                              }
+                              btnText={'Eliminar'}
                             />
                           </ListItemSecondaryAction>
                         </ListItem>
@@ -675,25 +727,28 @@ function MisPromociones(props) {
                 {eliminada ? (
                   <Snackbar
                     anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "left",
+                      vertical: 'bottom',
+                      horizontal: 'left',
                     }}
                     open={eliminada}
                     autoHideDuration={8000}
                     onClose={handleCloseAlert}
                   >
-                    <Alert onClose={handleCloseAlert} severity="error">
+                    <Alert
+                      onClose={handleCloseAlert}
+                      severity="error"
+                    >
                       El beneficio se ha eliminado
                     </Alert>
                   </Snackbar>
                 ) : (
-                  ""
+                  ''
                 )}
                 {values ? (
                   <Snackbar
                     anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "left",
+                      vertical: 'bottom',
+                      horizontal: 'left',
                     }}
                     open={openAlert}
                     autoHideDuration={8000}
@@ -706,14 +761,17 @@ function MisPromociones(props) {
                 ) : (
                   <Snackbar
                     anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "left",
+                      vertical: 'bottom',
+                      horizontal: 'left',
                     }}
                     open={openAlert}
                     autoHideDuration={8000}
                     onClose={handleCloseAlert}
                   >
-                    <Alert onClose={handleCloseAlert} severity="warning">
+                    <Alert
+                      onClose={handleCloseAlert}
+                      severity="warning"
+                    >
                       Se ocultó el beneficio en la aplicación
                     </Alert>
                   </Snackbar>
@@ -721,28 +779,37 @@ function MisPromociones(props) {
                 {mensajeAlerta ? (
                   <Snackbar
                     anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "left",
+                      vertical: 'bottom',
+                      horizontal: 'left',
                     }}
                     open={mensajeAlerta}
                     autoHideDuration={8000}
                     onClose={handleCloseAlert}
                   >
-                    <Alert onClose={handleCloseAlert} severity="error">
+                    <Alert
+                      onClose={handleCloseAlert}
+                      severity="error"
+                    >
                       Ya se creo un beneficio con los mismos datos.
                     </Alert>
                   </Snackbar>
                 ) : (
-                  ""
+                  ''
                 )}
                 {promocionCreada ? (
                   <Snackbar
-                    anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'left',
+                    }}
                     open={promocionCreada}
                     autoHideDuration={8000}
                     onClose={handleCloseAlert}
                   >
-                    <Alert onClose={handleCloseAlert} severity="success">
+                    <Alert
+                      onClose={handleCloseAlert}
+                      severity="success"
+                    >
                       El beneficio se cargo correctamente!
                     </Alert>
                     {/* <Alert onClose={handleClose} severity="error">
@@ -750,16 +817,22 @@ function MisPromociones(props) {
                     </Alert> */}
                   </Snackbar>
                 ) : (
-                  ""
+                  ''
                 )}
                 {promocionActualizada ? (
                   <Snackbar
-                    anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'left',
+                    }}
                     open={promocionActualizada}
                     autoHideDuration={8000}
                     onClose={handleCloseAlert}
                   >
-                    <Alert onClose={handleCloseAlert} severity="success">
+                    <Alert
+                      onClose={handleCloseAlert}
+                      severity="success"
+                    >
                       ¡El beneficio se actualizo correctamente!
                     </Alert>
                     {/* <Alert onClose={handleClose} severity="error">
@@ -767,7 +840,7 @@ function MisPromociones(props) {
                   </Alert> */}
                   </Snackbar>
                 ) : (
-                  ""
+                  ''
                 )}
               </div>
             </Grid>
@@ -791,7 +864,7 @@ const mapDispatchToProps = (dispatch) => {
       dias,
       efectivo,
       desdeVigencia,
-      hastaVigencia
+      hastaVigencia,
     ) =>
       dispatch(
         actualizarPromocion(
@@ -799,18 +872,20 @@ const mapDispatchToProps = (dispatch) => {
           dias,
           efectivo,
           desdeVigencia,
-          hastaVigencia
-        )
+          hastaVigencia,
+        ),
       ),
-    eliminarPromocion: (promocion) => dispatch(eliminarPromocion(promocion)),
-    cambiarVisibilidad: (promocion) => dispatch(cambiarVisibilidad(promocion)),
+    eliminarPromocion: (promocion) =>
+      dispatch(eliminarPromocion(promocion)),
+    cambiarVisibilidad: (promocion) =>
+      dispatch(cambiarVisibilidad(promocion)),
     crearPromocion: (
       promocion,
       id,
       dias,
       efectivo,
       desdeVigencia,
-      hastaVigencia
+      hastaVigencia,
     ) =>
       dispatch(
         crearPromocion(
@@ -819,10 +894,13 @@ const mapDispatchToProps = (dispatch) => {
           dias,
           efectivo,
           desdeVigencia,
-          hastaVigencia
-        )
+          hastaVigencia,
+        ),
       ),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MisPromociones);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MisPromociones);
