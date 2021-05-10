@@ -6,20 +6,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { IconButton } from '@material-ui/core';
 import GetApp from '@material-ui/icons/GetApp';
 import Refresh from '@material-ui/icons/Refresh';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Estadistica from '../../../Multimedia/Sistema-svg/data-estadisticas.svg';
-import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
 import { Line } from '@reactchartjs/react-chart.js';
-import Moment from 'react-moment';
-import {
-  MuiPickersUtilsProvider,
-  DatePicker,
-} from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import { createMuiTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
+import firebase from '../../firebase/config';
 
 const anios = [
   {

@@ -3,12 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Tooltip from '@material-ui/core/Tooltip';
-import { colors, IconButton } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import GetApp from '@material-ui/icons/GetApp';
 import Refresh from '@material-ui/icons/Refresh';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Estadistica from '../../../Multimedia/Sistema-svg/data-estadisticas.svg';
 import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
 import { Bar } from '@reactchartjs/react-chart.js';
@@ -19,7 +16,6 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import { createMuiTheme } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
-import { green } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
