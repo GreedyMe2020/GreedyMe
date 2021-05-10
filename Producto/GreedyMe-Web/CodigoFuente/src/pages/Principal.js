@@ -1,6 +1,5 @@
 import React from "react";
 import MainPage from "../components/Principal/mainPage";
-import cargaPromociones from "../components/Promociones/cargaPromociones";
 import { connect } from "react-redux";
 import { Redirect, Link } from "@reach/router";
 

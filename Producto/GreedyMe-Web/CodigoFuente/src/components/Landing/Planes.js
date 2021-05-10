@@ -52,13 +52,13 @@ export function Planes() {
               <Check />
             </IconButton>
           }
-          contenido1="Un mayor número de estadísticas"
+          contenido1="Mayor cantidad de estadísticas"
           src2={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido2="Notificaciones a todos los usuarios de la plataforma "
+          contenido2="Notificaciones a todos los usuarios"
           src3={
             <IconButton id="btn" className={classes.root}>
               <Check />
@@ -70,13 +70,13 @@ export function Planes() {
               <Check />
             </IconButton>
           }
-          contenido4="Publicidad de tu negocio dentro de la aplicación"
+          contenido4="Publicidad de tu negocio"
           src5={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido5="Figurar en búsquedas por geolocalización"
+          contenido5="Aparecer en búsquedas por geolocalización"
         ></CardPlanes>
         <CardPlanes
           titulo="PREMIUM"
@@ -86,37 +86,37 @@ export function Planes() {
               <Check />
             </IconButton>
           }
-          contenido1="Estadísticas avanzadas "
+          contenido1="Estadísticas avanzadas"
           src2={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido2="Exportación de reportes estadísticos"
+          contenido2="Notificación a los usuarios cercanos a tu negocio"
           src3={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido3="Notificación a los usuarios que estén cerca de tu negocio "
+          contenido3="30 notificaciones por mes"
           src4={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido4="30 notificaciones por mes "
+          contenido4="Exportá tus reportes estadísticos"
           src5={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido5="Mejor posicionamiento en la app "
-          src6={
-            <IconButton id="btn" className={classes.root}>
-              <Check />
-            </IconButton>
-          }
-          contenido6="Ofrecimiento de recompensas propias por GreedyPoints"
+          contenido5="Mejor posicionamiento en la app"
+          // src6={
+          //   <IconButton id="btn" className={classes.root}>
+          //     <Check />
+          //   </IconButton>
+          // }
+          // contenido6="Ofrecimiento de recompensas propias por GreedyPoints"
         ></CardPlanes>
       </div>
       {/*  <div>

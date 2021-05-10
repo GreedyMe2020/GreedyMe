@@ -6,9 +6,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { IconButton } from '@material-ui/core';
 import GetApp from '@material-ui/icons/GetApp';
 import Refresh from '@material-ui/icons/Refresh';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Estadistica from '../../../Multimedia/Sistema-svg/data-estadisticas.svg';
 import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
 import { Bar } from '@reactchartjs/react-chart.js';
@@ -23,10 +20,9 @@ import { ThemeProvider } from '@material-ui/styles';
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
-      marginRight: theme.spacing(1),
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
-      width: '35ch',
+      width: '38ch',
     },
   },
 }));
@@ -58,15 +54,17 @@ function CantidadXDescuento(props) {
   );
 
   const chart = (beneficios, arrayData) => {
-    //eje "x" beneficios eje "y" cantidad
+    //eje "x" beneficios, eje "y" cantidad
     setChartData({
       labels: beneficios,
       datasets: [
         {
           label: 'Cantidad de compras',
           data: arrayData,
-          backgroudColor: ['rgba(75,192,192,0.2'],
-          borderWidth: 4,
+          //backgroudColor: ['rgba(75,192,192,0.2'],
+          borderColor: '#76b39d',
+          backgroundColor: 'rgb(118, 179, 157,0.3)',
+          borderWidth: 2,
         },
       ],
     });
@@ -222,73 +220,22 @@ function CantidadXDescuento(props) {
 
   return (
     <div>
-      <div className="prom-title-container">
-        <h1>Cantidad total de compras por beneficio</h1>
-      </div>
-      <div id="subtitulo-container">
-        <div className="est-filtros-cont">
-          <form
-            className={classes.root}
-            noValidate
-            autoComplete="off"
-          >
-            <div>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <ThemeProvider theme={temaCombo}>
-                  <DatePicker
-                    autoOk
-                    disableToolbar
-                    fullWidth
-                    inputVariant="outlined"
-                    name="desdeReporte"
-                    label="Fecha desde:"
-                    minDate={new Date('2020/01/01')}
-                    maxDate={new Date()}
-                    format="dd/MM/yyyy"
-                    value={desdeReporte}
-                    variant="inline"
-                    onChange={(data) => handleDesdeReporte(data)}
-                  />
-                  <DatePicker
-                    autoOk
-                    disableToolbar
-                    fullWidth
-                    inputVariant="outlined"
-                    name="hastaReporte"
-                    label="Fecha hasta:"
-                    minDate={desdeReporte}
-                    maxDate={new Date()}
-                    format="dd/MM/yyyy"
-                    value={hastaReporte}
-                    variant="inline"
-                    onChange={(data) => handleHastaReporte(data)}
-                  />
-                </ThemeProvider>
-              </MuiPickersUtilsProvider>
-              <TextField
-                id="est-input-mes"
-                select
-                label="Seleccione un descuento"
-                value={cupon}
-                onChange={handleCupon}
-                variant="outlined"
-              >
-                {beneficios.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.name}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </div>
-          </form>
+      <div className="tittle-discount">
+        <div className="t-discount">
+          <p class="tittle-d">
+            Cantidad total de compras por beneficio
+          </p>
+          <div className="number-est">
+            <p className="number-d">{cantidadCupones}</p>
+          </div>
         </div>
-        <div className="est-icons-cont">
-          <Tooltip title="Refrescar" arrow>
+        <div>
+          <Tooltip title="Actualizar" arrow>
             <IconButton
-              aria-label="Refrescar"
+              aria-label="Actualizar"
               onClick={handleRefresh}
             >
-              <Refresh fontSize="large" />
+              <Refresh fontSize="medium" />
             </IconButton>
           </Tooltip>
           <Tooltip title="Descargar" arrow>
@@ -298,43 +245,81 @@ function CantidadXDescuento(props) {
                 console.log('esto anda getapp');
               }}
             >
-              <GetApp fontSize="large" />
+              <GetApp fontSize="medium" />
             </IconButton>
           </Tooltip>
         </div>
       </div>
-      <div className="est-cards-container">
-        <Card id="est-card">
-          <CardContent id="est-card-content">
-            <h1>{cantidadCupones}</h1>
-            <p className="est-titulo">Cantidad de compras</p>
-          </CardContent>
-        </Card>
-      </div>
-      {flagChart ? (
-        <div className="est-container">
-          <Card className="est-estadisticas">
-            <CardContent id="est-card-content">
-              <Bar
-                data={chartData}
-                options={{
-                  scales: {
-                    yAxes: [
-                      {
-                        display: true,
-                        ticks: {
-                          beginAtZero: true,
-                          min: 0,
-                        },
-                      },
-                    ],
-                  },
-                }}
+      <div className="content-discount">
+        <form className="form-d" noValidate autoComplete="off">
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <ThemeProvider theme={temaCombo}>
+              <DatePicker
+                autoOk
+                disableToolbar
+                className="select"
+                inputVariant="outlined"
+                name="desdeReporte"
+                label="Fecha desde"
+                minDate={new Date('2020/01/01')}
+                maxDate={new Date()}
+                format="dd/MM/yyyy"
+                value={desdeReporte}
+                variant="inline"
+                onChange={(data) => handleDesdeReporte(data)}
               />
-            </CardContent>
-          </Card>
-        </div>
-      ) : null}
+              <DatePicker
+                autoOk
+                disableToolbar
+                className="select"
+                inputVariant="outlined"
+                name="hastaReporte"
+                label="Fecha hasta"
+                minDate={desdeReporte}
+                maxDate={new Date()}
+                format="dd/MM/yyyy"
+                value={hastaReporte}
+                variant="inline"
+                onChange={(data) => handleHastaReporte(data)}
+              />
+            </ThemeProvider>
+          </MuiPickersUtilsProvider>
+          <TextField
+            className="select"
+            select
+            label="Seleccione un descuento"
+            value={cupon}
+            onChange={handleCupon}
+            variant="outlined"
+          >
+            {beneficios.map((option) => (
+              <MenuItem key={option.id} value={option.id}>
+                {option.name}
+              </MenuItem>
+            ))}
+          </TextField>
+        </form>
+        {flagChart ? (
+          <div className="est-container">
+            <Bar
+              data={chartData}
+              options={{
+                scales: {
+                  yAxes: [
+                    {
+                      display: true,
+                      ticks: {
+                        beginAtZero: true,
+                        min: 0,
+                      },
+                    },
+                  ],
+                },
+              }}
+            />
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

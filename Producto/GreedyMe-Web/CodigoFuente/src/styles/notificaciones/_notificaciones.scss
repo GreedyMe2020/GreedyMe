@@ -134,10 +134,9 @@ $background-color: #ececec;
   width: 100%;
   display: grid;
   grid-template-columns: 5% 2fr 1fr 5%;
-  grid-template-rows: 1fr 2fr;
+  grid-template-rows: 1fr 1.5fr;
   justify-items: flex;
   align-items: flex-start;
-  margin-bottom: 1rem;
   .card-programar {
     grid-column: 2/3;
     grid-row: 1/3;

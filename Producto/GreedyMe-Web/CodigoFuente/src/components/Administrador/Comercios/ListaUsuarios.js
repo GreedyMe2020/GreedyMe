@@ -18,7 +18,6 @@ import { firestoreConnect } from "react-redux-firebase";
 import { connect } from "react-redux";
 import Typography from "@material-ui/core/Typography";
 import ModalAdministrador from "../modal-admin";
-import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -181,18 +180,17 @@ function ListaUsuarios(props) {
                                     </Typography>
                                     {user.CUIT}
                                     <Typography>
-                                    {user.tipoSuscripcion === 0
-                                    ? "Plan Básico"
-                                    : user.tipoSuscripcion === 1
-                                    ? "Plan Estándar"
-                                    : user.tipoSuscripcion === 2
-                                    ? "Plan Premium"
-                                    : null}
+                                      {user.tipoSuscripcion === 0
+                                        ? "Plan Básico"
+                                        : user.tipoSuscripcion === 1
+                                        ? "Plan Estándar"
+                                        : user.tipoSuscripcion === 2
+                                        ? "Plan Premium"
+                                        : null}
                                     </Typography>
                                   </React.Fragment>
                                 }
                                 secondary={"rubro: " + user.rubro}
-                               
                               />
                             </div>
                             <ListItemSecondaryAction>
@@ -299,13 +297,13 @@ function ListaUsuarios(props) {
                                     </Typography>
                                     {user.CUIT}
                                     <Typography>
-                                    {user.tipoSuscripcion === 0
-                                    ? "Plan Básico"
-                                    : user.tipoSuscripcion === 1
-                                    ? "Plan Estándar"
-                                    : user.tipoSuscripcion === 2
-                                    ? "Plan Premium"
-                                    : null}
+                                      {user.tipoSuscripcion === 0
+                                        ? "Plan Básico"
+                                        : user.tipoSuscripcion === 1
+                                        ? "Plan Estándar"
+                                        : user.tipoSuscripcion === 2
+                                        ? "Plan Premium"
+                                        : null}
                                     </Typography>
                                   </React.Fragment>
                                 }

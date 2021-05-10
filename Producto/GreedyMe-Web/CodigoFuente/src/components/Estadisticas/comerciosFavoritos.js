@@ -6,20 +6,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { IconButton } from '@material-ui/core';
 import GetApp from '@material-ui/icons/GetApp';
 import Refresh from '@material-ui/icons/Refresh';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Estadistica from '../../../Multimedia/Sistema-svg/data-estadisticas.svg';
-import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
 import { Line } from '@reactchartjs/react-chart.js';
-import Moment from 'react-moment';
-import {
-  MuiPickersUtilsProvider,
-  DatePicker,
-} from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import { createMuiTheme } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
+import firebase from '../../firebase/config';
 
 const anios = [
   {
@@ -100,8 +90,9 @@ function ComerciosFavoritos(props) {
         {
           label: 'Cantidad de favoritos',
           data: data,
-          backgroudColor: ['rgba(75,192,192,0.2'],
-          borderWidth: 4,
+          borderColor: '#262262',
+          backgroundColor: 'rgb(38, 34, 98, 0.3)',
+          borderWidth: 2,
         },
       ],
     });
@@ -150,41 +141,25 @@ function ComerciosFavoritos(props) {
   });
   return (
     <div>
-      <div className="prom-title-container">
-        <h1>Cantidad de clientes favoritos</h1>
-      </div>
-      <div id="subtitulo-container">
-        <div className="est-filtros-cont">
-          <form
-            className={classes.root}
-            noValidate
-            autoComplete="off"
+      <div className="tittle-discount">
+        <div className="t-discount">
+          <p class="tittle-d">
+            Cantidad de clientes que los guardan como favoritos
+          </p>
+          <div
+            className="number-est"
+            style={{ backgroundColor: '#262262' }}
           >
-            <div>
-              <TextField
-                id="est-input-mes"
-                select
-                label="Seleccione un año"
-                value={anio}
-                onChange={handleAnio}
-                variant="outlined"
-              >
-                {anios.map((option) => (
-                  <MenuItem key={option.key} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </div>
-          </form>
+            <p className="number-d">{cantidadFavoritos}</p>
+          </div>
         </div>
-        <div className="est-icons-cont">
-          <Tooltip title="Refrescar" arrow>
+        <div>
+          <Tooltip title="Actualizar" arrow>
             <IconButton
-              aria-label="Refrescar"
+              aria-label="Actualizar"
               onClick={handleRefresh}
             >
-              <Refresh fontSize="large" />
+              <Refresh fontSize="medium" />
             </IconButton>
           </Tooltip>
           <Tooltip title="Descargar" arrow>
@@ -194,28 +169,34 @@ function ComerciosFavoritos(props) {
                 console.log('esto anda getapp');
               }}
             >
-              <GetApp fontSize="large" />
+              <GetApp fontSize="medium" />
             </IconButton>
           </Tooltip>
         </div>
       </div>
-      <div className="est-cards-container">
-        <Card id="est-card">
-          <CardContent id="est-card-content">
-            <h1>{cantidadFavoritos}</h1>
-            <p className="est-titulo">Cantidad de favoritos</p>
-          </CardContent>
-        </Card>
+      <div className="content-discount" style={{ marginTop: 5 }}>
+        <form className="form-d" noValidate autoComplete="off">
+          <TextField
+            className="select"
+            select
+            label="Seleccione un año"
+            value={anio}
+            onChange={handleAnio}
+            variant="outlined"
+          >
+            {anios.map((option) => (
+              <MenuItem key={option.key} value={option.value}>
+                {option.value}
+              </MenuItem>
+            ))}
+          </TextField>
+        </form>
+        {flagChart ? (
+          <div className="est-container">
+            <Line data={chartData} />
+          </div>
+        ) : null}
       </div>
-      {flagChart ? (
-        <div className="est-container">
-          <Card className="est-estadisticas">
-            <CardContent id="est-card-content">
-              <Line data={chartData} />
-            </CardContent>
-          </Card>
-        </div>
-      ) : null}
     </div>
   );
 }
