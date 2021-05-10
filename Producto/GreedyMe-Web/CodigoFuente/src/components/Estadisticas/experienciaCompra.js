@@ -85,11 +85,11 @@ function ExperienciaCompra(props) {
             countExcelente,
           ],
           backgroundColor: [
-            '#FF6384',
-            '#63FF84',
-            '#84FF63',
-            '#8463FF',
-            '#6384FF',
+            '#1e1b4d',
+            '#262262',
+            '#76b39d',
+            '#f7941e',
+            '#fd5f00',
           ],
         },
       ],
@@ -108,7 +108,7 @@ function ExperienciaCompra(props) {
       datasets: [
         {
           data: [countSi, countNo],
-          backgroundColor: ['#63FF84', '#FF6384'],
+          backgroundColor: ['#76b39d', '#262262'],
         },
       ],
     });
@@ -125,7 +125,7 @@ function ExperienciaCompra(props) {
       datasets: [
         {
           data: [countSi, countNo],
-          backgroundColor: ['#63FF84', '#FF6384'],
+          backgroundColor: ['#f7941e', '#262262'],
         },
       ],
     });
@@ -280,41 +280,15 @@ function ExperienciaCompra(props) {
 
   return (
     <div>
-      <div className="prom-title-container">
-        <h1>Experiencia de compra del usuario</h1>
-      </div>
-      <div id="subtitulo-container">
-        <div className="est-filtros-cont">
-          <form
-            className={classes.root}
-            noValidate
-            autoComplete="off"
-          >
-            <div>
-              <TextField
-                id="est-input-mes"
-                select
-                label="Seleccione un año"
-                value={anio}
-                onChange={handleAnio}
-                variant="outlined"
-              >
-                {anios.map((option) => (
-                  <MenuItem key={option.key} value={option.value}>
-                    {option.value}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </div>
-          </form>
-        </div>
-        <div className="est-icons-cont">
-          <Tooltip title="Refrescar" arrow>
+      <div className="tittle-discount">
+        <p class="tittle-d">Experiencia de compra de los usuarios</p>
+        <div>
+          <Tooltip title="Actualizar" arrow>
             <IconButton
-              aria-label="Refrescar"
+              aria-label="Actualizar"
               onClick={handleRefresh}
             >
-              <Refresh fontSize="large" />
+              <Refresh fontSize="medium" />
             </IconButton>
           </Tooltip>
           <Tooltip title="Descargar" arrow>
@@ -324,34 +298,47 @@ function ExperienciaCompra(props) {
                 console.log('esto anda getapp');
               }}
             >
-              <GetApp fontSize="large" />
+              <GetApp fontSize="medium" />
             </IconButton>
           </Tooltip>
         </div>
       </div>
-      <div className="est-container">
-        <h5>Atención del vendedor</h5>
-        <Card className="est-estadisticas">
-          <CardContent id="est-card-content">
-            <Pie data={chartDataAtencionVendedor} />
-          </CardContent>
-        </Card>
-      </div>
-      <div className="est-container">
-        <h5>Coincide con lo esperado</h5>
-        <Card className="est-estadisticas">
-          <CardContent id="est-card-content">
+      <div className="content-discount" style={{ marginTop: 0 }}>
+        <form className="form-d" noValidate autoComplete="off">
+          <TextField
+            id="est-input-mes"
+            select
+            className="select"
+            label="Seleccione un año"
+            value={anio}
+            onChange={handleAnio}
+            variant="outlined"
+          >
+            {anios.map((option) => (
+              <MenuItem key={option.key} value={option.value}>
+                {option.value}
+              </MenuItem>
+            ))}
+          </TextField>
+        </form>
+        <div className="est-container">
+          <p class="subtittle-d">Atención del vendedor</p>
+          <Pie data={chartDataAtencionVendedor} />
+        </div>
+        <div className="graphic-exp">
+          <div className="est-exp">
+            <p class="subtittle-d">
+              El cupón coincide con lo esperado
+            </p>
             <Pie data={chartDataCoincideEsperado} />
-          </CardContent>
-        </Card>
-      </div>
-      <div className="est-container">
-        <h5>Utilizó beneficio</h5>
-        <Card className="est-estadisticas">
-          <CardContent id="est-card-content">
+          </div>
+          <div className="est-exp">
+            <p class="subtittle-d">
+              El cliente pudo utilizar el beneficio
+            </p>
             <Pie data={chartDataUtilizoBeneficio} />
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   );

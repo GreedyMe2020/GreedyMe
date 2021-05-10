@@ -106,43 +106,35 @@ function Estadisticas(props) {
       <div className="prom-title-container">
         <h1>Estadísticas</h1>
       </div>
-      <div id="subtitulo-container">
-        <div className="est-filtros-cont">
-          <form
-            className={classes.root}
-            noValidate
-            autoComplete="off"
-          ></form>
-        </div>
-      </div>
       <div className="est-cards-container">
         <Card id="est-card">
           <CardContent id="est-card-content">
             <h1>{cantidadPromos}</h1>
-            <p className="est-titulo">Beneficios cargados</p>
+            <p>Beneficios cargados</p>
           </CardContent>
         </Card>
-
         <Card id="est-card">
           <CardContent id="est-card-content">
             <h1>{cantidadCupones}</h1>
-            <p className="est-titulo">Cupones usados</p>
+            <p>Cupones usados</p>
           </CardContent>
         </Card>
-
         <Card id="est-card">
           <CardContent id="est-card-content">
             <h3>{cuponMasUsado}</h3>
-            <p className="est-titulo">Beneficio más utilizado</p>
+            <p>Beneficio más utilizado</p>
           </CardContent>
         </Card>
       </div>
-
-      <CantidadXDescuento />
-
-      <ComerciosFavoritos />
-
-      <ExperienciaCompra />
+      <div class="container-discount">
+        <CantidadXDescuento />
+      </div>
+      <div class="container-discount">
+        <ComerciosFavoritos />
+      </div>
+      <div class="container-discount">
+        <ExperienciaCompra />
+      </div>
     </div>
   );
 }
