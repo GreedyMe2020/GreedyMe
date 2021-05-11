@@ -104,6 +104,7 @@ function ComerciosFavoritos(props) {
 
   const handleRefresh = () => {
     setFlagChart(true);
+    let cantFavoritos = 0;
     let cantidadMes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     //Usar la variable anio y getAnio() -----> trae como resultado 120 (2020), 121 (2021), etc
     for (let i = 0; i < favoritos.length; i++) {
@@ -112,8 +113,11 @@ function ComerciosFavoritos(props) {
       ) {
         //construir array de meses, insertar en la posicion y sumar +1 teniendo en cuenta que enero = [0], febrero = [1]a
         cantidadMes[favoritos[i].fecha.toDate().getMonth()]++;
+        cantFavoritos++;
       }
     }
+    console.log(cantFavoritos);
+    setCantidadFavoritos(cantFavoritos);
     setCantidadPorMes(cantidadMes);
     chart(cantidadMes);
   };
@@ -130,7 +134,10 @@ function ComerciosFavoritos(props) {
   });
 
   React.useEffect(() => {
-    if (props.profile.estadisticasFavoritos !== undefined) {
+    if (
+      props.profile.estadisticasFavoritos !== undefined &&
+      flagChart === false
+    ) {
       //Guardo la cantidad de condigos en general
       setCantidadFavoritos(
         props.profile.estadisticasFavoritos.length,

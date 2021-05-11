@@ -191,7 +191,6 @@ function CantidadXDescuento(props) {
   });
 
   const handleRefresh = () => {
-    setFlagChart(false);
     //FALTA EL IF SI SE SELECCIONÓ O NO EL DESCUENTO.
     //Tengo que usar cupon que es el "parametro"cupon + codigosCupon que es el array donde estan todos + cantidadCupones
     let contador = 0;
@@ -205,16 +204,47 @@ function CantidadXDescuento(props) {
           contador++;
         }
       }
+      setFlagChart(false);
     } else {
+      const nombreBarChart = [];
+      const countBarChart = [];
+      const nombreSplitBarChart = [];
+
       for (let i = 0; i < codigosCupon.length; i++) {
         if (
           codigosCupon[i].fechaCreacion.toDate() <= hastaReporte &&
           codigosCupon[i].fechaCreacion.toDate() >= desdeReporte
         ) {
-          contador++;
+          if (i === 0) {
+            nombreBarChart.push(codigosCupon[i].detalle);
+            nombreSplitBarChart.push(
+              codigosCupon[i].detalle.split(',')[0],
+            );
+            countBarChart.push(1);
+            contador++;
+          } else {
+            let existe = 0;
+            for (let j = 0; j < nombreBarChart.length; j++) {
+              if (codigosCupon[i].detalle === nombreBarChart[j]) {
+                countBarChart[j]++;
+                contador++;
+                existe++;
+              }
+            }
+            if (existe === 0) {
+              nombreBarChart.push(codigosCupon[i].detalle);
+              nombreSplitBarChart.push(
+                codigosCupon[i].detalle.split(',')[0],
+              );
+              countBarChart.push(1);
+              contador++;
+            }
+          }
         }
       }
+      chart(nombreSplitBarChart, countBarChart);
     }
+
     setCantidadCupones(contador);
   };
 
