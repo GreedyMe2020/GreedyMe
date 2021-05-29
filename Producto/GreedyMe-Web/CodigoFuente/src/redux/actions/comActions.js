@@ -1,10 +1,10 @@
-import secondaryApp from "../../firebase/configSecondary";
+import secondaryApp from '../../firebase/configSecondary';
 export const editarDatos = (datos) => {
   return (dispatch, getState, { getFirestore }) => {
     //codigo asincrono
     const firestore = getFirestore();
     firestore
-      .collection("usuarioComercio")
+      .collection('usuarioComercio')
       .doc(datos.id)
       .update({
         web: datos.web,
@@ -17,7 +17,7 @@ export const editarDatos = (datos) => {
       })
       .then(() => {
         const bd = secondaryApp.firestore();
-        bd.collection("usuarioComercio").doc(datos.id).update({
+        bd.collection('usuarioComercio').doc(datos.id).update({
           web: datos.web,
           sucursal: datos.sucursal,
           rubro: datos.rubro,
@@ -28,10 +28,10 @@ export const editarDatos = (datos) => {
         });
       })
       .then(() => {
-        dispatch({ type: "EDITAR_DATOS" });
+        dispatch({ type: 'EDITAR_DATOS' });
       })
       .catch((error) => {
-        dispatch({ type: "ERROR_DATOS", error });
+        dispatch({ type: 'ERROR_DATOS', error });
       });
   };
 };
@@ -40,22 +40,22 @@ export const subirFoto = (downloadURL) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     firestore
-      .collection("usuarioComercio")
+      .collection('usuarioComercio')
       .doc(downloadURL.id)
       .update({
         photoURL: downloadURL.url,
       })
       .then(() => {
         const bd = secondaryApp.firestore();
-        bd.collection("usuarioComercio").doc(downloadURL.id).update({
+        bd.collection('usuarioComercio').doc(downloadURL.id).update({
           photoURL: downloadURL.url,
         });
       })
       .then(() => {
-        dispatch({ type: "SUBIR_FOTO" });
+        dispatch({ type: 'SUBIR_FOTO' });
       })
       .catch((error) => {
-        dispatch({ type: "ERROR_FOTO", error });
+        dispatch({ type: 'ERROR_FOTO', error });
       });
   };
 };
@@ -64,22 +64,22 @@ export const eliminarFoto = (id) => {
   return (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     firestore
-      .collection("usuarioComercio")
+      .collection('usuarioComercio')
       .doc(id.id)
       .update({
         photoURL: null,
       })
       .then(() => {
         const bd = secondaryApp.firestore();
-        bd.collection("usuarioComercio").doc(id.id).update({
+        bd.collection('usuarioComercio').doc(id.id).update({
           photoURL: null,
         });
       })
       .then(() => {
-        dispatch({ type: "ELIMINAR_FOTO" });
+        dispatch({ type: 'ELIMINAR_FOTO' });
       })
       .catch((error) => {
-        dispatch({ type: "ERROR_ELIMINAR", error });
+        dispatch({ type: 'ERROR_ELIMINAR', error });
       });
   };
 };
@@ -89,7 +89,7 @@ export const editarSuscripcion = (datos) => {
     //codigo asincrono
     const firestore = getFirestore();
     firestore
-      .collection("usuarioComercio")
+      .collection('usuarioComercio')
       .doc(datos.id)
       .update({
         web: datos.web,
@@ -103,7 +103,7 @@ export const editarSuscripcion = (datos) => {
       })
       .then(() => {
         const bd = secondaryApp.firestore();
-        bd.collection("usuarioComercio").doc(datos.id).update({
+        bd.collection('usuarioComercio').doc(datos.id).update({
           web: datos.web,
           sucursal: datos.sucursal,
           rubro: datos.rubro,
@@ -115,43 +115,42 @@ export const editarSuscripcion = (datos) => {
         });
       })
       .then(() => {
-        dispatch({ type: "EDITAR_SUSCRIPCION" });
+        dispatch({ type: 'EDITAR_SUSCRIPCION' });
       })
       .catch((error) => {
-        dispatch({ type: "ERROR_SUSCRIPCION", error });
+        dispatch({ type: 'ERROR_SUSCRIPCION', error });
       });
   };
 };
-
 
 export const cambiarContraseña = (formData) => {
   return (dispatch, getState, { getFirestore, getFirebase }) => {
     //codigo asincrono
     const firebase = getFirebase();
     var user = firebase.auth().currentUser;
-      if (user) {
-        var credentials = firebase.auth.EmailAuthProvider.credential(
-          user.email,
-          formData.contraseñaActual,
-        );
-        user
-          .reauthenticateWithCredential(credentials)
-          .then(() => {
-            user.updatePassword(formData.nuevaContraseña);
-          })
-          .then(() => {
-            dispatch({ type: 'CAMBIO_PASSWORD' });
-          })
-          .catch((error) => {
-            dispatch({ type: 'ERROR_PASSWORD', error });
-          });
-      }  
+    if (user) {
+      var credentials = firebase.auth.EmailAuthProvider.credential(
+        user.email,
+        formData.contraseñaActual,
+      );
+      user
+        .reauthenticateWithCredential(credentials)
+        .then(() => {
+          user.updatePassword(formData.nuevaContraseña);
+        })
+        .then(() => {
+          dispatch({ type: 'CAMBIO_PASSWORD' });
+        })
+        .catch((error) => {
+          dispatch({ type: 'ERROR_PASSWORD', error });
+        });
+    }
   };
 };
 
 export const resetearValoresCambiarContraseña = () => {
   return (dispatch, getState, { getFirestore }) => {
-    dispatch({ type: "RESETEAR_VALORES_CAMBIAR_PASSWORD" });
+    dispatch({ type: 'RESETEAR_VALORES_CAMBIAR_PASSWORD' });
   };
 };
 
@@ -160,39 +159,58 @@ export const enviarConsulta = (datos) => {
     //codigo asincrono
     const firestore = getFirestore();
     firestore
-      .collection("consulta")
+      .collection('consulta')
       .doc()
       .set({
         nombreComercio: datos.nombreComercio,
         email: datos.email,
-        consulta: datos.consulta
+        consulta: datos.consulta,
       })
       .then(() => {
-        dispatch({ type: "ENVIAR_CONSULTA" });
+        dispatch({ type: 'ENVIAR_CONSULTA' });
       })
       .catch((error) => {
-        dispatch({ type: "ERROR_CONSULTA", error });
+        dispatch({ type: 'ERROR_CONSULTA', error });
       });
   };
 };
 
-export const generarCodigo = (codigo, idCupon) => {
+export const generarCodigo = (codigo, idCupon, id, detalle) => {
   return (dispatch, getState, { getFirestore }) => {
     //codigo asincrono
     const firestore = getFirestore();
     firestore
-      .collection("codigoCupon")
+      .collection('codigoCupon')
       .doc()
       .set({
         codigo: codigo,
         idCupon: idCupon,
-        validado: false
+        fechaCreacion: new Date(),
+        validado: false,
       })
       .then(() => {
-        dispatch({ type: "GUARDAR_CODIGO" });
+        dispatch({ type: 'GUARDAR_CODIGO' });
       })
       .catch((error) => {
-        dispatch({ type: "ERROR_CODIGO", error });
+        dispatch({ type: 'ERROR_CODIGO', error });
+      });
+
+    firestore
+      .collection('usuarioComercio')
+      .doc(id)
+      .collection('codigoCupon')
+      .doc()
+      .set({
+        codigo: codigo,
+        idCupon: idCupon,
+        fechaCreacion: new Date(),
+        detalle: detalle,
+      })
+      .then(() => {
+        dispatch({ type: 'GUARDAR_CODIGO' });
+      })
+      .catch((error) => {
+        dispatch({ type: 'ERROR_CODIGO', error });
       });
   };
 };
@@ -238,12 +256,11 @@ export const generarNotificacionesFavoritos = (tokens, titulo, mensaje, url) => 
       mensaje: mensaje,
       url: url,
     })
-    .then(() => {
-      dispatch({ type: "ENVIAR_FAVNOTIF" });
-    })
-    .catch((error) => {
-      dispatch({ type: "ERROR_FAVNOTIF", error });
-    });
+      .then(() => {
+        dispatch({ type: "ENVIAR_FAVNOTIF" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_FAVNOTIF", error });
+      });
   };
 };
-

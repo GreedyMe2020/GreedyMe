@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import NavBarSup from "../Principal/navBarSuperior";
 import { makeStyles } from "@material-ui/core/styles";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { Card } from "react-bootstrap";
@@ -65,35 +64,35 @@ function NuevaContraseña(props) {
   };
 
   const handleSubmit2 = () => {
-    if(formData.nuevaContraseña === formData.repeticion){
+    if (formData.nuevaContraseña === formData.repeticion) {
       props.cambiarContraseña(formData);
       setFormData({
-      contraseñaActual: "",
-      nuevaContraseña: "",
-      repeticion: "",
+        contraseñaActual: "",
+        nuevaContraseña: "",
+        repeticion: "",
       });
     }
   };
 
   //Effects para abrir carteles
   const abrirCarteldeConfirmacion = React.useEffect(() => {
-    if(props.password !== null){
+    if (props.password !== null) {
       setOpenContraseña(true);
-      props.resetearValoresCambiarContraseña()
+      props.resetearValoresCambiarContraseña();
       setFormData({
         contraseñaActual: "",
         nuevaContraseña: "",
         repeticion: "",
-      })
+      });
     }
-  },[props.password] )
+  }, [props.password]);
 
   const abrirCarteldeError = React.useEffect(() => {
-    if(props.passwordError !== null){
+    if (props.passwordError !== null) {
       setOpen2Contraseña(true);
-      props.resetearValoresCambiarContraseña()
+      props.resetearValoresCambiarContraseña();
     }
-  },[props.passwordError] )
+  }, [props.passwordError]);
 
   //validacion para que los campos sean iguales
   ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
@@ -107,97 +106,97 @@ function NuevaContraseña(props) {
   return (
     <div>
       {/*<ValidatorForm ref={form2} onSubmit={handleSubmit2} id="validator-form">*/}
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={12}>
-            <TextValidator
-              id="outlined-password-input"
-              label="Contraseña Actual"
-              type="password"
-              autoComplete="current-password"
-              variant="outlined"
-              required
-              value={formData.contraseñaActual}
-              onChange={handleChange2}
-              name="contraseñaActual"
-              fullWidth
-              validators={["required"]}
-              errorMessages={["*Este campo es obligatorio"]}
-            />
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <TextValidator
-              id="outlined-password-input"
-              label="Nueva Contraseña"
-              type="password"
-              autoComplete="current-password"
-              variant="outlined"
-              required
-              value={formData.nuevaContraseña}
-              onChange={handleChange2}
-              name="nuevaContraseña"
-              fullWidth
-              validators={[
-                "matchRegexp:^(?=.{8,16}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])",
-              ]}
-              errorMessages={[
-                "La contraseña debe entre 8 y 16 caracteres y, por lo menos una mayúscula, una minúscula y un número",
-              ]}
-            />
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <TextValidator
-              id="outlined-password-input"
-              label="Repite la Contraseña"
-              type="password"
-              autoComplete="current-password"
-              variant="outlined"
-              required
-              value={formData.repeticion}
-              onChange={handleChange2}
-              name="repeticion"
-              fullWidth
-              validators={["isPasswordMatch", "required"]}
-              errorMessages={[
-                "Las contraseñas deben ser iguales",
-                "*Este campo es obligatorio",
-              ]}
-            />
-          </Grid>
-          <Grid item xs={12} md={12}>
-            <div className="perfil-btnCont text-center">
-              <Button
-                variant="contained"
-                id="btn-azul"
-                //className="btnAdminPerfil"
-                type="submit"
-                onClick={handleSubmit2}
-                startIcon={<SaveIcon />}
-              >
-                Guardar contraseña
-              </Button>
-            </div>
-          </Grid>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={12}>
+          <TextValidator
+            id="outlined-password-input"
+            label="Contraseña Actual"
+            type="password"
+            autoComplete="current-password"
+            variant="outlined"
+            required
+            value={formData.contraseñaActual}
+            onChange={handleChange2}
+            name="contraseñaActual"
+            fullWidth
+            validators={["required"]}
+            errorMessages={["*Este campo es obligatorio"]}
+          />
         </Grid>
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          open={openContraseña}
-          autoHideDuration={8000}
-          onClose={handleClose}
-        >
-          <Alert onClose={handleClose} severity="success">
-            ¡La contraseña ha sido modificada correctamente!
-          </Alert>
-        </Snackbar>
-        <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          open={open2Contraseña}
-          autoHideDuration={8000}
-          onClose={handleClose2}
-        >
-          <Alert onClose={handleClose2} severity="error">
-            La contraseña actual es incorrecta.
-          </Alert>
-        </Snackbar>
+        <Grid item xs={12} md={12}>
+          <TextValidator
+            id="outlined-password-input"
+            label="Nueva Contraseña"
+            type="password"
+            autoComplete="current-password"
+            variant="outlined"
+            required
+            value={formData.nuevaContraseña}
+            onChange={handleChange2}
+            name="nuevaContraseña"
+            fullWidth
+            validators={[
+              "matchRegexp:^(?=.{8,16}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])",
+            ]}
+            errorMessages={[
+              "La contraseña debe entre 8 y 16 caracteres y, por lo menos una mayúscula, una minúscula y un número",
+            ]}
+          />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <TextValidator
+            id="outlined-password-input"
+            label="Repite la Contraseña"
+            type="password"
+            autoComplete="current-password"
+            variant="outlined"
+            required
+            value={formData.repeticion}
+            onChange={handleChange2}
+            name="repeticion"
+            fullWidth
+            validators={["isPasswordMatch", "required"]}
+            errorMessages={[
+              "Las contraseñas deben ser iguales",
+              "*Este campo es obligatorio",
+            ]}
+          />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <div className="perfil-btnCont text-center">
+            <Button
+              variant="contained"
+              id="btn-azul"
+              //className="btnAdminPerfil"
+              type="submit"
+              onClick={handleSubmit2}
+              startIcon={<SaveIcon />}
+            >
+              Guardar contraseña
+            </Button>
+          </div>
+        </Grid>
+      </Grid>
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        open={openContraseña}
+        autoHideDuration={8000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="success">
+          ¡La contraseña ha sido modificada correctamente!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        open={open2Contraseña}
+        autoHideDuration={8000}
+        onClose={handleClose2}
+      >
+        <Alert onClose={handleClose2} severity="error">
+          La contraseña actual es incorrecta.
+        </Alert>
+      </Snackbar>
       {/*</ValidatorForm>*/}
     </div>
   );

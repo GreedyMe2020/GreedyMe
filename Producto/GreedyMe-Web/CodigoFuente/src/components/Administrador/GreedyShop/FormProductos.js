@@ -26,7 +26,10 @@ import {
   eliminarFoto,
 } from '../../../redux/actions/comActions';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
-import { cargarPremio, modificarPremio } from '../../../redux/actions/adminActions';
+import {
+  cargarPremio,
+  modificarPremio,
+} from '../../../redux/actions/adminActions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -96,7 +99,9 @@ function FormProductos(props) {
   const classes = useStyles();
 
   //Estados para cargar la imagen y la barra de progreso de carga
-  const [picture, setPicture] = useState(props.photoURL ? props.photoURL : null);
+  const [picture, setPicture] = useState(
+    props.photoURL ? props.photoURL : null,
+  );
   const [valorCarga, setValorCarga] = useState(0);
 
   const [formData, setFormData] = React.useState({
@@ -110,20 +115,19 @@ function FormProductos(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (props.modificar){
+    if (props.modificar) {
       props.modificarPremio(props.id, formData);
       setOpen(true);
     } else {
       props.cargarPremio(formData);
       setFormData({
         nombre: '',
-        descripcion:  '',
+        descripcion: '',
         greedypoints: '',
         photoURL: null,
-      })
+      });
       setOpen(true);
     }
-    
   };
 
   const handleDelete = () => {
@@ -252,11 +256,14 @@ function FormProductos(props) {
               variant="outlined"
               id="outlined-basic"
               label="Ingresa aqui los GreedyPoints"
+              validators={['minNumber: 0', 'maxNumber: 10000000']}
               fullWidth
               required
+              type="number"
               onChange={handleChange}
               name="greedypoints"
               value={formData.greedypoints}
+              errorMessages={['Número no válido']}
             />
           </Grid>
           <Grid item xs={12} md={12}>
@@ -311,7 +318,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     cargarPremio: (formData) => dispatch(cargarPremio(formData)),
-    modificarPremio: (id, formData) => dispatch(modificarPremio(id, formData)),
+    modificarPremio: (id, formData) =>
+      dispatch(modificarPremio(id, formData)),
   };
 };
 

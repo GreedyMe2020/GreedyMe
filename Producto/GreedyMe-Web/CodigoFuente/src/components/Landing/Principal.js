@@ -5,15 +5,7 @@ import { Registro } from "../../pages/Registro";
 import { useHistory } from "react-router-dom";
 import { Link } from "@reach/router";
 
-/*var divRef = document.getElementById("contenedorCard");*/
-
 export function Principal() {
-  /*const handleClick = () =>
-    element.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });*/
-
   const history = useHistory(); // ESTA FUNCION NOS SIRVE PARA ENRUTAR.
 
   const routeChange = () => {
