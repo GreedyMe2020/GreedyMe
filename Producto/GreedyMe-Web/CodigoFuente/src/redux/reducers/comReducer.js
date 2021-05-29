@@ -8,7 +8,11 @@ const initState = {
   consulta: null,
   errorConsulta: null,
   codigo: null,
-  codigoError: null
+  codigoError: null,
+  notificacionesTodos: null,
+  errorNotificacionesTodos: null,
+  notificacionesFav: null,
+  errorNotificacionesFav: null,
 };
 
 const comReducer = (state = initState, action) => {
@@ -95,6 +99,30 @@ const comReducer = (state = initState, action) => {
         ...state,
         password: null,
         passwordError: null
+      };
+    case "ENVIAR_TODOSNOTIF":
+      console.log("se envio las notificaciones a todos");
+      return {
+        ...state,
+        notificacionesTodos: 'Se envio las notif a todos'
+      };
+    case "ERROR_TODOSNOTIF":
+      console.log("Hubo un error al enviar a todos las notificaciones");
+      return {
+        ...state,
+        errorNotificacionesTodos: 'Error al enviar notif a todos'
+      };
+    case "ENVIAR_FAVNOTIF":
+      console.log("se envio las notificaciones a favoritos");
+      return {
+        ...state,
+        notificacionesFav: 'Se envio las notif a favoritos'
+      };
+    case "ERROR_FAVNOTIF":
+      console.log("Hubo un error al enviar a favoritos las notificaciones");
+      return {
+        ...state,
+        errorNotificacionesFav: 'Error al enviar notif a favoritos'
       };
     default:
       return state;

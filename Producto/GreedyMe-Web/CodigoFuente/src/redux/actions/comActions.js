@@ -196,3 +196,54 @@ export const generarCodigo = (codigo, idCupon) => {
       });
   };
 };
+
+export const generarNotificacionesTodos = (titulo, mensaje, url) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const firestore = getFirestore();
+    firestore
+      .collection('todosTokens')
+      .doc('abcdtokens')
+      .get()
+      .then((doc) => {
+        let todosTokens = doc.data().tokens;
+        return todosTokens;
+      })
+      .then((todosTokens) => {
+        const bd = secondaryApp.firestore();
+        bd.collection("notificaciones").doc().set({
+          tokens: todosTokens,
+          titulo: titulo,
+          mensaje: mensaje,
+          url: url,
+        })
+      })
+      .then(() => {
+        dispatch({ type: "ENVIAR_TODOSNOTIF" });
+      })
+      .catch((error) => {
+        dispatch({ type: "ERROR_TODOSNOTIF", error });
+      });
+  };
+};
+
+export const generarNotificacionesFavoritos = (tokens, titulo, mensaje, url) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const firestore = getFirestore();
+    const bd = secondaryApp.firestore();
+    bd.collection("notificaciones").doc().set({
+      tokens: tokens,
+      titulo: titulo,
+      mensaje: mensaje,
+      url: url,
+    })
+    .then(() => {
+      dispatch({ type: "ENVIAR_FAVNOTIF" });
+    })
+    .catch((error) => {
+      dispatch({ type: "ERROR_FAVNOTIF", error });
+    });
+  };
+};
+
