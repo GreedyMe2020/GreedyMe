@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { Line } from '@reactchartjs/react-chart.js';
 import { createMuiTheme } from '@material-ui/core';
 import firebase from '../../firebase/config';
+import jsPDF from 'jspdf';
 
 const anios = [
   {
@@ -146,6 +147,41 @@ function ComerciosFavoritos(props) {
       setFavoritos(props.profile.estadisticasFavoritos);
     }
   });
+
+  const print = (anio, tabla) => {
+    console.log(tabla)
+    const img = new Image();
+    const pdf = new jsPDF('p', 'pt', 'a4');
+    const width = pdf.internal.pageSize.getWidth();
+    let y = 5;
+    const url = './logo1-m.png'
+    img.src = url;
+    console.log(img)
+    pdf.setFontType('bold');
+    //pdf.addImage(img, 'png', y, y, 400, 400);
+    pdf.setFontSize(16);
+    pdf.text('Cantidad de clientes que los guardan como favoritos', 92.0975, 20, {
+      maxWidth: width - 105,
+      align: 'justify'
+    });
+    pdf.line(92.0975, 37, width - 5, 37);
+    pdf.setFontSize(12);
+    pdf.setTextColor('#636666');
+    pdf.text('Año: ', 92.0975, 57);
+    pdf.setFontType('normal');
+    pdf.text(anio, 92.0975 + pdf.getTextWidth('Año: ') + 10, 57);
+    /*pdf.setFontType('bold');
+    pdf.text('Fecha hasta: ', 92.0975, 72);
+    pdf.setFontType('normal');
+    pdf.text(fechaHasta.toLocaleString(), 92.0975 + pdf.getTextWidth('Fecha hasta: ') + 10, 72);
+    pdf.setFontType('bold');
+    pdf.text('Cupon: ', 92.0975, 87);
+    pdf.setFontType('normal');
+    pdf.text(cupon === "" ? 'Todos' : cuponNombre[0].name, 92.0975 + pdf.getTextWidth('Cupon: ') + 10, 87);*/
+
+
+    pdf.save('Comercios favoritos' + '.pdf');
+  }
   return (
     <div>
       <div className="tittle-discount">
@@ -173,7 +209,7 @@ function ComerciosFavoritos(props) {
             <IconButton
               aria-label="Descargar"
               onClick={() => {
-                console.log('esto anda getapp');
+                print(anio, chartData)
               }}
             >
               <GetApp fontSize="medium" />

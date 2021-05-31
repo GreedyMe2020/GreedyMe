@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { Pie } from '@reactchartjs/react-chart.js';
 import _ from 'lodash';
 import { createMuiTheme } from '@material-ui/core';
+import jsPDF from 'jspdf';
 
 const anios = [
   {
@@ -269,6 +270,41 @@ function ExperienciaCompra(props) {
     },
   });
 
+  const print = (anio, tabla1, tabla2, tabla3) => {
+    console.log(tabla1)
+    const img = new Image();
+    const pdf = new jsPDF('p', 'pt', 'a4');
+    const width = pdf.internal.pageSize.getWidth();
+    let y = 5;
+    const url = './logo1-m.png'
+    img.src = url;
+    console.log(img)
+    pdf.setFontType('bold');
+    //pdf.addImage(img, 'png', y, y, 400, 400);
+    pdf.setFontSize(16);
+    pdf.text('Cantidad de clientes que los guardan como favoritos', 92.0975, 20, {
+      maxWidth: width - 105,
+      align: 'justify'
+    });
+    pdf.line(92.0975, 37, width - 5, 37);
+    pdf.setFontSize(12);
+    pdf.setTextColor('#636666');
+    pdf.text('Año: ', 92.0975, 57);
+    pdf.setFontType('normal');
+    pdf.text(anio, 92.0975 + pdf.getTextWidth('Año: ') + 10, 57);
+    /*pdf.setFontType('bold');
+    pdf.text('Fecha hasta: ', 92.0975, 72);
+    pdf.setFontType('normal');
+    pdf.text(fechaHasta.toLocaleString(), 92.0975 + pdf.getTextWidth('Fecha hasta: ') + 10, 72);
+    pdf.setFontType('bold');
+    pdf.text('Cupon: ', 92.0975, 87);
+    pdf.setFontType('normal');
+    pdf.text(cupon === "" ? 'Todos' : cuponNombre[0].name, 92.0975 + pdf.getTextWidth('Cupon: ') + 10, 87);*/
+
+
+    pdf.save('Experiencia compra' + '.pdf');
+  }
+
   return (
     <div>
       <div className="tittle-discount">
@@ -286,7 +322,7 @@ function ExperienciaCompra(props) {
             <IconButton
               aria-label="Descargar"
               onClick={() => {
-                console.log('esto anda getapp');
+                print(anio, chartDataAtencionVendedor, chartDataCoincideEsperado, chartDataUtilizoBeneficio)
               }}
             >
               <GetApp fontSize="medium" />
