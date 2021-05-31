@@ -26,6 +26,7 @@ import { connect } from "react-redux";
 import firebase from "../../firebase/config";
 import { format } from "date-fns";
 import MenuItem from "@material-ui/core/MenuItem";
+import { generarNotificacionesTodos, generarNotificacionesFavoritos } from "../../redux/actions/comActions";
 
 const useStyles = makeStyles((theme) => ({
   demo: {
@@ -72,6 +73,8 @@ function ProgramarNotificaciones(props) {
   const [nombreComercio, setNombreComercio] = React.useState('');
   //estado para la sucursal del comercio
   const [sucursal, setSucursal] = React.useState('');
+  //estado para obtener el beneficio elegido
+  const [beneficioElegido, setBeneficioElegido] = React.useState('');
 
   //use effect que trae los datos 
   React.useEffect(() => {
@@ -132,15 +135,15 @@ function ProgramarNotificaciones(props) {
       const firestore = firebase.firestore();
       try {
         const perfiles = await firestore.collection("usuarioComercio").where('email', '==', props.auth.email).get()
-        const arrayPerfiles = perfiles.docs.map(doc => ({id: doc.id, ...doc.data()}))
+        const arrayPerfiles = perfiles.docs.map(doc => ({ id: doc.id, ...doc.data() }))
         setNombreComercio(arrayPerfiles[0].nombreComercio)
         setSucursal(arrayPerfiles[0].sucursal)
       }
-      catch (error){
+      catch (error) {
         console.log(error)
       }
     }
-  obtenerPerfil();
+    obtenerPerfil();
   }, [])
 
   //Estado checked del switch de geolocalizacion
@@ -163,6 +166,11 @@ function ProgramarNotificaciones(props) {
 
   const handleChangeNotificaciones = (event) => {
     setNotificaciones(event.target.value);
+
+  };
+
+  const handleChangeBeneficios = (event) => {
+    setBeneficioElegido(event.target.value);
   };
 
   const handleChangeEnvioUbicacion = (event) => {
@@ -176,10 +184,10 @@ function ProgramarNotificaciones(props) {
     });
   };
 
-  const handleChangeCliente = (event) => {
+  /*const handleChangeCliente = (event) => {
     formData[event.target.name] = event.target.value;
     setFormData({ ...formData });
-  };
+  };*/
 
   const [open, setOpen] = React.useState(false);
 
@@ -192,6 +200,14 @@ function ProgramarNotificaciones(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (notificaciones === "Todos los usuarios") {
+      props.generarNotificacionesTodos(nombreComercio, beneficioElegido, props.profile.photoURL);
+      setOpen(true);
+    } else if (notificaciones === "Usuarios con comercio favorito") {
+      props.generarNotificacionesFavoritos(props.profile.tokensFavoritos, nombreComercio, beneficioElegido, props.profile.photoURL);
+      setOpen(true);
+      console.log('entro por aca pa');
+    }
   };
 
   const form = React.createRef();
@@ -235,10 +251,8 @@ function ProgramarNotificaciones(props) {
                   onChange={handleChangeNotificaciones}
                   name="tipoCliente"
                   value={notificaciones}
-                  //value={formData.tipoCliente}
+                  required
                   variant="outlined"
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
                 >
                   {notificados.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -254,8 +268,10 @@ function ProgramarNotificaciones(props) {
                 <Autocomplete
                   className="buscador-ben"
                   fullWidth
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
+                  inputValue={beneficioElegido}
+                  onInputChange={(event, newInputValue) => {
+                    setBeneficioElegido(newInputValue);
+                  }}
                   options={options.sort(
                     (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
                   )}
@@ -266,6 +282,7 @@ function ProgramarNotificaciones(props) {
                       {...params}
                       label="Beneficio"
                       variant="outlined"
+                      required
                     />
                   )}
                 />
@@ -352,8 +369,8 @@ function ProgramarNotificaciones(props) {
                   </MuiPickersUtilsProvider>
                 </div>
               ) : (
-                  ""
-                )}
+                ""
+              )}
 
               <div className="boton-enviar-notificacion">
                 <div>
@@ -372,7 +389,7 @@ function ProgramarNotificaciones(props) {
                   onClose={handleClose}
                 >
                   <Alert onClose={handleClose} severity="success">
-                    La notificación se enviará correctamente!
+                    La notificación se envió correctamente!
                   </Alert>
                 </Snackbar>
               </div>
@@ -392,7 +409,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    generarNotificacionesTodos: (titulo, mensaje, url) => dispatch(generarNotificacionesTodos(titulo, mensaje, url)),
+    generarNotificacionesFavoritos: (tokens, titulo, mensaje, url) => dispatch(generarNotificacionesFavoritos(tokens, titulo, mensaje, url)),
+  };
 };
 
 export default connect(
