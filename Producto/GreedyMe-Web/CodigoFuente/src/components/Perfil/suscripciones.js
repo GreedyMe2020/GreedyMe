@@ -1,21 +1,25 @@
-import React from "react";
-import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
-import { withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardPlanes from "../CardPlanes";
-import Box from "@material-ui/core/Box";
-import { Button } from "@material-ui/core";
-import { editarSuscripcion } from "../../redux/actions/comActions";
+import React from 'react';
+import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardPlanes from '../CardPlanes';
+import Box from '@material-ui/core/Box';
+import { Button } from '@material-ui/core';
+import { editarSuscripcion } from '../../redux/actions/comActions';
+//import Express from 'express';
+import { Redirect, Link } from '@reach/router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiTextField-root": {
+    '& .MuiTextField-root': {
       margin: theme.spacing(1),
     },
   },
 }));
+
+//const app = express.express();
 
 function Suscripciones(props) {
   const [submitted, setSubmitted] = React.useState(false);
@@ -35,7 +39,34 @@ function Suscripciones(props) {
   const classes = useStyles();
 
   function handlePlan(number) {
+    const mercadopago = require('mercadopago');
+
+    mercadopago.configure({
+      access_token:
+        'APP_USR-4080867446292974-060519-2c708f4da82afe143c57458c408e536b-770047996',
+    });
+    const preference = {
+      items: [
+        {
+          title: 'Mi suscripción',
+          quantity: 1,
+          currency_id: 'ARS',
+          unit_price: 1000,
+        },
+      ],
+    };
+
+    mercadopago.preferences
+      .create(preference)
+      .then((response) => {
+        console.log(response.body);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     setPlan(number);
+
     formData.tipoSuscripcion = number;
     setFormData({ ...formData });
     handleSubmit();
@@ -46,6 +77,30 @@ function Suscripciones(props) {
     setSubmitted({ submitted: true }, () => {
       setTimeout(() => setSubmitted({ submitted: false }), 5000);
     });
+  };
+
+  const mercadoPago = () => {
+    //llamo el sdk de mercado pago.
+    //agrego las credenciales para habilitar el uso del SDK.
+    //Agrego el sdk de mercadopago y las credenciales.
+    /*app.post('/pago', (req, res) => {
+      mercadopago_1.mercadopago.preferences
+        .create(preference)
+        .then(function (response) {
+          res.json({ id: response.body.id });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    });
+
+    app.get('/feedback', function (request, response) {
+      response.json({
+        Payment: request.query.payment_id,
+        Status: request.query.status,
+        MerchantOrder: request.query.merchant_order_id,
+      });
+    });*/
   };
 
   return (
@@ -59,9 +114,9 @@ function Suscripciones(props) {
             <div className="susc-title-container">
               <h3>Compará los planes</h3>
               <p>
-                GreedyMe te brinda una comparación entre los diferentes planes
-                ofrecidos para que elijas el que mas se ajuste a tus
-                necesidades.
+                GreedyMe te brinda una comparación entre los
+                diferentes planes ofrecidos para que elijas el que mas
+                se ajuste a tus necesidades.
               </p>
             </div>
             <div className="susc-body-container">
@@ -70,9 +125,9 @@ function Suscripciones(props) {
                   title="PLAN BÁSICO"
                   precio="GRATIS"
                   text={[
-                    "Estadísticas base",
-                    "4 notificaciones por mes",
-                    "Notificaciones a cientes favoritos",
+                    'Estadísticas base',
+                    '4 notificaciones por mes',
+                    'Notificaciones a cientes favoritos',
                     <Box lineHeight={1.75} m={1}>
                       -
                     </Box>,
@@ -80,7 +135,7 @@ function Suscripciones(props) {
                     <Box lineHeight={1.75} m={1}>
                       -
                     </Box>,
-                    "-",
+                    '-',
                     <Box lineHeight={1.7} m={1}>
                       -
                     </Box>,
@@ -118,15 +173,15 @@ function Suscripciones(props) {
                   title="PLAN ESTÁNDAR"
                   precio="US$ 25"
                   text={[
-                    "Estadísticas avanzadas",
-                    "8 notificaciones por mes",
-                    "Notificaciones a todos los usuarios",
+                    'Estadísticas avanzadas',
+                    '8 notificaciones por mes',
+                    'Notificaciones a todos los usuarios',
                     <Box lineHeight={1.75} m={1}>
                       -
                     </Box>,
-                    "Figurar en búsquedas por geolocalización",
-                    "-",
-                    "Publicidad dentro de la aplicación mobile\n ",
+                    'Figurar en búsquedas por geolocalización',
+                    '-',
+                    'Publicidad dentro de la aplicación mobile\n ',
                   ]}
                   style1="planes-title planes-estandar-1"
                   style2="planes-precio planes-estandar-2"
@@ -161,12 +216,12 @@ function Suscripciones(props) {
                   title="PLAN PREMIUM"
                   precio="US$ 35"
                   text={[
-                    "Estadísticas avanzadas",
-                    "30 notificaciones por mes",
-                    "Notificaciones a todos los usuarios",
-                    "Notificaciones a usuarios cerca del negocio",
-                    "Figurar en búsquedas por geolocalización",
-                    "Exportación de reportes estadísticos",
+                    'Estadísticas avanzadas',
+                    '30 notificaciones por mes',
+                    'Notificaciones a todos los usuarios',
+                    'Notificaciones a usuarios cerca del negocio',
+                    'Figurar en búsquedas por geolocalización',
+                    'Exportación de reportes estadísticos',
                     <Box lineHeight={1.75} m={1}>
                       Publicidad dentro de la aplicación
                     </Box>,
@@ -220,4 +275,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Suscripciones);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Suscripciones);
