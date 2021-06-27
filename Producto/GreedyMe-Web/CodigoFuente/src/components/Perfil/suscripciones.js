@@ -10,6 +10,7 @@ import { Button } from '@material-ui/core';
 import { editarSuscripcion } from '../../redux/actions/comActions';
 //import Express from 'express';
 import { Redirect, Link } from '@reach/router';
+import Mercadopago from 'mercadopago';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,29 +40,27 @@ function Suscripciones(props) {
   const classes = useStyles();
 
   function handlePlan(number) {
-    const mercadopago = require('mercadopago');
+    Mercadopago.configurations.setAccessToken(
+      'APP_USR-3838911414006597-062419-3d57555df57771ebbdcbc21c2f20bd66-780793237',
+    );
 
-    mercadopago.configure({
-      access_token:
-        'APP_USR-4080867446292974-060519-2c708f4da82afe143c57458c408e536b-770047996',
-    });
-    const preference = {
+    let preference = {
       items: [
         {
           title: 'Mi suscripción',
+          unit_price: 1000,
           quantity: 1,
           currency_id: 'ARS',
-          unit_price: 1000,
         },
       ],
+      auto_return: 'approved',
     };
-
-    mercadopago.preferences
+    Mercadopago.preferences
       .create(preference)
-      .then((response) => {
+      .then(function (response) {
         console.log(response.body);
       })
-      .catch((error) => {
+      .catch(function (error) {
         console.log(error);
       });
 
