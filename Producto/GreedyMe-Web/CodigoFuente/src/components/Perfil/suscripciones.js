@@ -10,7 +10,7 @@ import { Button } from '@material-ui/core';
 import { editarSuscripcion } from '../../redux/actions/comActions';
 //import Express from 'express';
 import { Redirect, Link } from '@reach/router';
-import Mercadopago from 'mercadopago';
+import PaypalCheckoutButton from './payPalCheckOutButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,11 +20,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//const app = express.express();
-
 function Suscripciones(props) {
   const [submitted, setSubmitted] = React.useState(false);
+  const [checkout, setCheckout] = React.useState(false);
 
+  const order = {
+    customer: '1',
+    total: '1500.00',
+    items: [
+      {
+        sku: 1,
+        name: 'Suscripción al PLAN ESTÁNDAR',
+        price: '1500.00',
+        quantity: 1,
+        currency: 'USD',
+      },
+    ],
+  };
   const [formData, setFormData] = React.useState({
     id: props.auth.uid,
     web: props.profile.web,
@@ -40,29 +52,36 @@ function Suscripciones(props) {
   const classes = useStyles();
 
   function handlePlan(number) {
-    Mercadopago.configurations.setAccessToken(
-      'APP_USR-3838911414006597-062419-3d57555df57771ebbdcbc21c2f20bd66-780793237',
-    );
-
-    let preference = {
-      items: [
-        {
-          title: 'Mi suscripción',
-          unit_price: 1000,
-          quantity: 1,
-          currency_id: 'ARS',
-        },
-      ],
-      auto_return: 'approved',
-    };
-    Mercadopago.preferences
-      .create(preference)
-      .then(function (response) {
-        console.log(response.body);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    if (number === 1) {
+      const order = {
+        customer: props.profile.id,
+        total: '1500.00',
+        items: [
+          {
+            sku: 1,
+            name: 'Suscripción al PLAN ESTÁNDAR',
+            price: '1500.00',
+            quantity: 1,
+            currency: 'USD',
+          },
+        ],
+      };
+    }
+    if (number === 2) {
+      const order = {
+        customer: props.profile.id,
+        total: '2500.00',
+        items: [
+          {
+            sku: 1,
+            name: 'Suscripción al PLAN PREMIUM',
+            price: '2500.00',
+            quantity: 1,
+            currency: 'AR',
+          },
+        ],
+      };
+    }
 
     setPlan(number);
 
@@ -78,35 +97,12 @@ function Suscripciones(props) {
     });
   };
 
-  const mercadoPago = () => {
-    //llamo el sdk de mercado pago.
-    //agrego las credenciales para habilitar el uso del SDK.
-    //Agrego el sdk de mercadopago y las credenciales.
-    /*app.post('/pago', (req, res) => {
-      mercadopago_1.mercadopago.preferences
-        .create(preference)
-        .then(function (response) {
-          res.json({ id: response.body.id });
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    });
-
-    app.get('/feedback', function (request, response) {
-      response.json({
-        Payment: request.query.payment_id,
-        Status: request.query.status,
-        MerchantOrder: request.query.merchant_order_id,
-      });
-    });*/
-  };
-
   return (
     <div>
       <div className="prom-title-container">
         <h1>Mis suscripciones</h1>
       </div>
+
       <div className="contenedorTodo">
         <Card className="cardPromo plan-container">
           <CardContent className="cardContentePromo">
@@ -197,16 +193,7 @@ function Suscripciones(props) {
                       TU PLAN ACTUAL
                     </Button>
                   ) : (
-                    <Button
-                      variant="contained"
-                      className={classes.margin}
-                      id="planes-promo-submit"
-                      onClick={() => {
-                        handlePlan(1);
-                      }}
-                    >
-                      Actualizar plan
-                    </Button>
+                    <PaypalCheckoutButton />
                   )}
                 </div>
               </div>
@@ -240,16 +227,7 @@ function Suscripciones(props) {
                       TU PLAN ACTUAL
                     </Button>
                   ) : (
-                    <Button
-                      variant="contained"
-                      className={classes.margin}
-                      id="planes-promo-submit"
-                      onClick={() => {
-                        handlePlan(2);
-                      }}
-                    >
-                      Actualizar plan
-                    </Button>
+                    <PaypalCheckoutButton />
                   )}
                 </div>
               </div>
