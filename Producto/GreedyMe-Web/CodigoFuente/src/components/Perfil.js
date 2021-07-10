@@ -1,28 +1,28 @@
-import React from "react";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Paper from "@material-ui/core/Paper";
-import Popper from "@material-ui/core/Popper";
-import MenuList from "@material-ui/core/MenuList";
-import IconButton from "@material-ui/core/IconButton";
-import Avatar from "@material-ui/core/Avatar";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import { makeStyles } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ExitToAppRounded from "@material-ui/icons/ExitToAppRounded";
-import AccountCircleRounded from "@material-ui/icons/AccountCircleRounded";
-import { signOut } from "../redux/actions/authActions";
-import { connect } from "react-redux";
-import { Link } from "@reach/router";
+import React from 'react';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuList from '@material-ui/core/MenuList';
+import IconButton from '@material-ui/core/IconButton';
+import Avatar from '@material-ui/core/Avatar';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import { makeStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ExitToAppRounded from '@material-ui/icons/ExitToAppRounded';
+import AccountCircleRounded from '@material-ui/icons/AccountCircleRounded';
+import { signOut } from '../redux/actions/authActions';
+import { connect } from 'react-redux';
+import { Link } from '@reach/router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    marginRight: "0.5rem",
+    display: 'flex',
+    marginRight: '0.5rem',
   },
   small: {
     width: theme.spacing(4),
@@ -40,7 +40,10 @@ function Perfil(props) {
   };
 
   const handleClose = (elementIndex) => (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+    if (
+      anchorRef.current &&
+      anchorRef.current.contains(event.target)
+    ) {
       return;
     }
     props.setSeleccionado(elementIndex);
@@ -52,7 +55,7 @@ function Perfil(props) {
   };
 
   function handleListKeyDown(event) {
-    if (event.key === "Tab") {
+    if (event.key === 'Tab') {
       event.preventDefault();
       setOpen(false);
     }
@@ -73,10 +76,11 @@ function Perfil(props) {
       <IconButton
         ref={anchorRef}
         aria-label="account of current user"
-        aria-controls={open ? "menu-list-grow" : undefined}
+        aria-controls={open ? 'menu-list-grow' : undefined}
         aria-haspopup="true"
         onClick={handleToggle}
         color="inherit"
+        id="btn-perfil-icon"
       >
         <Avatar
           alt="Perfil"
@@ -93,7 +97,9 @@ function Perfil(props) {
         placement="bottom-end"
       >
         <Paper>
-          <ClickAwayListener onClickAway={handleClose(props.seleccionado)}>
+          <ClickAwayListener
+            onClickAway={handleClose(props.seleccionado)}
+          >
             <MenuList
               autoFocusItem={open}
               id="menu-list-grow"
@@ -102,7 +108,10 @@ function Perfil(props) {
               <div className="icoPerfil">
                 <ListItem>
                   <ListItemIcon className="iconPerfil">
-                    <Avatar alt="Perfil" src={props.profile.photoURL} />
+                    <Avatar
+                      alt="Perfil"
+                      src={props.profile.photoURL}
+                    />
                   </ListItemIcon>
                   <div className="contNombrePlanUS">
                     <ListItemText
@@ -111,11 +120,11 @@ function Perfil(props) {
                     />
                     <p className="planPrem">
                       {props.profile.tipoSuscripcion === 0
-                        ? "Plan Básico"
+                        ? 'Plan Básico'
                         : props.profile.tipoSuscripcion === 1
-                        ? "Plan Estándar"
+                        ? 'Plan Estándar'
                         : props.profile.tipoSuscripcion === 2
-                        ? "Plan Premium"
+                        ? 'Plan Premium'
                         : null}
                     </p>
                   </div>
@@ -124,7 +133,7 @@ function Perfil(props) {
               <Divider variant="middle" />
               <div className="divider">
                 <Link
-                  to={"/main/" + props.auth.uid + "/perfil"}
+                  to={'/main/' + props.auth.uid + '/perfil'}
                   className="link"
                 >
                   <MenuItem className="link" onClick={handleClose(6)}>
@@ -132,7 +141,7 @@ function Perfil(props) {
                   </MenuItem>
                 </Link>
                 <Link
-                  to={"/main/" + props.auth.uid + "/suscripciones"}
+                  to={'/main/' + props.auth.uid + '/suscripciones'}
                   className="link"
                 >
                   <MenuItem className="link" onClick={handleClose(7)}>
@@ -140,7 +149,7 @@ function Perfil(props) {
                   </MenuItem>
                 </Link>
                 <Link
-                  to={"/main/" + props.auth.uid + "/ayuda-y-soporte"}
+                  to={'/main/' + props.auth.uid + '/ayuda-y-soporte'}
                   className="link"
                 >
                   <MenuItem className="link" onClick={handleClose(8)}>
