@@ -1,8 +1,38 @@
 import React, { useRef, useEffect } from 'react';
-import paypal from 'paypal-checkout';
-import ReactDOM from 'react-dom';
+import { editarSuscripcion } from '../../redux/actions/comActions';
+import { connect } from 'react-redux';
 
-const PaypalCheckoutButton = () => {
+const PaypalCheckoutButton = (props) => {
+  const [submitted, setSubmitted] = React.useState(false);
+
+  const [formData, setFormData] = React.useState({
+    id: props.auth.uid,
+    web: props.profile.web,
+    sucursal: props.profile.sucursal,
+    rubro: props.profile.rubro,
+    telefono: props.profile.telefono,
+    instagram: props.profile.instagram,
+    facebook: props.profile.facebook,
+    direccion: props.profile.direccion,
+    tipoSuscripcion: props.profile.tipoSuscripcion,
+  });
+  const [plan, setPlan] = React.useState(formData.tipoSuscripcion);
+
+  function handlePlan(number) {
+    setPlan(number);
+
+    formData.tipoSuscripcion = number;
+    setFormData({ ...formData });
+    handleSubmit();
+  }
+
+  const handleSubmit = () => {
+    props.editarSuscripcion(formData);
+    setSubmitted({ submitted: true }, () => {
+      setTimeout(() => setSubmitted({ submitted: false }), 5000);
+    });
+  };
+
   const paypal = useRef();
 
   useEffect(() => {
@@ -13,92 +43,35 @@ const PaypalCheckoutButton = () => {
             intent: 'CAPTURE',
             purchase_units: [
               {
-                description: 'Suscripcion',
+                description: props.description,
                 amount: {
                   currency_code: 'USD',
-                  value: 500.0,
+                  value: props.value,
                 },
+                payment_options: {
+                  allowed_payment_method: 'INSTANT_FUNDING_SOURCE',
+                },
+
+                no_shipping: 1,
               },
             ],
           });
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
+          handlePlan(props.tipoPlan);
+          //ACA IRIA UN CARTELITO QUE DIGA QUE EL PAGO SE REALIZO CON EXITO
           console.log('Successful order:' + order);
         },
 
         onError: (err) => {
+          //ACA IRIA UN CARTELITO QUE DIGA QUE EL PAGO FUE RECHAZADO O QUE HUBO UN ERROR
           console.log(err);
         },
       })
       .render(paypal.current);
   }, []);
-  /*
-  const paypalConf = {
-    currency: 'USD',
-    env: 'sandbox',
-    client: {
-      sandbox:
-        'AUqIjXeftgci48AcB5SybC4WVhy2voVQEz7Gun1qf0PkQPZW0CT9QOOImIbWG7tRaDsKmZ2RyldE3bXT',
-      production: '-- id--',
-    },
-    style: {
-      label: 'pay',
-      size: 'medium',
-      shape: 'rect',
-      color: 'gold',
-    },
-  };
 
-  const PayPalButton = paypal.Button.driver('react', {
-    React,
-    ReactDOM,
-  });
-
-  const payment = (data, actions) => {
-    const payment = {
-      transactions: [
-        {
-          amount: {
-            total: order.total,
-            currency: paypalConf.currency,
-          },
-          description: 'Paga tu suscripción',
-          custom: order.customer || '',
-          item_list: {
-            items: order.items,
-          },
-        },
-      ],
-      note_to_payer: 'Contáctanos para cualquier aclaración',
-    };
-    return actions.payment.create({ payment });
-  };
-
-  const onAuthorize = (data, actions) => {
-    return actions.payment
-      .execute()
-      .then((response) => {
-        console.log(response);
-        alert(
-          `El pago fue procesado correctamente, ID: ${response.id}`,
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-        alert('Ocurrió un error al procesar el pago con PayPal');
-      });
-  };
-
-  const onError = (error) => {
-    console.log(error);
-    alert('El pago no fue realizado, vuelva a intentarlo');
-  };
-
-  const onCancel = (data, actions) => {
-    alert('Pago no realizado, el usuario canceló el proceso');
-  };
-*/
   return (
     <div>
       <div ref={paypal}></div>
@@ -106,4 +79,20 @@ const PaypalCheckoutButton = () => {
   );
 };
 
-export default PaypalCheckoutButton;
+const mapStateToProps = (state) => {
+  return {
+    profile: state.firebase.profile,
+    auth: state.firebase.auth,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    editarSuscripcion: (datos) => dispatch(editarSuscripcion(datos)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PaypalCheckoutButton);
