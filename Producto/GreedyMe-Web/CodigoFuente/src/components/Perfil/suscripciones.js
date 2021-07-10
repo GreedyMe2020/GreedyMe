@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
@@ -24,19 +24,6 @@ function Suscripciones(props) {
   const [submitted, setSubmitted] = React.useState(false);
   const [checkout, setCheckout] = React.useState(false);
 
-  const order = {
-    customer: '1',
-    total: '1500.00',
-    items: [
-      {
-        sku: 1,
-        name: 'Suscripción al PLAN ESTÁNDAR',
-        price: '1500.00',
-        quantity: 1,
-        currency: 'USD',
-      },
-    ],
-  };
   const [formData, setFormData] = React.useState({
     id: props.auth.uid,
     web: props.profile.web,
@@ -52,37 +39,6 @@ function Suscripciones(props) {
   const classes = useStyles();
 
   function handlePlan(number) {
-    if (number === 1) {
-      const order = {
-        customer: props.profile.id,
-        total: '1500.00',
-        items: [
-          {
-            sku: 1,
-            name: 'Suscripción al PLAN ESTÁNDAR',
-            price: '1500.00',
-            quantity: 1,
-            currency: 'USD',
-          },
-        ],
-      };
-    }
-    if (number === 2) {
-      const order = {
-        customer: props.profile.id,
-        total: '2500.00',
-        items: [
-          {
-            sku: 1,
-            name: 'Suscripción al PLAN PREMIUM',
-            price: '2500.00',
-            quantity: 1,
-            currency: 'AR',
-          },
-        ],
-      };
-    }
-
     setPlan(number);
 
     formData.tipoSuscripcion = number;
@@ -193,7 +149,11 @@ function Suscripciones(props) {
                       TU PLAN ACTUAL
                     </Button>
                   ) : (
-                    <PaypalCheckoutButton />
+                    <PaypalCheckoutButton
+                      description={'Plan Estándar'}
+                      value={25.0}
+                      tipoPlan={1}
+                    />
                   )}
                 </div>
               </div>
@@ -227,7 +187,11 @@ function Suscripciones(props) {
                       TU PLAN ACTUAL
                     </Button>
                   ) : (
-                    <PaypalCheckoutButton />
+                    <PaypalCheckoutButton
+                      description={'Plan Premium'}
+                      value={35.0}
+                      tipoPlan={2}
+                    />
                   )}
                 </div>
               </div>
