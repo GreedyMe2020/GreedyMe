@@ -1,13 +1,13 @@
-import * as React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import CerrarSesion from "../cerrarSesion";
-import { connect } from "react-redux";
+import * as React from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import CerrarSesion from '../cerrarSesion';
+import { connect } from 'react-redux';
 
 export function NavSup({ appBar }) {
   return (
     <div>
-      <AppBar position="fixed" className={appBar}>
+      <AppBar position="fixed" className={appBar} id="navbar-sup">
         <Toolbar className="nav-container">
           <a id="titulo">
             <h1 className="gre">gre</h1>
