@@ -60,12 +60,12 @@ const PaypalCheckoutButton = (props) => {
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
           handlePlan(props.tipoPlan);
-          //ACA IRIA UN CARTELITO QUE DIGA QUE EL PAGO SE REALIZO CON EXITO
+          props.handleClickSuccess();
           console.log('Successful order:' + order);
         },
 
         onError: (err) => {
-          //ACA IRIA UN CARTELITO QUE DIGA QUE EL PAGO FUE RECHAZADO O QUE HUBO UN ERROR
+          props.handleClickError();
           console.log(err);
         },
       })

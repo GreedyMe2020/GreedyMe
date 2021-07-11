@@ -8,6 +8,9 @@ import CardPlanes from '../CardPlanes';
 import Box from '@material-ui/core/Box';
 import { Button } from '@material-ui/core';
 import { editarSuscripcion } from '../../redux/actions/comActions';
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
 //import Express from 'express';
 import { Redirect, Link } from '@reach/router';
 import PaypalCheckoutButton from './payPalCheckOutButton';
@@ -20,9 +23,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Funcion que retorna la alerta para el Snackbar
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 function Suscripciones(props) {
   const [submitted, setSubmitted] = React.useState(false);
   const [checkout, setCheckout] = React.useState(false);
+
+  // Estado para el Snackbar de pago dependiendo si es exitoso o si hubo un error
+  const [openSuccess, setOpenSuccess] = React.useState(false);
+  const [openError, setOpenError] = React.useState(false);
 
   const [formData, setFormData] = React.useState({
     id: props.auth.uid,
@@ -35,7 +47,16 @@ function Suscripciones(props) {
     direccion: props.profile.direccion,
     tipoSuscripcion: props.profile.tipoSuscripcion,
   });
-  const [plan, setPlan] = React.useState(formData.tipoSuscripcion);
+  
+  // Estado para el manejo del tipo de suscripcion actual del cliente
+  const [plan, setPlan] = React.useState(props.profile.tipoSuscripcion);
+
+  // Hook para setear el tipo de suscripcion actual del 
+  // cliente y renderizar la pagina en base al mismo
+  useEffect(() => {
+    setPlan(props.profile.tipoSuscripcion);
+  }, [props.profile.tipoSuscripcion]);
+
   const classes = useStyles();
 
   function handlePlan(number) {
@@ -53,12 +74,35 @@ function Suscripciones(props) {
     });
   };
 
+  // Funcion para el manejo del Snack bar de success
+  const handleClickSuccess = () => {
+    setOpenSuccess(true);
+  }
+
+  const handleCloseSuccess = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSuccess(false);
+  };
+
+  // Funcion para el manejo del Snack bar de error
+  const handleClickError = () => {
+    setOpenError(true);
+  }
+
+  const handleCloseError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenError(false);
+  };
+
   return (
     <div>
       <div className="prom-title-container">
         <h1>Mis suscripciones</h1>
       </div>
-
       <div className="contenedorTodo">
         <Card className="cardPromo plan-container">
           <CardContent className="cardContentePromo">
@@ -115,7 +159,7 @@ function Suscripciones(props) {
                       }}
                     >
                       Actualizar plan
-                    </Button>
+                    </Button>                    
                   )}
                 </div>
               </div>
@@ -149,11 +193,15 @@ function Suscripciones(props) {
                       TU PLAN ACTUAL
                     </Button>
                   ) : (
-                    <PaypalCheckoutButton
-                      description={'Plan Estándar'}
-                      value={25.0}
-                      tipoPlan={1}
+                    <div className="planes-paypal-btn">
+                      <PaypalCheckoutButton
+                        description={'Plan Estándar'}
+                        value={25.0}
+                        tipoPlan={1}
+                        handleClickError={handleClickError}
+                        handleClickSuccess={handleClickSuccess}
                     />
+                    </div>
                   )}
                 </div>
               </div>
@@ -187,11 +235,15 @@ function Suscripciones(props) {
                       TU PLAN ACTUAL
                     </Button>
                   ) : (
-                    <PaypalCheckoutButton
-                      description={'Plan Premium'}
-                      value={35.0}
-                      tipoPlan={2}
-                    />
+                    <div className="planes-paypal-btn">
+                      <PaypalCheckoutButton
+                        description={'Plan Premium'}
+                        value={35.0}
+                        tipoPlan={2}
+                        handleClickError={handleClickError}
+                        handleClickSuccess={handleClickSuccess}
+                      />
+                    </div>
                   )}
                 </div>
               </div>
@@ -199,6 +251,26 @@ function Suscripciones(props) {
           </CardContent>
         </Card>
       </div>
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        open={openSuccess}
+        autoHideDuration={8000}
+        onClose={handleCloseSuccess}
+      >
+        <Alert onClose={handleCloseSuccess} severity="success">
+          ¡Plan actualizado correctamente!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        open={openError}
+        autoHideDuration={8000}
+        onClose={handleCloseError}
+      >
+        <Alert onClose={handleCloseError} severity="error">
+          Error en el pago de la suscripción
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
