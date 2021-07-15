@@ -233,7 +233,8 @@ function Inicio(props) {
           )}
         </div>
         <div className="inicio-7">
-          {props.profile.fechaVencimiento ? (
+          {props.profile.fechaVencimiento &&
+          props.profile.tipoSuscripcion !== 0 ? (
             <VencimientoSuscripcion
               setSeleccionado={props.setSeleccionado}
             />

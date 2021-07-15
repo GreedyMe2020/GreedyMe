@@ -29,9 +29,12 @@ function Notificaciones(props) {
           )}
         </div>
         <div className="card-lateral-vencimiento">
-          <VencimientoSuscripcion
-            setSeleccionado={props.setSeleccionado}
-          />
+          {props.profile.fechaVencimiento &&
+          props.profile.tipoSuscripcion !== 0 ? (
+            <VencimientoSuscripcion
+              setSeleccionado={props.setSeleccionado}
+            />
+          ) : null}
         </div>
       </div>
     </div>
