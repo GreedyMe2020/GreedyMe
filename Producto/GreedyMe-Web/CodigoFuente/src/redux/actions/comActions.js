@@ -85,8 +85,8 @@ export const eliminarFoto = (id) => {
 };
 
 export const editarSuscripcion = (datos) => {
+  //codigo asincrono
   return (dispatch, getState, { getFirestore }) => {
-    //codigo asincrono
     const firestore = getFirestore();
     firestore
       .collection('usuarioComercio')
@@ -100,9 +100,11 @@ export const editarSuscripcion = (datos) => {
         facebook: datos.facebook,
         direccion: datos.direccion,
         tipoSuscripcion: datos.tipoSuscripcion,
+        fechaVencimiento: datos.fechaVencimiento,
       })
       .then(() => {
         const bd = secondaryApp.firestore();
+
         bd.collection('usuarioComercio').doc(datos.id).update({
           web: datos.web,
           sucursal: datos.sucursal,
@@ -112,6 +114,7 @@ export const editarSuscripcion = (datos) => {
           facebook: datos.facebook,
           direccion: datos.direccion,
           tipoSuscripcion: datos.tipoSuscripcion,
+          fechaVencimiento: datos.fechaVencimiento,
         });
       })
       .then(() => {
@@ -229,38 +232,45 @@ export const generarNotificacionesTodos = (titulo, mensaje, url) => {
       })
       .then((todosTokens) => {
         const bd = secondaryApp.firestore();
-        bd.collection("notificaciones").doc().set({
+        bd.collection('notificaciones').doc().set({
           tokens: todosTokens,
           titulo: titulo,
           mensaje: mensaje,
           url: url,
-        })
+        });
       })
       .then(() => {
-        dispatch({ type: "ENVIAR_TODOSNOTIF" });
+        dispatch({ type: 'ENVIAR_TODOSNOTIF' });
       })
       .catch((error) => {
-        dispatch({ type: "ERROR_TODOSNOTIF", error });
+        dispatch({ type: 'ERROR_TODOSNOTIF', error });
       });
   };
 };
 
-export const generarNotificacionesFavoritos = (tokens, titulo, mensaje, url) => {
+export const generarNotificacionesFavoritos = (
+  tokens,
+  titulo,
+  mensaje,
+  url,
+) => {
   return (dispatch, getState, { getFirestore }) => {
     //codigo asincrono
     const firestore = getFirestore();
     const bd = secondaryApp.firestore();
-    bd.collection("notificaciones").doc().set({
-      tokens: tokens,
-      titulo: titulo,
-      mensaje: mensaje,
-      url: url,
-    })
+    bd.collection('notificaciones')
+      .doc()
+      .set({
+        tokens: tokens,
+        titulo: titulo,
+        mensaje: mensaje,
+        url: url,
+      })
       .then(() => {
-        dispatch({ type: "ENVIAR_FAVNOTIF" });
+        dispatch({ type: 'ENVIAR_FAVNOTIF' });
       })
       .catch((error) => {
-        dispatch({ type: "ERROR_FAVNOTIF", error });
+        dispatch({ type: 'ERROR_FAVNOTIF', error });
       });
   };
 };

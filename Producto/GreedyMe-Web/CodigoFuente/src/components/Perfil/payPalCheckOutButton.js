@@ -15,12 +15,20 @@ const PaypalCheckoutButton = (props) => {
     facebook: props.profile.facebook,
     direccion: props.profile.direccion,
     tipoSuscripcion: props.profile.tipoSuscripcion,
+    fechaVencimiento: props.profile.fechaVencimiento,
   });
   const [plan, setPlan] = React.useState(formData.tipoSuscripcion);
 
   function handlePlan(number) {
     setPlan(number);
+    const fechaActual = new Date();
 
+    fechaActual.setDate(fechaActual.getDate() + 30);
+    formData.fechaVencimiento = new Date(
+      fechaActual.getFullYear(),
+      fechaActual.getMonth(),
+      fechaActual.getDate(),
+    );
     formData.tipoSuscripcion = number;
     setFormData({ ...formData });
     handleSubmit();

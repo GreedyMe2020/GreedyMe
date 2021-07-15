@@ -149,6 +149,10 @@ $background-color: #ececec;
     grid-column: 3/4;
     grid-row: 2/3;
   }
+  .card-lateral-vencimiento {
+    grid-column: 3/4;
+    grid-row: 3/3;
+  }
 }
 
 .lateral-notif {
@@ -204,6 +208,39 @@ $background-color: #ececec;
         margin-top: 5%;
         font-size: 16px;
         .btn-premium {
+          margin-top: 10px;
+          background-color: white;
+          color: #f7941e;
+        }
+      }
+    }
+  }
+}
+.vencimiento {
+  .contenedor-card-pequeña-vencimiento {
+    border-radius: 10px;
+    margin-top: 1.2rem;
+    box-shadow: 0px 10px 10px 0px #e1e1e1;
+    justify-content: right;
+    margin-left: 10%;
+    text-align: center;
+    .cont-card-pequeña-vencimiento {
+      background-color: #f7941e;
+      color: white;
+      .texto-1-vencimiento {
+        margin-top: 5%;
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .texto-vencimiento {
+        margin-top: 7%;
+        font-size: 16px;
+      }
+      .texto-3-vencimiento {
+        margin-bottom: 7%;
+        margin-top: 5%;
+        font-size: 16px;
+        .btn-vencimiento {
           margin-top: 10px;
           background-color: white;
           color: #f7941e;
