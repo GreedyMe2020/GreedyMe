@@ -116,7 +116,7 @@ $background-color: #ececec;
     grid-column: 2/3;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.1rem;
 
     .inicio-cont-boton {
       display: flex;
@@ -142,6 +142,8 @@ $background-color: #ececec;
     .inicio-6 {
       grid-row: 2/3;
       .vencimiento {
+        margin-top: 5px;
+        margin-bottom: 0;
         .contenedor-card-pequeña-vencimiento {
           border-radius: 10px;
           margin-top: 0rem;
