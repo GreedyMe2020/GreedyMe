@@ -65,12 +65,16 @@ function VencimientoSuscripcion(props) {
           <Card className="contenedor-card-pequeña-vencimiento">
             <CardContent className="cont-card-pequeña-vencimiento">
               <div className="texto-1-vencimiento">
-                <p>TU PLAN VENCE EN {diasRestantes} DIAS</p>
-              </div>
-              <div className="texto-vencimiento">
-                <p>
-                  No te olvides de actualizar el plan el día de
-                  vencimiento
+                <p
+                  className="inicio-titulo"
+                  style={{ marginBottom: 10 }}
+                >
+                  Tu plan vence en
+                  <span className="cantidad-dias">
+                    {' '}
+                    {diasRestantes}{' '}
+                  </span>
+                  días
                 </p>
               </div>
               <div className="texto-3-vencimiento">

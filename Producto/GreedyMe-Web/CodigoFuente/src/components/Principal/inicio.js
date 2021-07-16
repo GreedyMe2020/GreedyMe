@@ -193,7 +193,10 @@ function Inicio(props) {
           <CardContent>
             <div className="inicio-tit-cont">
               <h1 className="inicio-titulo">Ayuda</h1>
-              <p>¿En qué podemos ayudarte?</p>
+              <p>
+                Hacenos cualquier pregunta y conseguí la ayuda que
+                necesitas.
+              </p>
             </div>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
@@ -208,10 +211,6 @@ function Inicio(props) {
                 inputProps={{ 'aria-label': 'search' }}
               />
             </div>
-            <p>
-              Hacenos cualquier pregunta y conseguí la ayuda que
-              necesitas.
-            </p>
             <CardActions className="inicio-cont-boton">
               <Typography color="textSecondary" gutterBottom>
                 <Link
@@ -226,19 +225,18 @@ function Inicio(props) {
             </CardActions>
           </CardContent>
         </Card>
-
         <div className="inicio-6">
-          {props.profile.tipoSuscripcion === 2 ? null : (
-            <HacermePremium setSeleccionado={props.setSeleccionado} />
-          )}
-        </div>
-        <div className="inicio-7">
           {props.profile.fechaVencimiento &&
           props.profile.tipoSuscripcion !== 0 ? (
             <VencimientoSuscripcion
               setSeleccionado={props.setSeleccionado}
             />
           ) : null}
+        </div>
+        <div className="inicio-7">
+          {props.profile.tipoSuscripcion === 2 ? null : (
+            <HacermePremium setSeleccionado={props.setSeleccionado} />
+          )}
         </div>
       </div>
     </div>
