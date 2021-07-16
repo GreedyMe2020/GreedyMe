@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
 import { IconButton } from '@material-ui/core';
 import GetApp from '@material-ui/icons/GetApp';
 import Refresh from '@material-ui/icons/Refresh';
@@ -259,75 +259,21 @@ function ExperienciaCompra(props) {
     setMes(event.target.value);
   };
 
-  const temaCombo = createMuiTheme({
-    overrides: {
-      MuiInputBase: {
-        input: {
-          backgroundColor: 'white',
-          margin: '4px',
-        },
-      },
-    },
-  });
-
-  const print = (anio, tabla1, tabla2, tabla3) => {
-    console.log(tabla1)
-    const img = new Image();
-    const pdf = new jsPDF('p', 'pt', 'a4');
-    const width = pdf.internal.pageSize.getWidth();
-    let y = 5;
-    const url = './logo1-m.png'
-    img.src = url;
-    console.log(img)
-    pdf.setFontType('bold');
-    //pdf.addImage(img, 'png', y, y, 400, 400);
-    pdf.setFontSize(16);
-    pdf.text('Cantidad de clientes que los guardan como favoritos', 92.0975, 20, {
-      maxWidth: width - 105,
-      align: 'justify'
-    });
-    pdf.line(92.0975, 37, width - 5, 37);
-    pdf.setFontSize(12);
-    pdf.setTextColor('#636666');
-    pdf.text('Año: ', 92.0975, 57);
-    pdf.setFontType('normal');
-    pdf.text(anio, 92.0975 + pdf.getTextWidth('Año: ') + 10, 57);
-    /*pdf.setFontType('bold');
-    pdf.text('Fecha hasta: ', 92.0975, 72);
-    pdf.setFontType('normal');
-    pdf.text(fechaHasta.toLocaleString(), 92.0975 + pdf.getTextWidth('Fecha hasta: ') + 10, 72);
-    pdf.setFontType('bold');
-    pdf.text('Cupon: ', 92.0975, 87);
-    pdf.setFontType('normal');
-    pdf.text(cupon === "" ? 'Todos' : cuponNombre[0].name, 92.0975 + pdf.getTextWidth('Cupon: ') + 10, 87);*/
-
-
-    pdf.save('Experiencia compra' + '.pdf');
-  }
-
   return (
     <div>
       <div className="tittle-discount">
-        <p class="tittle-d">Experiencia de compra de los usuarios</p>
+        <p className="tittle-d">
+          Experiencia de compra de los usuarios
+        </p>
         <div>
-          <Tooltip title="Actualizar" arrow>
-            <IconButton
-              aria-label="Actualizar"
-              onClick={handleRefresh}
-            >
-              <Refresh fontSize="medium" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Descargar" arrow>
-            <IconButton
-              aria-label="Descargar"
-              onClick={() => {
-                print(anio, chartDataAtencionVendedor, chartDataCoincideEsperado, chartDataUtilizoBeneficio)
-              }}
-            >
-              <GetApp fontSize="medium" />
-            </IconButton>
-          </Tooltip>
+          <Button
+            variant="outlined"
+            onClick={handleRefresh}
+            id="actualizar-reporte"
+            endIcon={<Refresh fontSize="medium" />}
+          >
+            Actualizar
+          </Button>
         </div>
       </div>
       <div className="content-discount" style={{ marginTop: 0 }}>
@@ -349,18 +295,18 @@ function ExperienciaCompra(props) {
           </TextField>
         </form>
         <div className="est-container">
-          <p class="subtittle-d">Atención del vendedor</p>
+          <p className="subtittle-d">Atención del vendedor</p>
           <Pie data={chartDataAtencionVendedor} />
         </div>
         <div className="graphic-exp">
           <div className="est-exp">
-            <p class="subtittle-d">
+            <p className="subtittle-d">
               El cupón coincide con lo esperado
             </p>
             <Pie data={chartDataCoincideEsperado} />
           </div>
           <div className="est-exp">
-            <p class="subtittle-d">
+            <p className="subtittle-d">
               El cliente pudo utilizar el beneficio
             </p>
             <Pie data={chartDataUtilizoBeneficio} />

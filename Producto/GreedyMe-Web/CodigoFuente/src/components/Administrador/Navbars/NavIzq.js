@@ -1,10 +1,10 @@
-import * as React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Toolbar from "@material-ui/core/Toolbar";
-import Divider from "@material-ui/core/Divider";
-import List from "@material-ui/core/List";
-import Drawer from "@material-ui/core/Drawer";
-import ListItemCustomAdmin from "../../ListItemCustomAdmin";
+import * as React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import Drawer from '@material-ui/core/Drawer';
+import ListItemCustomAdmin from '../../ListItemCustomAdmin';
 
 const drawerWidth = 240;
 
@@ -15,11 +15,11 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: "#ececec",
+    backgroundColor: '#ececec',
   },
   drawerContainer: {
-    overflow: "auto",
-    marginTop: "40px",
+    overflow: 'auto',
+    marginTop: '40px',
   },
 }));
 
@@ -33,6 +33,7 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
       classes={{
         paper: classes.drawerPaper,
       }}
+      id="navbar-izq"
     >
       <Toolbar />
       <div className={classes.drawerContainer}>
@@ -40,8 +41,8 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
           <ListItemCustomAdmin
             id="comercios"
             text="Comercios"
-            src1={require("../../../../Multimedia/Sistema-svg/comercio-gris.svg")}
-            src2={require("../../../../Multimedia/Sistema-svg/comercio.svg")}
+            src1={require('../../../../Multimedia/Sistema-svg/comercio-gris.svg')}
+            src2={require('../../../../Multimedia/Sistema-svg/comercio.svg')}
             className="inicio-img"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
@@ -53,8 +54,8 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
           <ListItemCustomAdmin
             id="proveedores"
             text="Proveedores"
-            src1={require("../../../../Multimedia/Sistema-svg/proveedor.svg")}
-            src2={require("../../../../Multimedia/Sistema-svg/proveedor-naranja.svg")}
+            src1={require('../../../../Multimedia/Sistema-svg/proveedor.svg')}
+            src2={require('../../../../Multimedia/Sistema-svg/proveedor-naranja.svg')}
             className="cargar-cupon"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
@@ -66,8 +67,8 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
           <ListItemCustomAdmin
             id="beneficios"
             text="Beneficios"
-            src1={require("../../../../Multimedia/Sistema-svg/promocion.svg")}
-            src2={require("../../../../Multimedia/Sistema-svg/promocion-naranja.svg")}
+            src1={require('../../../../Multimedia/Sistema-svg/promocion.svg')}
+            src2={require('../../../../Multimedia/Sistema-svg/promocion-naranja.svg')}
             className="cargar-cupon"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
@@ -79,8 +80,8 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
           <ListItemCustomAdmin
             id="greedyShop"
             text="GreedyPremios"
-            src1={require("../../../../Multimedia/Sistema-svg/trofeo.svg")}
-            src2={require("../../../../Multimedia/Sistema-svg/trofeo-naranja.svg")}
+            src1={require('../../../../Multimedia/Sistema-svg/trofeo.svg')}
+            src2={require('../../../../Multimedia/Sistema-svg/trofeo-naranja.svg')}
             className="cargar-cupon"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
@@ -91,8 +92,8 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
           <ListItemCustomAdmin
             id="productos-canjeados"
             text="GreedyCanjes"
-            src1={require("../../../../Multimedia/Sistema-svg/shopping-cart.svg")}
-            src2={require("../../../../Multimedia/Sistema-svg/shopping-cart-naranja.svg")}
+            src1={require('../../../../Multimedia/Sistema-svg/shopping-cart.svg')}
+            src2={require('../../../../Multimedia/Sistema-svg/shopping-cart-naranja.svg')}
             className="cargar-cupon"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
@@ -103,8 +104,8 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
           <ListItemCustomAdmin
             id="punto-retiro"
             text="Puntos de retiro"
-            src1={require("../../../../Multimedia/Sistema-svg/pin.svg")}
-            src2={require("../../../../Multimedia/Sistema-svg/pin-naranja.svg")}
+            src1={require('../../../../Multimedia/Sistema-svg/pin.svg')}
+            src2={require('../../../../Multimedia/Sistema-svg/pin-naranja.svg')}
             className="cargar-cupon"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}
@@ -116,8 +117,8 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
           <ListItemCustomAdmin
             id="estadisticas"
             text="Estadísticas"
-            src1={require("../../../../Multimedia/Sistema-svg/statistics-grey.svg")}
-            src2={require("../../../../Multimedia/Sistema-svg/statistics-orange.svg")}
+            src1={require('../../../../Multimedia/Sistema-svg/statistics-grey.svg')}
+            src2={require('../../../../Multimedia/Sistema-svg/statistics-orange.svg')}
             className="estadisticas"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}

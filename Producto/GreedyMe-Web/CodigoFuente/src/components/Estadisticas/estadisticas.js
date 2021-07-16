@@ -1,19 +1,14 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import Tooltip from '@material-ui/core/Tooltip';
-import { IconButton } from '@material-ui/core';
-import GetApp from '@material-ui/icons/GetApp';
-import Refresh from '@material-ui/icons/Refresh';
+import Print from '@material-ui/icons/PRint';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Estadistica from '../../../Multimedia/Sistema-svg/data-estadisticas.svg';
 import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
 import CantidadXDescuento from './cantidadXDescuento';
 import ExperienciaCompra from './experienciaCompra';
 import ComerciosFavoritos from './comerciosFavoritos';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -101,10 +96,26 @@ function Estadisticas(props) {
     obtenerCantidadComprasXDescuento();
   }, []);
 
+  const printPDF = () => {
+    window.print();
+  };
+
   return (
     <div>
-      <div className="prom-title-container">
+      <div
+        className="prom-title-container"
+        style={{ display: 'flex', justifyContent: 'space-between' }}
+      >
         <h1>Estadísticas</h1>
+        <Button
+          variant="contained"
+          id="imprimir"
+          style={{ backgroundColor: '#262262', color: 'white' }}
+          onClick={printPDF}
+          endIcon={<Print />}
+        >
+          Imprimir
+        </Button>
       </div>
       <div className="est-cards-container">
         <Card id="est-card">
