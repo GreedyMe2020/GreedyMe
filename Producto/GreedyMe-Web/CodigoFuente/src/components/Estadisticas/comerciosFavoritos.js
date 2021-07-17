@@ -2,9 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import Tooltip from '@material-ui/core/Tooltip';
-import { IconButton } from '@material-ui/core';
-import GetApp from '@material-ui/icons/GetApp';
+import Button from '@material-ui/core/Button';
 import Refresh from '@material-ui/icons/Refresh';
 import { connect } from 'react-redux';
 import { Line } from '@reactchartjs/react-chart.js';
@@ -123,17 +121,6 @@ function ComerciosFavoritos(props) {
     chart(cantidadMes);
   };
 
-  const temaCombo = createMuiTheme({
-    overrides: {
-      MuiInputBase: {
-        input: {
-          backgroundColor: 'white',
-          margin: '4px',
-        },
-      },
-    },
-  });
-
   React.useEffect(() => {
     if (
       props.profile.estadisticasFavoritos !== undefined &&
@@ -148,45 +135,11 @@ function ComerciosFavoritos(props) {
     }
   });
 
-  const print = (anio, tabla) => {
-    console.log(tabla)
-    const img = new Image();
-    const pdf = new jsPDF('p', 'pt', 'a4');
-    const width = pdf.internal.pageSize.getWidth();
-    let y = 5;
-    const url = './logo1-m.png'
-    img.src = url;
-    console.log(img)
-    pdf.setFontType('bold');
-    //pdf.addImage(img, 'png', y, y, 400, 400);
-    pdf.setFontSize(16);
-    pdf.text('Cantidad de clientes que los guardan como favoritos', 92.0975, 20, {
-      maxWidth: width - 105,
-      align: 'justify'
-    });
-    pdf.line(92.0975, 37, width - 5, 37);
-    pdf.setFontSize(12);
-    pdf.setTextColor('#636666');
-    pdf.text('Año: ', 92.0975, 57);
-    pdf.setFontType('normal');
-    pdf.text(anio, 92.0975 + pdf.getTextWidth('Año: ') + 10, 57);
-    /*pdf.setFontType('bold');
-    pdf.text('Fecha hasta: ', 92.0975, 72);
-    pdf.setFontType('normal');
-    pdf.text(fechaHasta.toLocaleString(), 92.0975 + pdf.getTextWidth('Fecha hasta: ') + 10, 72);
-    pdf.setFontType('bold');
-    pdf.text('Cupon: ', 92.0975, 87);
-    pdf.setFontType('normal');
-    pdf.text(cupon === "" ? 'Todos' : cuponNombre[0].name, 92.0975 + pdf.getTextWidth('Cupon: ') + 10, 87);*/
-
-
-    pdf.save('Comercios favoritos' + '.pdf');
-  }
   return (
     <div>
       <div className="tittle-discount">
         <div className="t-discount">
-          <p class="tittle-d">
+          <p className="tittle-d">
             Cantidad de clientes que los guardan como favoritos
           </p>
           <div
@@ -197,24 +150,14 @@ function ComerciosFavoritos(props) {
           </div>
         </div>
         <div>
-          <Tooltip title="Actualizar" arrow>
-            <IconButton
-              aria-label="Actualizar"
-              onClick={handleRefresh}
-            >
-              <Refresh fontSize="medium" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Descargar" arrow>
-            <IconButton
-              aria-label="Descargar"
-              onClick={() => {
-                print(anio, chartData)
-              }}
-            >
-              <GetApp fontSize="medium" />
-            </IconButton>
-          </Tooltip>
+          <Button
+            variant="outlined"
+            onClick={handleRefresh}
+            id="actualizar-reporte"
+            endIcon={<Refresh fontSize="medium" />}
+          >
+            Actualizar
+          </Button>
         </div>
       </div>
       <div className="content-discount" style={{ marginTop: 5 }}>
@@ -236,7 +179,7 @@ function ComerciosFavoritos(props) {
         </form>
         {flagChart ? (
           <div className="est-container">
-            <Line data={chartData} />
+            <Line data={chartData} height="130" />
           </div>
         ) : null}
       </div>
