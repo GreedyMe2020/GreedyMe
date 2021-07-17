@@ -448,6 +448,7 @@ function MisPromociones(props) {
   const [openModificar, setOpenModificar] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState('md');
+  
   const handleClickOpenModificar = () => {
     setOpenModificar(true);
   };

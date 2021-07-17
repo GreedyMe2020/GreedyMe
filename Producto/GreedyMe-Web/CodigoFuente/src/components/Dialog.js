@@ -36,7 +36,7 @@ export default function DialogComponent({
           onClick={() => {
             setOpen(false);
           }}
-          color="primary"
+          color="secondary"
         >
           Cancelar
         </Button>
@@ -47,7 +47,7 @@ export default function DialogComponent({
             setEliminar(null);
             setEliminada(true);
           }}
-          color="secondary"
+          color="primary"
           autoFocus
         >
           {btnText}
