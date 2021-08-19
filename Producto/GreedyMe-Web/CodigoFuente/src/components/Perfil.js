@@ -122,10 +122,10 @@ function Perfil(props) {
                       {props.profile.tipoSuscripcion === 0
                         ? 'Plan Básico'
                         : props.profile.tipoSuscripcion === 1
-                        ? 'Plan Estándar'
-                        : props.profile.tipoSuscripcion === 2
-                        ? 'Plan Premium'
-                        : null}
+                          ? 'Plan Estándar'
+                          : props.profile.tipoSuscripcion === 2
+                            ? 'Plan Premium'
+                            : null}
                     </p>
                   </div>
                 </ListItem>
@@ -179,7 +179,6 @@ function Perfil(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     profile: state.firebase.profile,
     auth: state.firebase.auth,

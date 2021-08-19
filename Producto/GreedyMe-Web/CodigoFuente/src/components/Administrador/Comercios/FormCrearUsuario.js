@@ -84,7 +84,7 @@ function FormCrearUsuario(props) {
   };
 
   const abrirCarteldeConfirmacion = React.useEffect(() => {
-    if(props.usuarioCreado !== null){
+    if (props.usuarioCreado !== null) {
       setOpen(true);
       props.resetearValoresCreacionComercio()
       setFormData({
@@ -102,14 +102,14 @@ function FormCrearUsuario(props) {
         direccion: "",
       })
     }
-  },[props.usuarioCreado] )
+  }, [props.usuarioCreado])
 
   const abrirCarteldeError = React.useEffect(() => {
-    if(props.usuarioFalla !== null){
+    if (props.usuarioFalla !== null) {
       setOpen2(true);
       props.resetearValoresCreacionComercio()
     }
-  },[props.usuarioFalla] )
+  }, [props.usuarioFalla])
 
   ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
     if (value !== formData.contraseña) {
@@ -310,7 +310,7 @@ function FormCrearUsuario(props) {
             startIcon={<SaveIcon />}
           >
             Crear comercio
-          </Button>    
+          </Button>
         </div>
         <Snackbar
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
@@ -322,7 +322,7 @@ function FormCrearUsuario(props) {
             ¡El comercio se ha creado correctamente!
           </Alert>
         </Snackbar>
-          <Snackbar
+        <Snackbar
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           open={open2}
           autoHideDuration={8000}
@@ -338,7 +338,6 @@ function FormCrearUsuario(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     usuarioFalla: state.admin.usuarioFalla,
     usuarioCreado: state.admin.usuarioCreado

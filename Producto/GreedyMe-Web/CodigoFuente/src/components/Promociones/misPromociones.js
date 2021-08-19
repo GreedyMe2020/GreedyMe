@@ -448,7 +448,7 @@ function MisPromociones(props) {
   const [openModificar, setOpenModificar] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState('md');
-  
+
   const handleClickOpenModificar = () => {
     setOpenModificar(true);
   };
@@ -477,7 +477,6 @@ function MisPromociones(props) {
         dias.push(promo.key);
       }
     }
-    console.log(dias);
   }
   return (
     <div>
@@ -508,22 +507,23 @@ function MisPromociones(props) {
                   {promos &&
                     promos.map((promo) => {
                       return (
-                        <ListItem key={promo.id}>
+                        <ListItem key={promo.id} className={promo.hastaVigencia.toDate() < new Date() ?
+                          'fondoGris' : ''}>
                           <ListItemAvatar>
                             <Avatar
                               variant="square"
                               className={classes.proveedor}
                               src={promo.photoURL}
-                              /* src1={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
-                              src2={require("../../../Multimedia/Sistema-svg/store.svg")}
-                              src3={require("../../../Multimedia/Sistema-svg/percentage (1).svg")}
-                              proveedor={
-                                promos.proveedor === 1
-                                  ? src1
-                                  : promos.proveedor === 2
-                                  ? src2
-                                  : src3
-                              } */
+                            /* src1={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
+                            src2={require("../../../Multimedia/Sistema-svg/store.svg")}
+                            src3={require("../../../Multimedia/Sistema-svg/percentage (1).svg")}
+                            proveedor={
+                              promos.proveedor === 1
+                                ? src1
+                                : promos.proveedor === 2
+                                ? src2
+                                : src3
+                            } */
                             ></Avatar>
                           </ListItemAvatar>
 
@@ -545,12 +545,12 @@ function MisPromociones(props) {
                                         ? promo.otroProveedor
                                         : promo.valueProveedor ===
                                           'Todos'
-                                        ? 'Todos los Bancos'
-                                        : promo.valueProveedor) +
+                                          ? 'Todos los Bancos'
+                                          : promo.valueProveedor) +
                                       ', ' +
                                       (promo.tipoProveedor ===
                                         'Tarjetas de crédito' ||
-                                      promo.tipoProveedor ===
+                                        promo.tipoProveedor ===
                                         'Tarjetas de débito'
                                         ? promo.otroProveedor + ' '
                                         : '') +
@@ -681,7 +681,6 @@ function MisPromociones(props) {
                                 onClick={() => {
                                   setValues(!promo.visible);
                                   setCurrentId2(promo.id);
-                                  console.log(values);
                                 }}
                                 onMouseDown={handleMouseDownPromo}
                               >
@@ -848,7 +847,7 @@ function MisPromociones(props) {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </div >
   );
 }
 

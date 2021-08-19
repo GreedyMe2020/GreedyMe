@@ -137,7 +137,7 @@ function FormProveedores(props) {
     setPicture(null);
     setValorCarga(0)
     formData.downloadURL = null
-    setFormData({...formData})
+    setFormData({ ...formData })
   };
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
@@ -160,7 +160,7 @@ function FormProveedores(props) {
     const task = storageRef.put(file);
     task.on(
       "state_changed",
-      function (snapshot) {      
+      function (snapshot) {
         switch (snapshot.state) {
           case firebase.storage.TaskState.PAUSED: // or 'paused'
             break;
@@ -179,11 +179,11 @@ function FormProveedores(props) {
         task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
           setPicture(downloadURL);
           formData.downloadURL = downloadURL
-          setFormData({...formData})
+          setFormData({ ...formData })
         });
-      } 
-    ); 
-  }; 
+      }
+    );
+  };
 
   const form = React.createRef();
   return (
@@ -225,19 +225,19 @@ function FormProveedores(props) {
                 </label>
               </div>
               <div className="ml-1">
-                {valorCarga === 0 
-                ? null
-                : <progress value={valorCarga} max="100"></progress>}                
+                {valorCarga === 0
+                  ? null
+                  : <progress value={valorCarga} max="100"></progress>}
               </div>
               <div className={classes.elim}>
                 <a className="eliminar-img" onClick={handleDelete}>
                   Eliminar imagen
                 </a>
               </div>
-              
+
             </div>
           </div>
-          
+
           <Grid item xs={12} md={12}>
             <SelectValidator
               className="select-tipoprove"
@@ -302,7 +302,6 @@ function FormProveedores(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     proveedores: state.firestore.ordered.proveedorServicio,
     tipoPromo: state.firestore.ordered.tipoPromocion,

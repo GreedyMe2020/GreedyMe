@@ -206,7 +206,6 @@ function ProgramarNotificaciones(props) {
     } else if (notificaciones === "Usuarios con comercio favorito") {
       props.generarNotificacionesFavoritos(props.profile.tokensFavoritos, nombreComercio, beneficioElegido, props.profile.photoURL);
       setOpen(true);
-      console.log('entro por aca pa');
     }
   };
 

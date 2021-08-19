@@ -162,123 +162,122 @@ function ListaUsuarios(props) {
                 <List>
                   {props.usuarios && texto === false
                     ? props.usuarios.map((user) => {
-                        return (
-                          <ListItem key={user.id}>
-                            <ListItemAvatar>
-                              <Avatar
-                                variant="square"
-                                src={require("../../../../Multimedia/Sistema-svg/store.svg")}
-                              ></Avatar>
-                            </ListItemAvatar>
-                            <div className="elementoListaProm">
-                              <ListItemText
-                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
-                                primary={
-                                  <React.Fragment>
-                                    <Typography className={classes.inline}>
-                                      {user.nombreComercio}
-                                    </Typography>
-                                    {user.CUIT}
-                                    <Typography>
-                                      {user.tipoSuscripcion === 0
-                                        ? "Plan Básico"
-                                        : user.tipoSuscripcion === 1
+                      return (
+                        <ListItem key={user.id}>
+                          <ListItemAvatar>
+                            <Avatar
+                              variant="square"
+                              src={require("../../../../Multimedia/Sistema-svg/store.svg")}
+                            ></Avatar>
+                          </ListItemAvatar>
+                          <div className="elementoListaProm">
+                            <ListItemText
+                              //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                              primary={
+                                <React.Fragment>
+                                  <Typography className={classes.inline}>
+                                    {user.nombreComercio}
+                                  </Typography>
+                                  {user.CUIT}
+                                  <Typography>
+                                    {user.tipoSuscripcion === 0
+                                      ? "Plan Básico"
+                                      : user.tipoSuscripcion === 1
                                         ? "Plan Estándar"
                                         : user.tipoSuscripcion === 2
-                                        ? "Plan Premium"
-                                        : null}
-                                    </Typography>
-                                  </React.Fragment>
-                                }
-                                secondary={"rubro: " + user.rubro}
-                              />
-                            </div>
-                            <ListItemSecondaryAction>
-                              <Tooltip title="Editar" arrow>
-                                <IconButton
-                                  aria-label="Editar"
-                                  onClick={() => {
-                                    setModificar({
-                                      id: user.id,
-                                      email: user.email,
-                                      CUIT: user.CUIT,
-                                      nombreComercio: user.nombreComercio,
-                                      web: user.web,
-                                      contraseña: user.contraseña,
-                                      repetirContraseña: user.repetirContraseña,
-                                      sucursal: user.sucursal,
-                                      rubro: user.rubro,
-                                      telefono: user.telefono,
-                                      instagram: user.instagram,
-                                      facebook: user.facebook,
-                                      direccion: user.direccion,
-                                    });
-                                    handleClickOpenModificar();
-                                  }}
-                                >
-                                  <CreateIcon />
-                                </IconButton>
-                              </Tooltip>
-                              <Dialog
-                                fullWidth={fullWidth}
-                                maxWidth={maxWidth}
-                                open={openModificar}
-                                className={classes.root}
+                                          ? "Plan Premium"
+                                          : null}
+                                  </Typography>
+                                </React.Fragment>
+                              }
+                              secondary={"rubro: " + user.rubro}
+                            />
+                          </div>
+                          <ListItemSecondaryAction>
+                            <Tooltip title="Editar" arrow>
+                              <IconButton
+                                aria-label="Editar"
+                                onClick={() => {
+                                  setModificar({
+                                    id: user.id,
+                                    email: user.email,
+                                    CUIT: user.CUIT,
+                                    nombreComercio: user.nombreComercio,
+                                    web: user.web,
+                                    contraseña: user.contraseña,
+                                    repetirContraseña: user.repetirContraseña,
+                                    sucursal: user.sucursal,
+                                    rubro: user.rubro,
+                                    telefono: user.telefono,
+                                    instagram: user.instagram,
+                                    facebook: user.facebook,
+                                    direccion: user.direccion,
+                                  });
+                                  handleClickOpenModificar();
+                                }}
                               >
-                                <DialogTitle id="dialog-title-prom">
-                                  <h5>Modificar comercio</h5>
-                                  <IconButton
-                                    aria-label="close"
-                                    id="btn"
-                                    className={classes.cruz}
-                                    onClick={handleCloseModificar}
-                                  >
-                                    <CloseIcon />
-                                  </IconButton>
-                                </DialogTitle>
-                                <DialogContent dividers>
-                                  <DialogContentText>
-                                    <ModalActualizarComercio
-                                      comercio={modificar}
-                                      actualizar={actualizarComercio}
-                                    />
-                                  </DialogContentText>
-                                </DialogContent>
-                              </Dialog>
-
-                              <Tooltip title="Eliminar" arrow>
+                                <CreateIcon />
+                              </IconButton>
+                            </Tooltip>
+                            <Dialog
+                              fullWidth={fullWidth}
+                              maxWidth={maxWidth}
+                              open={openModificar}
+                              className={classes.root}
+                            >
+                              <DialogTitle id="dialog-title-prom">
+                                <h5>Modificar comercio</h5>
                                 <IconButton
-                                  onClick={() => {
-                                    setEliminar(user.id);
-                                    setOpen(true);
-                                    console.log(user.id);
-                                  }}
-                                  edge="end"
-                                  aria-label="Eliminar"
+                                  aria-label="close"
+                                  id="btn"
+                                  className={classes.cruz}
+                                  onClick={handleCloseModificar}
                                 >
-                                  <DeleteIcon />
+                                  <CloseIcon />
                                 </IconButton>
-                              </Tooltip>
-                              <DialogComponent
-                                open={open}
-                                setOpen={setOpen}
-                                handleClose={handleClose}
-                                eliminar={eliminar}
-                                setEliminar={setEliminar}
-                                setEliminada={setEliminada}
-                                setCurrentId={setCurrentId}
-                                title={"¿Estás seguro de eliminar el comercio?"}
-                                text={
-                                  "Una vez que aceptes eliminar el comercio, el mismo no podrá ser recuperado."
-                                }
-                                btnText={"Eliminar"}
-                              />
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        );
-                      })
+                              </DialogTitle>
+                              <DialogContent dividers>
+                                <DialogContentText>
+                                  <ModalActualizarComercio
+                                    comercio={modificar}
+                                    actualizar={actualizarComercio}
+                                  />
+                                </DialogContentText>
+                              </DialogContent>
+                            </Dialog>
+
+                            <Tooltip title="Eliminar" arrow>
+                              <IconButton
+                                onClick={() => {
+                                  setEliminar(user.id);
+                                  setOpen(true);
+                                }}
+                                edge="end"
+                                aria-label="Eliminar"
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </Tooltip>
+                            <DialogComponent
+                              open={open}
+                              setOpen={setOpen}
+                              handleClose={handleClose}
+                              eliminar={eliminar}
+                              setEliminar={setEliminar}
+                              setEliminada={setEliminada}
+                              setCurrentId={setCurrentId}
+                              title={"¿Estás seguro de eliminar el comercio?"}
+                              text={
+                                "Una vez que aceptes eliminar el comercio, el mismo no podrá ser recuperado."
+                              }
+                              btnText={"Eliminar"}
+                            />
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      );
+                    })
                     : listaUsuarios
-                    ? listaUsuarios.map((user) => {
+                      ? listaUsuarios.map((user) => {
                         return (
                           <ListItem key={user.id}>
                             <ListItemAvatar>
@@ -300,10 +299,10 @@ function ListaUsuarios(props) {
                                       {user.tipoSuscripcion === 0
                                         ? "Plan Básico"
                                         : user.tipoSuscripcion === 1
-                                        ? "Plan Estándar"
-                                        : user.tipoSuscripcion === 2
-                                        ? "Plan Premium"
-                                        : null}
+                                          ? "Plan Estándar"
+                                          : user.tipoSuscripcion === 2
+                                            ? "Plan Premium"
+                                            : null}
                                     </Typography>
                                   </React.Fragment>
                                 }
@@ -367,7 +366,6 @@ function ListaUsuarios(props) {
                                   onClick={() => {
                                     setEliminar(user.id);
                                     setOpen(true);
-                                    console.log(user.id);
                                   }}
                                   edge="end"
                                   aria-label="Eliminar"
@@ -393,7 +391,7 @@ function ListaUsuarios(props) {
                           </ListItem>
                         );
                       })
-                    : null}
+                      : null}
                 </List>
                 {eliminada ? (
                   <Snackbar

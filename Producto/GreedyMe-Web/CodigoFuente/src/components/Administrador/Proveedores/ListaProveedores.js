@@ -126,69 +126,69 @@ function ListaProveedores(props) {
                 <List>
                   {props.proveedores && texto === false
                     ? props.proveedores.map((item) => {
-                        return (
-                          <ListItem key={item.id}>
-                            <ListItemAvatar>
-                              <Avatar
-                                variant="square"
-                                src={require("../../../../Multimedia/Sistema-svg/id-card.svg")}
-                              ></Avatar>
-                            </ListItemAvatar>
+                      return (
+                        <ListItem key={item.id}>
+                          <ListItemAvatar>
+                            <Avatar
+                              variant="square"
+                              src={require("../../../../Multimedia/Sistema-svg/id-card.svg")}
+                            ></Avatar>
+                          </ListItemAvatar>
 
-                            <div className="elementoListaProm">
-                              <ListItemText
-                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
-                                primary={
-                                  <React.Fragment>
-                                    <Typography className={classes.inline}>
-                                      {item.tipo ? item.tipo : "Bancos"}
-                                    </Typography>
-                                    {item.lista
-                                      ? item.lista.map((ite) => {
-                                          return ite.nombre + " - ";
-                                        })
-                                      : item.bancos.map((ite) => {
-                                          return ite.nombre + " - ";
-                                        })}
-                                  </React.Fragment>
-                                }
-                              />
-                            </div>
-                            <ListItemSecondaryAction>
-                              <Tooltip title="Eliminar" arrow>
-                                <IconButton
-                                  onClick={() => {
-                                    setEliminar(item.id);
-                                    setOpen(true);
-                                  }}
-                                  edge="end"
-                                  aria-label="Eliminar"
-                                >
-                                  <DeleteIcon />
-                                </IconButton>
-                              </Tooltip>
-                              <DialogComponent
-                                open={open}
-                                setOpen={setOpen}
-                                handleClose={handleClose}
-                                eliminar={eliminar}
-                                setEliminar={setEliminar}
-                                setEliminada={setEliminada}
-                                setCurrentId={setCurrentId}
-                                title={
-                                  "¿Estás seguro de eliminar la promoción?"
-                                }
-                                text={
-                                  "Una vez que aceptes eliminar la promoción, la misma no podrá ser recuperada."
-                                }
-                                btnText={"Eliminar"}
-                              />
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        );
-                      })
+                          <div className="elementoListaProm">
+                            <ListItemText
+                              //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                              primary={
+                                <React.Fragment>
+                                  <Typography className={classes.inline}>
+                                    {item.tipo ? item.tipo : "Bancos"}
+                                  </Typography>
+                                  {item.lista
+                                    ? item.lista.map((ite) => {
+                                      return ite.nombre + " - ";
+                                    })
+                                    : item.bancos.map((ite) => {
+                                      return ite.nombre + " - ";
+                                    })}
+                                </React.Fragment>
+                              }
+                            />
+                          </div>
+                          <ListItemSecondaryAction>
+                            <Tooltip title="Eliminar" arrow>
+                              <IconButton
+                                onClick={() => {
+                                  setEliminar(item.id);
+                                  setOpen(true);
+                                }}
+                                edge="end"
+                                aria-label="Eliminar"
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </Tooltip>
+                            <DialogComponent
+                              open={open}
+                              setOpen={setOpen}
+                              handleClose={handleClose}
+                              eliminar={eliminar}
+                              setEliminar={setEliminar}
+                              setEliminada={setEliminada}
+                              setCurrentId={setCurrentId}
+                              title={
+                                "¿Estás seguro de eliminar la promoción?"
+                              }
+                              text={
+                                "Una vez que aceptes eliminar la promoción, la misma no podrá ser recuperada."
+                              }
+                              btnText={"Eliminar"}
+                            />
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      );
+                    })
                     : listaProveedores
-                    ? listaProveedores.map((item) => {
+                      ? listaProveedores.map((item) => {
                         return (
                           <ListItem key={item.id}>
                             <ListItemAvatar>
@@ -208,11 +208,11 @@ function ListaProveedores(props) {
                                     </Typography>
                                     {item.lista
                                       ? item.lista.map((ite) => {
-                                          return ite.nombre + " - ";
-                                        })
+                                        return ite.nombre + " - ";
+                                      })
                                       : item.bancos.map((ite) => {
-                                          return ite.nombre + " - ";
-                                        })}
+                                        return ite.nombre + " - ";
+                                      })}
                                   </React.Fragment>
                                 }
                               />
@@ -250,9 +250,9 @@ function ListaProveedores(props) {
                           </ListItem>
                         );
                       })
-                    : null}
+                      : null}
                 </List>
-              {eliminada ? (
+                {eliminada ? (
                   <Snackbar
                     anchorOrigin={{
                       vertical: "bottom",
@@ -268,7 +268,7 @@ function ListaProveedores(props) {
                   </Snackbar>
                 ) : (
                   ""
-                )} 
+                )}
               </div>
             </Grid>
           </CardContent>
@@ -279,7 +279,6 @@ function ListaProveedores(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     proveedores: state.firestore.ordered.proveedorServicio,
     tipoPromo: state.firestore.ordered.tipoPromocion,
