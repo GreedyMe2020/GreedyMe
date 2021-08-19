@@ -265,7 +265,6 @@ export const cargarBanco = (formData) => {
     const listaNueva2 = _.concat(lista2, {
       name: formData.valueProveedor,
     });
-    console.log(listaNueva2);
 
     const firestore = getFirestore();
     firestore
@@ -298,7 +297,6 @@ export const cargarTipoProveedor = (formData) => {
       );
     }
     //codigo asincrono
-    console.log(identificacion);
     const firestore = getFirestore();
     firestore
       .collection('proveedorServicio')

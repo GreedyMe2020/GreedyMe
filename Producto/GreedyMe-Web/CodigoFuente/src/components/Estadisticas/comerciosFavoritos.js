@@ -115,7 +115,6 @@ function ComerciosFavoritos(props) {
         cantFavoritos++;
       }
     }
-    console.log(cantFavoritos);
     setCantidadFavoritos(cantFavoritos);
     setCantidadPorMes(cantidadMes);
     chart(cantidadMes);

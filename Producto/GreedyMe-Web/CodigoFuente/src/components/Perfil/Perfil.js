@@ -128,7 +128,6 @@ function Perfil(props) {
       function (snapshot) {
         switch (snapshot.state) {
           case firebase.storage.TaskState.PAUSED: // or 'paused'
-            console.log("Upload is paused");
             break;
           case firebase.storage.TaskState.RUNNING: // or 'running'
             let porcentaje =
@@ -165,7 +164,6 @@ function Perfil(props) {
     /*setSubmitted({ submitted: true }, () => {
       setTimeout(() => setSubmitted({ submitted: false }), 5000);
     });*/
-    console.log("me apretaron");
     setOpen(true);
   };
 

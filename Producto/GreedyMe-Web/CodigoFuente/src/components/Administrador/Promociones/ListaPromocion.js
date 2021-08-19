@@ -127,65 +127,65 @@ function ListaPromocion(props) {
                 <List>
                   {props.tipoPromo && texto === false
                     ? props.tipoPromo.map((item) => {
-                        return (
-                          <ListItem key={item.id}>
-                            <ListItemAvatar>
-                              <Avatar
-                                variant="square"
-                                src={require("../../../../Multimedia/Sistema-svg/price-tag (5).svg")}
-                              ></Avatar>
-                            </ListItemAvatar>
+                      return (
+                        <ListItem key={item.id}>
+                          <ListItemAvatar>
+                            <Avatar
+                              variant="square"
+                              src={require("../../../../Multimedia/Sistema-svg/price-tag (5).svg")}
+                            ></Avatar>
+                          </ListItemAvatar>
 
-                            <div className="elementoListaProm">
-                              <ListItemText
-                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
-                                primary={
-                                  <React.Fragment>
-                                    <Typography className={classes.inline}>
-                                      {item.tipo}
-                                    </Typography>
-                                    {item.lista.map((ite) => {
-                                      return ite.valor + " - ";
-                                    })}
-                                  </React.Fragment>
-                                }
-                              />
-                            </div>
-                            <ListItemSecondaryAction>
-                              <Tooltip title="Eliminar" arrow>
-                                <IconButton
-                                  onClick={() => {
-                                    setEliminar(item.id);
-                                    setOpen(true);
-                                  }}
-                                  edge="end"
-                                  aria-label="Eliminar"
-                                >
-                                  <DeleteIcon />
-                                </IconButton>
-                              </Tooltip>
-                              <DialogComponent
-                                open={open}
-                                setOpen={setOpen}
-                                handleClose={handleClose}
-                                eliminar={eliminar}
-                                setEliminar={setEliminar}
-                                setEliminada={setEliminada}
-                                setCurrentId={setCurrentId}
-                                title={
-                                  "¿Estás seguro de eliminar el beneficio?"
-                                }
-                                text={
-                                  "Una vez que aceptes eliminar el beneficio, el misma no podrá ser recuperada."
-                                }
-                                btnText={"Eliminar"}
-                              />
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        );
-                      })
+                          <div className="elementoListaProm">
+                            <ListItemText
+                              //asi podes ir accediendo a todos los datos asi los acomodas como quieras
+                              primary={
+                                <React.Fragment>
+                                  <Typography className={classes.inline}>
+                                    {item.tipo}
+                                  </Typography>
+                                  {item.lista.map((ite) => {
+                                    return ite.valor + " - ";
+                                  })}
+                                </React.Fragment>
+                              }
+                            />
+                          </div>
+                          <ListItemSecondaryAction>
+                            <Tooltip title="Eliminar" arrow>
+                              <IconButton
+                                onClick={() => {
+                                  setEliminar(item.id);
+                                  setOpen(true);
+                                }}
+                                edge="end"
+                                aria-label="Eliminar"
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </Tooltip>
+                            <DialogComponent
+                              open={open}
+                              setOpen={setOpen}
+                              handleClose={handleClose}
+                              eliminar={eliminar}
+                              setEliminar={setEliminar}
+                              setEliminada={setEliminada}
+                              setCurrentId={setCurrentId}
+                              title={
+                                "¿Estás seguro de eliminar el beneficio?"
+                              }
+                              text={
+                                "Una vez que aceptes eliminar el beneficio, el misma no podrá ser recuperada."
+                              }
+                              btnText={"Eliminar"}
+                            />
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      );
+                    })
                     : listaPromociones
-                    ? listaPromociones.map((item) => {
+                      ? listaPromociones.map((item) => {
                         return (
                           <ListItem key={item.id}>
                             <ListItemAvatar>
@@ -243,7 +243,7 @@ function ListaPromocion(props) {
                           </ListItem>
                         );
                       })
-                    : null}
+                      : null}
                 </List>
                 {eliminada ? (
                   <Snackbar
@@ -272,7 +272,6 @@ function ListaPromocion(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     proveedores: state.firestore.ordered.proveedorServicio,
     tipoPromo: state.firestore.ordered.tipoPromocion,

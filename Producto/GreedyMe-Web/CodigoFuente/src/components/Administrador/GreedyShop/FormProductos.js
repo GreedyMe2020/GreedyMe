@@ -306,7 +306,6 @@ function FormProductos(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     premio: state.admin.premio,
     premioFalla: state.admin.premioFalla,

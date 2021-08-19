@@ -112,7 +112,6 @@ function FormTipoProveedores(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     proveedores: state.firestore.ordered.proveedorServicio,
     tipoPromo: state.firestore.ordered.tipoPromocion,

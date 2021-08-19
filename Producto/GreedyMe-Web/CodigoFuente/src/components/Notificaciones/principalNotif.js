@@ -23,9 +23,9 @@ function Notificaciones(props) {
           <LateralNotificaciones />
         </div>
         <div className="card-lateral-premium">
-          {props.profile.tipoSuscripcion === 2 
-          ? null
-          : <HacermePremium setSeleccionado={props.setSeleccionado}/>}
+          {props.profile.tipoSuscripcion === 2
+            ? null
+            : <HacermePremium setSeleccionado={props.setSeleccionado} />}
         </div>
       </div>
     </div>
@@ -33,7 +33,6 @@ function Notificaciones(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     profile: state.firebase.profile,
   };

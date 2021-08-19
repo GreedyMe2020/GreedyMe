@@ -30,12 +30,12 @@ function HacermePremium(props) {
           </div>
           <div className="texto-3-premium">
             <Link
-                to={"/main/" + props.auth.uid + "/suscripciones"}
-                className="link"
-                onClick={() => {
-                  props.setSeleccionado(7);
-                }}
-              >
+              to={"/main/" + props.auth.uid + "/suscripciones"}
+              className="link"
+              onClick={() => {
+                props.setSeleccionado(7);
+              }}
+            >
               <Button variant="contained" className="btn-premium" type="submit">
                 Actualizar plan
               </Button>
@@ -48,7 +48,6 @@ function HacermePremium(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
   };
