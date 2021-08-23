@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
-import { withStyles } from "@material-ui/core/styles";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import React, { useEffect } from 'react';
+import {
+  MuiPickersUtilsProvider,
+  DatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import MuiAlert from '@material-ui/lab/Alert';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import {
   MenuItem,
   FormControlLabel,
@@ -17,24 +19,23 @@ import {
   Checkbox,
   Button,
   Divider,
-  Grid,
-} from "@material-ui/core";
+} from '@material-ui/core';
 import {
   ValidatorForm,
   SelectValidator,
-} from "react-material-ui-form-validator";
-import firebase from "../../firebase/config";
-import "firebase/analytics";
-import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
-import _ from "lodash";
+} from 'react-material-ui-form-validator';
+import firebase from '../../firebase/config';
+import 'firebase/analytics';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import _ from 'lodash';
 const firestore = firebase.firestore();
 
 const bancos = [];
 //const banco = () => {
 firestore
-  .collection("proveedorServicio")
-  .orderBy("bancos")
+  .collection('proveedorServicio')
+  .orderBy('bancos')
   .onSnapshot((snapShots) => {
     snapShots.forEach((doc) => {
       const data = doc.data();
@@ -42,8 +43,8 @@ firestore
         ...data,
         id: doc.id,
       });
-    })
-  })
+    });
+  });
 /*.get()
 .then(
 });*/
@@ -52,7 +53,7 @@ firestore
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiTextField-root": {
+    '& .MuiTextField-root': {
       margin: theme.spacing(1),
     },
   },
@@ -60,9 +61,9 @@ const useStyles = makeStyles((theme) => ({
 
 const CelesteCheckbox = withStyles({
   root: {
-    color: "#707070",
-    "&$checked": {
-      color: "#76B39D",
+    color: '#707070',
+    '&$checked': {
+      color: '#76B39D',
     },
   },
   checked: {},
@@ -70,9 +71,9 @@ const CelesteCheckbox = withStyles({
 
 const CelesteRadio = withStyles({
   root: {
-    color: "#707070",
-    "&$checked": {
-      color: "#76B39D",
+    color: '#707070',
+    '&$checked': {
+      color: '#76B39D',
     },
   },
   checked: {},
@@ -87,17 +88,21 @@ function ModalPromociones(props) {
 
   const [formData, setFormData] = React.useState({
     id: props.auth.uid,
-    tipoPromo: "",
-    valuePromo: "",
-    otraPromo: "",
-    tipoProveedor: "",
-    valueProveedor: "",
-    otroProveedor: "",
-    descripcion: "",
-    photoURL: "",
+    tipoPromo: '',
+    valuePromo: '',
+    otraPromo: '',
+    tipoProveedor: '',
+    valueProveedor: '',
+    otroProveedor: '',
+    descripcion: '',
+    photoURL: '',
   });
-  const [desdeVigencia, handleDesdeVigencia] = React.useState(new Date()); //Estados para cada datePicker
-  const [hastaVigencia, handleHastaVigencia] = React.useState(new Date());
+  const [desdeVigencia, handleDesdeVigencia] = React.useState(
+    new Date(),
+  ); //Estados para cada datePicker
+  const [hastaVigencia, handleHastaVigencia] = React.useState(
+    new Date(),
+  );
   //const [open, setOpen] = React.useState(false);
 
   //esto es para los dias
@@ -122,33 +127,34 @@ function ModalPromociones(props) {
     todoslosdias,
   } = state;
   const [errorD, setErrorDias] = React.useState(false);
-  const [helperTextD, setHelperTextDias] = React.useState("");
+  const [helperTextD, setHelperTextDias] = React.useState('');
 
   const handleChangec = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
-    setHelperTextDias("");
+    setHelperTextDias('');
     setErrorDias(false);
   };
 
   //esto es para la forma de pago
   const [value, setValue] = React.useState({ value: false });
   const [error, setError] = React.useState(false);
-  const [helperText, setHelperText] = React.useState("");
+  const [helperText, setHelperText] = React.useState('');
 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
-    setHelperText("");
+    setHelperText('');
     setError(false);
   };
   function generateUUID() {
     var d = new Date().getTime();
-    var uuid = "xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx".replace(/[xy]/g, function (
-      c
-    ) {
-      var r = (d + Math.random() * 16) % 16 | 0;
-      d = Math.floor(d / 16);
-      return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
-    });
+    var uuid = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(
+      /[xy]/g,
+      function (c) {
+        var r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c == 'x' ? r : (r & 0x3) | 0x8).toString(16);
+      },
+    );
     return uuid;
   }
   const id = generateUUID();
@@ -165,7 +171,7 @@ function ModalPromociones(props) {
       state.domingo === false &&
       state.todoslosdias === false
     ) {
-      setHelperTextDias("*Este campo es obligatorio");
+      setHelperTextDias('*Este campo es obligatorio');
       setErrorDias(true);
     } else if (
       state.todoslosdias === true &&
@@ -177,37 +183,47 @@ function ModalPromociones(props) {
         state.sabado === true ||
         state.domingo === true)
     ) {
-      setHelperTextDias("*Hay inconsistencia en la selección");
+      setHelperTextDias('*Hay inconsistencia en la selección');
       setErrorDias(true);
-    } else if (value != "Efectivo" && value != "Todos los medios de pago") {
-      setHelperText("*Este campo es obligatorio");
+    } else if (
+      value != 'Efectivo' &&
+      value != 'Todos los medios de pago'
+    ) {
+      setHelperText('*Este campo es obligatorio');
       setError(true);
     } else {
       //firebase.analytics().logEvent("promocion_creada");
-      props.crear(formData, id, state, value, desdeVigencia, hastaVigencia);
+      props.crear(
+        formData,
+        id,
+        state,
+        value,
+        desdeVigencia,
+        hastaVigencia,
+      );
       //setOpen(true);
-      formData.tipoPromo = ""
-      formData.valuePromo = ""
-      formData.otraPromo = ""
-      formData.tipoProveedor = ""
-      formData.valueProveedor = ""
-      formData.otroProveedor = ""
-      formData.descripcion = ""
-      state.lunes = false
-      state.martes = false
-      state.miercoles = false
-      state.jueves = false
-      state.viernes = false
-      state.sabado = false
-      state.domingo = false
-      state.todoslosdias = true
-      handleDesdeVigencia(new Date())
-      handleHastaVigencia(new Date())
-      setValue({ value: false })
+      formData.tipoPromo = '';
+      formData.valuePromo = '';
+      formData.otraPromo = '';
+      formData.tipoProveedor = '';
+      formData.valueProveedor = '';
+      formData.otroProveedor = '';
+      formData.descripcion = '';
+      state.lunes = false;
+      state.martes = false;
+      state.miercoles = false;
+      state.jueves = false;
+      state.viernes = false;
+      state.sabado = false;
+      state.domingo = false;
+      state.todoslosdias = true;
+      handleDesdeVigencia(new Date());
+      handleHastaVigencia(new Date());
+      setValue({ value: false });
     }
   };
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     //setOpen(false);
@@ -215,7 +231,7 @@ function ModalPromociones(props) {
 
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
-    if (event.target.name === "valueProveedor") {
+    if (event.target.name === 'valueProveedor') {
       valorProveedor.map((option) => {
         if (option.nombre === event.target.value) {
           formData.photoURL = option.photoURL;
@@ -236,14 +252,16 @@ function ModalPromociones(props) {
     setValorPromo([]);
     setFormData({
       ...formData,
-      valuePromo: "",
-      otraPromo: "",
+      valuePromo: '',
+      otraPromo: '',
     });
 
     //esto no corre en el primer render, se ejecuta luego del return
     if (formData.tipoPromo) {
       const todosTiposPromos = props.tipoPromo;
-      const indiceACambiar = _.findIndex(todosTiposPromos, function (o) {
+      const indiceACambiar = _.findIndex(todosTiposPromos, function (
+        o,
+      ) {
         return o.tipo === formData.tipoPromo;
       });
       setValorPromo(props.tipoPromo[indiceACambiar].lista);
@@ -258,22 +276,24 @@ function ModalPromociones(props) {
     setValorBanco([]);
     setFormData({
       ...formData,
-      valueProveedor: "",
-      otroProveedor: "",
-      photoURL: "",
+      valueProveedor: '',
+      otroProveedor: '',
+      photoURL: '',
     });
     //esto no corre en el primer render, se ejecuta luego del return
     if (formData.tipoProveedor) {
       const todosProveedores = props.proveedores;
-      const indiceACambiar = _.findIndex(todosProveedores, function (o) {
+      const indiceACambiar = _.findIndex(todosProveedores, function (
+        o,
+      ) {
         return o.tipo === formData.tipoProveedor;
       });
       setValorProveedor(props.proveedores[indiceACambiar].lista);
     }
 
     if (
-      formData.tipoProveedor === "Tarjetas de crédito" ||
-      formData.tipoProveedor === "Tarjetas de débito"
+      formData.tipoProveedor === 'Tarjetas de crédito' ||
+      formData.tipoProveedor === 'Tarjetas de débito'
     ) {
       setValorBanco(bancos[0].bancos);
     }
@@ -297,8 +317,8 @@ function ModalPromociones(props) {
             name="tipoPromo"
             value={formData.tipoPromo}
             variant="outlined"
-            validators={["required"]}
-            errorMessages={["*Este campo es obligatorio"]}
+            validators={['required']}
+            errorMessages={['*Este campo es obligatorio']}
           >
             {props.tipoPromo &&
               props.tipoPromo.map((option) => (
@@ -317,8 +337,8 @@ function ModalPromociones(props) {
               name="valuePromo"
               required
               value={formData.valuePromo}
-              validators={["required"]}
-              errorMessages={["*Este campo es obligatorio"]}
+              validators={['required']}
+              errorMessages={['*Este campo es obligatorio']}
             >
               {valorPromo.map((option) => (
                 <MenuItem key={option.valor} value={option.valor}>
@@ -327,20 +347,20 @@ function ModalPromociones(props) {
               ))}
             </SelectValidator>
           ) : (
-              <SelectValidator
-                className="selectpromo"
-                fullWidth
-                label="Valor del beneficio"
-                onChange={handleChange}
-                name="valuePromo"
-                value={formData.valuePromo}
-                variant="outlined"
-                disabled
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
-              ></SelectValidator>
-            )}
-          {formData.valuePromo === "Otro" ? (
+            <SelectValidator
+              className="selectpromo"
+              fullWidth
+              label="Valor del beneficio"
+              onChange={handleChange}
+              name="valuePromo"
+              value={formData.valuePromo}
+              variant="outlined"
+              disabled
+              validators={['required']}
+              errorMessages={['*Este campo es obligatorio']}
+            ></SelectValidator>
+          )}
+          {formData.valuePromo === 'Otro' ? (
             <TextField
               id="outlineddisabled"
               label="Otros"
@@ -362,8 +382,8 @@ function ModalPromociones(props) {
             name="tipoProveedor"
             value={formData.tipoProveedor}
             variant="outlined"
-            validators={["required"]}
-            errorMessages={["*Este campo es obligatorio"]}
+            validators={['required']}
+            errorMessages={['*Este campo es obligatorio']}
           >
             {props.proveedores &&
               props.proveedores.map((option) => (
@@ -375,63 +395,39 @@ function ModalPromociones(props) {
                 </MenuItem>
               ))}
           </SelectValidator>
-          {formData.tipoProveedor === "Tarjetas de débito" ||
-            formData.tipoProveedor === "Tarjetas de crédito" ? (
-              <>
-                <SelectValidator
-                  variant="outlined"
-                  className="selectproveedor"
-                  label="Banco"
-                  fullWidth
-                  onChange={handleChange}
-                  name="valueProveedor"
-                  required
-                  value={formData.valueProveedor}
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
-                >
-                  {valorBanco.map((option) => (
-                    <MenuItem key={option.nombre} value={option.nombre}>
-                      {option.nombre}
-                    </MenuItem>
-                  ))}
-                </SelectValidator>
+          {formData.tipoProveedor === 'Tarjetas de débito' ||
+          formData.tipoProveedor === 'Tarjetas de crédito' ? (
+            <>
+              <SelectValidator
+                variant="outlined"
+                className="selectproveedor"
+                label="Banco"
+                fullWidth
+                onChange={handleChange}
+                name="valueProveedor"
+                required
+                value={formData.valueProveedor}
+                validators={['required']}
+                errorMessages={['*Este campo es obligatorio']}
+              >
+                {valorBanco.map((option) => (
+                  <MenuItem key={option.nombre} value={option.nombre}>
+                    {option.nombre}
+                  </MenuItem>
+                ))}
+              </SelectValidator>
 
-                <SelectValidator
-                  variant="outlined"
-                  className="selectproveedor"
-                  label="Proveedor"
-                  fullWidth
-                  onChange={handleChange}
-                  name="otroProveedor"
-                  required
-                  value={formData.otroProveedor}
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
-                >
-                  {valorProveedor.map((option) => (
-                    <MenuItem key={option.nombre} value={option.nombre}>
-                      {option.nombre}
-                    </MenuItem>
-                  ))}
-                </SelectValidator>
-              </>
-            ) : null}
-
-          {formData.tipoProveedor !== "Tarjetas de débito" &&
-            formData.tipoProveedor !== "Tarjetas de crédito" &&
-            formData.tipoProveedor ? (
               <SelectValidator
                 variant="outlined"
                 className="selectproveedor"
                 label="Proveedor"
                 fullWidth
                 onChange={handleChange}
-                name="valueProveedor"
+                name="otroProveedor"
                 required
-                value={formData.valueProveedor}
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
+                value={formData.otroProveedor}
+                validators={['required']}
+                errorMessages={['*Este campo es obligatorio']}
               >
                 {valorProveedor.map((option) => (
                   <MenuItem key={option.nombre} value={option.nombre}>
@@ -439,8 +435,32 @@ function ModalPromociones(props) {
                   </MenuItem>
                 ))}
               </SelectValidator>
-            ) : null}
-          {formData.valueProveedor === "Otro" ? (
+            </>
+          ) : null}
+
+          {formData.tipoProveedor !== 'Tarjetas de débito' &&
+          formData.tipoProveedor !== 'Tarjetas de crédito' &&
+          formData.tipoProveedor ? (
+            <SelectValidator
+              variant="outlined"
+              className="selectproveedor"
+              label="Proveedor"
+              fullWidth
+              onChange={handleChange}
+              name="valueProveedor"
+              required
+              value={formData.valueProveedor}
+              validators={['required']}
+              errorMessages={['*Este campo es obligatorio']}
+            >
+              {valorProveedor.map((option) => (
+                <MenuItem key={option.nombre} value={option.nombre}>
+                  {option.nombre}
+                </MenuItem>
+              ))}
+            </SelectValidator>
+          ) : null}
+          {formData.valueProveedor === 'Otro' ? (
             <TextField
               id="outlineddisabled"
               label="Otros"
@@ -612,7 +632,11 @@ function ModalPromociones(props) {
           </FormControl>
           <Divider className="dividerH" />
           <p className="subtit">Agregar descripción</p>
-          <form className={classes.root} noValidate autoComplete="off">
+          <form
+            className={classes.root}
+            noValidate
+            autoComplete="off"
+          >
             <div>
               <TextField
                 fullWidth
@@ -669,7 +693,7 @@ const mapStateToProps = (state) => {
 export default compose(
   connect(mapStateToProps),
   firestoreConnect([
-    { collection: "proveedorServicio", orderBy: "tipo" },
-    { collection: "tipoPromocion" },
-  ])
+    { collection: 'proveedorServicio', orderBy: 'tipo' },
+    { collection: 'tipoPromocion' },
+  ]),
 )(ModalPromociones);

@@ -1,18 +1,6 @@
-import React, { useEffect } from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox";
-
-import "@reach/combobox/styles.css";
+import React from 'react';
+import { GoogleMap, Marker } from '@react-google-maps/api';
+import '@reach/combobox/styles.css';
 
 const options = {
   disableDefaultUI: true,
@@ -29,17 +17,6 @@ export default function Map(props) {
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map;
   }, []);
-  /*
-  const panTo = () => {
-    mapRef.current.panTo({ ubicacion.lat, ubicacion.lng });
-    mapRef.current.setZoom(14);
-  };
-*/
-  /*const panTo = React.useCallback(({ lat, lng }) => {
-    mapRef.current.panTo({ address, lat, lng });
-    mapRef.current.setZoom(14);
-    setMapData({ address, lat, lng });
-  }, []);*/
 
   return (
     <div>

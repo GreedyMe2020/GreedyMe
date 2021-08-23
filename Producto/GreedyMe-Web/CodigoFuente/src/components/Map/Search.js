@@ -1,45 +1,42 @@
-import React, { useEffect } from "react";
-import { useLoadScript } from "@react-google-maps/api";
-import usePlacesAutocomplete from "use-places-autocomplete";
+import React, { useEffect } from 'react';
+import usePlacesAutocomplete from 'use-places-autocomplete';
 import {
   Combobox,
   ComboboxInput,
   ComboboxPopover,
   ComboboxList,
   ComboboxOption,
-} from "@reach/combobox";
+} from '@reach/combobox';
 
-import "@reach/combobox/styles.css";
-import { makeStyles } from "@material-ui/core/styles";
-import { ControlCameraRounded, Directions } from "@material-ui/icons";
-import { CardColumns } from "react-bootstrap";
+import '@reach/combobox/styles.css';
+import { makeStyles } from '@material-ui/core/styles';
 
-const libraries = ["places"];
+const libraries = ['places'];
 const useStyles = makeStyles((theme) => ({
   comboBox: {
     border: 0,
     margin: 0,
-    display: "inline-flex",
+    display: 'inline-flex',
     padding: 0,
-    position: "relative",
-    "min-width": 0,
-    "flex-direction": "column",
-    "vertical-align": "top",
+    position: 'relative',
+    'min-width': 0,
+    'flex-direction': 'column',
+    'vertical-align': 'top',
   },
 
   multiInput: {
-    padding: "18.5px 14px",
-    width: "100%",
-    "box-shadow": "none",
-    "border-color": "rgba(0, 0, 0, 0.23)",
-    font: "inherit",
-    color: "currentColor",
-    "font-size": "1rem",
-    "letter-spacing": "inherit",
+    padding: '18.5px 14px',
+    width: '100%',
+    'box-shadow': 'none',
+    'border-color': 'rgba(0, 0, 0, 0.23)',
+    font: 'inherit',
+    color: 'currentColor',
+    'font-size': '1rem',
+    'letter-spacing': 'inherit',
   },
   titulo: {
-    transform: "transalate(14px, -6px) scale(0.75)",
-    color: "rgba(0, 0, 0, 0.38)",
+    transform: 'transalate(14px, -6px) scale(0.75)',
+    color: 'rgba(0, 0, 0, 0.38)',
   },
 }));
 
@@ -91,7 +88,7 @@ export default function Search({ obtenerDireccion, actual }) {
         />
         <ComboboxPopover>
           <ComboboxList>
-            {status === "OK" &&
+            {status === 'OK' &&
               data.map(({ id, description }) => (
                 <ComboboxOption key={id} value={description} />
               ))}

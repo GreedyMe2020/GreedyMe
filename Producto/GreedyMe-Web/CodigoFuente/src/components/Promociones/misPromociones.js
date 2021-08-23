@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -12,9 +12,8 @@ import CreateIcon from '@material-ui/icons/Create';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Tooltip from '@material-ui/core/Tooltip';
-import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -59,32 +58,6 @@ const useStyles = makeStyles((theme) => ({
     height: '0%',
   },
 }));
-
-/*let promociones = [];
-const promocion = () => {
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      const id = user.uid;
-      const firestore = firebase.firestore();
-      firestore
-        .collection("usuarioComercio")
-        .doc(id)
-        .collection("promociones")
-        .onSnapshot(function (snapShots) {
-          promociones = [];
-          snapShots.forEach((doc) => {
-            const data = doc.data();
-            promociones.push({
-              ...data,
-              id: doc.id,
-            });
-          });
-        });
-    }
-  });
-};
-//y aca se ejecuta la funcion de arriba
-promocion();*/
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -507,23 +480,19 @@ function MisPromociones(props) {
                   {promos &&
                     promos.map((promo) => {
                       return (
-                        <ListItem key={promo.id} className={promo.hastaVigencia.toDate() < new Date() ?
-                          'fondoGris' : ''}>
+                        <ListItem
+                          key={promo.id}
+                          className={
+                            promo.hastaVigencia.toDate() < new Date()
+                              ? 'fondoGris'
+                              : ''
+                          }
+                        >
                           <ListItemAvatar>
                             <Avatar
                               variant="square"
                               className={classes.proveedor}
                               src={promo.photoURL}
-                            /* src1={require("../../../Multimedia/Sistema-svg/credit-card.svg")}
-                            src2={require("../../../Multimedia/Sistema-svg/store.svg")}
-                            src3={require("../../../Multimedia/Sistema-svg/percentage (1).svg")}
-                            proveedor={
-                              promos.proveedor === 1
-                                ? src1
-                                : promos.proveedor === 2
-                                ? src2
-                                : src3
-                            } */
                             ></Avatar>
                           </ListItemAvatar>
 
@@ -545,12 +514,12 @@ function MisPromociones(props) {
                                         ? promo.otroProveedor
                                         : promo.valueProveedor ===
                                           'Todos'
-                                          ? 'Todos los Bancos'
-                                          : promo.valueProveedor) +
+                                        ? 'Todos los Bancos'
+                                        : promo.valueProveedor) +
                                       ', ' +
                                       (promo.tipoProveedor ===
                                         'Tarjetas de crédito' ||
-                                        promo.tipoProveedor ===
+                                      promo.tipoProveedor ===
                                         'Tarjetas de débito'
                                         ? promo.otroProveedor + ' '
                                         : '') +
@@ -571,36 +540,36 @@ function MisPromociones(props) {
                                   </Typography>
                                   {'Días que aplica: ' +
                                     ((promo.diaAplicacion.lunes
-                                      ? 'Lunes'
+                                      ? 'Lunes.'
                                       : '') +
                                       ' ' +
                                       (promo.diaAplicacion.martes
-                                        ? 'Martes'
+                                        ? 'Martes.'
                                         : '') +
                                       ' ' +
                                       (promo.diaAplicacion.miercoles
-                                        ? 'Miercoles'
+                                        ? 'Miercoles.'
                                         : '') +
                                       ' ' +
                                       (promo.diaAplicacion.jueves
-                                        ? 'Jueves'
+                                        ? 'Jueves.'
                                         : '') +
                                       ' ' +
                                       (promo.diaAplicacion.viernes
-                                        ? 'Viernes'
+                                        ? 'Viernes.'
                                         : '') +
                                       ' ' +
                                       (promo.diaAplicacion.sabado
-                                        ? 'Sábado'
+                                        ? 'Sábado.'
                                         : '') +
                                       ' ' +
                                       (promo.diaAplicacion.domingo
-                                        ? 'Domingo'
+                                        ? 'Domingo.'
                                         : '') +
                                       ' ' +
                                       (promo.diaAplicacion
                                         .todoslosdias
-                                        ? 'Todos los días'
+                                        ? 'Todos los días.'
                                         : ''))}
                                 </React.Fragment>
                               }
@@ -613,6 +582,21 @@ function MisPromociones(props) {
                                   : '')
                               }
                             />
+                            {promo.hastaVigencia.toDate() <
+                            new Date() ? (
+                              <Chip
+                                label="VENCIDO"
+                                style={{
+                                  color: '#D32F2F',
+                                  borderColor: '#D32F2F',
+                                  fontSize: 12,
+                                }}
+                                variant="outlined"
+                                size="small"
+                              />
+                            ) : (
+                              ''
+                            )}
                           </div>
                           <ListItemSecondaryAction>
                             <Tooltip title="Editar" arrow>
@@ -675,22 +659,33 @@ function MisPromociones(props) {
                                 </DialogContentText>
                               </DialogContent>
                             </Dialog>
-                            <Tooltip title="Mostrar/Ocultar" arrow>
+                            {promo.hastaVigencia.toDate() <
+                            new Date() ? (
                               <IconButton
                                 aria-label="Mostrar/Ocultar"
-                                onClick={() => {
-                                  setValues(!promo.visible);
-                                  setCurrentId2(promo.id);
-                                }}
-                                onMouseDown={handleMouseDownPromo}
+                                disabled
                               >
-                                {promo.visible ? (
-                                  <Visibility />
-                                ) : (
-                                  <VisibilityOff />
-                                )}
+                                <VisibilityOff />
                               </IconButton>
-                            </Tooltip>
+                            ) : (
+                              <Tooltip title="Mostrar/Ocultar" arrow>
+                                <IconButton
+                                  aria-label="Mostrar/Ocultar"
+                                  onClick={() => {
+                                    setValues(!promo.visible);
+                                    setCurrentId2(promo.id);
+                                  }}
+                                  onMouseDown={handleMouseDownPromo}
+                                >
+                                  {promo.visible ? (
+                                    <Visibility />
+                                  ) : (
+                                    <VisibilityOff />
+                                  )}
+                                </IconButton>
+                              </Tooltip>
+                            )}
+
                             <Tooltip title="Eliminar" arrow>
                               <IconButton
                                 onClick={() => {
@@ -812,9 +807,6 @@ function MisPromociones(props) {
                     >
                       El beneficio se cargo correctamente!
                     </Alert>
-                    {/* <Alert onClose={handleClose} severity="error">
-                      Faltan campos de completar
-                    </Alert> */}
                   </Snackbar>
                 ) : (
                   ''
@@ -835,9 +827,6 @@ function MisPromociones(props) {
                     >
                       ¡El beneficio se actualizo correctamente!
                     </Alert>
-                    {/* <Alert onClose={handleClose} severity="error">
-                    Faltan campos de completar
-                  </Alert> */}
                   </Snackbar>
                 ) : (
                   ''
@@ -847,7 +836,7 @@ function MisPromociones(props) {
           </CardContent>
         </Card>
       </div>
-    </div >
+    </div>
   );
 }
 
