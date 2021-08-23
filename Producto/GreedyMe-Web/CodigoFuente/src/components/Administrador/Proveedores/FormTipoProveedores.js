@@ -1,30 +1,34 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import SaveIcon from "@material-ui/icons/Save";
-import MuiAlert from "@material-ui/lab/Alert";
-import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
-import { connect } from "react-redux";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { cargarTipoProveedor } from "../../../redux/actions/adminActions";
-import Grid from "@material-ui/core/Grid";
-import Snackbar from "@material-ui/core/Snackbar";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
+import MuiAlert from '@material-ui/lab/Alert';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import { connect } from 'react-redux';
+import {
+  ValidatorForm,
+  TextValidator,
+} from 'react-material-ui-form-validator';
+import { cargarTipoProveedor } from '../../../redux/actions/adminActions';
+import Grid from '@material-ui/core/Grid';
+import Snackbar from '@material-ui/core/Snackbar';
+
 const useStyles = makeStyles((theme) => ({
   root: {
-    gridColumn: "2/4",
+    gridColumn: '2/4',
   },
   demo: {
     backgroundColor: theme.palette.background.paper,
   },
   cruz: {
-    position: "absolute",
+    position: 'absolute',
     right: theme.spacing(1),
-    top: "8px",
+    top: '8px',
     color: theme.palette.grey[500],
   },
   inline: {
-    display: "block",
+    display: 'block',
   },
   cont: {
     flexGrow: 1,
@@ -38,7 +42,7 @@ function Alert(props) {
 function FormTipoProveedores(props) {
   const classes = useStyles();
   const [formData, setFormData] = React.useState({
-    tipoProveedor: "",
+    tipoProveedor: '',
   });
 
   //Estado para manejar el snackbar
@@ -46,7 +50,7 @@ function FormTipoProveedores(props) {
 
   const handleSubmit = (e) => {
     props.cargarTipoProveedor(formData);
-    formData.tipoProveedor = ""
+    formData.tipoProveedor = '';
     setOpen(true);
   };
 
@@ -57,7 +61,7 @@ function FormTipoProveedores(props) {
 
   //Funcion para cerrar el snackbar
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
@@ -97,7 +101,7 @@ function FormTipoProveedores(props) {
           </Grid>
         </Grid>
         <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           open={open}
           autoHideDuration={8000}
           onClose={handleClose}
@@ -121,14 +125,15 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    cargarTipoProveedor: (formData) => dispatch(cargarTipoProveedor(formData)),
+    cargarTipoProveedor: (formData) =>
+      dispatch(cargarTipoProveedor(formData)),
   };
 };
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([
-    { collection: "proveedorServicio" },
-    { collection: "tipoPromocion" },
-  ])
+    { collection: 'proveedorServicio' },
+    { collection: 'tipoPromocion' },
+  ]),
 )(FormTipoProveedores);

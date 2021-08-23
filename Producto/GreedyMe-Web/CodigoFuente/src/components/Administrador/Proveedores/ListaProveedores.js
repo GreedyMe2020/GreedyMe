@@ -1,27 +1,27 @@
-import React, { useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import List from "@material-ui/core/List";
-import IconButton from "@material-ui/core/IconButton";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import DeleteIcon from "@material-ui/icons/Delete";
-import DialogComponent from "../../Dialog";
-import Tooltip from "@material-ui/core/Tooltip";
-import { Grid, Avatar } from "@material-ui/core";
-import MuiAlert from "@material-ui/lab/Alert";
-import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
-import { connect } from "react-redux";
-import Typography from "@material-ui/core/Typography";
-import FormTipoProveedores from "./FormTipoProveedores";
-import FormProveedores from "./FormProveedores";
-import ModalAdministradorPr from "../modal-admin-pr";
-import { eliminarTipoProveedor } from "../../../redux/actions/adminActions";
-import Snackbar from "@material-ui/core/Snackbar";
+import React, { useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import List from '@material-ui/core/List';
+import IconButton from '@material-ui/core/IconButton';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DialogComponent from '../../Dialog';
+import Tooltip from '@material-ui/core/Tooltip';
+import { Grid, Avatar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import { connect } from 'react-redux';
+import Typography from '@material-ui/core/Typography';
+import FormTipoProveedores from './FormTipoProveedores';
+import FormProveedores from './FormProveedores';
+import ModalAdministradorPr from '../modal-admin-pr';
+import { eliminarTipoProveedor } from '../../../redux/actions/adminActions';
+import Snackbar from '@material-ui/core/Snackbar';
 
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -31,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   cruz: {
-    position: "absolute",
+    position: 'absolute',
     right: theme.spacing(1),
-    top: "8px",
+    top: '8px',
     color: theme.palette.grey[500],
   },
   inline: {
-    display: "block",
+    display: 'block',
   },
 }));
 
@@ -58,9 +58,9 @@ function ListaProveedores(props) {
   const [eliminada, setEliminada] = React.useState(false);
   //estados para buscadores
   const [listaProveedores, setListaProveedores] = React.useState(
-    props.proveedores
+    props.proveedores,
   );
-  const [text, setText] = React.useState("");
+  const [text, setText] = React.useState('');
   const [texto, setTexto] = React.useState(false);
 
   const handleClose = () => {
@@ -75,14 +75,14 @@ function ListaProveedores(props) {
       let textoBuscar = text.target.value;
       const datos = props.proveedores;
       const newDatos = datos.filter(function (item) {
-        const tipo = item.tipo ? item.tipo.toUpperCase() : "BANCOS";
+        const tipo = item.tipo ? item.tipo.toUpperCase() : 'BANCOS';
         const campo = tipo;
         const textData = textoBuscar.toUpperCase();
         return campo.indexOf(textData) > -1;
       });
       setListaProveedores(newDatos);
       setText(text);
-      if (text.target.value != "") {
+      if (text.target.value != '') {
         setTexto(true);
       } else {
         setTexto(false);
@@ -99,7 +99,7 @@ function ListaProveedores(props) {
   }, [currentId]);
 
   const handleCloseSnack = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setEliminada(false);
@@ -131,24 +131,27 @@ function ListaProveedores(props) {
                             <ListItemAvatar>
                               <Avatar
                                 variant="square"
-                                src={require("../../../../Multimedia/Sistema-svg/id-card.svg")}
+                                src={require('../../../../Multimedia/Sistema-svg/id-card.svg')}
                               ></Avatar>
                             </ListItemAvatar>
 
                             <div className="elementoListaProm">
                               <ListItemText
-                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
                                 primary={
                                   <React.Fragment>
-                                    <Typography className={classes.inline}>
-                                      {item.tipo ? item.tipo : "Bancos"}
+                                    <Typography
+                                      className={classes.inline}
+                                    >
+                                      {item.tipo
+                                        ? item.tipo
+                                        : 'Bancos'}
                                     </Typography>
                                     {item.lista
                                       ? item.lista.map((ite) => {
-                                          return ite.nombre + " - ";
+                                          return ite.nombre + ' - ';
                                         })
                                       : item.bancos.map((ite) => {
-                                          return ite.nombre + " - ";
+                                          return ite.nombre + ' - ';
                                         })}
                                   </React.Fragment>
                                 }
@@ -176,12 +179,12 @@ function ListaProveedores(props) {
                                 setEliminada={setEliminada}
                                 setCurrentId={setCurrentId}
                                 title={
-                                  "¿Estás seguro de eliminar la promoción?"
+                                  '¿Estás seguro de eliminar la promoción?'
                                 }
                                 text={
-                                  "Una vez que aceptes eliminar la promoción, la misma no podrá ser recuperada."
+                                  'Una vez que aceptes eliminar la promoción, la misma no podrá ser recuperada.'
                                 }
-                                btnText={"Eliminar"}
+                                btnText={'Eliminar'}
                               />
                             </ListItemSecondaryAction>
                           </ListItem>
@@ -194,24 +197,27 @@ function ListaProveedores(props) {
                             <ListItemAvatar>
                               <Avatar
                                 variant="square"
-                                src={require("../../../../Multimedia/Sistema-svg/id-card.svg")}
+                                src={require('../../../../Multimedia/Sistema-svg/id-card.svg')}
                               ></Avatar>
                             </ListItemAvatar>
 
                             <div className="elementoListaProm">
                               <ListItemText
-                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
                                 primary={
                                   <React.Fragment>
-                                    <Typography className={classes.inline}>
-                                      {item.tipo ? item.tipo : "Bancos"}
+                                    <Typography
+                                      className={classes.inline}
+                                    >
+                                      {item.tipo
+                                        ? item.tipo
+                                        : 'Bancos'}
                                     </Typography>
                                     {item.lista
                                       ? item.lista.map((ite) => {
-                                          return ite.nombre + " - ";
+                                          return ite.nombre + ' - ';
                                         })
                                       : item.bancos.map((ite) => {
-                                          return ite.nombre + " - ";
+                                          return ite.nombre + ' - ';
                                         })}
                                   </React.Fragment>
                                 }
@@ -239,12 +245,12 @@ function ListaProveedores(props) {
                                 setEliminada={setEliminada}
                                 setCurrentId={setCurrentId}
                                 title={
-                                  "¿Estás seguro de eliminar la promoción?"
+                                  '¿Estás seguro de eliminar la promoción?'
                                 }
                                 text={
-                                  "Una vez que aceptes eliminar la promoción, la misma no podrá ser recuperada."
+                                  'Una vez que aceptes eliminar la promoción, la misma no podrá ser recuperada.'
                                 }
-                                btnText={"Eliminar"}
+                                btnText={'Eliminar'}
                               />
                             </ListItemSecondaryAction>
                           </ListItem>
@@ -252,23 +258,26 @@ function ListaProveedores(props) {
                       })
                     : null}
                 </List>
-              {eliminada ? (
+                {eliminada ? (
                   <Snackbar
                     anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "left",
+                      vertical: 'bottom',
+                      horizontal: 'left',
                     }}
                     open={eliminada}
                     autoHideDuration={8000}
                     onClose={handleCloseSnack}
                   >
-                    <Alert onClose={handleCloseSnack} severity="error">
+                    <Alert
+                      onClose={handleCloseSnack}
+                      severity="error"
+                    >
                       La promoción se ha eliminado
                     </Alert>
                   </Snackbar>
                 ) : (
-                  ""
-                )} 
+                  ''
+                )}
               </div>
             </Grid>
           </CardContent>
@@ -296,7 +305,7 @@ const mapDispatchToProps = (dispatch) => {
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([
-    { collection: "proveedorServicio" },
-    { collection: "tipoPromocion" },
-  ])
+    { collection: 'proveedorServicio' },
+    { collection: 'tipoPromocion' },
+  ]),
 )(ListaProveedores);

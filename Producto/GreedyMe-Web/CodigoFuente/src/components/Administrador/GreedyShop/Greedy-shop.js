@@ -18,7 +18,6 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import ModalAdministrador from '../modal-admin';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -27,7 +26,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import { eliminarPremio } from '../../../redux/actions/adminActions';
 import FormProducto from './FormProductos';
 import Snackbar from '@material-ui/core/Snackbar';
-import firebase from '../../../firebase/config';
 import _ from 'lodash';
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -142,14 +140,6 @@ function ListaUsuarios(props) {
     setOpenModificar(false);
   };
 
-  /* const crearComercio = (formData) => {
-    props.signUp(formData);
-  };
-
-  const actualizarComercio = (formData) => {
-    props.modificarUsuarioComercio(formData);
-  }; */
-
   return (
     <div>
       <ModalAdministrador
@@ -184,7 +174,6 @@ function ListaUsuarios(props) {
                             </ListItemAvatar>
                             <div className="elementoListaProm">
                               <ListItemText
-                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
                                 primary={
                                   <React.Fragment>
                                     <Typography
@@ -303,7 +292,6 @@ function ListaUsuarios(props) {
                             </ListItemAvatar>
                             <div className="elementoListaProm">
                               <ListItemText
-                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
                                 primary={
                                   <React.Fragment>
                                     <Typography

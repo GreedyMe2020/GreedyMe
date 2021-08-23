@@ -3,15 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import { IconButton } from '@material-ui/core';
-import GetApp from '@material-ui/icons/GetApp';
 import Refresh from '@material-ui/icons/Refresh';
 import firebase from '../../firebase/config';
 import { connect } from 'react-redux';
 import { Pie } from '@reactchartjs/react-chart.js';
 import _ from 'lodash';
-import { createMuiTheme } from '@material-ui/core';
-import jsPDF from 'jspdf';
 
 const anios = [
   {

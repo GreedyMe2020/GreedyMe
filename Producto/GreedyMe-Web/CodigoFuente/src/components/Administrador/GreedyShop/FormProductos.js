@@ -1,30 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
-import { MenuItem } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
-import { compose } from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
 import firebase from '../../../firebase/config';
 import { connect } from 'react-redux';
 import {
   ValidatorForm,
-  SelectValidator,
   TextValidator,
 } from 'react-material-ui-form-validator';
 import Grid from '@material-ui/core/Grid';
-import {
-  cargarProveedor,
-  cargarBanco,
-} from '../../../redux/actions/adminActions';
 import _ from 'lodash';
 import Snackbar from '@material-ui/core/Snackbar';
 import Avatar from '@material-ui/core/Avatar';
-import {
-  subirFoto,
-  eliminarFoto,
-} from '../../../redux/actions/comActions';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import {
   cargarPremio,

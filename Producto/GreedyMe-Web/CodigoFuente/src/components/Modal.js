@@ -1,114 +1,95 @@
-import React from "react";
-import { navigate } from "@reach/router"; //Utilizarlo para meter URL, navigate(url)
-import UseModal from "./useModal";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { makeStyles } from "@material-ui/core/styles";
-import { ButtonEj } from "../components/Button";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
-import SaveIcon from "@material-ui/icons/Save";
+import React from 'react';
+import UseModal from './useModal';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { makeStyles } from '@material-ui/core/styles';
+import { ButtonEj } from '../components/Button';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import SaveIcon from '@material-ui/icons/Save';
 import {
   ValidatorForm,
   TextValidator,
   SelectValidator,
-} from "react-material-ui-form-validator";
-import Grid from "@material-ui/core/Grid";
-/* import { db } from "../firebase/config"; */
-import { registrarSolicitud } from "../firebase/apiLanding";
-
-/*const rubros = [];
-const rubro = () => {
-  db.collection("rubros")
-    .orderBy("nombre")
-    .get()
-    .then((snapShots) => {
-      snapShots.forEach((doc) => {
-        const data = doc.data();
-        rubros.push({
-          ...data,
-          id: doc.id,
-        });
-      });
-    });
-};
-rubro();*/
+} from 'react-material-ui-form-validator';
+import Grid from '@material-ui/core/Grid';
+import { registrarSolicitud } from '../firebase/apiLanding';
 
 const rubros = [
   {
-    value: "Belleza",
-    nombre: "Belleza",
+    value: 'Belleza',
+    nombre: 'Belleza',
   },
   {
-    value: "Deportes",
-    nombre: "Deportes",
+    value: 'Deportes',
+    nombre: 'Deportes',
   },
   {
-    value: "Entretenimiento",
-    nombre: "Entretenimiento",
+    value: 'Entretenimiento',
+    nombre: 'Entretenimiento',
   },
   {
-    value: "Estetica",
-    nombre: "Estética",
+    value: 'Estetica',
+    nombre: 'Estética',
   },
   {
-    value: "Farmacia",
-    nombre: "Farmacia",
+    value: 'Farmacia',
+    nombre: 'Farmacia',
   },
   {
-    value: "Gastronomia",
-    nombre: "Gastronomía",
+    value: 'Gastronomia',
+    nombre: 'Gastronomía',
   },
   {
-    value: "Hogar",
-    nombre: "Hogar",
+    value: 'Hogar',
+    nombre: 'Hogar',
   },
   {
-    value: "Indumentaria",
-    nombre: "Indumentaria",
+    value: 'Indumentaria',
+    nombre: 'Indumentaria',
   },
   {
-    value: "Librerias",
-    nombre: "Librerías",
+    value: 'Librerias',
+    nombre: 'Librerías',
   },
   {
-    value: "MueblesYDecoracion",
-    nombre: "Muebles y Decoración",
+    value: 'MueblesYDecoracion',
+    nombre: 'Muebles y Decoración',
   },
   {
-    value: "Niños",
-    nombre: "Niños",
+    value: 'Niños',
+    nombre: 'Niños',
   },
   {
-    value: "Supermercados",
-    nombre: "Supermercados",
+    value: 'Supermercados',
+    nombre: 'Supermercados',
   },
   {
-    value: "Tecnologia",
-    nombre: "Tecnologia",
+    value: 'Tecnologia',
+    nombre: 'Tecnologia',
   },
   {
-    value: "Turismo",
-    nombre: "Turismo",
+    value: 'Turismo',
+    nombre: 'Turismo',
   },
   {
-    value: "Vehiculos",
-    nombre: "Vehículos",
+    value: 'Vehiculos',
+    nombre: 'Vehículos',
   },
   {
-    value: "Otro",
-    nombre: "Otro",
+    value: 'Otro',
+    nombre: 'Otro',
   },
 ];
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiTextField-root": {
+    '& .MuiTextField-root': {
       margin: theme.spacing(1),
     },
     cont: {
@@ -116,13 +97,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   cruz: {
-    position: "absolute",
+    position: 'absolute',
     right: theme.spacing(1),
-    top: "8px",
+    top: '8px',
     color: theme.palette.grey[500],
   },
   submitButton: {
-    textAlign: "center",
+    textAlign: 'center',
   },
   border: {
     paddingRight: 8,
@@ -133,15 +114,15 @@ export default function FormDialog() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = React.useState({
-    nombre: "",
-    apellido: "",
-    email: "",
-    comercio: "",
-    telefono: "",
-    web: "",
-    sucursal: "",
-    rubro: "",
-    dudas: "",
+    nombre: '',
+    apellido: '',
+    email: '',
+    comercio: '',
+    telefono: '',
+    web: '',
+    sucursal: '',
+    rubro: '',
+    dudas: '',
   });
   const [submitted, setSubmitted] = React.useState(false);
 
@@ -153,15 +134,15 @@ export default function FormDialog() {
 
   const handleClear = () => {
     setFormData({
-      nombre: "",
-      apellido: "",
-      email: "",
-      comercio: "",
-      telefono: "",
-      web: "",
-      sucursal: "",
-      rubro: "",
-      dudas: "",
+      nombre: '',
+      apellido: '',
+      email: '',
+      comercio: '',
+      telefono: '',
+      web: '',
+      sucursal: '',
+      rubro: '',
+      dudas: '',
     });
   };
 
@@ -251,10 +232,13 @@ export default function FormDialog() {
                   name="nombre"
                   value={formData.nombre}
                   required
-                  validators={["required", "matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                  validators={[
+                    'required',
+                    'matchRegexp:^([a-zA-Z ]){2,30}$',
+                  ]}
                   errorMessages={[
-                    "*Este campo es obligatorio",
-                    "El nombre no es válido",
+                    '*Este campo es obligatorio',
+                    'El nombre no es válido',
                   ]}
                 />
               </Grid>
@@ -268,10 +252,13 @@ export default function FormDialog() {
                   name="apellido"
                   value={formData.apellido}
                   required
-                  validators={["required", "matchRegexp:^([a-zA-Z ]){2,30}$"]}
+                  validators={[
+                    'required',
+                    'matchRegexp:^([a-zA-Z ]){2,30}$',
+                  ]}
                   errorMessages={[
-                    "*Este campo es obligatorio",
-                    "El apellido no es válido",
+                    '*Este campo es obligatorio',
+                    'El apellido no es válido',
                   ]}
                 />
               </Grid>
@@ -286,10 +273,10 @@ export default function FormDialog() {
                   name="email"
                   value={formData.email}
                   required
-                  validators={["required", "isEmail"]}
+                  validators={['required', 'isEmail']}
                   errorMessages={[
-                    "*Este campo es obligatorio",
-                    "El email no es válido",
+                    '*Este campo es obligatorio',
+                    'El email no es válido',
                   ]}
                 />
               </Grid>
@@ -304,10 +291,13 @@ export default function FormDialog() {
                   name="telefono"
                   value={formData.telefono}
                   required
-                  validators={["required", "matchRegexp:^([0-9 ]){2,20}$"]}
+                  validators={[
+                    'required',
+                    'matchRegexp:^([0-9 ]){2,20}$',
+                  ]}
                   errorMessages={[
-                    "*Este campo es obligatorio",
-                    "El teléfono no es válido",
+                    '*Este campo es obligatorio',
+                    'El teléfono no es válido',
                   ]}
                 />
               </Grid>
@@ -322,8 +312,8 @@ export default function FormDialog() {
                   name="comercio"
                   value={formData.comercio}
                   required
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
+                  validators={['required']}
+                  errorMessages={['*Este campo es obligatorio']}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -336,10 +326,10 @@ export default function FormDialog() {
                   name="web"
                   value={formData.web}
                   validators={[
-                    "matchRegexp:https?://(www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}",
+                    'matchRegexp:https?://(www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}',
                   ]}
                   errorMessages={[
-                    "La dirección no es válida debe comenzar con http:// o https://",
+                    'La dirección no es válida debe comenzar con http:// o https://',
                   ]}
                 />
               </Grid>
@@ -365,11 +355,14 @@ export default function FormDialog() {
                   name="rubro"
                   value={formData.rubro}
                   required
-                  validators={["required"]}
-                  errorMessages={["*Este campo es obligatorio"]}
+                  validators={['required']}
+                  errorMessages={['*Este campo es obligatorio']}
                 >
                   {rubros.map((option) => (
-                    <MenuItem key={option.nombre} value={option.nombre}>
+                    <MenuItem
+                      key={option.nombre}
+                      value={option.nombre}
+                    >
                       {option.nombre}
                     </MenuItem>
                   ))}
@@ -411,8 +404,8 @@ export default function FormDialog() {
         <UseModal>
           <div>
             <h5>
-              Revisa la casilla de correo "No deseados", en la brevedad nos
-              contactaremos con usted. Muchas gracias!
+              Revisa la casilla de correo "No deseados", en la
+              brevedad nos contactaremos con usted. Muchas gracias!
             </h5>
             <Button
               color="primary"

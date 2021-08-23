@@ -1,9 +1,9 @@
-import * as React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import { Router, Link } from "@reach/router";
-import { connect } from "react-redux";
+import * as React from 'react';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import { Link } from '@reach/router';
+import { connect } from 'react-redux';
 
 function ListItemCustom(props) {
   const [color, setColor] = React.useState(false);
@@ -22,20 +22,20 @@ function ListItemCustom(props) {
   };
 
   const styles = {
-    display: color ? "block" : "none",
-    ":hover": { display: "block" },
+    display: color ? 'block' : 'none',
+    ':hover': { display: 'block' },
   };
 
   const styleso = {
-    display: color ? "none" : "block",
+    display: color ? 'none' : 'block',
   };
 
   const fontstyles = {
-    color: color ? "#f7941e" : "#868686",
+    color: color ? '#f7941e' : '#868686',
   };
 
   const borderstyle = {
-    borderLeft: color ? "5px solid #f7941e" : "5px solid #ececec",
+    borderLeft: color ? '5px solid #f7941e' : '5px solid #ececec',
   };
 
   return (
@@ -46,7 +46,7 @@ function ListItemCustom(props) {
       style={borderstyle}
     >
       <Link
-        to={"/main/" + props.auth.uid + "/" + props.id}
+        to={'/main/' + props.auth.uid + '/' + props.id}
         className="link"
         style={fontstyles}
       >
