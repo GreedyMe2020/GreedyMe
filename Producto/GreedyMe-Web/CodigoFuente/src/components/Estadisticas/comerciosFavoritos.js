@@ -6,9 +6,6 @@ import Button from '@material-ui/core/Button';
 import Refresh from '@material-ui/icons/Refresh';
 import { connect } from 'react-redux';
 import { Line } from '@reactchartjs/react-chart.js';
-import { createMuiTheme } from '@material-ui/core';
-import firebase from '../../firebase/config';
-import jsPDF from 'jspdf';
 
 const anios = [
   {
@@ -115,7 +112,6 @@ function ComerciosFavoritos(props) {
         cantFavoritos++;
       }
     }
-    console.log(cantFavoritos);
     setCantidadFavoritos(cantFavoritos);
     setCantidadPorMes(cantidadMes);
     chart(cantidadMes);

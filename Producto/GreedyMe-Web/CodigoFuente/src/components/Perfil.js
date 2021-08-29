@@ -5,16 +5,13 @@ import Popper from '@material-ui/core/Popper';
 import MenuList from '@material-ui/core/MenuList';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ExitToAppRounded from '@material-ui/icons/ExitToAppRounded';
-import AccountCircleRounded from '@material-ui/icons/AccountCircleRounded';
 import { signOut } from '../redux/actions/authActions';
 import { connect } from 'react-redux';
 import { Link } from '@reach/router';
@@ -122,10 +119,10 @@ function Perfil(props) {
                       {props.profile.tipoSuscripcion === 0
                         ? 'Plan Básico'
                         : props.profile.tipoSuscripcion === 1
-                        ? 'Plan Estándar'
-                        : props.profile.tipoSuscripcion === 2
-                        ? 'Plan Premium'
-                        : null}
+                          ? 'Plan Estándar'
+                          : props.profile.tipoSuscripcion === 2
+                            ? 'Plan Premium'
+                            : null}
                     </p>
                   </div>
                 </ListItem>
@@ -179,7 +176,6 @@ function Perfil(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     profile: state.firebase.profile,
     auth: state.firebase.auth,

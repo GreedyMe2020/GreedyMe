@@ -1,28 +1,28 @@
-import React, { useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import List from "@material-ui/core/List";
-import IconButton from "@material-ui/core/IconButton";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import DeleteIcon from "@material-ui/icons/Delete";
-import DialogComponent from "../../Dialog";
-import Tooltip from "@material-ui/core/Tooltip";
-import { Grid, Avatar, CssBaseline } from "@material-ui/core";
-import MuiAlert from "@material-ui/lab/Alert";
-import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
-import { connect } from "react-redux";
-import Typography from "@material-ui/core/Typography";
-import FormTipoPromocion from "./FormTipoPromocion";
-import FormPromocion from "./FormPromocion";
-import ModalAdministradorPr from "../modal-admin-pr";
-import Snackbar from "@material-ui/core/Snackbar";
-import { eliminarTipoPromocion } from "../../../redux/actions/adminActions";
-import _ from "lodash";
+import React, { useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import List from '@material-ui/core/List';
+import IconButton from '@material-ui/core/IconButton';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DialogComponent from '../../Dialog';
+import Tooltip from '@material-ui/core/Tooltip';
+import { Grid, Avatar, CssBaseline } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import { connect } from 'react-redux';
+import Typography from '@material-ui/core/Typography';
+import FormTipoPromocion from './FormTipoPromocion';
+import FormPromocion from './FormPromocion';
+import ModalAdministradorPr from '../modal-admin-pr';
+import Snackbar from '@material-ui/core/Snackbar';
+import { eliminarTipoPromocion } from '../../../redux/actions/adminActions';
+import _ from 'lodash';
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
 
@@ -31,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   cruz: {
-    position: "absolute",
+    position: 'absolute',
     right: theme.spacing(1),
-    top: "8px",
+    top: '8px',
     color: theme.palette.grey[500],
   },
   inline: {
-    display: "block",
+    display: 'block',
   },
 }));
 
@@ -58,9 +58,9 @@ function ListaPromocion(props) {
   const [eliminada, setEliminada] = React.useState(false);
 
   const [listaPromociones, setListaPromociones] = React.useState(
-    props.tipoPromo
+    props.tipoPromo,
   );
-  const [text, setText] = React.useState("");
+  const [text, setText] = React.useState('');
   const [texto, setTexto] = React.useState(false);
 
   React.useEffect(() => {
@@ -90,7 +90,7 @@ function ListaPromocion(props) {
       });
       setListaPromociones(newDatos);
       setText(text);
-      if (text.target.value != "") {
+      if (text.target.value != '') {
         setTexto(true);
       } else {
         setTexto(false);
@@ -99,7 +99,7 @@ function ListaPromocion(props) {
   };
 
   const handleCloseSnack = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpenSnack(false);
@@ -132,20 +132,21 @@ function ListaPromocion(props) {
                             <ListItemAvatar>
                               <Avatar
                                 variant="square"
-                                src={require("../../../../Multimedia/Sistema-svg/price-tag (5).svg")}
+                                src={require('../../../../Multimedia/Sistema-svg/price-tag (5).svg')}
                               ></Avatar>
                             </ListItemAvatar>
 
                             <div className="elementoListaProm">
                               <ListItemText
-                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
                                 primary={
                                   <React.Fragment>
-                                    <Typography className={classes.inline}>
+                                    <Typography
+                                      className={classes.inline}
+                                    >
                                       {item.tipo}
                                     </Typography>
                                     {item.lista.map((ite) => {
-                                      return ite.valor + " - ";
+                                      return ite.valor + ' - ';
                                     })}
                                   </React.Fragment>
                                 }
@@ -173,12 +174,12 @@ function ListaPromocion(props) {
                                 setEliminada={setEliminada}
                                 setCurrentId={setCurrentId}
                                 title={
-                                  "¿Estás seguro de eliminar el beneficio?"
+                                  '¿Estás seguro de eliminar el beneficio?'
                                 }
                                 text={
-                                  "Una vez que aceptes eliminar el beneficio, el misma no podrá ser recuperada."
+                                  'Una vez que aceptes eliminar el beneficio, el misma no podrá ser recuperada.'
                                 }
-                                btnText={"Eliminar"}
+                                btnText={'Eliminar'}
                               />
                             </ListItemSecondaryAction>
                           </ListItem>
@@ -191,20 +192,21 @@ function ListaPromocion(props) {
                             <ListItemAvatar>
                               <Avatar
                                 variant="square"
-                                src={require("../../../../Multimedia/Sistema-svg/price-tag (5).svg")}
+                                src={require('../../../../Multimedia/Sistema-svg/price-tag (5).svg')}
                               ></Avatar>
                             </ListItemAvatar>
 
                             <div className="elementoListaProm">
                               <ListItemText
-                                //asi podes ir accediendo a todos los datos asi los acomodas como quieras
                                 primary={
                                   <React.Fragment>
-                                    <Typography className={classes.inline}>
+                                    <Typography
+                                      className={classes.inline}
+                                    >
                                       {item.tipo}
                                     </Typography>
                                     {item.lista.map((ite) => {
-                                      return ite.valor + " - ";
+                                      return ite.valor + ' - ';
                                     })}
                                   </React.Fragment>
                                 }
@@ -232,12 +234,12 @@ function ListaPromocion(props) {
                                 setEliminada={setEliminada}
                                 setCurrentId={setCurrentId}
                                 title={
-                                  "¿Estás seguro de eliminar el beneficio?"
+                                  '¿Estás seguro de eliminar el beneficio?'
                                 }
                                 text={
-                                  "Una vez que aceptes eliminar el beneficio, el misma no podrá ser recuperada."
+                                  'Una vez que aceptes eliminar el beneficio, el misma no podrá ser recuperada.'
                                 }
-                                btnText={"Eliminar"}
+                                btnText={'Eliminar'}
                               />
                             </ListItemSecondaryAction>
                           </ListItem>
@@ -248,19 +250,22 @@ function ListaPromocion(props) {
                 {eliminada ? (
                   <Snackbar
                     anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "left",
+                      vertical: 'bottom',
+                      horizontal: 'left',
                     }}
                     open={eliminada}
                     autoHideDuration={8000}
                     onClose={handleCloseSnack}
                   >
-                    <Alert onClose={handleCloseSnack} severity="error">
+                    <Alert
+                      onClose={handleCloseSnack}
+                      severity="error"
+                    >
                       El beneficio se ha eliminado
                     </Alert>
                   </Snackbar>
                 ) : (
-                  ""
+                  ''
                 )}
               </div>
             </Grid>
@@ -272,7 +277,6 @@ function ListaPromocion(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     proveedores: state.firestore.ordered.proveedorServicio,
     tipoPromo: state.firestore.ordered.tipoPromocion,
@@ -289,7 +293,7 @@ const mapDispatchToProps = (dispatch) => {
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([
-    { collection: "proveedorServicio" },
-    { collection: "tipoPromocion" },
-  ])
+    { collection: 'proveedorServicio' },
+    { collection: 'tipoPromocion' },
+  ]),
 )(ListaPromocion);

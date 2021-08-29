@@ -1,58 +1,57 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import SaveIcon from "@material-ui/icons/Save";
-import { MenuItem } from "@material-ui/core";
-import MuiAlert from "@material-ui/lab/Alert";
-import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
-import firebase from "../../../firebase/config";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
+import { MenuItem } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import firebase from '../../../firebase/config';
+import { connect } from 'react-redux';
 import {
   ValidatorForm,
   SelectValidator,
   TextValidator,
-} from "react-material-ui-form-validator";
-import Grid from "@material-ui/core/Grid";
+} from 'react-material-ui-form-validator';
+import Grid from '@material-ui/core/Grid';
 import {
   cargarProveedor,
   cargarBanco,
-} from "../../../redux/actions/adminActions";
-import _ from "lodash";
-import Snackbar from "@material-ui/core/Snackbar";
-import Avatar from "@material-ui/core/Avatar";
-import { subirFoto, eliminarFoto } from "../../../redux/actions/comActions";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
+} from '../../../redux/actions/adminActions';
+import _ from 'lodash';
+import Snackbar from '@material-ui/core/Snackbar';
+import Avatar from '@material-ui/core/Avatar';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    gridColumn: "2/4",
+    gridColumn: '2/4',
   },
   demo: {
     backgroundColor: theme.palette.background.paper,
   },
   cruz: {
-    position: "absolute",
+    position: 'absolute',
     right: theme.spacing(1),
-    top: "8px",
+    top: '8px',
     color: theme.palette.grey[500],
   },
   inline: {
-    display: "block",
+    display: 'block',
   },
   cont: {
     flexGrow: 1,
   },
   input: {
-    display: "none",
+    display: 'none',
   },
   contenedor: {
-    display: "grid",
+    display: 'grid',
     paddingLeft: 10,
     paddingRight: 10,
     marginTop: 10,
-    gridTemplateColumns: "1fr 2fr",
-    gridTemplateRows: "1fr",
+    gridTemplateColumns: '1fr 2fr',
+    gridTemplateRows: '1fr',
   },
   avatar: {
     gridColumn: 1 / 2,
@@ -66,18 +65,18 @@ const useStyles = makeStyles((theme) => ({
   botones: {
     gridColumn: 2 / 3,
     gridRow: 1 / 2,
-    justifySelf: "center",
-    alignSelf: "center",
+    justifySelf: 'center',
+    alignSelf: 'center',
     marginLeft: 35,
   },
   boton: {
-    backgroundColor: "#76b39d",
-    color: "white",
+    backgroundColor: '#76b39d',
+    color: 'white',
     fontSize: 13,
   },
   elim: {
-    cursor: "pointer",
-    color: "#707070",
+    cursor: 'pointer',
+    color: '#707070',
     fontSize: 15,
     marginLeft: 27,
     top: 5,
@@ -92,42 +91,42 @@ function FormProveedores(props) {
   const classes = useStyles();
 
   const [picture, setPicture] = useState(null);
-  const [valorCarga, setValorCarga] = useState(0)
+  const [valorCarga, setValorCarga] = useState(0);
 
   const [formData, setFormData] = React.useState({
-    tipoProveedor: "",
-    valueProveedor: "",
+    tipoProveedor: '',
+    valueProveedor: '',
     downloadURL: null,
   });
   //Estado para manejar el snackbar
   const [open, setOpen] = React.useState(false);
 
   const handleSubmit = (e) => {
-    if (formData.tipoProveedor === "Bancos") {
+    if (formData.tipoProveedor === 'Bancos') {
       props.cargarBanco({
-        id: "ndbKpkm6GorM0g5kHNkF",
+        id: 'ndbKpkm6GorM0g5kHNkF',
         valueProveedor: formData.valueProveedor,
-        downloadURL: formData.downloadURL
+        downloadURL: formData.downloadURL,
       });
-      setPicture(null)
-      setValorCarga(0)
-      formData.tipoProveedor = ""
-      formData.valueProveedor = ""
-      formData.downloadURL = null
+      setPicture(null);
+      setValorCarga(0);
+      formData.tipoProveedor = '';
+      formData.valueProveedor = '';
+      formData.downloadURL = null;
       //Abro el snackbar
       setOpen(true);
     } else {
       props.cargarProveedor({
         tipoProveedor: formData.tipoProveedor,
         valueProveedor: formData.valueProveedor,
-        downloadURL: formData.downloadURL
+        downloadURL: formData.downloadURL,
       });
-      formData.tipoProveedor = ""
-      formData.valueProveedor = ""
-      formData.downloadURL = null
+      formData.tipoProveedor = '';
+      formData.valueProveedor = '';
+      formData.downloadURL = null;
       //setFormData(...formData)
-      setPicture(null)
-      setValorCarga(0)
+      setPicture(null);
+      setValorCarga(0);
       //Abro el snackbar
       setOpen(true);
     }
@@ -135,9 +134,9 @@ function FormProveedores(props) {
 
   const handleDelete = () => {
     setPicture(null);
-    setValorCarga(0)
-    formData.downloadURL = null
-    setFormData({...formData})
+    setValorCarga(0);
+    formData.downloadURL = null;
+    setFormData({ ...formData });
   };
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
@@ -146,7 +145,7 @@ function FormProveedores(props) {
 
   //Funcion para cerrar el snackbar
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
@@ -159,14 +158,15 @@ function FormProveedores(props) {
       .ref(`/proveedores/${file.name}`);
     const task = storageRef.put(file);
     task.on(
-      "state_changed",
-      function (snapshot) {      
+      'state_changed',
+      function (snapshot) {
         switch (snapshot.state) {
           case firebase.storage.TaskState.PAUSED: // or 'paused'
             break;
           case firebase.storage.TaskState.RUNNING: // or 'running'
-            let porcentaje = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            setValorCarga(porcentaje)
+            let porcentaje =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setValorCarga(porcentaje);
             break;
         }
       },
@@ -176,14 +176,16 @@ function FormProveedores(props) {
       function () {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-        task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-          setPicture(downloadURL);
-          formData.downloadURL = downloadURL
-          setFormData({...formData})
-        });
-      } 
-    ); 
-  }; 
+        task.snapshot.ref
+          .getDownloadURL()
+          .then(function (downloadURL) {
+            setPicture(downloadURL);
+            formData.downloadURL = downloadURL;
+            setFormData({ ...formData });
+          });
+      },
+    );
+  };
 
   const form = React.createRef();
   return (
@@ -225,19 +227,18 @@ function FormProveedores(props) {
                 </label>
               </div>
               <div className="ml-1">
-                {valorCarga === 0 
-                ? null
-                : <progress value={valorCarga} max="100"></progress>}                
+                {valorCarga === 0 ? null : (
+                  <progress value={valorCarga} max="100"></progress>
+                )}
               </div>
               <div className={classes.elim}>
                 <a className="eliminar-img" onClick={handleDelete}>
                   Eliminar imagen
                 </a>
               </div>
-              
             </div>
           </div>
-          
+
           <Grid item xs={12} md={12}>
             <SelectValidator
               className="select-tipoprove"
@@ -248,16 +249,16 @@ function FormProveedores(props) {
               required
               value={formData.tipoProveedor}
               variant="outlined"
-              validators={["required"]}
-              errorMessages={["*Este campo es obligatorio"]}
+              validators={['required']}
+              errorMessages={['*Este campo es obligatorio']}
             >
               {props.proveedores &&
                 props.proveedores.map((option) => (
                   <MenuItem
                     key={option.tipo}
-                    value={option.tipo ? option.tipo : "Bancos"}
+                    value={option.tipo ? option.tipo : 'Bancos'}
                   >
-                    {option.tipo ? option.tipo : "Bancos"}
+                    {option.tipo ? option.tipo : 'Bancos'}
                   </MenuItem>
                 ))}
             </SelectValidator>
@@ -287,7 +288,7 @@ function FormProveedores(props) {
           </Grid>
         </Grid>
         <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           open={open}
           autoHideDuration={8000}
           onClose={handleClose}
@@ -302,7 +303,6 @@ function FormProveedores(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     proveedores: state.firestore.ordered.proveedorServicio,
     tipoPromo: state.firestore.ordered.tipoPromocion,
@@ -311,16 +311,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    cargarProveedor: (formData) => dispatch(cargarProveedor(formData)),
+    cargarProveedor: (formData) =>
+      dispatch(cargarProveedor(formData)),
     cargarBanco: (formData) => dispatch(cargarBanco(formData)),
-
   };
 };
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect([
-    { collection: "proveedorServicio" },
-    { collection: "tipoPromocion" },
-  ])
+    { collection: 'proveedorServicio' },
+    { collection: 'tipoPromocion' },
+  ]),
 )(FormProveedores);

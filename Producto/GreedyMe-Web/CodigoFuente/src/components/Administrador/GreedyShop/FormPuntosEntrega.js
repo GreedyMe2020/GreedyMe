@@ -3,14 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import MuiAlert from '@material-ui/lab/Alert';
-import { compose } from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
 import { connect } from 'react-redux';
 import {
   ValidatorForm,
   TextValidator,
 } from 'react-material-ui-form-validator';
-import { cargarTipoProveedor } from '../../../redux/actions/adminActions';
 import Grid from '@material-ui/core/Grid';
 import Snackbar from '@material-ui/core/Snackbar';
 import { cargarPuntoRetiro } from '../../../redux/actions/adminActions';
@@ -60,7 +57,7 @@ function FormPuntoEntrega(props) {
       localidad: '',
       provincia: '',
       pais: '',
-    })
+    });
     setOpen(true);
   };
 
@@ -162,7 +159,6 @@ function FormPuntoEntrega(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     puntoRetiro: state.admin.puntoRetiro,
     puntoRetiroEliminado: state.admin.puntoRetiroEliminado,

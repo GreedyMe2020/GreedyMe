@@ -1,44 +1,13 @@
-import React, { useState, forwardRef } from 'react';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import DialogComponent from '../../Dialog';
-import Dialog from '@material-ui/core/Dialog';
-import { Grid, Avatar } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
-import { compose } from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
+import React, { forwardRef } from 'react';
 import { connect } from 'react-redux';
-import ModalAdministrador from '../modal-admin';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import CreateIcon from '@material-ui/icons/Create';
-import CloseIcon from '@material-ui/icons/Close';
-/* import ModalActualizarComercio from "../Comercios/modal-actualizar-comercio"; */
-import {
-  signUp,
-  eliminarUsuarioComercio,
-  modificarUsuarioComercio,
-} from '../../../redux/actions/adminActions';
-import FormProducto from './FormProductos';
-import Snackbar from '@material-ui/core/Snackbar';
 import firebase from '../../../firebase/config';
-import secondaryApp from '../../../firebase/configSecondary';
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
 import _ from 'lodash';
-
 import { format } from 'date-fns';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { createMuiTheme } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
-
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import Check from '@material-ui/icons/Check';

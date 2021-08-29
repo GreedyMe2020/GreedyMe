@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
-import { withStyles } from "@material-ui/core/styles";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import React, { useEffect } from 'react';
+import {
+  MuiPickersUtilsProvider,
+  DatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import MuiAlert from '@material-ui/lab/Alert';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import {
   MenuItem,
   FormControlLabel,
@@ -17,24 +19,22 @@ import {
   Checkbox,
   Button,
   Divider,
-  Grid,
-} from "@material-ui/core";
+} from '@material-ui/core';
 import {
   ValidatorForm,
   SelectValidator,
-} from "react-material-ui-form-validator";
-import firebase from "../../firebase/config";
-import { SettingsCellOutlined } from "@material-ui/icons";
-import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
-import _ from "lodash";
+} from 'react-material-ui-form-validator';
+import firebase from '../../firebase/config';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import _ from 'lodash';
 const firestore = firebase.firestore();
 
 const bancos = [];
 const banco = () => {
   firestore
-    .collection("proveedorServicio")
-    .orderBy("bancos")
+    .collection('proveedorServicio')
+    .orderBy('bancos')
     .get()
     .then((snapShots) => {
       snapShots.forEach((doc) => {
@@ -50,16 +50,16 @@ banco();
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiTextField-root": {
+    '& .MuiTextField-root': {
       margin: theme.spacing(1),
     },
   },
 }));
 const CelesteCheckbox = withStyles({
   root: {
-    color: "#707070",
-    "&$checked": {
-      color: "#76B39D",
+    color: '#707070',
+    '&$checked': {
+      color: '#76B39D',
     },
   },
   checked: {},
@@ -67,9 +67,9 @@ const CelesteCheckbox = withStyles({
 
 const CelesteRadio = withStyles({
   root: {
-    color: "#707070",
-    "&$checked": {
-      color: "#76B39D",
+    color: '#707070',
+    '&$checked': {
+      color: '#76B39D',
     },
   },
   checked: {},
@@ -95,10 +95,10 @@ function ModalPromocionesActualizar(props) {
     photoURL: props.promo.photoURL,
   });
   const [desdeVigencia, handleDesdeVigencia] = React.useState(
-    props.promo.desdeVigencia.toDate()
+    props.promo.desdeVigencia.toDate(),
   ); //Estados para cada datePicker
   const [hastaVigencia, handleHastaVigencia] = React.useState(
-    props.promo.hastaVigencia.toDate()
+    props.promo.hastaVigencia.toDate(),
   );
   const [open, setOpen] = React.useState(false);
 
@@ -124,22 +124,22 @@ function ModalPromocionesActualizar(props) {
     todoslosdias,
   } = state;
   const [errorD, setErrorDias] = React.useState(false);
-  const [helperTextD, setHelperTextDias] = React.useState("");
+  const [helperTextD, setHelperTextDias] = React.useState('');
 
   const handleChangec = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
-    setHelperTextDias("");
+    setHelperTextDias('');
     setErrorDias(false);
   };
 
   //esto es para la forma de pago
   const [value, setValue] = React.useState(props.promo.medioPago);
   const [error, setError] = React.useState(false);
-  const [helperText, setHelperText] = React.useState("");
+  const [helperText, setHelperText] = React.useState('');
 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
-    setHelperText("");
+    setHelperText('');
     setError(false);
   };
 
@@ -155,7 +155,7 @@ function ModalPromocionesActualizar(props) {
       state.domingo === false &&
       state.todoslosdias === false
     ) {
-      setHelperTextDias("*Este campo es obligatorio");
+      setHelperTextDias('*Este campo es obligatorio');
       setErrorDias(true);
     } else if (
       state.todoslosdias === true &&
@@ -167,18 +167,27 @@ function ModalPromocionesActualizar(props) {
         state.sabado === true ||
         state.domingo === true)
     ) {
-      setHelperTextDias("*Hay inconsistencia en la selección");
+      setHelperTextDias('*Hay inconsistencia en la selección');
       setErrorDias(true);
-    } else if (value != "Efectivo" && value != "Todos los medios de pago") {
-      setHelperText("*Este campo es obligatorio");
+    } else if (
+      value != 'Efectivo' &&
+      value != 'Todos los medios de pago'
+    ) {
+      setHelperText('*Este campo es obligatorio');
       setError(true);
     } else {
-      props.actualizar(formData, state, value, desdeVigencia, hastaVigencia);
+      props.actualizar(
+        formData,
+        state,
+        value,
+        desdeVigencia,
+        hastaVigencia,
+      );
       //setOpen(true);
     }
   };
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     //setOpen(false);
@@ -187,7 +196,7 @@ function ModalPromocionesActualizar(props) {
   const handleChange = (event) => {
     formData[event.target.name] = event.target.value;
 
-    if (event.target.name === "valueProveedor") {
+    if (event.target.name === 'valueProveedor') {
       valorProveedor.map((option) => {
         if (option.nombre === event.target.value) {
           formData.photoURL = option.photoURL;
@@ -211,9 +220,12 @@ function ModalPromocionesActualizar(props) {
     if (formData.tipoPromo) {
       if (props.tipoPromo) {
         const todosTiposPromos = props.tipoPromo;
-        const indiceACambiar = _.findIndex(todosTiposPromos, function (o) {
-          return o.tipo === formData.tipoPromo;
-        });
+        const indiceACambiar = _.findIndex(
+          todosTiposPromos,
+          function (o) {
+            return o.tipo === formData.tipoPromo;
+          },
+        );
         setValorPromo(props.tipoPromo[indiceACambiar].lista);
       }
     }
@@ -231,16 +243,19 @@ function ModalPromocionesActualizar(props) {
     if (formData.tipoProveedor) {
       if (props.proveedores) {
         const todosProveedores = props.proveedores;
-        const indiceACambiar = _.findIndex(todosProveedores, function (o) {
-          return o.tipo === formData.tipoProveedor;
-        });
+        const indiceACambiar = _.findIndex(
+          todosProveedores,
+          function (o) {
+            return o.tipo === formData.tipoProveedor;
+          },
+        );
         setValorProveedor(props.proveedores[indiceACambiar].lista);
       }
     }
 
     if (
-      formData.tipoProveedor === "Tarjetas de crédito" ||
-      formData.tipoProveedor === "Tarjetas de débito"
+      formData.tipoProveedor === 'Tarjetas de crédito' ||
+      formData.tipoProveedor === 'Tarjetas de débito'
     ) {
       setValorBanco(bancos[0].bancos);
     }
@@ -264,8 +279,8 @@ function ModalPromocionesActualizar(props) {
             name="tipoPromo"
             value={formData.tipoPromo}
             variant="outlined"
-            validators={["required"]}
-            errorMessages={["*Este campo es obligatorio"]}
+            validators={['required']}
+            errorMessages={['*Este campo es obligatorio']}
           >
             {props.tipoPromo &&
               props.tipoPromo.map((option) => (
@@ -284,8 +299,8 @@ function ModalPromocionesActualizar(props) {
               name="valuePromo"
               required
               value={formData.valuePromo}
-              validators={["required"]}
-              errorMessages={["*Este campo es obligatorio"]}
+              validators={['required']}
+              errorMessages={['*Este campo es obligatorio']}
             >
               {valorPromo.map((option) => (
                 <MenuItem key={option.valor} value={option.valor}>
@@ -303,11 +318,11 @@ function ModalPromocionesActualizar(props) {
               value={formData.valuePromo}
               variant="outlined"
               disabled
-              validators={["required"]}
-              errorMessages={["*Este campo es obligatorio"]}
+              validators={['required']}
+              errorMessages={['*Este campo es obligatorio']}
             ></SelectValidator>
           )}
-          {formData.valuePromo === "Otro" ? (
+          {formData.valuePromo === 'Otro' ? (
             <TextField
               id="outlineddisabled"
               label="Otros"
@@ -329,8 +344,8 @@ function ModalPromocionesActualizar(props) {
             name="tipoProveedor"
             value={formData.tipoProveedor}
             variant="outlined"
-            validators={["required"]}
-            errorMessages={["*Este campo es obligatorio"]}
+            validators={['required']}
+            errorMessages={['*Este campo es obligatorio']}
           >
             {props.proveedores &&
               props.proveedores.map((option) => (
@@ -339,8 +354,8 @@ function ModalPromocionesActualizar(props) {
                 </MenuItem>
               ))}
           </SelectValidator>
-          {formData.tipoProveedor === "Tarjetas de débito" ||
-          formData.tipoProveedor === "Tarjetas de crédito" ? (
+          {formData.tipoProveedor === 'Tarjetas de débito' ||
+          formData.tipoProveedor === 'Tarjetas de crédito' ? (
             <>
               <SelectValidator
                 variant="outlined"
@@ -351,8 +366,8 @@ function ModalPromocionesActualizar(props) {
                 name="valueProveedor"
                 required
                 value={formData.valueProveedor}
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
+                validators={['required']}
+                errorMessages={['*Este campo es obligatorio']}
               >
                 {valorBanco.map((option) => (
                   <MenuItem key={option.nombre} value={option.nombre}>
@@ -370,8 +385,8 @@ function ModalPromocionesActualizar(props) {
                 name="otroProveedor"
                 required
                 value={formData.otroProveedor}
-                validators={["required"]}
-                errorMessages={["*Este campo es obligatorio"]}
+                validators={['required']}
+                errorMessages={['*Este campo es obligatorio']}
               >
                 {valorProveedor.map((option) => (
                   <MenuItem key={option.nombre} value={option.nombre}>
@@ -382,8 +397,8 @@ function ModalPromocionesActualizar(props) {
             </>
           ) : null}
 
-          {formData.tipoProveedor !== "Tarjetas de débito" &&
-          formData.tipoProveedor !== "Tarjetas de crédito" &&
+          {formData.tipoProveedor !== 'Tarjetas de débito' &&
+          formData.tipoProveedor !== 'Tarjetas de crédito' &&
           formData.tipoProveedor ? (
             <SelectValidator
               variant="outlined"
@@ -394,8 +409,8 @@ function ModalPromocionesActualizar(props) {
               name="valueProveedor"
               required
               value={formData.valueProveedor}
-              validators={["required"]}
-              errorMessages={["*Este campo es obligatorio"]}
+              validators={['required']}
+              errorMessages={['*Este campo es obligatorio']}
             >
               {valorProveedor.map((option) => (
                 <MenuItem key={option.nombre} value={option.nombre}>
@@ -404,7 +419,7 @@ function ModalPromocionesActualizar(props) {
               ))}
             </SelectValidator>
           ) : null}
-          {formData.valueProveedor === "Otro" ? (
+          {formData.valueProveedor === 'Otro' ? (
             <TextField
               id="outlineddisabled"
               label="Otros"
@@ -576,7 +591,11 @@ function ModalPromocionesActualizar(props) {
           </FormControl>
           <Divider className="dividerH" />
           <p className="subtit">Agregar descripción</p>
-          <form className={classes.root} noValidate autoComplete="off">
+          <form
+            className={classes.root}
+            noValidate
+            autoComplete="off"
+          >
             <div>
               <TextField
                 fullWidth
@@ -632,7 +651,7 @@ const mapStateToProps = (state) => {
 export default compose(
   connect(mapStateToProps),
   firestoreConnect([
-    { collection: "proveedorServicio", orderBy: "tipo" },
-    { collection: "tipoPromocion" },
-  ])
+    { collection: 'proveedorServicio', orderBy: 'tipo' },
+    { collection: 'tipoPromocion' },
+  ]),
 )(ModalPromocionesActualizar);

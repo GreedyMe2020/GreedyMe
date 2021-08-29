@@ -1,26 +1,30 @@
-import React from "react";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { connect } from "react-redux";
+import React from 'react';
+import {
+  ValidatorForm,
+  TextValidator,
+} from 'react-material-ui-form-validator';
+import { connect } from 'react-redux';
 import {
   signIn,
   resetearValoresInicioSesion,
-} from "../../redux/actions/authActions";
-import { Redirect, Link } from "@reach/router";
-import { Card } from "react-bootstrap";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import InputLabel from "@material-ui/core/InputLabel";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import FormControl from "@material-ui/core/FormControl";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+} from '../../redux/actions/authActions';
+import { Redirect, Link } from '@reach/router';
+import { Card } from 'react-bootstrap';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+
 function InicioSesion(props) {
   const [values, setValues] = React.useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
     showPassword: false,
   });
 
@@ -43,11 +47,11 @@ function InicioSesion(props) {
   };
 
   const form = React.createRef();
-  if (props.auth.uid === "dwbVGIccUOT7bWyKeAPz1NQanS02") {
+  if (props.auth.uid === 'dwbVGIccUOT7bWyKeAPz1NQanS02') {
     return <Redirect to="/admin/comercios" />;
   } else {
     if (props.auth.uid)
-      return <Redirect to={"/main/" + props.auth.uid + "/inicio"} />;
+      return <Redirect to={'/main/' + props.auth.uid + '/inicio'} />;
   }
 
   return (
@@ -55,7 +59,7 @@ function InicioSesion(props) {
       <div className="nav-container">
         <nav>
           <div id="titulo">
-            <Link to={"/"} className="link subtitulo">
+            <Link to={'/'} className="link subtitulo">
               <h1 className="gre">gre</h1>
               <h1 className="edy">edy</h1>
               <h1 className="me">me</h1>
@@ -67,19 +71,21 @@ function InicioSesion(props) {
       <section className="contenedor-inicio">
         <Card id="inicio-sesion">
           <Card.Body id="inicio-sesion-body">
-            <Card.Title id="inicio-sesion-title">Iniciar Sesión</Card.Title>
+            <Card.Title id="inicio-sesion-title">
+              Iniciar Sesión
+            </Card.Title>
             <ValidatorForm ref={form} onSubmit={handleSubmit}>
               <Grid item xs={12} md={12}>
                 <TextValidator
                   label="Email"
                   variant="outlined"
                   fullWidth
-                  onChange={handleChangePass("email")}
+                  onChange={handleChangePass('email')}
                   name="email"
                   value={values.email}
                   required
-                  validators={["isEmail"]}
-                  errorMessages={["El email no es válido"]}
+                  validators={['isEmail']}
+                  errorMessages={['El email no es válido']}
                 />
               </Grid>
               <Grid item xs={12} md={12}>
@@ -97,9 +103,9 @@ function InicioSesion(props) {
                   </InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-password"
-                    type={values.showPassword ? "text" : "password"}
+                    type={values.showPassword ? 'text' : 'password'}
                     value={values.password}
-                    onChange={handleChangePass("password")}
+                    onChange={handleChangePass('password')}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
@@ -126,7 +132,9 @@ function InicioSesion(props) {
                   color="textSecondary"
                   gutterBottom
                 >
-                  <Link to="/forgotpassword">Olvidé mi contraseña</Link>
+                  <Link to="/forgotpassword">
+                    Olvidé mi contraseña
+                  </Link>
                 </Typography>
               </div>
               <div className="contenedor-submit">
@@ -163,8 +171,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signIn: (user) => dispatch(signIn(user)),
-    resetearValoresInicioSesion: () => dispatch(resetearValoresInicioSesion()),
+    resetearValoresInicioSesion: () =>
+      dispatch(resetearValoresInicioSesion()),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InicioSesion);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(InicioSesion);

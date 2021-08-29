@@ -240,7 +240,6 @@ function ProgramarNotificaciones(props) {
         props.profile.photoURL,
       );
       setOpen(true);
-      console.log('entro por aca pa');
     }
   };
 

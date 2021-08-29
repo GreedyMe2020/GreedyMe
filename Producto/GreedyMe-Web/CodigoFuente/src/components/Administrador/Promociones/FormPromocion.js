@@ -64,8 +64,6 @@ function FormPromocion(props) {
     const lista = promociones[indiceACambiar].lista;
 
     const listaNueva = _.concat(lista, { valor: formData.valuePromo });
-    console.log(lista);
-    console.log(listaNueva);
     props.cargarPromocion({
       tipoPromo: formData.tipoPromo,
       valuePromo: formData.valuePromo,
@@ -160,7 +158,6 @@ function FormPromocion(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     proveedores: state.firestore.ordered.proveedorServicio,
     tipoPromo: state.firestore.ordered.tipoPromocion,

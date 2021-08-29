@@ -10,6 +10,11 @@ import { Button } from '@material-ui/core';
 import { editarSuscripcion } from '../../redux/actions/comActions';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 //import Express from 'express';
 import { Redirect, Link } from '@reach/router';
@@ -54,6 +59,9 @@ function Suscripciones(props) {
     props.profile.tipoSuscripcion,
   );
 
+  // Estado del modal de confirmación
+  const [openDialog, setOpenDialog] = React.useState(false);
+
   // Hook para setear el tipo de suscripcion actual del
   // cliente y renderizar la pagina en base al mismo
   useEffect(() => {
@@ -78,7 +86,7 @@ function Suscripciones(props) {
     });
   };
 
-  // Funcion para el manejo del Snack bar de success
+  // Funciones para el manejo del Snack bar de success
   const handleClickSuccess = () => {
     setOpenSuccess(true);
   };
@@ -90,7 +98,7 @@ function Suscripciones(props) {
     setOpenSuccess(false);
   };
 
-  // Funcion para el manejo del Snack bar de error
+  // Funciones para el manejo del Snack bar de error
   const handleClickError = () => {
     setOpenError(true);
   };
@@ -100,6 +108,15 @@ function Suscripciones(props) {
       return;
     }
     setOpenError(false);
+  };
+
+  // Funciones para el manejo del modal de confirmación
+  const handleClickOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
   };
 
   return (
@@ -158,9 +175,7 @@ function Suscripciones(props) {
                       variant="contained"
                       className={classes.margin}
                       id="planes-promo-submit"
-                      onClick={() => {
-                        handlePlan(0);
-                      }}
+                      onClick={() => setOpenDialog(true)}
                     >
                       Actualizar plan
                     </Button>
@@ -251,10 +266,50 @@ function Suscripciones(props) {
                   )}
                 </div>
               </div>
+              {/* Modal de confirmación de cambio de plan al básico */}
+              <Dialog
+                open={openDialog}
+                onClose={handleCloseDialog}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {'¿Estás seguro de cambiar al plan '}
+                  <b>Básico</b>
+                  {'?'}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Una vez que aceptes cambiar al plan Básico, se te
+                    cancelará la suscripción actual y perderás sus
+                    beneficios.
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    onClick={handleCloseDialog}
+                    color="secondary"
+                  >
+                    Cancelar
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setOpenDialog(false);
+                      handlePlan(0);
+                    }}
+                    color="primary"
+                    autoFocus
+                  >
+                    Aceptar
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </div>
           </CardContent>
         </Card>
       </div>
+
+      {/* Snackbars para indicar si se actualizó el plan o no */}
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={openSuccess}
