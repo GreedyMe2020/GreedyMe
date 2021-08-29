@@ -8,8 +8,8 @@ import CardPlanes from '../CardPlanes';
 import Box from '@material-ui/core/Box';
 import { Button } from '@material-ui/core';
 import { editarSuscripcion } from '../../redux/actions/comActions';
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -51,15 +51,18 @@ function Suscripciones(props) {
     facebook: props.profile.facebook,
     direccion: props.profile.direccion,
     tipoSuscripcion: props.profile.tipoSuscripcion,
+    fechaVencimiento: props.profile.fechaVencimiento,
   });
-  
+
   // Estado para el manejo del tipo de suscripcion actual del cliente
-  const [plan, setPlan] = React.useState(props.profile.tipoSuscripcion);
+  const [plan, setPlan] = React.useState(
+    props.profile.tipoSuscripcion,
+  );
 
   // Estado del modal de confirmación
   const [openDialog, setOpenDialog] = React.useState(false);
 
-  // Hook para setear el tipo de suscripcion actual del 
+  // Hook para setear el tipo de suscripcion actual del
   // cliente y renderizar la pagina en base al mismo
   useEffect(() => {
     setPlan(props.profile.tipoSuscripcion);
@@ -68,8 +71,9 @@ function Suscripciones(props) {
   const classes = useStyles();
 
   function handlePlan(number) {
+    //ACA ESTARIA BUENO QUE SALGA UN CARTELITO DICIENDO: SEGURO QUE QUIERE ACTUALIZAR EL PLAN A ESTANDAR??? Porque sino queda muy pelado
     setPlan(number);
-
+    formData.fechaVencimiento = new Date();
     formData.tipoSuscripcion = number;
     setFormData({ ...formData });
     handleSubmit();
@@ -85,10 +89,10 @@ function Suscripciones(props) {
   // Funciones para el manejo del Snack bar de success
   const handleClickSuccess = () => {
     setOpenSuccess(true);
-  }
+  };
 
   const handleCloseSuccess = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpenSuccess(false);
@@ -97,10 +101,10 @@ function Suscripciones(props) {
   // Funciones para el manejo del Snack bar de error
   const handleClickError = () => {
     setOpenError(true);
-  }
+  };
 
   const handleCloseError = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpenError(false);
@@ -174,7 +178,7 @@ function Suscripciones(props) {
                       onClick={() => setOpenDialog(true)}
                     >
                       Actualizar plan
-                    </Button>                    
+                    </Button>
                   )}
                 </div>
               </div>
@@ -215,7 +219,7 @@ function Suscripciones(props) {
                         tipoPlan={1}
                         handleClickError={handleClickError}
                         handleClickSuccess={handleClickSuccess}
-                    />
+                      />
                     </div>
                   )}
                 </div>
@@ -270,27 +274,32 @@ function Suscripciones(props) {
                 aria-describedby="alert-dialog-description"
               >
                 <DialogTitle id="alert-dialog-title">
-                  {"¿Estás seguro de cambiar al plan "}
+                  {'¿Estás seguro de cambiar al plan '}
                   <b>Básico</b>
-                  {"?"}
+                  {'?'}
                 </DialogTitle>
                 <DialogContent>
                   <DialogContentText id="alert-dialog-description">
-                    Una vez que aceptes cambiar al plan Básico, se te cancelará 
-                    la suscripción actual y perderás sus beneficios.
+                    Una vez que aceptes cambiar al plan Básico, se te
+                    cancelará la suscripción actual y perderás sus
+                    beneficios.
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={handleCloseDialog} color="secondary">
+                  <Button
+                    onClick={handleCloseDialog}
+                    color="secondary"
+                  >
                     Cancelar
                   </Button>
-                  <Button 
+                  <Button
                     onClick={() => {
                       setOpenDialog(false);
                       handlePlan(0);
-                    }} 
-                    color="primary" 
-                    autoFocus>
+                    }}
+                    color="primary"
+                    autoFocus
+                  >
                     Aceptar
                   </Button>
                 </DialogActions>
@@ -302,7 +311,7 @@ function Suscripciones(props) {
 
       {/* Snackbars para indicar si se actualizó el plan o no */}
       <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={openSuccess}
         autoHideDuration={8000}
         onClose={handleCloseSuccess}
@@ -312,7 +321,7 @@ function Suscripciones(props) {
         </Alert>
       </Snackbar>
       <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         open={openError}
         autoHideDuration={8000}
         onClose={handleCloseError}

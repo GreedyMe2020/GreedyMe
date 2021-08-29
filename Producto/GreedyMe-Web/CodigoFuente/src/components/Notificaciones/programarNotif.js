@@ -1,32 +1,35 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import {
   MuiPickersUtilsProvider,
   DatePicker,
   TimePicker,
-} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import {
   ValidatorForm,
   SelectValidator,
-} from "react-material-ui-form-validator";
-import Button from "@material-ui/core/Button";
-import AlarmIcon from "@material-ui/icons/AddAlarm";
-import TodayIcon from "@material-ui/icons/Today";
-import { IconButton, InputAdornment } from "@material-ui/core";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
-import { connect } from "react-redux";
-import firebase from "../../firebase/config";
-import { format } from "date-fns";
-import MenuItem from "@material-ui/core/MenuItem";
-import { generarNotificacionesTodos, generarNotificacionesFavoritos } from "../../redux/actions/comActions";
+} from 'react-material-ui-form-validator';
+import Button from '@material-ui/core/Button';
+import AlarmIcon from '@material-ui/icons/AddAlarm';
+import TodayIcon from '@material-ui/icons/Today';
+import { IconButton, InputAdornment } from '@material-ui/core';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import { connect } from 'react-redux';
+import firebase from '../../firebase/config';
+import { format } from 'date-fns';
+import MenuItem from '@material-ui/core/MenuItem';
+import {
+  generarNotificacionesTodos,
+  generarNotificacionesFavoritos,
+} from '../../redux/actions/comActions';
 
 const useStyles = makeStyles((theme) => ({
   demo: {
@@ -47,18 +50,18 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   icon: {
-    verticalAlign: "bottom",
+    verticalAlign: 'bottom',
     height: 20,
     width: 20,
   },
   details: {
-    alignItems: "center",
+    alignItems: 'center',
   },
 }));
 
 const notificados = [
-  { value: "Usuarios con comercio favorito" },
-  { value: "Todos los usuarios" },
+  { value: 'Usuarios con comercio favorito' },
+  { value: 'Todos los usuarios' },
 ];
 
 function Alert(props) {
@@ -76,75 +79,95 @@ function ProgramarNotificaciones(props) {
   //estado para obtener el beneficio elegido
   const [beneficioElegido, setBeneficioElegido] = React.useState('');
 
-  //use effect que trae los datos 
+  const [notificados, setNotificados] = React.useState([
+    { value: 'Usuarios con comercio favorito' },
+    { value: 'Todos los usuarios' },
+  ]);
+
+  //use effect que trae los datos
   React.useEffect(() => {
+    if (props.profile.tipoSuscripcion === 0) {
+      setNotificados([{ value: 'Usuarios con comercio favorito' }]);
+    }
     const obtenerPromociones = async () => {
       const firestore = firebase.firestore();
       try {
-        const promociones = await firestore.collection("usuarioComercio").doc(props.auth.uid).collection("promociones").get()
-        const arrayPromociones = promociones.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+        const promociones = await firestore
+          .collection('usuarioComercio')
+          .doc(props.auth.uid)
+          .collection('promociones')
+          .get();
+        const arrayPromociones = promociones.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         const beneficios = [];
         arrayPromociones.map((promo) => {
           beneficios.push({
             name:
               promo.tipoPromo +
-              " " +
-              (promo.valuePromo === "Otro"
+              ' ' +
+              (promo.valuePromo === 'Otro'
                 ? promo.otraPromo
                 : promo.valuePromo) +
-              " " +
-              (promo.valueProveedor === "Otro"
+              ' ' +
+              (promo.valueProveedor === 'Otro'
                 ? promo.otroProveedor
-                : promo.valueProveedor === 'Todos' ? 'Todos los Bancos' : promo.valueProveedor) +
-              ", " +
-              (promo.tipoProveedor === "Tarjetas de crédito" || promo.tipoProveedor === "Tarjetas de débito" ? promo.otroProveedor + " " : "")
-              +
-              (promo.otroProveedor === "Todas" ? "las Tarjetas " : "")
-              +
-              "válida desde el " +
-              format(
-                promo.desdeVigencia.toDate(),
-                "dd/MM/yyyy"
-              ) +
-              " hasta el " +
-              format(
-                promo.hastaVigencia.toDate(),
-                "dd/MM/yyyy"
-              ) +
-              "."
+                : promo.valueProveedor === 'Todos'
+                ? 'Todos los Bancos'
+                : promo.valueProveedor) +
+              ', ' +
+              (promo.tipoProveedor === 'Tarjetas de crédito' ||
+              promo.tipoProveedor === 'Tarjetas de débito'
+                ? promo.otroProveedor + ' '
+                : '') +
+              (promo.otroProveedor === 'Todas'
+                ? 'las Tarjetas '
+                : '') +
+              'válida desde el ' +
+              format(promo.desdeVigencia.toDate(), 'dd/MM/yyyy') +
+              ' hasta el ' +
+              format(promo.hastaVigencia.toDate(), 'dd/MM/yyyy') +
+              '.',
           });
         });
         const opciones = beneficios.map((option) => {
           const firstLetter = option.name[0].toUpperCase();
           return {
-            firstLetter: /[0-9]/.test(firstLetter) ? firstLetter : firstLetter,
+            firstLetter: /[0-9]/.test(firstLetter)
+              ? firstLetter
+              : firstLetter,
             ...option,
           };
         });
-        setOptions(opciones)
+        setOptions(opciones);
+      } catch (error) {
+        console.log(error);
       }
-      catch (error) {
-        console.log(error)
-      }
-    }
+    };
     obtenerPromociones();
-  }, [])
+  }, []);
 
   React.useEffect(() => {
     const obtenerPerfil = async () => {
       const firestore = firebase.firestore();
       try {
-        const perfiles = await firestore.collection("usuarioComercio").where('email', '==', props.auth.email).get()
-        const arrayPerfiles = perfiles.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-        setNombreComercio(arrayPerfiles[0].nombreComercio)
-        setSucursal(arrayPerfiles[0].sucursal)
+        const perfiles = await firestore
+          .collection('usuarioComercio')
+          .where('email', '==', props.auth.email)
+          .get();
+        const arrayPerfiles = perfiles.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setNombreComercio(arrayPerfiles[0].nombreComercio);
+        setSucursal(arrayPerfiles[0].sucursal);
+      } catch (error) {
+        console.log(error);
       }
-      catch (error) {
-        console.log(error)
-      }
-    }
+    };
     obtenerPerfil();
-  }, [])
+  }, []);
 
   //Estado checked del switch de geolocalizacion
   const [stateGeo, setStateGeo] = React.useState({
@@ -162,11 +185,10 @@ function ProgramarNotificaciones(props) {
   const [selectedDate, handleDateChange] = useState(new Date());
 
   //Estados para los tipos de notificaciones hardcodeados
-  const [notificaciones, setNotificaciones] = React.useState("");
+  const [notificaciones, setNotificaciones] = React.useState('');
 
   const handleChangeNotificaciones = (event) => {
     setNotificaciones(event.target.value);
-
   };
 
   const handleChangeBeneficios = (event) => {
@@ -174,7 +196,10 @@ function ProgramarNotificaciones(props) {
   };
 
   const handleChangeEnvioUbicacion = (event) => {
-    setStateGeo({ ...stateGeo, [event.target.name]: event.target.checked });
+    setStateGeo({
+      ...stateGeo,
+      [event.target.name]: event.target.checked,
+    });
   };
 
   const handleChangeProgramarEnvio = (event) => {
@@ -192,7 +217,7 @@ function ProgramarNotificaciones(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
@@ -200,11 +225,20 @@ function ProgramarNotificaciones(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (notificaciones === "Todos los usuarios") {
-      props.generarNotificacionesTodos(nombreComercio, beneficioElegido, props.profile.photoURL);
+    if (notificaciones === 'Todos los usuarios') {
+      props.generarNotificacionesTodos(
+        nombreComercio,
+        beneficioElegido,
+        props.profile.photoURL,
+      );
       setOpen(true);
-    } else if (notificaciones === "Usuarios con comercio favorito") {
-      props.generarNotificacionesFavoritos(props.profile.tokensFavoritos, nombreComercio, beneficioElegido, props.profile.photoURL);
+    } else if (notificaciones === 'Usuarios con comercio favorito') {
+      props.generarNotificacionesFavoritos(
+        props.profile.tokensFavoritos,
+        nombreComercio,
+        beneficioElegido,
+        props.profile.photoURL,
+      );
       setOpen(true);
     }
   };
@@ -272,7 +306,8 @@ function ProgramarNotificaciones(props) {
                     setBeneficioElegido(newInputValue);
                   }}
                   options={options.sort(
-                    (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
+                    (a, b) =>
+                      -b.firstLetter.localeCompare(a.firstLetter),
                   )}
                   groupBy={(option) => option.firstLetter}
                   getOptionLabel={(option) => option.name}
@@ -368,7 +403,7 @@ function ProgramarNotificaciones(props) {
                   </MuiPickersUtilsProvider>
                 </div>
               ) : (
-                ""
+                ''
               )}
 
               <div className="boton-enviar-notificacion">
@@ -382,7 +417,10 @@ function ProgramarNotificaciones(props) {
                   </Button>
                 </div>
                 <Snackbar
-                  anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
                   open={open}
                   autoHideDuration={8000}
                   onClose={handleClose}
@@ -409,12 +447,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    generarNotificacionesTodos: (titulo, mensaje, url) => dispatch(generarNotificacionesTodos(titulo, mensaje, url)),
-    generarNotificacionesFavoritos: (tokens, titulo, mensaje, url) => dispatch(generarNotificacionesFavoritos(tokens, titulo, mensaje, url)),
+    generarNotificacionesTodos: (titulo, mensaje, url) =>
+      dispatch(generarNotificacionesTodos(titulo, mensaje, url)),
+    generarNotificacionesFavoritos: (tokens, titulo, mensaje, url) =>
+      dispatch(
+        generarNotificacionesFavoritos(tokens, titulo, mensaje, url),
+      ),
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ProgramarNotificaciones);

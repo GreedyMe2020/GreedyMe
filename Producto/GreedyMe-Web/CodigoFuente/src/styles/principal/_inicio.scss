@@ -8,8 +8,8 @@
 @import url(https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap);
 
 //Variables
-$logo-font: "Raleway", sans-serif;
-$text-font: "Inter", sans-serif;
+$logo-font: 'Raleway', sans-serif;
+$text-font: 'Inter', sans-serif;
 
 $white-color: #ffffff;
 $grey-color: #e1e1e1;
@@ -115,8 +115,8 @@ $background-color: #ececec;
   .inicio-cont-2 {
     grid-column: 2/3;
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
 
     .inicio-cont-boton {
       display: flex;
@@ -130,7 +130,7 @@ $background-color: #ececec;
     }
 
     .inicio-5 {
-      grid-row: 1/3;
+      grid-row: 1/2;
 
       .inicio-tit-cont {
         display: flex;
@@ -140,8 +140,46 @@ $background-color: #ececec;
     }
 
     .inicio-6 {
-      grid-row: 3/5;
+      grid-row: 2/3;
+      .vencimiento {
+        margin-top: 5px;
+        margin-bottom: 0;
+        .contenedor-card-pequeña-vencimiento {
+          border-radius: 10px;
+          margin-top: 0rem;
+          margin-left: 0px;
+          text-align: center;
+          .cont-card-pequeña-vencimiento {
+            background-color: white;
+            color: black;
+            .texto-1-vencimiento {
+              margin-top: 5%;
+              font-size: 22px;
+              .cantidad-dias {
+                color: #76b39d;
+                font-weight: bold;
+              }
+            }
 
+            .texto-vencimiento {
+              font-size: 16px;
+            }
+            .texto-3-vencimiento {
+              font-size: 16px;
+              .btn-vencimiento {
+                margin-top: 10px;
+                background-color: #262262;
+                color: white;
+                font-size: 12px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .inicio-7 {
+      grid-row: 3/4;
       .hacerme-premium {
         .contenedor-card-pequeña-premium {
           border-radius: 10px;
@@ -161,13 +199,13 @@ $background-color: #ececec;
               font-size: 16px;
             }
             .texto-3-premium {
-              margin-bottom: 7%;
               margin-top: 5%;
               font-size: 16px;
               .btn-premium {
                 margin-top: 10px;
                 background-color: white;
                 color: #f7941e;
+                font-size: 12px;
               }
             }
           }
@@ -182,5 +220,9 @@ $background-color: #ececec;
     .MuiCardContent-root {
       padding: 0rem;
     }
+  }
+
+  .MuiPaper-elevation1 {
+    box-shadow: none;
   }
 }
