@@ -59,11 +59,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const notificados = [
-  { value: 'Usuarios con comercio favorito' },
-  { value: 'Todos los usuarios' },
-];
-
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -84,11 +79,13 @@ function ProgramarNotificaciones(props) {
     { value: 'Todos los usuarios' },
   ]);
 
-  //use effect que trae los datos
   React.useEffect(() => {
     if (props.profile.tipoSuscripcion === 0) {
       setNotificados([{ value: 'Usuarios con comercio favorito' }]);
     }
+  }, [props.profile]);
+  //use effect que trae los datos
+  React.useEffect(() => {
     const obtenerPromociones = async () => {
       const firestore = firebase.firestore();
       try {
@@ -321,36 +318,40 @@ function ProgramarNotificaciones(props) {
                   )}
                 />
               </div>
-              <div className="texto-notif-geo">
-                <FormControlLabel
-                  value="activGeoloc"
-                  control={
-                    <Switch
-                      color="primary"
-                      checked={stateGeo.activo}
-                      onChange={handleChangeEnvioUbicacion}
-                      name="activo"
+              {props.profile.tipoSuscripcion === 2 ? (
+                <div>
+                  <div className="texto-notif-geo">
+                    <FormControlLabel
+                      value="activGeoloc"
+                      control={
+                        <Switch
+                          color="primary"
+                          checked={stateGeo.activo}
+                          onChange={handleChangeEnvioUbicacion}
+                          name="activo"
+                        />
+                      }
+                      label="Notificar solo a usuarios cercanos a mi tienda"
+                      labelPlacement="end"
                     />
-                  }
-                  label="Notificar solo a usuarios cercanos a mi tienda"
-                  labelPlacement="end"
-                />
-              </div>
-              <div className="text-envio-notif">
-                <FormControlLabel
-                  value="activEnvio"
-                  control={
-                    <Switch
-                      color="primary"
-                      checked={stateProgramar.activo}
-                      onChange={handleChangeProgramarEnvio}
-                      name="activo"
+                  </div>
+                  <div className="text-envio-notif">
+                    <FormControlLabel
+                      value="activEnvio"
+                      control={
+                        <Switch
+                          color="primary"
+                          checked={stateProgramar.activo}
+                          onChange={handleChangeProgramarEnvio}
+                          name="activo"
+                        />
+                      }
+                      label="Programar envío de notificación"
+                      labelPlacement="end"
                     />
-                  }
-                  label="Programar envío de notificación"
-                  labelPlacement="end"
-                />
-              </div>
+                  </div>
+                </div>
+              ) : null}
               {stateProgramar.activo ? (
                 <div className="programar-notif">
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -405,31 +406,58 @@ function ProgramarNotificaciones(props) {
               ) : (
                 ''
               )}
-
-              <div className="boton-enviar-notificacion">
-                <div>
-                  <Button
-                    variant="contained"
-                    className="btn-env-not"
-                    type="submit"
+              {props.profile.cantidadNotificaciones !== 0 ? (
+                <div className="boton-enviar-notificacion">
+                  <div>
+                    <Button
+                      variant="contained"
+                      className="btn-env-not"
+                      type="submit"
+                    >
+                      Enviar notificación
+                    </Button>
+                  </div>
+                  <Snackbar
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'left',
+                    }}
+                    open={open}
+                    autoHideDuration={8000}
+                    onClose={handleClose}
                   >
-                    Enviar notificación
-                  </Button>
+                    <Alert onClose={handleClose} severity="success">
+                      La notificación se envió correctamente!
+                    </Alert>
+                  </Snackbar>
                 </div>
-                <Snackbar
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                  open={open}
-                  autoHideDuration={8000}
-                  onClose={handleClose}
-                >
-                  <Alert onClose={handleClose} severity="success">
-                    La notificación se envió correctamente!
-                  </Alert>
-                </Snackbar>
-              </div>
+              ) : (
+                <div className="boton-enviar-notificacion">
+                  <div>
+                    <Button
+                      variant="contained"
+                      className="btn-env-not"
+                      type="submit"
+                      disabled
+                    >
+                      Enviar notificación
+                    </Button>
+                  </div>
+                  <Snackbar
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'left',
+                    }}
+                    open={open}
+                    autoHideDuration={8000}
+                    onClose={handleClose}
+                  >
+                    <Alert onClose={handleClose} severity="success">
+                      La notificación se envió correctamente!
+                    </Alert>
+                  </Snackbar>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>

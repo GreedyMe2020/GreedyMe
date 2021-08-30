@@ -16,6 +16,7 @@ const PaypalCheckoutButton = (props) => {
     direccion: props.profile.direccion,
     tipoSuscripcion: props.profile.tipoSuscripcion,
     fechaVencimiento: props.profile.fechaVencimiento,
+    cantidadNotificaciones: props.profile.cantidadNotificaciones,
   });
   const [plan, setPlan] = React.useState(formData.tipoSuscripcion);
 
@@ -29,8 +30,14 @@ const PaypalCheckoutButton = (props) => {
       fechaActual.getMonth(),
       fechaActual.getDate(),
     );
+    if (number === 1) {
+      formData.cantidadNotificaciones = 8;
+    } else {
+      formData.cantidadNotificaciones = 12;
+    }
     formData.tipoSuscripcion = number;
     setFormData({ ...formData });
+    console.log(formData.cantidadNotificaciones);
     handleSubmit();
   }
 
