@@ -32,6 +32,7 @@ export const signUp = (nuevoUsuario) => {
             sumadorPreguntas: 0,
             tokensFavoritos: [],
             fechaVencimiento: new Date(),
+            cantidadNotificaciones: 4,
           });
         const bd = secondaryApp.firestore();
         bd.collection('usuarioComercio').doc(resp.user.uid).set({
@@ -52,6 +53,7 @@ export const signUp = (nuevoUsuario) => {
           sumadorPreguntas: 0,
           tokensFavoritos: [],
           fechaVencimiento: new Date(),
+          cantidadNotificaciones: 4,
         });
       })
       .then(() => {

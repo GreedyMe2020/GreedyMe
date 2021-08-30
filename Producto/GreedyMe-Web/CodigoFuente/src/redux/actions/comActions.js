@@ -101,6 +101,7 @@ export const editarSuscripcion = (datos) => {
         direccion: datos.direccion,
         tipoSuscripcion: datos.tipoSuscripcion,
         fechaVencimiento: datos.fechaVencimiento,
+        cantidadNotificaciones: datos.cantidadNotificaciones,
       })
       .then(() => {
         const bd = secondaryApp.firestore();
@@ -115,6 +116,7 @@ export const editarSuscripcion = (datos) => {
           direccion: datos.direccion,
           tipoSuscripcion: datos.tipoSuscripcion,
           fechaVencimiento: datos.fechaVencimiento,
+          cantidadNotificaciones: datos.cantidadNotificaciones,
         });
       })
       .then(() => {

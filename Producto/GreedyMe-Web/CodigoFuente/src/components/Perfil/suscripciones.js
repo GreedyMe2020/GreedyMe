@@ -52,6 +52,7 @@ function Suscripciones(props) {
     direccion: props.profile.direccion,
     tipoSuscripcion: props.profile.tipoSuscripcion,
     fechaVencimiento: props.profile.fechaVencimiento,
+    cantidadNotificaciones: props.profile.cantidadNotificaciones,
   });
 
   // Estado para el manejo del tipo de suscripcion actual del cliente
@@ -71,6 +72,7 @@ function Suscripciones(props) {
   const classes = useStyles();
 
   function handlePlan(number) {
+    formData.cantidadNotificaciones = 4;
     //ACA ESTARIA BUENO QUE SALGA UN CARTELITO DICIENDO: SEGURO QUE QUIERE ACTUALIZAR EL PLAN A ESTANDAR??? Porque sino queda muy pelado
     setPlan(number);
     formData.fechaVencimiento = new Date();
