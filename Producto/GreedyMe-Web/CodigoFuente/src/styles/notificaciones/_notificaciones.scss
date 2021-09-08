@@ -120,6 +120,11 @@ $background-color: #ececec;
           background-color: #262262;
           color: white;
         }
+        .btn-env-not-disabled {
+          margin-left: 1rem;
+          background-color: rgba(0,0,0,0.12);
+          color: white;
+        }
       }
     }
   }

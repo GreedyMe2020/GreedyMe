@@ -23,6 +23,7 @@ function VencimientoSuscripcion(props) {
     direccion: props.profile.direccion,
     tipoSuscripcion: props.profile.tipoSuscripcion,
     fechaVencimiento: props.profile.fechaVencimiento,
+    cantidadNotificaciones: props.profile.cantidadNotificaciones,
   });
 
   const calcularDias = () => {

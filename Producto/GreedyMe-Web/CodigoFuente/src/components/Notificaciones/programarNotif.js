@@ -29,6 +29,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {
   generarNotificacionesTodos,
   generarNotificacionesFavoritos,
+  actualizarNotificaciones,
 } from '../../redux/actions/comActions';
 
 const useStyles = makeStyles((theme) => ({
@@ -79,6 +80,20 @@ function ProgramarNotificaciones(props) {
     { value: 'Todos los usuarios' },
   ]);
 
+  const [formData, setFormData] = React.useState({
+    id: props.auth.uid,
+    web: props.profile.web,
+    sucursal: props.profile.sucursal,
+    rubro: props.profile.rubro,
+    telefono: props.profile.telefono,
+    instagram: props.profile.instagram,
+    facebook: props.profile.facebook,
+    direccion: props.profile.direccion,
+    tipoSuscripcion: props.profile.tipoSuscripcion,
+    fechaVencimiento: props.profile.fechaVencimiento,
+    cantidadNotificaciones: props.profile.cantidadNotificaciones,
+  });
+
   React.useEffect(() => {
     if (props.profile.tipoSuscripcion === 0) {
       setNotificados([{ value: 'Usuarios con comercio favorito' }]);
@@ -111,11 +126,11 @@ function ProgramarNotificaciones(props) {
               (promo.valueProveedor === 'Otro'
                 ? promo.otroProveedor
                 : promo.valueProveedor === 'Todos'
-                ? 'Todos los Bancos'
-                : promo.valueProveedor) +
+                  ? 'Todos los Bancos'
+                  : promo.valueProveedor) +
               ', ' +
               (promo.tipoProveedor === 'Tarjetas de crédito' ||
-              promo.tipoProveedor === 'Tarjetas de débito'
+                promo.tipoProveedor === 'Tarjetas de débito'
                 ? promo.otroProveedor + ' '
                 : '') +
               (promo.otroProveedor === 'Todas'
@@ -222,12 +237,16 @@ function ProgramarNotificaciones(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    formData.cantidadNotificaciones -= 1;
+    setFormData({ ...formData });
+    props.actualizarNotificaciones(formData);
     if (notificaciones === 'Todos los usuarios') {
       props.generarNotificacionesTodos(
         nombreComercio,
         beneficioElegido,
         props.profile.photoURL,
       );
+
       setOpen(true);
     } else if (notificaciones === 'Usuarios con comercio favorito') {
       props.generarNotificacionesFavoritos(
@@ -413,6 +432,7 @@ function ProgramarNotificaciones(props) {
                       variant="contained"
                       className="btn-env-not"
                       type="submit"
+                      disabled
                     >
                       Enviar notificación
                     </Button>
@@ -436,7 +456,7 @@ function ProgramarNotificaciones(props) {
                   <div>
                     <Button
                       variant="contained"
-                      className="btn-env-not"
+                      className="btn-env-not-disabled"
                       type="submit"
                       disabled
                     >
@@ -475,6 +495,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    actualizarNotificaciones: (datos) => dispatch(actualizarNotificaciones(datos)),
     generarNotificacionesTodos: (titulo, mensaje, url) =>
       dispatch(generarNotificacionesTodos(titulo, mensaje, url)),
     generarNotificacionesFavoritos: (tokens, titulo, mensaje, url) =>

@@ -276,3 +276,29 @@ export const generarNotificacionesFavoritos = (
       });
   };
 };
+
+export const actualizarNotificaciones = (datos) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const firestore = getFirestore();
+    firestore
+      .collection('usuarioComercio')
+      .doc(datos.id)
+      .update({
+        cantidadNotificaciones: datos.cantidadNotificaciones,
+      })
+      .then(() => {
+        const bd = secondaryApp.firestore();
+
+        bd.collection('usuarioComercio').doc(datos.id).update({
+          cantidadNotificaciones: datos.cantidadNotificaciones,
+        });
+      })
+      .then(() => {
+        dispatch({ type: 'ACTUALIZAR_NOTIFICACIONES' });
+      })
+      .catch((error) => {
+        dispatch({ type: 'ERROR_ACTUALIZACION_NOTIFICACIONES', error });
+      });
+  };
+};
