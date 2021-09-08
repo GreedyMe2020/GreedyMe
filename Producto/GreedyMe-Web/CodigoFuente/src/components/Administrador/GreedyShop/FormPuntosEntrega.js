@@ -159,7 +159,6 @@ function FormPuntoEntrega(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     puntoRetiro: state.admin.puntoRetiro,
     puntoRetiroEliminado: state.admin.puntoRetiroEliminado,

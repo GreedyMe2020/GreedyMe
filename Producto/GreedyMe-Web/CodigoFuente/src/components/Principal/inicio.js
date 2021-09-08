@@ -6,11 +6,12 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import { makeStyles } from '@material-ui/core/styles';
-import { Link } from '@reach/router';
+import { fade, makeStyles } from '@material-ui/core/styles';
+import { Redirect, Link } from '@reach/router';
 import Statistics from '../../../Multimedia/Sistema-svg/statistics-inicio.svg';
 import Notificaciones from '../../../Multimedia/Sistema-svg/notificaciones-inicio.svg';
 import HacermePremium from '../Notificaciones/haztePremium';
+import VencimientoSuscripcion from '../Notificaciones/vencimientoSuscripcion';
 import { connect } from 'react-redux';
 import firebase from '../../firebase/config';
 
@@ -229,6 +230,14 @@ function Inicio(props) {
           </Card>
         </div>
         <div className="inicio-6">
+          {props.profile.fechaVencimiento &&
+          props.profile.tipoSuscripcion !== 0 ? (
+            <VencimientoSuscripcion
+              setSeleccionado={props.setSeleccionado}
+            />
+          ) : null}
+        </div>
+        <div className="inicio-7">
           {props.profile.tipoSuscripcion === 2 ? null : (
             <HacermePremium setSeleccionado={props.setSeleccionado} />
           )}

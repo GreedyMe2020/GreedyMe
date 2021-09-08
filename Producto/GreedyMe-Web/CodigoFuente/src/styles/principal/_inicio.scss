@@ -1,5 +1,5 @@
 //Google fonts
-@import url(http://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Raleway:wght@500;600&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Raleway:wght@500;600&display=swap);
 @import url(https://fonts.googleapis.com/css2?family=Roboto&display=swap);
 
 //Inter (thin, medium & bold 700)
@@ -197,13 +197,13 @@ $background-color: #ececec;
               font-size: 16px;
             }
             .texto-3-premium {
-              margin-bottom: 7%;
               margin-top: 5%;
               font-size: 16px;
               .btn-premium {
                 margin-top: 10px;
                 background-color: white;
                 color: #f7941e;
+                font-size: 12px;
               }
             }
           }
@@ -218,6 +218,10 @@ $background-color: #ececec;
     .MuiCardContent-root {
       padding: 0rem;
     }
+  }
+
+  .MuiPaper-elevation1 {
+    box-shadow: none;
   }
 }
 

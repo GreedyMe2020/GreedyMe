@@ -31,6 +31,8 @@ export const signUp = (nuevoUsuario) => {
             contadorPreguntas: 0,
             sumadorPreguntas: 0,
             tokensFavoritos: [],
+            fechaVencimiento: new Date(),
+            cantidadNotificaciones: 4,
           });
         const bd = secondaryApp.firestore();
         bd.collection('usuarioComercio').doc(resp.user.uid).set({
@@ -49,7 +51,9 @@ export const signUp = (nuevoUsuario) => {
           fechaCreacion: new Date(),
           contadorPreguntas: 0,
           sumadorPreguntas: 0,
-          tokensFavoritos: []
+          tokensFavoritos: [],
+          fechaVencimiento: new Date(),
+          cantidadNotificaciones: 4,
         });
       })
       .then(() => {
@@ -265,7 +269,6 @@ export const cargarBanco = (formData) => {
     const listaNueva2 = _.concat(lista2, {
       name: formData.valueProveedor,
     });
-    console.log(listaNueva2);
 
     const firestore = getFirestore();
     firestore
@@ -298,7 +301,6 @@ export const cargarTipoProveedor = (formData) => {
       );
     }
     //codigo asincrono
-    console.log(identificacion);
     const firestore = getFirestore();
     firestore
       .collection('proveedorServicio')

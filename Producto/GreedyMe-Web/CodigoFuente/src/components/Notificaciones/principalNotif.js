@@ -2,6 +2,7 @@ import React from 'react';
 import ProgramarNotificaciones from './programarNotif';
 import LateralNotificaciones from './cardLateralNotif';
 import HacermePremium from './haztePremium';
+import VencimientoSuscripcion from './vencimientoSuscripcion';
 import { connect } from 'react-redux';
 
 function Notificaciones(props) {
@@ -9,11 +10,6 @@ function Notificaciones(props) {
     <div>
       <div className="prom-title-container">
         <h1>Notificaciones</h1>
-      </div>
-      <div className="subtitulo-notif">
-        <h6>
-          Gestioná las notificaciones push que enviás a los usuarios
-        </h6>
       </div>
       <div className="contenedor-notificaciones-todo">
         <div className="card-programar">
@@ -45,7 +41,6 @@ function Notificaciones(props) {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     profile: state.firebase.profile,
   };

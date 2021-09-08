@@ -142,15 +142,25 @@ function Estadisticas(props) {
           </CardContent>
         </Card>
       </div>
-      <div className="container-discount">
-        <CantidadXDescuento />
-      </div>
-      <div className="container-discount">
-        <ComerciosFavoritos />
-      </div>
-      <div className="container-discount print">
-        <ExperienciaCompra />
-      </div>
+
+      {props.profile.tipoSuscripcion === 1 ? (
+        <div class="container-discount">
+          <ExperienciaCompra />
+        </div>
+      ) : null}
+      {props.profile.tipoSuscripcion === 2 ? (
+        <div>
+          <div class="container-discount">
+            <CantidadXDescuento />
+          </div>
+          <div class="container-discount">
+            <ComerciosFavoritos />
+          </div>
+          <div class="container-discount">
+            <ExperienciaCompra />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
