@@ -188,44 +188,46 @@ function Inicio(props) {
         </Card>
       </div>
       <div className="inicio-cont-2">
-        <Card className="inicio-cont-cupones inicio-5 inicio-cards">
-          <CardContent>
-            <div className="inicio-tit-cont">
-              <h1 className="inicio-titulo">Ayuda</h1>
-              <p>¿En qué podemos ayudarte?</p>
-            </div>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
+        <div className="inicio-5">
+          <Card className="inicio-cont-cupones inicio-cards">
+            <CardContent>
+              <div className="inicio-tit-cont">
+                <h1 className="inicio-titulo">Ayuda</h1>
+                <p>
+                  Hacenos cualquier pregunta y conseguí la ayuda que
+                  necesitas.
+                </p>
               </div>
-              <InputBase
-                placeholder="Preguntas…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </div>
-            <p>
-              Hacenos cualquier pregunta y conseguí la ayuda que
-              necesitas.
-            </p>
-            <CardActions className="inicio-cont-boton">
-              <Typography color="textSecondary" gutterBottom>
-                <Link
-                  to={'/main/' + props.auth.uid + '/ayuda-y-soporte'}
-                  onClick={() => {
-                    props.setSeleccionado(8);
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  placeholder="Preguntas…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
                   }}
-                >
-                  Visitá el Centro de Ayuda
-                </Link>
-              </Typography>
-            </CardActions>
-          </CardContent>
-        </Card>
-
+                  inputProps={{ 'aria-label': 'search' }}
+                />
+              </div>
+              <CardActions className="inicio-cont-boton">
+                <Typography color="textSecondary" gutterBottom>
+                  <Link
+                    to={
+                      '/main/' + props.auth.uid + '/ayuda-y-soporte'
+                    }
+                    onClick={() => {
+                      props.setSeleccionado(8);
+                    }}
+                  >
+                    Visitá el Centro de Ayuda
+                  </Link>
+                </Typography>
+              </CardActions>
+            </CardContent>
+          </Card>
+        </div>
         <div className="inicio-6">
           {props.profile.tipoSuscripcion === 2 ? null : (
             <HacermePremium setSeleccionado={props.setSeleccionado} />

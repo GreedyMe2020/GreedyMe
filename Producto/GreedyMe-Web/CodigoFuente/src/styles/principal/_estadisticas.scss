@@ -160,3 +160,9 @@ $background-color: #ececec;
     margin-top: 10px;
   }
 }
+
+@media only screen and (max-width: 1050px) {
+  .graphic-exp {
+    flex-wrap: wrap;
+  }
+}
