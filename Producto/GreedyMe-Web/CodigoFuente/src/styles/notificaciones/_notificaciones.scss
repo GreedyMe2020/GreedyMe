@@ -140,11 +140,6 @@ $background-color: #ececec;
     grid-column: 2/3;
     display: block;
     flex-direction: column;
-    flex-wrap: wrap row;
-  }
-  .card-lateral-premium {
-    grid-column: 2/3;
-    grid-row: 3/4;
   }
 }
 
@@ -243,87 +238,8 @@ $background-color: #ececec;
     }
   }
 }
-.vencimiento {
-  margin-bottom: 1rem;
-  .contenedor-card-pequeña-vencimiento {
-    border-radius: 10px;
-    box-shadow: 0px 10px 10px 0px #e1e1e1;
-    margin-left: 10%;
-    text-align: center;
-    .cont-card-pequeña-vencimiento {
-      background-color: white;
-      color: black;
-      .texto-1-vencimiento {
-        margin-top: 5%;
-        font-size: 22px;
-        .cantidad-dias {
-          color: #76b39d;
-          font-weight: bold;
-        }
-      }
-
-      .texto-vencimiento {
-        font-size: 16px;
-      }
-      .texto-3-vencimiento {
-        font-size: 16px;
-        .btn-vencimiento {
-          margin-top: 10px;
-          background-color: #262262;
-          color: white;
-          font-size: 12px;
-        }
-      }
-    }
-  }
-}
 
 @media only screen and (max-width: 925px) {
-  .contenedor-todo-notif {
-    .card-notif {
-      .card-content-notif {
-        .programar-notif {
-          margin-top: 1.2rem;
-          width: 100%;
-          display: grid;
-          grid-template-columns: 5% 1fr 5%;
-          grid-template-rows: 1fr 1fr;
-          justify-items: flex;
-          align-items: flex-start;
-          margin-bottom: 1rem;
-          .fecha-notif {
-            grid-column: 2/3;
-            grid-row: 1/2;
-            padding-right: 0px;
-            .MuiOutlinedInput-adornedEnd {
-              padding-right: 5px;
-            }
-          }
-          .hora-notif {
-            margin-top: 0.5rem;
-            grid-column: 2/3;
-            grid-row: 2/3;
-            .MuiOutlinedInput-adornedEnd {
-              padding-right: 5px;
-            }
-          }
-        }
-        .boton-enviar-notificacion {
-          display: flex;
-          flex-flow: row wrap;
-          justify-content: center;
-          margin-right: 2.8rem;
-          margin-bottom: 1rem;
-          margin-top: 2rem;
-          .btn-env-not {
-            margin-left: 1rem;
-            background-color: #262262;
-            color: white;
-          }
-        }
-      }
-    }
-  }
   .contenedor-notificaciones-todo {
     margin-bottom: 1rem;
     display: block;
