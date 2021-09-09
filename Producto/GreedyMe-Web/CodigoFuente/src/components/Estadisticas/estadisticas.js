@@ -112,7 +112,7 @@ function Estadisticas(props) {
         }}
       >
         <h1>Estadísticas</h1>
-        <Button
+        {props.profile.tipoSuscripcion === 2 ? (<Button
           variant="contained"
           id="imprimir"
           style={{ backgroundColor: '#262262', color: 'white' }}
@@ -120,7 +120,7 @@ function Estadisticas(props) {
           endIcon={<Print />}
         >
           Imprimir
-        </Button>
+        </Button>) : (null)}
       </div>
       <div className="est-cards-container">
         <Card id="est-card">

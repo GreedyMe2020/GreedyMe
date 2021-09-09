@@ -114,10 +114,10 @@ function Estadisticas(props) {
                       suscripcion[0] === '0'
                         ? 'Plan Básico'
                         : suscripcion[0] === '1'
-                        ? 'Plan Estándar'
-                        : suscripcion[0] === '2'
-                        ? 'Plan Premium'
-                        : null,
+                          ? 'Plan Estándar'
+                          : suscripcion[0] === '2'
+                            ? 'Plan Premium'
+                            : null,
                     y: suscripcion[1].length,
                   };
                 },

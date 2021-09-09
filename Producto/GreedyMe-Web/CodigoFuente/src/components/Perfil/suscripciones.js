@@ -73,7 +73,6 @@ function Suscripciones(props) {
 
   function handlePlan(number) {
     formData.cantidadNotificaciones = 4;
-    //ACA ESTARIA BUENO QUE SALGA UN CARTELITO DICIENDO: SEGURO QUE QUIERE ACTUALIZAR EL PLAN A ESTANDAR??? Porque sino queda muy pelado
     setPlan(number);
     formData.fechaVencimiento = new Date();
     formData.tipoSuscripcion = number;
