@@ -7,9 +7,9 @@
 @import url(https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap);
 
 //Variables
-$logo-font: "Raleway", sans-serif;
-$text-font: "Inter", sans-serif;
-$text-font-dos: "Montserrat", sans-serif;
+$logo-font: 'Raleway', sans-serif;
+$text-font: 'Inter', sans-serif;
+$text-font-dos: 'Montserrat', sans-serif;
 
 $white-color: #ffffff;
 $grey-color: #e1e1e1;
@@ -118,7 +118,7 @@ $dark-orange-color: #fd5f00;
       border-radius: 50px;
       margin-top: 0.625rem;
       text-align: center;
-      font-family: "ProductSans-Regular", sans-serif;
+      font-family: 'ProductSans-Regular', sans-serif;
       font-style: normal;
       font-size: 1rem;
       color: rgba(249, 248, 235, 1);
@@ -243,6 +243,7 @@ $dark-orange-color: #fd5f00;
         font-size: 18px;
         color: rgba(0, 0, 0, 1);
         letter-spacing: 0.05px;
+        text-align: justify;
       }
     }
   }
@@ -327,6 +328,7 @@ $dark-orange-color: #fd5f00;
     justify-content: center;
     flex-flow: row wrap;
     margin-bottom: 8.125rem;
+    text-align: justify;
 
     .cardPlanes {
       padding: 10px 20px;
@@ -403,7 +405,7 @@ $dark-orange-color: #fd5f00;
         pointer-events: none;
         position: absolute;
         z-index: -1;
-        content: "";
+        content: '';
         top: 100%;
         left: 5%;
         height: 10px;
@@ -509,9 +511,9 @@ $dark-orange-color: #fd5f00;
   margin-top: 2.3rem;
   display: grid;
   grid-template-areas:
-    "textoApp"
-    "contenedorCel"
-    "contenedorDescarga";
+    'textoApp'
+    'contenedorCel'
+    'contenedorDescarga';
 
   .textoApp {
     grid-area: textoApp;
@@ -557,11 +559,11 @@ $dark-orange-color: #fd5f00;
 
 @media only screen and (min-width: 800px) {
   .descargaApp {
-    grid-template-columns: 5% 2fr 1fr;
+    grid-template-columns: 5% 4fr 1fr;
     grid-template-areas:
-      ". textoApp contenedorCel"
-      ". contenedorDescarga contenedorCel"
-      ". . .";
+      '. textoApp contenedorCel'
+      '. contenedorDescarga contenedorCel'
+      '. . .';
 
     .contenedorCel {
       justify-content: flex-start;
@@ -585,7 +587,7 @@ $dark-orange-color: #fd5f00;
 @media only screen and (min-width: 900px) {
   .descargaApp {
     .textoApp {
-      margin-top: 1.875rem;
+      margin-top: 3.875rem;
       margin-bottom: -3.125rem !important;
     }
   }
@@ -627,7 +629,7 @@ $dark-orange-color: #fd5f00;
     }
     .logoFooter {
       display: inline-block;
-      font-family: "GlacialIndifference-Regular";
+      font-family: 'GlacialIndifference-Regular';
       font-size: 30px;
       letter-spacing: 1px;
     }
