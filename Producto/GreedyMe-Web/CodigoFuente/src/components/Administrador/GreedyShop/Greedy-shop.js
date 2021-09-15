@@ -40,9 +40,6 @@ const useStyles = makeStyles((theme) => ({
     top: '8px',
     color: theme.palette.grey[500],
   },
-  inline: {
-    display: 'block',
-  },
 }));
 
 function Alert(props) {
@@ -143,7 +140,7 @@ function ListaUsuarios(props) {
   return (
     <div>
       <ModalAdministrador
-        title="Productos"
+        title="GreedyPremios"
         titleModal="Cargar nuevo producto"
         button="Nuevo producto"
         openContent={<FormProducto />}
@@ -176,13 +173,16 @@ function ListaUsuarios(props) {
                               <ListItemText
                                 primary={
                                   <React.Fragment>
-                                    <Typography
-                                      className={classes.inline}
-                                    >
+                                    <Typography>
                                       {premio.nombre}
                                     </Typography>
-                                    <Typography>
-                                      {premio.greedyPoints}
+                                    <Typography
+                                      style={{
+                                        fontWeight: 'bold',
+                                        color: '#76b39d',
+                                      }}
+                                    >
+                                      {premio.greedyPoints} puntos
                                     </Typography>
                                   </React.Fragment>
                                 }

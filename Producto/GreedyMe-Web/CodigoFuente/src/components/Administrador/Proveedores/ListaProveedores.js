@@ -108,7 +108,7 @@ function ListaProveedores(props) {
   return (
     <div>
       <ModalAdministradorPr
-        title="Proveedores"
+        title="Proveedores de beneficios"
         button="Cargar proveedor"
         button2="Cargar tipo proveedor"
         titleModal="Cargar nuevo proveedor"

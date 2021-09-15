@@ -129,7 +129,7 @@ function ProductosCanjeados(props) {
   return (
     <div>
       <div className="prom-title-container">
-        <h1>Productos canjeados</h1>
+        <h1>GreedyCanjes</h1>
       </div>
       <div className="contenedorTodo">
         <div className="cardPromo">
