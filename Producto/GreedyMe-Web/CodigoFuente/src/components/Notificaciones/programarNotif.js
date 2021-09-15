@@ -126,11 +126,11 @@ function ProgramarNotificaciones(props) {
               (promo.valueProveedor === 'Otro'
                 ? promo.otroProveedor
                 : promo.valueProveedor === 'Todos'
-                  ? 'Todos los Bancos'
-                  : promo.valueProveedor) +
+                ? 'Todos los Bancos'
+                : promo.valueProveedor) +
               ', ' +
               (promo.tipoProveedor === 'Tarjetas de crédito' ||
-                promo.tipoProveedor === 'Tarjetas de débito'
+              promo.tipoProveedor === 'Tarjetas de débito'
                 ? promo.otroProveedor + ' '
                 : '') +
               (promo.otroProveedor === 'Todas'
@@ -337,7 +337,8 @@ function ProgramarNotificaciones(props) {
                   )}
                 />
               </div>
-              {props.profile.tipoSuscripcion === 2 ? (
+              {/* DESCOMENTAR CUANDO SE QUIERA IMPLEMENTAR O FUNCIONE */}
+              {/* {props.profile.tipoSuscripcion === 2 ? (
                 <div>
                   <div className="texto-notif-geo">
                     <FormControlLabel
@@ -370,8 +371,8 @@ function ProgramarNotificaciones(props) {
                     />
                   </div>
                 </div>
-              ) : null}
-              {stateProgramar.activo ? (
+              ) : null} */}
+              {/* {stateProgramar.activo ? (
                 <div className="programar-notif">
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <DatePicker
@@ -424,7 +425,7 @@ function ProgramarNotificaciones(props) {
                 </div>
               ) : (
                 ''
-              )}
+              )} */}
               {props.profile.cantidadNotificaciones !== 0 ? (
                 <div className="boton-enviar-notificacion">
                   <div>
@@ -432,7 +433,6 @@ function ProgramarNotificaciones(props) {
                       variant="contained"
                       className="btn-env-not"
                       type="submit"
-                      disabled
                     >
                       Enviar notificación
                     </Button>
@@ -456,26 +456,12 @@ function ProgramarNotificaciones(props) {
                   <div>
                     <Button
                       variant="contained"
-                      className="btn-env-not-disabled"
                       type="submit"
                       disabled
                     >
                       Enviar notificación
                     </Button>
                   </div>
-                  <Snackbar
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'left',
-                    }}
-                    open={open}
-                    autoHideDuration={8000}
-                    onClose={handleClose}
-                  >
-                    <Alert onClose={handleClose} severity="success">
-                      La notificación se envió correctamente!
-                    </Alert>
-                  </Snackbar>
                 </div>
               )}
             </CardContent>
@@ -495,7 +481,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actualizarNotificaciones: (datos) => dispatch(actualizarNotificaciones(datos)),
+    actualizarNotificaciones: (datos) =>
+      dispatch(actualizarNotificaciones(datos)),
     generarNotificacionesTodos: (titulo, mensaje, url) =>
       dispatch(generarNotificacionesTodos(titulo, mensaje, url)),
     generarNotificacionesFavoritos: (tokens, titulo, mensaje, url) =>
