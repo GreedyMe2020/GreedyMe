@@ -1,6 +1,7 @@
 const initState = {
   usuarioCreado: null,
   usuarioFalla: null,
+  usuarioCuitFalla: null,
   usuarioModificado: null,
   errorModificacion: null,
   usuarioEliminado: null,
@@ -34,7 +35,8 @@ const adminReducer = (state = initState, action) => {
       return {
         ...state,
         usuarioCreado: 'Se creo un nuevo usuario',
-        usuarioFall: null,
+        usuarioFalla: null,
+        usuarioCuitFalla: null,
       };
     case 'FALLO_CREACION':
       console.log('fallo');
@@ -42,6 +44,15 @@ const adminReducer = (state = initState, action) => {
         ...state,
         usuarioFalla: 'fallo la creacion de usuario',
         usuarioCreado: null,
+        usuarioCuitFalla: null,
+      };
+    case 'FALLO_CUIT':
+      console.log('fallo');
+      return {
+        ...state,
+        usuarioCuitFalla: 'fallo la creacion de usuario por cuit',
+        usuarioCreado: null,
+        usuarioFalla: null,
       };
     case 'USUARIO_MODIFICADO':
       console.log('se modifico');
@@ -146,6 +157,7 @@ const adminReducer = (state = initState, action) => {
         ...state,
         usuarioCreado: null,
         usuarioFalla: null,
+        usuarioCuitFalla: null,
       };
     //PREMIOS
     case 'CARGAR_PREMIO':
