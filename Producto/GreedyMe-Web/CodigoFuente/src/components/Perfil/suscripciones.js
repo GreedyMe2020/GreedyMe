@@ -73,7 +73,6 @@ function Suscripciones(props) {
 
   function handlePlan(number) {
     formData.cantidadNotificaciones = 4;
-    //ACA ESTARIA BUENO QUE SALGA UN CARTELITO DICIENDO: SEGURO QUE QUIERE ACTUALIZAR EL PLAN A ESTANDAR??? Porque sino queda muy pelado
     setPlan(number);
     formData.fechaVencimiento = new Date();
     formData.tipoSuscripcion = number;
@@ -197,7 +196,9 @@ function Suscripciones(props) {
                     </Box>,
                     'Figurar en búsquedas por geolocalización',
                     '-',
-                    'Publicidad dentro de la aplicación mobile\n ',
+                    <Box lineHeight={1.7} m={1}>
+                    -
+                  </Box>,
                   ]}
                   style1="planes-title planes-estandar-1"
                   style2="planes-precio planes-estandar-2"
@@ -234,11 +235,11 @@ function Suscripciones(props) {
                     'Estadísticas avanzadas',
                     '30 notificaciones por mes',
                     'Notificaciones a todos los usuarios',
-                    'Notificaciones a usuarios cerca del negocio',
+                    'Notificaciones programadas por fecha y hora',
                     'Figurar en búsquedas por geolocalización',
                     'Exportación de reportes estadísticos',
                     <Box lineHeight={1.75} m={1}>
-                      Publicidad dentro de la aplicación
+                     Publicidad dentro de la aplicación
                     </Box>,
                   ]}
                   style1="planes-title planes-premuim-1"

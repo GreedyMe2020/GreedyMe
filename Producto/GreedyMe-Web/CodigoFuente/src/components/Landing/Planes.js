@@ -28,21 +28,25 @@ export function Planes() {
               <Check />
             </IconButton>
           }
-          contenido1="Acceso a estadísticas base"
+          contenido1="Autogestión de tus descuentos y promociones"
           src2={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido2="Notificaciones a clientes favoritos"
+          contenido2="Acceso a estadísticas base"
           src3={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido3="4 notificaciones por mes"
-          src4={""}
-          src5={""}
+          contenido3="Envío limitado de notificaciones a usuarios"
+          src4={
+            <IconButton id="btn" className={classes.root}>
+              <Check />
+            </IconButton>
+          }
+          contenido4="Hasta 4 notificaciones por mes"
         ></CardPlanes>
         <CardPlanes
           titulo="ESTÁNDAR"
@@ -52,31 +56,25 @@ export function Planes() {
               <Check />
             </IconButton>
           }
-          contenido1="Mayor cantidad de estadísticas"
+          contenido1="Autogestión de tus descuentos y promociones"
           src2={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido2="Notificaciones a todos los usuarios"
+          contenido2="Acceso a estadísticas avanzadas"
           src3={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido3="8 notificaciones por mes"
+          contenido3="Envío de notificaciones a todos los usuarios"
           src4={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido4="Publicidad de tu negocio"
-          src5={
-            <IconButton id="btn" className={classes.root}>
-              <Check />
-            </IconButton>
-          }
-          contenido5="Aparecer en búsquedas por geolocalización"
+          contenido4="Hasta 8 notificaciones por mes"
         ></CardPlanes>
         <CardPlanes
           titulo="PREMIUM"
@@ -86,19 +84,19 @@ export function Planes() {
               <Check />
             </IconButton>
           }
-          contenido1="Estadísticas avanzadas"
+          contenido1="Acceso a una mayor variedad de estadísticas"
           src2={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido2="Notificación a los usuarios cercanos a tu negocio"
+          contenido2="Programá tus notificaciones para una fecha y hora determinada"
           src3={
             <IconButton id="btn" className={classes.root}>
               <Check />
             </IconButton>
           }
-          contenido3="30 notificaciones por mes"
+          contenido3="Hasta 30 notificaciones por mes"
           src4={
             <IconButton id="btn" className={classes.root}>
               <Check />
@@ -110,21 +108,9 @@ export function Planes() {
               <Check />
             </IconButton>
           }
-          contenido5="Mejor posicionamiento en la app"
-          // src6={
-          //   <IconButton id="btn" className={classes.root}>
-          //     <Check />
-          //   </IconButton>
-          // }
-          // contenido6="Ofrecimiento de recompensas propias por GreedyPoints"
+          contenido5="Publicidad de tu negocio en la app"
         ></CardPlanes>
       </div>
-      {/*  <div>
-        <span>
-          *Cualquier tipo de suscripción comienza con un periodo de prueba de 30
-          días del plan Premium
-        </span>
-      </div> */}
     </div>
   );
 }

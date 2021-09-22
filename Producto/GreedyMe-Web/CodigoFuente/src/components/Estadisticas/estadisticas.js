@@ -104,10 +104,15 @@ function Estadisticas(props) {
     <div>
       <div
         className="prom-title-container"
-        style={{ display: 'flex', justifyContent: 'space-between' }}
+        style={{
+          display: 'grid',
+          gridGap: 10,
+          gridTemplateColumns: '8fr 2fr',
+          marginRight: '5%',
+        }}
       >
         <h1>Estadísticas</h1>
-        <Button
+        {props.profile.tipoSuscripcion === 2 ? (<Button
           variant="contained"
           id="imprimir"
           style={{ backgroundColor: '#262262', color: 'white' }}
@@ -115,7 +120,7 @@ function Estadisticas(props) {
           endIcon={<Print />}
         >
           Imprimir
-        </Button>
+        </Button>) : (null)}
       </div>
       <div className="est-cards-container">
         <Card id="est-card">

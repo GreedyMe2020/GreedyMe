@@ -33,11 +33,10 @@ const PaypalCheckoutButton = (props) => {
     if (number === 1) {
       formData.cantidadNotificaciones = 8;
     } else {
-      formData.cantidadNotificaciones = 12;
+      formData.cantidadNotificaciones = 30;
     }
     formData.tipoSuscripcion = number;
     setFormData({ ...formData });
-    console.log(formData.cantidadNotificaciones);
     handleSubmit();
   }
 

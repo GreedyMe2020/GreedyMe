@@ -1,16 +1,16 @@
-import React from "react";
-import KeyboardArrowUp from "@material-ui/icons/KeyboardArrowUp";
-import { makeStyles } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
+import React from 'react';
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
+import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
-    color: theme.palette.getContrastText("#e1e1e1"),
-    backgroundColor: "#e1e1e1",
-    float: "right",
-    "&:hover": {
-      backgroundColor: "#c5c5c5",
+    color: theme.palette.getContrastText('#e1e1e1'),
+    backgroundColor: '#e1e1e1',
+    float: 'right',
+    '&:hover': {
+      backgroundColor: '#c5c5c5',
     },
   },
 }));
@@ -26,10 +26,10 @@ export function Footer() {
       setShowScroll(false);
     }
   };
-  window.addEventListener("scroll", checkScrollTop);
+  window.addEventListener('scroll', checkScrollTop);
 
   const scrollTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -45,14 +45,14 @@ export function Footer() {
         </IconButton>
       </div>
       <div className="footerContainer">
-        <div className="textoFooter">
+        {/* <div className="textoFooter">
           <p>Términos y condiciones</p>
           <p>Política de privacidad</p>
-        </div>
+        </div> */}
         <div className="logoFooter">
-          <span style={{ color: "rgb(255, 255, 255)" }}>g r e</span>
-          <span style={{ color: "#76B39D" }}> e d y</span>
-          <span style={{ color: "rgba(247,148,30,1)" }}> m e</span>
+          <span style={{ color: 'rgb(255, 255, 255)' }}>g r e</span>
+          <span style={{ color: '#76B39D' }}> e d y</span>
+          <span style={{ color: 'rgba(247,148,30,1)' }}> m e</span>
         </div>
       </div>
     </footer>

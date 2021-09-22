@@ -29,6 +29,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {
   generarNotificacionesTodos,
   generarNotificacionesFavoritos,
+  actualizarNotificaciones,
 } from '../../redux/actions/comActions';
 
 const useStyles = makeStyles((theme) => ({
@@ -78,6 +79,20 @@ function ProgramarNotificaciones(props) {
     { value: 'Usuarios con comercio favorito' },
     { value: 'Todos los usuarios' },
   ]);
+
+  const [formData, setFormData] = React.useState({
+    id: props.auth.uid,
+    web: props.profile.web,
+    sucursal: props.profile.sucursal,
+    rubro: props.profile.rubro,
+    telefono: props.profile.telefono,
+    instagram: props.profile.instagram,
+    facebook: props.profile.facebook,
+    direccion: props.profile.direccion,
+    tipoSuscripcion: props.profile.tipoSuscripcion,
+    fechaVencimiento: props.profile.fechaVencimiento,
+    cantidadNotificaciones: props.profile.cantidadNotificaciones,
+  });
 
   React.useEffect(() => {
     if (props.profile.tipoSuscripcion === 0) {
@@ -222,12 +237,16 @@ function ProgramarNotificaciones(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    formData.cantidadNotificaciones -= 1;
+    setFormData({ ...formData });
+    props.actualizarNotificaciones(formData);
     if (notificaciones === 'Todos los usuarios') {
       props.generarNotificacionesTodos(
         nombreComercio,
         beneficioElegido,
         props.profile.photoURL,
       );
+
       setOpen(true);
     } else if (notificaciones === 'Usuarios con comercio favorito') {
       props.generarNotificacionesFavoritos(
@@ -318,7 +337,8 @@ function ProgramarNotificaciones(props) {
                   )}
                 />
               </div>
-              {props.profile.tipoSuscripcion === 2 ? (
+              {/* DESCOMENTAR CUANDO SE QUIERA IMPLEMENTAR O FUNCIONE */}
+              {/* {props.profile.tipoSuscripcion === 2 ? (
                 <div>
                   <div className="texto-notif-geo">
                     <FormControlLabel
@@ -351,8 +371,8 @@ function ProgramarNotificaciones(props) {
                     />
                   </div>
                 </div>
-              ) : null}
-              {stateProgramar.activo ? (
+              ) : null} */}
+              {/* {stateProgramar.activo ? (
                 <div className="programar-notif">
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <DatePicker
@@ -405,7 +425,7 @@ function ProgramarNotificaciones(props) {
                 </div>
               ) : (
                 ''
-              )}
+              )} */}
               {props.profile.cantidadNotificaciones !== 0 ? (
                 <div className="boton-enviar-notificacion">
                   <div>
@@ -436,26 +456,12 @@ function ProgramarNotificaciones(props) {
                   <div>
                     <Button
                       variant="contained"
-                      className="btn-env-not"
                       type="submit"
                       disabled
                     >
                       Enviar notificación
                     </Button>
                   </div>
-                  <Snackbar
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'left',
-                    }}
-                    open={open}
-                    autoHideDuration={8000}
-                    onClose={handleClose}
-                  >
-                    <Alert onClose={handleClose} severity="success">
-                      La notificación se envió correctamente!
-                    </Alert>
-                  </Snackbar>
                 </div>
               )}
             </CardContent>
@@ -475,6 +481,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    actualizarNotificaciones: (datos) =>
+      dispatch(actualizarNotificaciones(datos)),
     generarNotificacionesTodos: (titulo, mensaje, url) =>
       dispatch(generarNotificacionesTodos(titulo, mensaje, url)),
     generarNotificacionesFavoritos: (tokens, titulo, mensaje, url) =>

@@ -15,21 +15,25 @@ function Notificaciones(props) {
         <div className="card-programar">
           <ProgramarNotificaciones />
         </div>
-        <div className="card-lateral">
-          <LateralNotificaciones />
-        </div>
-        <div className="card-lateral-vencimiento">
-          {props.profile.fechaVencimiento &&
-          props.profile.tipoSuscripcion !== 0 ? (
-            <VencimientoSuscripcion
-              setSeleccionado={props.setSeleccionado}
-            />
-          ) : null}
-        </div>
-        <div className="card-lateral-premium">
-          {props.profile.tipoSuscripcion === 2 ? null : (
-            <HacermePremium setSeleccionado={props.setSeleccionado} />
-          )}
+        <div className="contenedor-cards-lateral">
+          <div className="card-lateral">
+            <LateralNotificaciones />
+          </div>
+          <div className="card-lateral-vencimiento">
+            {props.profile.fechaVencimiento &&
+            props.profile.tipoSuscripcion !== 0 ? (
+              <VencimientoSuscripcion
+                setSeleccionado={props.setSeleccionado}
+              />
+            ) : null}
+          </div>
+          <div className="card-lateral-premium">
+            {props.profile.tipoSuscripcion === 2 ? null : (
+              <HacermePremium
+                setSeleccionado={props.setSeleccionado}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

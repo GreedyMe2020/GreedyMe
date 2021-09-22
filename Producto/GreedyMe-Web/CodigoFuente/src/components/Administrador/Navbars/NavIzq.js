@@ -117,8 +117,8 @@ export default function NavIzq({ seleccionado, setSeleccionado }) {
           <ListItemCustomAdmin
             id="estadisticas"
             text="Estadísticas"
-            src1={require('../../../../Multimedia/Sistema-svg/statistics-grey.svg')}
-            src2={require('../../../../Multimedia/Sistema-svg/statistics-orange.svg')}
+            src1={require('../../../../Multimedia/Sistema-svg/statistics-dark.svg')}
+            src2={require('../../../../Multimedia/Sistema-svg/statistics-orange-1.svg')}
             className="estadisticas"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}

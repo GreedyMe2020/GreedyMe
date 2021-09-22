@@ -13,6 +13,8 @@ const initState = {
   errorNotificacionesTodos: null,
   notificacionesFav: null,
   errorNotificacionesFav: null,
+  actualizacionNotificacion: null,
+  erroractualizacionNotificacion: null,
 };
 
 const comReducer = (state = initState, action) => {
@@ -123,6 +125,18 @@ const comReducer = (state = initState, action) => {
       return {
         ...state,
         errorNotificacionesFav: 'Error al enviar notif a favoritos'
+      };
+    case "ACTUALIZACION_NOTIFICACION":
+      console.log("Se actualizo correctamente la notificacion");
+      return {
+        ...state,
+        actualizacionNotificacion: 'Se actualizo correctamente la notificacion'
+      };
+    case "ERROR_ACTUALIZACION_NOTIFICACION":
+      console.log("Hubo un error al actualizar la notificacion");
+      return {
+        ...state,
+        errorActualizacionNotificaciones: 'Error al actualizar la notificacion'
       };
     default:
       return state;

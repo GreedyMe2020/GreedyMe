@@ -78,7 +78,7 @@ export default function NavBarIzq({ seleccionado, setSeleccionado }) {
             id="estadisticas"
             text="Estadísticas"
             src1={require('../../../Multimedia/Sistema-svg/statistics-grey.svg')}
-            src2={require('../../../Multimedia/Sistema-svg/statistics-orange.svg')}
+            src2={require('../../../Multimedia/Sistema-svg/statistics-orange-1.svg')}
             className="estadisticas"
             seleccionado={seleccionado}
             setSeleccionado={setSeleccionado}

@@ -27,12 +27,7 @@ $background-color: #ececec;
 
 .prom-title-container {
   margin-top: 35px;
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: 8fr 2fr;
-  grid-template-rows: repeat(auto-fill, [row] auto);
   margin-left: 5%;
-  margin-right: 5%;
   h1 {
     font-weight: 500;
     font-size: 1.5rem;
