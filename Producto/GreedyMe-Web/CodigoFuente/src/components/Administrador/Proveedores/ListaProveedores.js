@@ -22,7 +22,7 @@ import FormProveedores from './FormProveedores';
 import ModalAdministradorPr from '../modal-admin-pr';
 import { eliminarTipoProveedor } from '../../../redux/actions/adminActions';
 import Snackbar from '@material-ui/core/Snackbar';
-
+import Chip from '@material-ui/core/Chip';
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
 
@@ -62,6 +62,13 @@ function ListaProveedores(props) {
   );
   const [text, setText] = React.useState('');
   const [texto, setTexto] = React.useState(false);
+
+  const [chipData, setChipData] = React.useState([
+    { key: 0, nombre: 'Angular' },
+    { key: 1, nombre: 'jQuery' },
+    { key: 2, nombre: 'Polymer' },
+    { key: 4, nombre: 'Vue.js' },
+  ]);
 
   const handleClose = () => {
     setOpen(false);
@@ -104,6 +111,13 @@ function ListaProveedores(props) {
     }
     setEliminada(false);
   };
+
+  const handleDelete = (chipToDelete) => () => {
+    setChipData((chips) =>
+      chips.filter((chip) => chip.nombre !== chipToDelete.nombre),
+    );
+  };
+
   const form = React.createRef();
   return (
     <div>
@@ -148,76 +162,33 @@ function ListaProveedores(props) {
                                     </Typography>
                                     {item.lista
                                       ? item.lista.map((ite) => {
-                                          return ite.nombre + ' - ';
+                                          return (
+                                            <Chip
+                                              label={ite.nombre}
+                                              variant="outlined"
+                                              size="small"
+                                              style={{
+                                                margin:
+                                                  '0px 4px 4px 0px',
+                                              }}
+                                              onDelete={handleDelete}
+                                            />
+                                          );
                                         })
                                       : item.bancos.map((ite) => {
-                                          return ite.nombre + ' - ';
-                                        })}
-                                  </React.Fragment>
-                                }
-                              />
-                            </div>
-                            <ListItemSecondaryAction>
-                              <Tooltip title="Eliminar" arrow>
-                                <IconButton
-                                  onClick={() => {
-                                    setEliminar(item.id);
-                                    setOpen(true);
-                                  }}
-                                  edge="end"
-                                  aria-label="Eliminar"
-                                >
-                                  <DeleteIcon />
-                                </IconButton>
-                              </Tooltip>
-                              <DialogComponent
-                                open={open}
-                                setOpen={setOpen}
-                                handleClose={handleClose}
-                                eliminar={eliminar}
-                                setEliminar={setEliminar}
-                                setEliminada={setEliminada}
-                                setCurrentId={setCurrentId}
-                                title={
-                                  '¿Estás seguro de eliminar la promoción?'
-                                }
-                                text={
-                                  'Una vez que aceptes eliminar la promoción, la misma no podrá ser recuperada.'
-                                }
-                                btnText={'Eliminar'}
-                              />
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        );
-                      })
-                    : listaProveedores
-                    ? listaProveedores.map((item) => {
-                        return (
-                          <ListItem key={item.id}>
-                            <ListItemAvatar>
-                              <Avatar
-                                variant="square"
-                                src={require('../../../../Multimedia/Sistema-svg/id-card.svg')}
-                              ></Avatar>
-                            </ListItemAvatar>
-
-                            <div className="elementoListaProm">
-                              <ListItemText
-                                primary={
-                                  <React.Fragment>
-                                    <Typography
-                                      className={classes.inline}
-                                    >
-                                      {item.tipo
-                                        ? item.tipo
-                                        : 'Bancos'}
-                                    </Typography>
-                                    {item.lista
-                                      ? item.lista.map((ite) => {
-                                          return ite.nombre + ' - ';
-                                        })
-                                      : item.bancos.map((ite) => {
-                                          return ite.nombre + ' - ';
+                                          return (
+                                            <Chip
+                                              key={ite.id}
+                                              label={ite.nombre}
+                                              variant="outlined"
+                                              size="small"
+                                              style={{
+                                                margin:
+                                                  '0px 4px 4px 0px',
+                                              }}
+                                              onDelete={handleDelete}
+                                            />
+                                          );
                                         })}
                                   </React.Fragment>
                                 }
