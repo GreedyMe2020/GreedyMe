@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { Pie } from '@reactchartjs/react-chart.js';
 import _ from 'lodash';
 
+
 const anios = [
   {
     value: '2021',
@@ -197,6 +198,7 @@ function ExperienciaCompra(props) {
           ...doc.data(),
         }));
         setReseñas(arrayReseñas);
+
         reseñasOriginales.docs.map((doc) => {
           //Guardo los comentarios en un array
           comentarios.push(doc.data().comentario);
@@ -291,20 +293,13 @@ function ExperienciaCompra(props) {
           </TextField>
         </form>
         <div className="est-container">
-          <p className="subtittle-d">Atención del vendedor</p>
           <Pie data={chartDataAtencionVendedor} />
         </div>
         <div className="graphic-exp">
           <div className="est-exp">
-            <p className="subtittle-d">
-              El cupón coincide con lo esperado
-            </p>
             <Pie data={chartDataCoincideEsperado} />
           </div>
           <div className="est-exp">
-            <p className="subtittle-d">
-              El cliente pudo utilizar el beneficio
-            </p>
             <Pie data={chartDataUtilizoBeneficio} />
           </div>
         </div>

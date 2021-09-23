@@ -233,8 +233,12 @@ function ModalPromociones(props) {
     formData[event.target.name] = event.target.value;
     if (event.target.name === 'valueProveedor') {
       valorProveedor.map((option) => {
-        if (option.nombre === event.target.value) {
-          formData.photoURL = option.photoURL;
+        if(option.nombre === "Propio"){
+          formData.photoURL = props.profile.photoURL;
+        } else {
+          if (option.nombre === event.target.value) {
+            formData.photoURL = option.photoURL;
+          }
         }
       });
       valorBanco.map((option) => {
@@ -685,6 +689,7 @@ function ModalPromociones(props) {
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
+    profile: state.firebase.profile,
     proveedores: state.firestore.ordered.proveedorServicio,
     tipoPromo: state.firestore.ordered.tipoPromocion,
   };

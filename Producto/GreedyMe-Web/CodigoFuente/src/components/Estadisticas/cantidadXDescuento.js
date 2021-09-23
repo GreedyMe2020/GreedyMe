@@ -147,11 +147,11 @@ function CantidadXDescuento(props) {
               (promo.valueProveedor === 'Otro'
                 ? promo.otroProveedor
                 : promo.valueProveedor === 'Todos'
-                ? 'Todos los Bancos'
-                : promo.valueProveedor) +
+                  ? 'Todos los Bancos'
+                  : promo.valueProveedor) +
               ' ' +
               (promo.tipoProveedor === 'Tarjetas de crédito' ||
-              promo.tipoProveedor === 'Tarjetas de débito'
+                promo.tipoProveedor === 'Tarjetas de débito'
                 ? promo.otroProveedor + ' '
                 : '') +
               ' ' +
@@ -160,6 +160,7 @@ function CantidadXDescuento(props) {
                 : ''),
           });
         });
+        beneficios.push({ id: 0, name: 'Todos' });
         setBeneficios(beneficios);
         //chart();
       } catch (error) {
@@ -192,7 +193,7 @@ function CantidadXDescuento(props) {
     //FALTA EL IF SI SE SELECCIONÓ O NO EL DESCUENTO.
     //Tengo que usar cupon que es el "parametro"cupon + codigosCupon que es el array donde estan todos + cantidadCupones
     let contador = 0;
-    if (cupon) {
+    if (cupon && cupon !== 0) {
       for (let i = 0; i < codigosCupon.length; i++) {
         if (
           codigosCupon[i].fechaCreacion.toDate() <= hastaReporte &&
