@@ -50,6 +50,7 @@ export const signUp = (nuevoUsuario) => {
                 sumadorPreguntas: 0,
                 tokensFavoritos: [],
                 fechaVencimiento: new Date(),
+                estadisticasFavoritos: [],
                 cantidadNotificaciones: 4,
               });
             const bd = secondaryApp.firestore();
@@ -72,6 +73,7 @@ export const signUp = (nuevoUsuario) => {
               sumadorPreguntas: 0,
               tokensFavoritos: [],
               fechaVencimiento: new Date(),
+              estadisticasFavoritos: [],
               cantidadNotificaciones: 4,
             });
           })
