@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { Pie } from '@reactchartjs/react-chart.js';
 import _ from 'lodash';
 
+
 const anios = [
   {
     value: '2021',
@@ -182,15 +183,15 @@ function ExperienciaCompra(props) {
           .collection('reseñas')
           .get();
 
-        let contadorMala = 0;
-        let contadorRegular = 0;
-        let contadorBueno = 0;
-        let contadorMuyBueno = 0;
-        let contadorExcelente = 0;
-        let contadorEsperadoSi = 0;
-        let contadorEsperadoNo = 0;
-        let contadorBeneficioSi = 0;
-        let contadorBeneficioNo = 0;
+        let contadorMala = 1;
+        let contadorRegular = 3;
+        let contadorBueno = 2;
+        let contadorMuyBueno = 4;
+        let contadorExcelente = 5;
+        let contadorEsperadoSi = 1;
+        let contadorEsperadoNo = 2;
+        let contadorBeneficioSi = 3;
+        let contadorBeneficioNo = 4;
 
         const arrayReseñas = reseñasOriginales.docs.map((doc) => ({
           id: doc.id,
@@ -291,21 +292,49 @@ function ExperienciaCompra(props) {
           </TextField>
         </form>
         <div className="est-container">
-          <p className="subtittle-d">Atención del vendedor</p>
-          <Pie data={chartDataAtencionVendedor} />
+          <Pie data={chartDataAtencionVendedor} options={{
+            tooltips: {
+              enabled: false
+            },
+            title: {
+              display: true,
+              text: "Atención del vendedor",
+              fontSize: 35
+            },
+            legend: {
+              display: true,
+              position: "right"
+            },
+          }
+          } />
         </div>
         <div className="graphic-exp">
           <div className="est-exp">
-            <p className="subtittle-d">
-              El cupón coincide con lo esperado
-            </p>
-            <Pie data={chartDataCoincideEsperado} />
+            <Pie data={chartDataCoincideEsperado} options={{
+              title: {
+                display: true,
+                text: "El cupón coincide con lo esperado",
+                fontSize: 17
+              },
+              legend: {
+                display: true,
+                position: "right"
+              }
+            }} />
           </div>
           <div className="est-exp">
-            <p className="subtittle-d">
-              El cliente pudo utilizar el beneficio
-            </p>
-            <Pie data={chartDataUtilizoBeneficio} />
+            <Pie data={chartDataUtilizoBeneficio} options={{
+
+              title: {
+                display: true,
+                text: "El cliente pudo utilizar el beneficio",
+                fontSize: 17
+              },
+              legend: {
+                display: true,
+                position: "right"
+              }
+            }} />
           </div>
         </div>
       </div>
