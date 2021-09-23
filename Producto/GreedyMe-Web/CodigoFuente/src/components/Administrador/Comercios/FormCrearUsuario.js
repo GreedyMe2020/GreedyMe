@@ -58,6 +58,7 @@ function FormCrearUsuario(props) {
   const [showModal, setModal] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
+  const [open3, setOpen3] = React.useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -71,6 +72,13 @@ function FormCrearUsuario(props) {
       return;
     }
     setOpen2(false);
+  };
+
+  const handleClose3 = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen3(false);
   };
   //funcion para poner lo que escribe en el formdata
   const handleChange = (event) => {
@@ -104,12 +112,16 @@ function FormCrearUsuario(props) {
     }
   }, [props.usuarioCreado])
 
-  const abrirCarteldeError = React.useEffect(() => {
+  React.useEffect(() => {
     if (props.usuarioFalla !== null) {
       setOpen2(true);
       props.resetearValoresCreacionComercio()
     }
-  }, [props.usuarioFalla])
+    if (props.usuarioCuitFalla !== null) {
+      setOpen3(true);
+      props.resetearValoresCreacionComercio()
+    }
+  }, [props.usuarioFalla, props.usuarioCuitFalla])
 
   ValidatorForm.addValidationRule("isPasswordMatch", (value) => {
     if (value !== formData.contraseña) {
@@ -332,6 +344,16 @@ function FormCrearUsuario(props) {
             El email ya esta siendo utilizado.
           </Alert>
         </Snackbar>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={open3}
+          autoHideDuration={8000}
+          onClose={handleClose3}
+        >
+          <Alert onClose={handleClose3} severity="error">
+            El CUIT ya esta siendo utilizado.
+          </Alert>
+        </Snackbar>
       </ValidatorForm>
     </div>
   );
@@ -340,7 +362,8 @@ function FormCrearUsuario(props) {
 const mapStateToProps = (state) => {
   return {
     usuarioFalla: state.admin.usuarioFalla,
-    usuarioCreado: state.admin.usuarioCreado
+    usuarioCreado: state.admin.usuarioCreado,
+    usuarioCuitFalla: state.admin.usuarioCuitFalla
   };
 };
 
