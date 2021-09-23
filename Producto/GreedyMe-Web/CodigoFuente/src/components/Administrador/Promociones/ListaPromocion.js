@@ -22,6 +22,7 @@ import FormPromocion from './FormPromocion';
 import ModalAdministradorPr from '../modal-admin-pr';
 import Snackbar from '@material-ui/core/Snackbar';
 import { eliminarTipoPromocion } from '../../../redux/actions/adminActions';
+import Chip from '@material-ui/core/Chip';
 import _ from 'lodash';
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -62,6 +63,13 @@ function ListaPromocion(props) {
   );
   const [text, setText] = React.useState('');
   const [texto, setTexto] = React.useState(false);
+
+  const [chipData, setChipData] = React.useState([
+    { key: 0, nombre: 'Angular' },
+    { key: 1, nombre: 'jQuery' },
+    { key: 2, nombre: 'Polymer' },
+    { key: 4, nombre: 'Vue.js' },
+  ]);
 
   React.useEffect(() => {
     if (currentId) {
@@ -105,6 +113,12 @@ function ListaPromocion(props) {
     setOpenSnack(false);
   };
 
+  const handleDelete = (chipToDelete) => () => {
+    setChipData((chips) =>
+      chips.filter((chip) => chip.nombre !== chipToDelete.nombre),
+    );
+  };
+
   const form = React.createRef();
   return (
     <div>
@@ -146,67 +160,17 @@ function ListaPromocion(props) {
                                       {item.tipo}
                                     </Typography>
                                     {item.lista.map((ite) => {
-                                      return ite.valor + ' - ';
-                                    })}
-                                  </React.Fragment>
-                                }
-                              />
-                            </div>
-                            <ListItemSecondaryAction>
-                              <Tooltip title="Eliminar" arrow>
-                                <IconButton
-                                  onClick={() => {
-                                    setEliminar(item.id);
-                                    setOpen(true);
-                                  }}
-                                  edge="end"
-                                  aria-label="Eliminar"
-                                >
-                                  <DeleteIcon />
-                                </IconButton>
-                              </Tooltip>
-                              <DialogComponent
-                                open={open}
-                                setOpen={setOpen}
-                                handleClose={handleClose}
-                                eliminar={eliminar}
-                                setEliminar={setEliminar}
-                                setEliminada={setEliminada}
-                                setCurrentId={setCurrentId}
-                                title={
-                                  '¿Estás seguro de eliminar el beneficio?'
-                                }
-                                text={
-                                  'Una vez que aceptes eliminar el beneficio, el misma no podrá ser recuperada.'
-                                }
-                                btnText={'Eliminar'}
-                              />
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        );
-                      })
-                    : listaPromociones
-                    ? listaPromociones.map((item) => {
-                        return (
-                          <ListItem key={item.id}>
-                            <ListItemAvatar>
-                              <Avatar
-                                variant="square"
-                                src={require('../../../../Multimedia/Sistema-svg/price-tag (5).svg')}
-                              ></Avatar>
-                            </ListItemAvatar>
-
-                            <div className="elementoListaProm">
-                              <ListItemText
-                                primary={
-                                  <React.Fragment>
-                                    <Typography
-                                      className={classes.inline}
-                                    >
-                                      {item.tipo}
-                                    </Typography>
-                                    {item.lista.map((ite) => {
-                                      return ite.valor + ' - ';
+                                      return (
+                                        <Chip
+                                          label={ite.valor}
+                                          variant="outlined"
+                                          size="small"
+                                          style={{
+                                            margin: '0px 4px 4px 0px',
+                                          }}
+                                          onDelete={handleDelete}
+                                        />
+                                      );
                                     })}
                                   </React.Fragment>
                                 }
