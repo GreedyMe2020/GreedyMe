@@ -109,7 +109,7 @@ function ListaPromocion(props) {
   return (
     <div>
       <ModalAdministradorPr
-        title="Beneficios"
+        title="Beneficios ofrecidos por locales"
         button="Cargar beneficio"
         button2="Cargar tipo beneficio"
         titleModal="Cargar nuevo beneficio"

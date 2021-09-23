@@ -326,10 +326,10 @@ export default function FormDialog() {
                   name="web"
                   value={formData.web}
                   validators={[
-                    'matchRegexp:https?://(www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}',
+                    'matchRegexp:(www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}',
                   ]}
                   errorMessages={[
-                    'La dirección no es válida debe comenzar con http:// o https://',
+                    'El sitio web no es válido.',
                   ]}
                 />
               </Grid>
@@ -404,8 +404,8 @@ export default function FormDialog() {
         <UseModal>
           <div>
             <h5>
-              Revisa la casilla de correo "No deseados", en la
-              brevedad nos contactaremos con usted. Muchas gracias!
+              ¡Muchas gracias! En la brevedad nos contactaremos con usted. 
+              Revise la casilla de correo "No deseado".
             </h5>
             <Button
               color="primary"

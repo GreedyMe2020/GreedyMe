@@ -44,10 +44,10 @@ $background-color: #ececec;
 }
 
 .est-cards-container {
-  margin: 10px 5% 0;
+  margin: 10px 0 0;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   #est-card {
     margin-top: 10px;
