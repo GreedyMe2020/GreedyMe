@@ -4,64 +4,86 @@ export const signUp = (nuevoUsuario) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
     const firestore = getFirestore();
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(
-        nuevoUsuario.email,
-        nuevoUsuario.contraseña,
-      )
-      .then((resp) => {
-        firestore
-          .collection('usuarioComercio')
-          .doc(resp.user.uid)
-          .set({
-            email: nuevoUsuario.email,
-            CUIT: nuevoUsuario.CUIT,
-            direccion: '',
-            facebook: nuevoUsuario.facebook,
-            instagram: nuevoUsuario.instagram,
-            nombreComercio: nuevoUsuario.nombreComercio,
-            rubro: nuevoUsuario.rubro,
-            sucursal: nuevoUsuario.sucursal,
-            telefono: nuevoUsuario.telefono,
-            photoURL: null,
-            tipoSuscripcion: 0,
-            web: nuevoUsuario.web,
-            fechaCreacion: new Date(),
-            contadorPreguntas: 0,
-            sumadorPreguntas: 0,
-            tokensFavoritos: [],
-            fechaVencimiento: new Date(),
-            cantidadNotificaciones: 4,
-          });
-        const bd = secondaryApp.firestore();
-        bd.collection('usuarioComercio').doc(resp.user.uid).set({
-          email: nuevoUsuario.email,
-          CUIT: nuevoUsuario.CUIT,
-          direccion: '',
-          facebook: nuevoUsuario.facebook,
-          instagram: nuevoUsuario.instagram,
-          nombreComercio: nuevoUsuario.nombreComercio,
-          rubro: nuevoUsuario.rubro,
-          sucursal: nuevoUsuario.sucursal,
-          telefono: nuevoUsuario.telefono,
-          photoURL: null,
-          tipoSuscripcion: 0,
-          web: nuevoUsuario.web,
-          fechaCreacion: new Date(),
-          contadorPreguntas: 0,
-          sumadorPreguntas: 0,
-          tokensFavoritos: [],
-          fechaVencimiento: new Date(),
-          cantidadNotificaciones: 4,
+    firestore
+      .collection('usuarioComercio')
+      .get()
+      .then((usuarios) => {
+        const todosUsuarios = usuarios.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        const indice = _.findIndex(todosUsuarios, function (o) {
+          return o.CUIT === nuevoUsuario.CUIT;
         });
+        if (indice !== -1) {
+          dispatch({ type: 'FALLO_CUIT' });
+          throw 'error'
+        }
       })
       .then(() => {
-        dispatch({ type: 'USUARIO_CREADO' });
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(
+            nuevoUsuario.email,
+            nuevoUsuario.contraseña,
+          )
+          .then((resp) => {
+            firestore
+              .collection('usuarioComercio')
+              .doc(resp.user.uid)
+              .set({
+                email: nuevoUsuario.email,
+                CUIT: nuevoUsuario.CUIT,
+                direccion: '',
+                contra: nuevoUsuario.contraseña,
+                facebook: nuevoUsuario.facebook,
+                instagram: nuevoUsuario.instagram,
+                nombreComercio: nuevoUsuario.nombreComercio,
+                rubro: nuevoUsuario.rubro,
+                sucursal: nuevoUsuario.sucursal,
+                telefono: nuevoUsuario.telefono,
+                photoURL: null,
+                tipoSuscripcion: 0,
+                web: nuevoUsuario.web,
+                fechaCreacion: new Date(),
+                contadorPreguntas: 0,
+                sumadorPreguntas: 0,
+                tokensFavoritos: [],
+                fechaVencimiento: new Date(),
+                estadisticasFavoritos: [],
+                cantidadNotificaciones: 4,
+              });
+            const bd = secondaryApp.firestore();
+            bd.collection('usuarioComercio').doc(resp.user.uid).set({
+              email: nuevoUsuario.email,
+              CUIT: nuevoUsuario.CUIT,
+              direccion: '',
+              contra: nuevoUsuario.contraseña,
+              facebook: nuevoUsuario.facebook,
+              instagram: nuevoUsuario.instagram,
+              nombreComercio: nuevoUsuario.nombreComercio,
+              rubro: nuevoUsuario.rubro,
+              sucursal: nuevoUsuario.sucursal,
+              telefono: nuevoUsuario.telefono,
+              photoURL: null,
+              tipoSuscripcion: 0,
+              web: nuevoUsuario.web,
+              fechaCreacion: new Date(),
+              contadorPreguntas: 0,
+              sumadorPreguntas: 0,
+              tokensFavoritos: [],
+              fechaVencimiento: new Date(),
+              estadisticasFavoritos: [],
+              cantidadNotificaciones: 4,
+            });
+          })
+          .then(() => {
+            dispatch({ type: 'USUARIO_CREADO' });
+          })
+          .catch((error) => {
+            dispatch({ type: 'FALLO_CREACION', error });
+          });
       })
-      .catch((error) => {
-        dispatch({ type: 'FALLO_CREACION', error });
-      });
   };
 };
 
