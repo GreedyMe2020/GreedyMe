@@ -22,6 +22,7 @@ import FormPromocion from './FormPromocion';
 import ModalAdministradorPr from '../modal-admin-pr';
 import Snackbar from '@material-ui/core/Snackbar';
 import { eliminarTipoPromocion } from '../../../redux/actions/adminActions';
+import Chip from '@material-ui/core/Chip';
 import _ from 'lodash';
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
@@ -62,6 +63,13 @@ function ListaPromocion(props) {
   );
   const [text, setText] = React.useState('');
   const [texto, setTexto] = React.useState(false);
+
+  const [chipData, setChipData] = React.useState([
+    { key: 0, nombre: 'Angular' },
+    { key: 1, nombre: 'jQuery' },
+    { key: 2, nombre: 'Polymer' },
+    { key: 4, nombre: 'Vue.js' },
+  ]);
 
   React.useEffect(() => {
     if (currentId) {
@@ -105,6 +113,12 @@ function ListaPromocion(props) {
     setOpenSnack(false);
   };
 
+  const handleDelete = (chipToDelete) => () => {
+    setChipData((chips) =>
+      chips.filter((chip) => chip.nombre !== chipToDelete.nombre),
+    );
+  };
+
   const form = React.createRef();
   return (
     <div>
@@ -146,7 +160,17 @@ function ListaPromocion(props) {
                                       {item.tipo}
                                     </Typography>
                                     {item.lista.map((ite) => {
-                                      return ite.valor + ' - ';
+                                      return (
+                                        <Chip
+                                          label={ite.valor}
+                                          variant="outlined"
+                                          size="small"
+                                          style={{
+                                            margin: '0px 4px 4px 0px',
+                                          }}
+                                          onDelete={handleDelete}
+                                        />
+                                      );
                                     })}
                                   </React.Fragment>
                                 }
@@ -205,9 +229,35 @@ function ListaPromocion(props) {
                                     >
                                       {item.tipo}
                                     </Typography>
-                                    {item.lista.map((ite) => {
-                                      return ite.valor + ' - ';
-                                    })}
+                                    {item.lista
+                                      ? item.lista.map((ite) => {
+                                          return (
+                                            <Chip
+                                              label={ite.valor}
+                                              variant="outlined"
+                                              size="small"
+                                              style={{
+                                                margin:
+                                                  '0px 4px 4px 0px',
+                                              }}
+                                              onDelete={handleDelete}
+                                            />
+                                          );
+                                        })
+                                      : item.bancos.map((ite) => {
+                                          return (
+                                            <Chip
+                                              label={ite.valor}
+                                              variant="outlined"
+                                              size="small"
+                                              style={{
+                                                margin:
+                                                  '0px 4px 4px 0px',
+                                              }}
+                                              onDelete={handleDelete}
+                                            />
+                                          );
+                                        })}
                                   </React.Fragment>
                                 }
                               />
