@@ -12,6 +12,8 @@ import {
   HorizontalGridLines,
   VerticalGridLines,
   VerticalBarSeries,
+  LineSeries,
+  AreaSeries,
 } from 'react-vis';
 import Button from '@material-ui/core/Button';
 import Print from '@material-ui/icons/Print';
@@ -44,6 +46,8 @@ function Estadisticas(props) {
   const printPDF = () => {
     window.print();
   };
+
+  const data = [{ x: 0, y: 0 }];
 
   return (
     <div>
@@ -84,6 +88,7 @@ function Estadisticas(props) {
               })
             }
           />
+
         </XYPlot>
       </div>
       <div
