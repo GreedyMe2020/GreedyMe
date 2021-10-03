@@ -142,7 +142,7 @@ function ExperienciaCompra(props) {
           contadorRegular++;
         } else if (reseñas[i].atencionVendedor === 'buena') {
           contadorBueno++;
-        } else if (reseñas[i].atencionVendedor === 'muyBuena') {
+        } else if (reseñas[i].atencionVendedor === 'muybuena') {
           contadorMuyBueno++;
         } else if (reseñas[i].atencionVendedor === 'excelente') {
           contadorExcelente++;
@@ -208,7 +208,7 @@ function ExperienciaCompra(props) {
             contadorRegular++;
           } else if (doc.data().atencionVendedor === 'buena') {
             contadorBueno++;
-          } else if (doc.data().atencionVendedor === 'muyBuena') {
+          } else if (doc.data().atencionVendedor === 'muybuena') {
             contadorMuyBueno++;
           } else if (doc.data().atencionVendedor === 'excelente') {
             contadorExcelente++;
@@ -293,14 +293,35 @@ function ExperienciaCompra(props) {
           </TextField>
         </form>
         <div className="est-container">
-          <Pie data={chartDataAtencionVendedor} />
+          <Pie data={chartDataAtencionVendedor} options={{
+            title: {
+              display: true,
+              text: "Atención del vendedor",
+              fontSize: 35,
+              color: "black",
+            },
+          }} />
         </div>
         <div className="graphic-exp">
           <div className="est-exp">
-            <Pie data={chartDataCoincideEsperado} />
+            <Pie data={chartDataCoincideEsperado} options={{
+              title: {
+                display: true,
+                text: "¿El Cupon coincide con lo esperado?",
+                fontSize: 17,
+                color: "black",
+              },
+            }} />
           </div>
           <div className="est-exp">
-            <Pie data={chartDataUtilizoBeneficio} />
+            <Pie data={chartDataUtilizoBeneficio} options={{
+              title: {
+                display: true,
+                text: "¿El cliente pudo utilizar el beneficio?",
+                fontSize: 17,
+                color: "black",
+              },
+            }} />
           </div>
         </div>
       </div>

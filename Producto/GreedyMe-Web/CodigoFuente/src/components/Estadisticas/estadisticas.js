@@ -54,38 +54,40 @@ function Estadisticas(props) {
           .doc(props.auth.uid)
           .collection('codigoCupon')
           .get();
-        const arrayCupones = cupones.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        if (cupones.docs.length !== 0) {
+          const arrayCupones = cupones.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
 
+          let arrayAuxCantidad = [];
+          for (let i = 0; i < arrayCupones.length; i++) {
+            arrayAuxCantidad.push(
+              arrayCupones.filter(
+                (x) => x.detalle == arrayCupones[i].detalle,
+              ).length,
+            );
+          }
+          let maximo = 0;
+          let posicion = 0;
+          for (let i = 0; i < arrayAuxCantidad.length; i++) {
+            if (i === 0) {
+              maximo = arrayAuxCantidad[i];
+            }
+            if (arrayAuxCantidad[i] > maximo) {
+              maximo = arrayAuxCantidad[i];
+              posicion = i;
+            }
+          }
+          setCuponMasUsado(
+            arrayCupones[posicion].detalle.split(',')[0],
+          );
+
+          //Guardo la cantidad de condigos en general
+          setCantidadCupones(arrayCupones.length);
+        }
         //Array y función para guardar todos los beneficios por separado
 
-        let arrayAuxCantidad = [];
-        for (let i = 0; i < arrayCupones.length; i++) {
-          arrayAuxCantidad.push(
-            arrayCupones.filter(
-              (x) => x.detalle == arrayCupones[i].detalle,
-            ).length,
-          );
-        }
-        let maximo = 0;
-        let posicion = 0;
-        for (let i = 0; i < arrayAuxCantidad.length; i++) {
-          if (i === 0) {
-            maximo = arrayAuxCantidad[i];
-          }
-          if (arrayAuxCantidad[i] > maximo) {
-            maximo = arrayAuxCantidad[i];
-            posicion = i;
-          }
-        }
-        setCuponMasUsado(
-          arrayCupones[posicion].detalle.split(',')[0],
-        );
-
-        //Guardo la cantidad de condigos en general
-        setCantidadCupones(arrayCupones.length);
         //Guardo todos los codigos en el estado "codigosCupòn"
       } catch (error) {
         console.log(error);
