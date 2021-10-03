@@ -5,7 +5,7 @@ import firebase from '../../../firebase/config';
 //y la va acumulando en el array
 import _ from 'lodash';
 import { format } from 'date-fns';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
 import AddBox from '@material-ui/icons/AddBox';
@@ -24,6 +24,11 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import { esES } from '@material-ui/core/locale';
+
+import {
+  eliminarCanje,
+  modificarCanje,
+} from '../../../redux/actions/adminActions';
 
 function ProductosCanjeados(props) {
   const theme = createMuiTheme(
@@ -88,43 +93,51 @@ function ProductosCanjeados(props) {
     )),
   };
 
+
   const [productosCanjeados, setProductosCanjeados] = React.useState(
     [],
   );
 
-  React.useEffect(() => {
-    const obtenerProductos = async () => {
-      const firestore = firebase.firestore();
-      try {
-        const productos = await firestore
-          .collection('productosCanjeadosGeneral')
-          .orderBy('fecha')
-          .get();
-        const arrayProductos = productos.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        const rows = [];
-        arrayProductos.forEach((element) => {
-          const formatoFecha = format(
-            element.fecha.toDate(),
-            'dd/MM/yyyy',
-          );
-          rows.push({
-            apellido: element.apellidoUsuario,
-            nombre: element.nombreUsuario,
-            producto: element.nombreProducto,
-            estado: element.estado,
-            fecha: formatoFecha,
-          });
+  const obtenerProductos = async () => {
+    const firestore = firebase.firestore();
+    try {
+      const productos = await firestore
+        .collection('productosCanjeadosGeneral')
+        .orderBy('fecha')
+        .get();
+      const arrayProductos = productos.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      const rows = [];
+      arrayProductos.forEach((element) => {
+        const formatoFecha = format(
+          element.fecha.toDate(),
+          'dd/MM/yyyy',
+        );
+        rows.push({
+          id: element.id,
+          apellido: element.apellidoUsuario,
+          nombre: element.nombreUsuario,
+          producto: element.nombreProducto,
+          estado: element.estado,
+          fecha: formatoFecha,
         });
-        setProductosCanjeados(rows);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+      });
+      setProductosCanjeados(rows);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log("a");
+
+  const [algunCambio, setAlgunCambio] = React.useState(
+    false
+  );
+  React.useEffect(() => {
     obtenerProductos();
-  }, []);
+  }, [algunCambio]);
 
   return (
     <div>
@@ -155,8 +168,8 @@ function ProductosCanjeados(props) {
                     onClick: (evt, data) =>
                       alert(
                         '¿Vas a eliminar estas ' +
-                          data.length +
-                          ' filas?',
+                        data.length +
+                        ' filas?',
                       ),
                   },
                 ]}
@@ -164,22 +177,16 @@ function ProductosCanjeados(props) {
                   onRowUpdate: (newData, oldData) =>
                     new Promise((resolve, reject) => {
                       setTimeout(() => {
-                        const dataUpdate = [...data];
-                        const index = oldData.tableData.id;
-                        dataUpdate[index] = newData;
-                        setData([...dataUpdate]);
-
+                        props.modificarCanje(newData);
+                        setAlgunCambio(!algunCambio);
                         resolve();
                       }, 1000);
                     }),
                   onRowDelete: (oldData) =>
                     new Promise((resolve, reject) => {
                       setTimeout(() => {
-                        const dataDelete = [...data];
-                        const index = oldData.tableData.id;
-                        dataDelete.splice(index, 1);
-                        setData([...dataDelete]);
-
+                        props.eliminarCanje(oldData);
+                        setAlgunCambio(!algunCambio);
                         resolve();
                       }, 1000);
                     }),
@@ -212,4 +219,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ProductosCanjeados);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    modificarCanje: (producto) => dispatch(modificarCanje(producto)),
+    eliminarCanje: (producto) =>
+      dispatch(eliminarCanje(producto)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductosCanjeados);
