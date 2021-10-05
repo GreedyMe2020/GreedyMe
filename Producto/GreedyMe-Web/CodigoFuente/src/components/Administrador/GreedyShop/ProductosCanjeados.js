@@ -93,7 +93,6 @@ function ProductosCanjeados(props) {
     )),
   };
 
-
   const [productosCanjeados, setProductosCanjeados] = React.useState(
     [],
   );
@@ -130,11 +129,7 @@ function ProductosCanjeados(props) {
     }
   };
 
-  console.log("a");
-
-  const [algunCambio, setAlgunCambio] = React.useState(
-    false
-  );
+  const [algunCambio, setAlgunCambio] = React.useState(false);
   React.useEffect(() => {
     obtenerProductos();
   }, [algunCambio]);
@@ -154,23 +149,24 @@ function ProductosCanjeados(props) {
                   {
                     title: 'Apellido',
                     field: 'apellido',
+                    editable: 'never',
                   },
-                  { title: 'Nombre', field: 'nombre' },
-                  { title: 'Producto', field: 'producto' },
-                  { title: 'Estado', field: 'estado' },
-                  { title: 'Fecha', field: 'fecha', type: 'date' },
-                ]}
-                data={productosCanjeados}
-                actions={[
                   {
-                    tooltip: 'Eliminar filas seleccionadas',
-                    icon: tableIcons.Delete,
-                    onClick: (evt, data) =>
-                      alert(
-                        '¿Vas a eliminar estas ' +
-                        data.length +
-                        ' filas?',
-                      ),
+                    title: 'Nombre',
+                    field: 'nombre',
+                    editable: 'never',
+                  },
+                  {
+                    title: 'Producto',
+                    field: 'producto',
+                    editable: 'never',
+                  },
+                  { title: 'Estado', field: 'estado' },
+                  {
+                    title: 'Fecha',
+                    field: 'fecha',
+                    type: 'date',
+                    editable: 'never',
                   },
                 ]}
                 editable={{
@@ -191,10 +187,11 @@ function ProductosCanjeados(props) {
                       }, 1000);
                     }),
                 }}
+                data={productosCanjeados}
                 icons={tableIcons}
                 options={{
-                  actionsColumnIndex: -1,
-                  selection: true,
+                  actionsColumnIndex: 0,
+                  selection: false,
                   headerStyle: {
                     backgroundColor: '#fcd09f',
                   },
@@ -222,9 +219,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     modificarCanje: (producto) => dispatch(modificarCanje(producto)),
-    eliminarCanje: (producto) =>
-      dispatch(eliminarCanje(producto)),
+    eliminarCanje: (producto) => dispatch(eliminarCanje(producto)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductosCanjeados);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ProductosCanjeados);
