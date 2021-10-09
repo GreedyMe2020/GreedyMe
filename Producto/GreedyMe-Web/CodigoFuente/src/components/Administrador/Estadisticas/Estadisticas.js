@@ -18,7 +18,15 @@ import {
 import Button from '@material-ui/core/Button';
 import Print from '@material-ui/icons/Print';
 import 'react-vis/dist/style.css';
-import { formatoRubros, formatoSuscripciones } from './Funciones';
+import { formatoRubros, formatoSuscripciones, formatoRubrosFiltro, formatoSuscripcionesFiltro } from './Funciones';
+import {
+  MuiPickersUtilsProvider,
+  DatePicker,
+} from '@material-ui/pickers';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core';
+import DateFnsUtils from '@date-io/date-fns';
+import Refresh from '@material-ui/icons/Refresh';
 
 const useStyles = makeStyles((theme) => ({
   demo: {
@@ -40,14 +48,66 @@ function Estadisticas(props) {
   //Estado que contiene a los usuarios
   const [usuarios, setUsuarios] = React.useState(props.usuarios);
   //funciones que agrupan los usuarios por rubros y suscripciones
-  const gruposRubros = formatoRubros(usuarios);
-  const gruposSuscripciones = formatoSuscripciones(usuarios);
+  const gruposRubrosOriginal = formatoRubros(usuarios);
+  const gruposSuscripcionesOriginal = formatoSuscripciones(usuarios);
+
+  //Estados para cada datePicker
+  const [desdeReporte, handleDesdeReporte] = React.useState(
+    new Date(),
+  );
+  const [hastaReporte, handleHastaReporte] = React.useState(
+    new Date(),
+  );
+
+  const [desdeReporte2, handleDesdeReporte2] = React.useState(
+    new Date(),
+  );
+  const [hastaReporte2, handleHastaReporte2] = React.useState(
+    new Date(),
+  );
+
+  const [gruposRubros, setGruposRubros] = React.useState(
+    gruposRubrosOriginal
+  );
+  const [gruposSuscripciones, setGruposSuscripciones] = React.useState(
+    gruposSuscripcionesOriginal
+  );
+  const temaCombo = createMuiTheme({
+    overrides: {
+      MuiInputBase: {
+        input: {
+          backgroundColor: 'white',
+          margin: '2px',
+        },
+      },
+    },
+  });
 
   const printPDF = () => {
     window.print();
   };
 
   const data = [{ x: 0, y: 0 }];
+
+  const handleRefresh = () => {
+    const gruposRubrosFiltro = formatoRubrosFiltro(usuarios, desdeReporte, hastaReporte);
+    setGruposRubros(gruposRubrosFiltro);
+  };
+
+  const handleRefresh2 = () => {
+    const gruposSuscripcionesFiltro = formatoSuscripcionesFiltro(usuarios, desdeReporte, hastaReporte);
+    setGruposSuscripciones(gruposSuscripcionesFiltro);
+  };
+
+  const handleTodo = () => {
+    const gruposRubrosFiltro = formatoRubros(usuarios);
+    setGruposRubros(gruposRubrosFiltro);
+  };
+
+  const handleTodo2 = () => {
+    const gruposSuscripcionesFiltro = formatoSuscripciones(usuarios);
+    setGruposSuscripciones(gruposSuscripcionesFiltro);
+  };
 
   return (
     <div>
@@ -68,6 +128,58 @@ function Estadisticas(props) {
           endIcon={<Print />}
         >
           Imprimir
+        </Button>
+      </div>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <ThemeProvider theme={temaCombo}>
+          <DatePicker
+            autoOk
+            disableToolbar
+            className="select"
+            inputVariant="outlined"
+            name="desdeReporte"
+            label="Fecha desde"
+            minDate={new Date('2020/01/01')}
+            maxDate={new Date()}
+            format="dd/MM/yyyy"
+            value={desdeReporte}
+            variant="inline"
+            onChange={(data) => handleDesdeReporte(data)}
+          />
+          <DatePicker
+            autoOk
+            disableToolbar
+            className="select"
+            inputVariant="outlined"
+            name="hastaReporte"
+            label="Fecha hasta"
+            minDate={desdeReporte}
+            maxDate={new Date()}
+            format="dd/MM/yyyy"
+            value={hastaReporte}
+            variant="inline"
+            onChange={(data) => handleHastaReporte(data)}
+          />
+        </ThemeProvider>
+      </MuiPickersUtilsProvider>
+      <div>
+        <Button
+          variant="outlined"
+          onClick={handleRefresh}
+          endIcon={<Refresh fontSize="medium" />}
+          id="actualizar-reporte"
+        >
+          Actualizar
+        </Button>
+      </div>
+      <div>
+        <Button
+          variant="outlined"
+          onClick={handleTodo}
+          endIcon={<Refresh fontSize="medium" />}
+          id="actualizar-reporte"
+        >
+          Mostrar todo
         </Button>
       </div>
       <div className="container-discount">
@@ -100,6 +212,58 @@ function Estadisticas(props) {
             Cantidad de comercios por tipo de suscripción
           </p>
         </div>
+      </div>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <ThemeProvider theme={temaCombo}>
+          <DatePicker
+            autoOk
+            disableToolbar
+            className="select"
+            inputVariant="outlined"
+            name="desdeReporte"
+            label="Fecha desde"
+            minDate={new Date('2020/01/01')}
+            maxDate={new Date()}
+            format="dd/MM/yyyy"
+            value={desdeReporte2}
+            variant="inline"
+            onChange={(data) => handleDesdeReporte2(data)}
+          />
+          <DatePicker
+            autoOk
+            disableToolbar
+            className="select"
+            inputVariant="outlined"
+            name="hastaReporte"
+            label="Fecha hasta"
+            minDate={desdeReporte2}
+            maxDate={new Date()}
+            format="dd/MM/yyyy"
+            value={hastaReporte2}
+            variant="inline"
+            onChange={(data) => handleHastaReporte2(data)}
+          />
+        </ThemeProvider>
+      </MuiPickersUtilsProvider>
+      <div>
+        <Button
+          variant="outlined"
+          onClick={handleRefresh2}
+          endIcon={<Refresh fontSize="medium" />}
+          id="actualizar-reporte"
+        >
+          Actualizar
+        </Button>
+      </div>
+      <div>
+        <Button
+          variant="outlined"
+          onClick={handleTodo2}
+          endIcon={<Refresh fontSize="medium" />}
+          id="actualizar-reporte"
+        >
+          Mostrar todo
+        </Button>
       </div>
       <div className="container-discount">
         <XYPlot width={880} height={300} xType="ordinal">

@@ -27,73 +27,73 @@ function Estadisticas(props) {
   const [cantidadPromos, setCantidadPromos] = React.useState(0);
   const [cuponMasUsado, setCuponMasUsado] = React.useState('');
 
-  React.useEffect(() => {
-    const obtenerPromociones = async () => {
-      const firestore = firebase.firestore();
-      try {
-        const promociones = await firestore
-          .collection('usuarioComercio')
-          .doc(props.auth.uid)
-          .collection('promociones')
-          .get();
-        const arrayPromociones = promociones.docs.map((doc) => ({
+  const obtenerPromociones = async () => {
+    const firestore = firebase.firestore();
+    try {
+      const promociones = await firestore
+        .collection('usuarioComercio')
+        .doc(props.auth.uid)
+        .collection('promociones')
+        .get();
+      const arrayPromociones = promociones.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setCantidadPromos(arrayPromociones.length);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const obtenerCantidadComprasXDescuento = async () => {
+    const firestore = firebase.firestore();
+    try {
+      const cupones = await firestore
+        .collection('usuarioComercio')
+        .doc(props.auth.uid)
+        .collection('codigoCupon')
+        .get();
+      if (cupones.docs.length !== 0) {
+        const arrayCupones = cupones.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-        setCantidadPromos(arrayPromociones.length);
-      } catch (error) {
-        console.log(error);
-      }
-    };
 
-    const obtenerCantidadComprasXDescuento = async () => {
-      const firestore = firebase.firestore();
-      try {
-        const cupones = await firestore
-          .collection('usuarioComercio')
-          .doc(props.auth.uid)
-          .collection('codigoCupon')
-          .get();
-        if (cupones.docs.length !== 0) {
-          const arrayCupones = cupones.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-
-          let arrayAuxCantidad = [];
-          for (let i = 0; i < arrayCupones.length; i++) {
-            arrayAuxCantidad.push(
-              arrayCupones.filter(
-                (x) => x.detalle == arrayCupones[i].detalle,
-              ).length,
-            );
-          }
-          let maximo = 0;
-          let posicion = 0;
-          for (let i = 0; i < arrayAuxCantidad.length; i++) {
-            if (i === 0) {
-              maximo = arrayAuxCantidad[i];
-            }
-            if (arrayAuxCantidad[i] > maximo) {
-              maximo = arrayAuxCantidad[i];
-              posicion = i;
-            }
-          }
-          setCuponMasUsado(
-            arrayCupones[posicion].detalle.split(',')[0],
+        let arrayAuxCantidad = [];
+        for (let i = 0; i < arrayCupones.length; i++) {
+          arrayAuxCantidad.push(
+            arrayCupones.filter(
+              (x) => x.detalle == arrayCupones[i].detalle,
+            ).length,
           );
-
-          //Guardo la cantidad de condigos en general
-          setCantidadCupones(arrayCupones.length);
         }
-        //Array y función para guardar todos los beneficios por separado
+        let maximo = 0;
+        let posicion = 0;
+        for (let i = 0; i < arrayAuxCantidad.length; i++) {
+          if (i === 0) {
+            maximo = arrayAuxCantidad[i];
+          }
+          if (arrayAuxCantidad[i] > maximo) {
+            maximo = arrayAuxCantidad[i];
+            posicion = i;
+          }
+        }
+        setCuponMasUsado(
+          arrayCupones[posicion].detalle.split(',')[0],
+        );
 
-        //Guardo todos los codigos en el estado "codigosCupòn"
-      } catch (error) {
-        console.log(error);
+        //Guardo la cantidad de condigos en general
+        setCantidadCupones(arrayCupones.length);
       }
-    };
+      //Array y función para guardar todos los beneficios por separado
 
+      //Guardo todos los codigos en el estado "codigosCupòn"
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  React.useEffect(() => {
     obtenerPromociones();
     obtenerCantidadComprasXDescuento();
   }, []);

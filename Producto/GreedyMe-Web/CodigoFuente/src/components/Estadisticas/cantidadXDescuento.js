@@ -193,7 +193,7 @@ function CantidadXDescuento(props) {
     //FALTA EL IF SI SE SELECCIONÓ O NO EL DESCUENTO.
     //Tengo que usar cupon que es el "parametro"cupon + codigosCupon que es el array donde estan todos + cantidadCupones
     let contador = 0;
-    if (cupon && cupon !== 0) {
+    if (cupon && cupon !== 0 && cupon.id !== 0) {
       for (let i = 0; i < codigosCupon.length; i++) {
         if (
           codigosCupon[i].fechaCreacion.toDate() <= hastaReporte &&
@@ -203,6 +203,7 @@ function CantidadXDescuento(props) {
           contador++;
         }
       }
+      console.log("why");
       setFlagChart(false);
     } else {
       const nombreBarChart = [];
@@ -242,6 +243,7 @@ function CantidadXDescuento(props) {
         }
       }
       chart(nombreSplitBarChart, countBarChart);
+      setFlagChart(true);
     }
 
     setCantidadCupones(contador);
