@@ -11,6 +11,7 @@ import {
   TextValidator,
 } from 'react-material-ui-form-validator';
 import { cargarTipoPromocion } from '../../../redux/actions/adminActions';
+import { resetearValoresTipoPromocion } from '../../../redux/actions/adminActions';
 import Grid from '@material-ui/core/Grid';
 import Snackbar from '@material-ui/core/Snackbar';
 
@@ -47,6 +48,8 @@ function FormTipoPromocion(props) {
 
   //Estado para manejar el snackbar
   const [open, setOpen] = React.useState(false);
+  //Estado para manejar el snackbar 2
+  const [open2, setOpen2] = React.useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,12 +63,26 @@ function FormTipoPromocion(props) {
     setFormData({ ...formData });
   };
 
+  React.useEffect(() => {
+    if (props.nombreTipoPromocionFalla !== null) {
+      setOpen2(true);
+      props.resetearValoresTipoPromocion()
+    }
+  }, [props.nombreTipoPromocionFalla])
+
   //Funcion para cerrar el snackbar
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
+  };
+  //Funcion para cerrar el snackbar 2
+  const handleClose2 = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen2(false);
   };
 
   const form = React.createRef();
@@ -111,6 +128,16 @@ function FormTipoPromocion(props) {
             ¡Se guardó el tipo de beneficio correctamente!
           </Alert>
         </Snackbar>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={open2}
+          autoHideDuration={8000}
+          onClose={handleClose2}
+        >
+          <Alert onClose={handleClose2} severity="error">
+            El tipo de beneficio ya esta siendo utilizado.
+          </Alert>
+        </Snackbar>
       </ValidatorForm>
     </div>
   );
@@ -120,6 +147,7 @@ const mapStateToProps = (state) => {
   return {
     proveedores: state.firestore.ordered.proveedorServicio,
     tipoPromo: state.firestore.ordered.tipoPromocion,
+    nombreTipoPromocionFalla: state.admin.nombreTipoPromocionFalla,
   };
 };
 
@@ -127,6 +155,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     cargarTipoPromocion: (formData) =>
       dispatch(cargarTipoPromocion(formData)),
+    resetearValoresTipoPromocion: () => dispatch(resetearValoresTipoPromocion()),
   };
 };
 export default compose(

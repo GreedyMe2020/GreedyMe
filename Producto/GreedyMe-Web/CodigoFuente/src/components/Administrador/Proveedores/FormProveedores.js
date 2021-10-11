@@ -101,8 +101,21 @@ function FormProveedores(props) {
   //Estado para manejar el snackbar
   const [open, setOpen] = React.useState(false);
 
+  //Estado para manejar el snackbar 2
+  const [open2, setOpen2] = React.useState(false);
+
   const handleSubmit = (e) => {
     if (formData.tipoProveedor === 'Bancos') {
+      const proveedores = props.proveedores;
+      const indice = _.findIndex(proveedores[3].bancos, function (o) {
+        return o.nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") === formData.valueProveedor.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      });
+
+      if (indice !== -1) {
+        setOpen2(true);
+        return;
+      }
+
       props.cargarBanco({
         id: 'ndbKpkm6GorM0g5kHNkF',
         valueProveedor: formData.valueProveedor,
@@ -116,6 +129,20 @@ function FormProveedores(props) {
       //Abro el snackbar
       setOpen(true);
     } else {
+      const proveedores = props.proveedores;
+
+      const indiceACambiar = _.findIndex(proveedores, function (o) {
+        return o.tipo === formData.tipoProveedor;
+      });
+
+      const indice = _.findIndex(proveedores[indiceACambiar].lista, function (o) {
+        return o.nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") === formData.valueProveedor.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      });
+
+      if (indice !== -1) {
+        setOpen2(true);
+        return;
+      }
       props.cargarProveedor({
         tipoProveedor: formData.tipoProveedor,
         valueProveedor: formData.valueProveedor,
@@ -149,6 +176,14 @@ function FormProveedores(props) {
       return;
     }
     setOpen(false);
+  };
+
+  //Funcion para cerrar el snackbar 2
+  const handleClose2 = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen2(false);
   };
 
   const handleUpload = (event) => {
@@ -295,6 +330,16 @@ function FormProveedores(props) {
         >
           <Alert onClose={handleClose} severity="success">
             ¡Se guardó el proveedor correctamente!
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          open={open2}
+          autoHideDuration={8000}
+          onClose={handleClose2}
+        >
+          <Alert onClose={handleClose2} severity="error">
+            El proveedor ya esta siendo utilizado.
           </Alert>
         </Snackbar>
       </ValidatorForm>
