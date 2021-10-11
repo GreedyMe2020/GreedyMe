@@ -55,11 +55,24 @@ function FormPromocion(props) {
   //Estado para manejar el snackbar
   const [open, setOpen] = React.useState(false);
 
+  //Estado para manejar el snackbar 2
+  const [open2, setOpen2] = React.useState(false);
+
   const handleSubmit = (e) => {
     const promociones = props.tipoPromo;
+
     const indiceACambiar = _.findIndex(promociones, function (o) {
       return o.tipo === formData.tipoPromo;
     });
+
+    const indice = _.findIndex(promociones[indiceACambiar].lista, function (o) {
+      return o.valor.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") === formData.valuePromo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    });
+
+    if (indice !== -1) {
+      setOpen2(true);
+      return;
+    }
     const id = promociones[indiceACambiar].id;
     const lista = promociones[indiceACambiar].lista;
 
@@ -86,6 +99,14 @@ function FormPromocion(props) {
       return;
     }
     setOpen(false);
+  };
+
+  //Funcion para cerrar el snackbar
+  const handleClose2 = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen2(false);
   };
 
   const form = React.createRef();
@@ -150,6 +171,16 @@ function FormPromocion(props) {
         >
           <Alert onClose={handleClose} severity="success">
             ¡Se guardó el beneficio correctamente!
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={open2}
+          autoHideDuration={8000}
+          onClose={handleClose2}
+        >
+          <Alert onClose={handleClose2} severity="error">
+            El beneficio ya esta siendo utilizado.
           </Alert>
         </Snackbar>
       </ValidatorForm>

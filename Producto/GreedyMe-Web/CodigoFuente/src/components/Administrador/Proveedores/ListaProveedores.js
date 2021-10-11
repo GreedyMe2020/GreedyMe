@@ -21,8 +21,11 @@ import FormTipoProveedores from './FormTipoProveedores';
 import FormProveedores from './FormProveedores';
 import ModalAdministradorPr from '../modal-admin-pr';
 import { eliminarTipoProveedor } from '../../../redux/actions/adminActions';
+import { eliminarProveedor } from '../../../redux/actions/adminActions';
+import { eliminarProveedorBanco } from '../../../redux/actions/adminActions';
 import Snackbar from '@material-ui/core/Snackbar';
 import Chip from '@material-ui/core/Chip';
+import { set } from 'date-fns';
 //esta es la funcion que trae los datos, tipo crea un array trae todos las promociones
 //y la va acumulando en el array
 
@@ -47,9 +50,10 @@ function Alert(props) {
 
 function ListaProveedores(props) {
   const classes = useStyles();
-
   //Estado del dialog (abierto/cerrado)
   const [open, setOpen] = React.useState(false);
+  //Estado del dialog (abierto/cerrado)
+  const [open2, setOpen2] = React.useState(false);
   //para eliminar
   const [eliminar, setEliminar] = React.useState(null);
   const [currentId, setCurrentId] = React.useState(null);
@@ -62,13 +66,6 @@ function ListaProveedores(props) {
   );
   const [text, setText] = React.useState('');
   const [texto, setTexto] = React.useState(false);
-
-  const [chipData, setChipData] = React.useState([
-    { key: 0, nombre: 'Angular' },
-    { key: 1, nombre: 'jQuery' },
-    { key: 2, nombre: 'Polymer' },
-    { key: 4, nombre: 'Vue.js' },
-  ]);
 
   const handleClose = () => {
     setOpen(false);
@@ -112,10 +109,21 @@ function ListaProveedores(props) {
     setEliminada(false);
   };
 
-  const handleDelete = (chipToDelete) => () => {
-    setChipData((chips) =>
-      chips.filter((chip) => chip.nombre !== chipToDelete.nombre),
-    );
+  const handleClose2 = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen2(false);
+  };
+
+  const handleDelete = (proveedor, idProveedor) => {
+    props.eliminarProveedor(proveedor, idProveedor);
+    setOpen2(true);
+  };
+
+  const handleDeleteBanco = (banco) => {
+    props.eliminarProveedorBanco(banco);
+    setOpen2(true);
   };
 
   const form = React.createRef();
@@ -140,93 +148,94 @@ function ListaProveedores(props) {
                 <List>
                   {props.proveedores && texto === false
                     ? props.proveedores.map((item) => {
-                        return (
-                          <ListItem key={item.id}>
-                            <ListItemAvatar>
-                              <Avatar
-                                variant="square"
-                                src={require('../../../../Multimedia/Sistema-svg/id-card.svg')}
-                              ></Avatar>
-                            </ListItemAvatar>
+                      return (
+                        <ListItem key={item.id}>
+                          <ListItemAvatar key={item.id}>
+                            <Avatar
+                              variant="square"
+                              src={require('../../../../Multimedia/Sistema-svg/id-card.svg')}
+                            ></Avatar>
+                          </ListItemAvatar>
 
-                            <div className="elementoListaProm">
-                              <ListItemText
-                                primary={
-                                  <React.Fragment>
-                                    <Typography
-                                      className={classes.inline}
-                                    >
-                                      {item.tipo
-                                        ? item.tipo
-                                        : 'Bancos'}
-                                    </Typography>
-                                    {item.lista
-                                      ? item.lista.map((ite) => {
-                                          return (
-                                            <Chip
-                                              label={ite.nombre}
-                                              variant="outlined"
-                                              size="small"
-                                              style={{
-                                                margin:
-                                                  '0px 4px 4px 0px',
-                                              }}
-                                              onDelete={handleDelete}
-                                            />
-                                          );
-                                        })
-                                      : item.bancos.map((ite) => {
-                                          return (
-                                            <Chip
-                                              key={ite.id}
-                                              label={ite.nombre}
-                                              variant="outlined"
-                                              size="small"
-                                              style={{
-                                                margin:
-                                                  '0px 4px 4px 0px',
-                                              }}
-                                              onDelete={handleDelete}
-                                            />
-                                          );
-                                        })}
-                                  </React.Fragment>
-                                }
-                              />
-                            </div>
-                            <ListItemSecondaryAction>
-                              <Tooltip title="Eliminar" arrow>
-                                <IconButton
-                                  onClick={() => {
-                                    setEliminar(item.id);
-                                    setOpen(true);
-                                  }}
-                                  edge="end"
-                                  aria-label="Eliminar"
-                                >
-                                  <DeleteIcon />
-                                </IconButton>
-                              </Tooltip>
-                              <DialogComponent
-                                open={open}
-                                setOpen={setOpen}
-                                handleClose={handleClose}
-                                eliminar={eliminar}
-                                setEliminar={setEliminar}
-                                setEliminada={setEliminada}
-                                setCurrentId={setCurrentId}
-                                title={
-                                  '¿Estás seguro de eliminar la promoción?'
-                                }
-                                text={
-                                  'Una vez que aceptes eliminar la promoción, la misma no podrá ser recuperada.'
-                                }
-                                btnText={'Eliminar'}
-                              />
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        );
-                      })
+                          <div className="elementoListaProm">
+                            <ListItemText key={item.id}
+                              primary={
+                                <React.Fragment>
+                                  <Typography
+                                    className={classes.inline}
+                                  >
+                                    {item.tipo
+                                      ? item.tipo
+                                      : 'Bancos'}
+                                  </Typography>
+                                  {item.lista
+                                    ? item.lista.map((ite) => {
+                                      return (
+                                        <Chip
+                                          label={ite.nombre}
+                                          variant="outlined"
+                                          key={ite.photoURL}
+                                          size="small"
+                                          style={{
+                                            margin:
+                                              '0px 4px 4px 0px',
+                                          }}
+                                          onDelete={() => handleDelete(ite.nombre, item.id)}
+                                        />
+                                      );
+                                    })
+                                    : item.bancos.map((ite) => {
+                                      return (
+                                        <Chip
+                                          key={ite.id}
+                                          label={ite.nombre}
+                                          variant="outlined"
+                                          size="small"
+                                          style={{
+                                            margin:
+                                              '0px 4px 4px 0px',
+                                          }}
+                                          onDelete={() => handleDeleteBanco(ite.nombre)}
+                                        />
+                                      );
+                                    })}
+                                </React.Fragment>
+                              }
+                            />
+                          </div>
+                          <ListItemSecondaryAction>
+                            <Tooltip title="Eliminar" arrow>
+                              <IconButton
+                                onClick={() => {
+                                  setEliminar(item.id);
+                                  setOpen(true);
+                                }}
+                                edge="end"
+                                aria-label="Eliminar"
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </Tooltip>
+                            <DialogComponent
+                              open={open}
+                              setOpen={setOpen}
+                              handleClose={handleClose}
+                              eliminar={eliminar}
+                              setEliminar={setEliminar}
+                              setEliminada={setEliminada}
+                              setCurrentId={setCurrentId}
+                              title={
+                                '¿Estás seguro de eliminar la promoción?'
+                              }
+                              text={
+                                'Una vez que aceptes eliminar la promoción, la misma no podrá ser recuperada.'
+                              }
+                              btnText={'Eliminar'}
+                            />
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      );
+                    })
                     : null}
                 </List>
                 {eliminada ? (
@@ -243,7 +252,7 @@ function ListaProveedores(props) {
                       onClose={handleCloseSnack}
                       severity="error"
                     >
-                      La promoción se ha eliminado
+                      El tipo de proveedor se ha eliminado
                     </Alert>
                   </Snackbar>
                 ) : (
@@ -251,6 +260,16 @@ function ListaProveedores(props) {
                 )}
               </div>
             </Grid>
+            <Snackbar
+              anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+              open={open2}
+              autoHideDuration={8000}
+              onClose={handleClose2}
+            >
+              <Alert onClose={handleClose2} severity="success">
+                El proveedor se ha eliminado.
+              </Alert>
+            </Snackbar>
           </CardContent>
         </Card>
       </div>
@@ -269,6 +288,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     eliminarTipoProveedor: (formData) =>
       dispatch(eliminarTipoProveedor(formData)),
+    eliminarProveedor: (proveedor, idProveedor) =>
+      dispatch(eliminarProveedor(proveedor, idProveedor)),
+    eliminarProveedorBanco: (banco) =>
+      dispatch(eliminarProveedorBanco(banco)),
+
   };
 };
 
