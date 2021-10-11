@@ -93,6 +93,7 @@ function ListaPromocion(props) {
         const tipo = item.tipo.toUpperCase();
         const campo = tipo;
         const textData = textoBuscar.toUpperCase();
+
         return campo.indexOf(textData) > -1;
       });
       setListaPromociones(newDatos);
@@ -216,7 +217,77 @@ function ListaPromocion(props) {
                         </ListItem>
                       );
                     })
-                    : null}
+                    : listaPromociones
+                      ? listaPromociones.map((item) => {
+                        return (
+                          <ListItem key={item.id}>
+                            <ListItemAvatar key={item.id}>
+                              <Avatar
+                                variant="square"
+                                src={require('../../../../Multimedia/Sistema-svg/price-tag (5).svg')}
+                              ></Avatar>
+                            </ListItemAvatar>
+
+                            <div className="elementoListaProm">
+                              <ListItemText key={item.id}
+                                primary={
+                                  <React.Fragment>
+                                    <Typography
+                                      className={classes.inline}
+                                    >
+                                      {item.tipo}
+                                    </Typography>
+                                    {item.lista.map((ite) => {
+                                      return (
+                                        <Chip
+                                          label={ite.valor}
+                                          variant="outlined"
+                                          size="small"
+                                          key={ite.photoURL}
+                                          style={{
+                                            margin: '0px 4px 4px 0px',
+                                          }}
+                                          onDelete={() => handleDelete(ite.valor, item.id)}
+                                        />
+                                      );
+                                    })}
+                                  </React.Fragment>
+                                }
+                              />
+                            </div>
+                            <ListItemSecondaryAction>
+                              <Tooltip title="Eliminar" arrow>
+                                <IconButton
+                                  onClick={() => {
+                                    setEliminar(item.id);
+                                    setOpen(true);
+                                  }}
+                                  edge="end"
+                                  aria-label="Eliminar"
+                                >
+                                  <DeleteIcon />
+                                </IconButton>
+                              </Tooltip>
+                              <DialogComponent
+                                open={open}
+                                setOpen={setOpen}
+                                handleClose={handleClose}
+                                eliminar={eliminar}
+                                setEliminar={setEliminar}
+                                setEliminada={setEliminada}
+                                setCurrentId={setCurrentId}
+                                title={
+                                  '¿Estás seguro de eliminar el beneficio?'
+                                }
+                                text={
+                                  'Una vez que aceptes eliminar el beneficio, el misma no podrá ser recuperada.'
+                                }
+                                btnText={'Eliminar'}
+                              />
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        );
+                      }) : null}
                 </List>
                 {eliminada ? (
                   <Snackbar
