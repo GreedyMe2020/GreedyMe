@@ -27,39 +27,37 @@ function Estadisticas(props) {
   const [cantidadPromos, setCantidadPromos] = React.useState(0);
   const [cuponMasUsado, setCuponMasUsado] = React.useState('');
 
-  React.useEffect(() => {
-    const obtenerPromociones = async () => {
-      const firestore = firebase.firestore();
-      try {
-        const promociones = await firestore
-          .collection('usuarioComercio')
-          .doc(props.auth.uid)
-          .collection('promociones')
-          .get();
-        const arrayPromociones = promociones.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setCantidadPromos(arrayPromociones.length);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const obtenerPromociones = async () => {
+    const firestore = firebase.firestore();
+    try {
+      const promociones = await firestore
+        .collection('usuarioComercio')
+        .doc(props.auth.uid)
+        .collection('promociones')
+        .get();
+      const arrayPromociones = promociones.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setCantidadPromos(arrayPromociones.length);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    const obtenerCantidadComprasXDescuento = async () => {
-      const firestore = firebase.firestore();
-      try {
-        const cupones = await firestore
-          .collection('usuarioComercio')
-          .doc(props.auth.uid)
-          .collection('codigoCupon')
-          .get();
+  const obtenerCantidadComprasXDescuento = async () => {
+    const firestore = firebase.firestore();
+    try {
+      const cupones = await firestore
+        .collection('usuarioComercio')
+        .doc(props.auth.uid)
+        .collection('codigoCupon')
+        .get();
+      if (cupones.docs.length !== 0) {
         const arrayCupones = cupones.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-
-        //Array y función para guardar todos los beneficios por separado
 
         let arrayAuxCantidad = [];
         for (let i = 0; i < arrayCupones.length; i++) {
@@ -86,12 +84,16 @@ function Estadisticas(props) {
 
         //Guardo la cantidad de condigos en general
         setCantidadCupones(arrayCupones.length);
-        //Guardo todos los codigos en el estado "codigosCupòn"
-      } catch (error) {
-        console.log(error);
       }
-    };
+      //Array y función para guardar todos los beneficios por separado
 
+      //Guardo todos los codigos en el estado "codigosCupòn"
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  React.useEffect(() => {
     obtenerPromociones();
     obtenerCantidadComprasXDescuento();
   }, []);

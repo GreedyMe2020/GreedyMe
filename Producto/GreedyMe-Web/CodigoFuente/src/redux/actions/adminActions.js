@@ -50,6 +50,7 @@ export const signUp = (nuevoUsuario) => {
                 sumadorPreguntas: 0,
                 tokensFavoritos: [],
                 fechaVencimiento: new Date(),
+                estadisticasFavoritos: [],
                 cantidadNotificaciones: 4,
               });
             const bd = secondaryApp.firestore();
@@ -72,6 +73,7 @@ export const signUp = (nuevoUsuario) => {
               sumadorPreguntas: 0,
               tokensFavoritos: [],
               fechaVencimiento: new Date(),
+              estadisticasFavoritos: [],
               cantidadNotificaciones: 4,
             });
           })
@@ -717,4 +719,56 @@ export const eliminarPuntoRetiro = (id) => {
         dispatch({ type: 'FALLO_ELIMINACION_PUNTO_RETIRO', error });
       });
   };
+
+
 };
+
+// -------------------------- CANJES
+
+export const modificarCanje = (producto) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection('productosCanjeadosGeneral')
+      .doc(producto.id)
+      .update({
+        apellidoUsuario: producto.apellido,
+        nombreUsuario: producto.nombre,
+        estado: producto.estado,
+        nombreProducto: producto.producto,
+        fecha: new Date(),
+      })
+      /*.then(() => {
+        const bd = secondaryApp.firestore();
+        bd.collection('usuarioComercio').doc(usuario.id).collection('productosCanjeados').doc(usuario.idDoc).delete();
+      })*/
+      .then(() => {
+        dispatch({ type: 'CANJE_MODIFICADO' });
+      })
+      .catch((error) => {
+        dispatch({ type: 'FALLO_MODIFICACION_CANJE', error });
+      });
+  };
+};
+
+export const eliminarCanje = (producto) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    firestore
+      .collection('productosCanjeadosGeneral')
+      .doc(producto.id)
+      .delete()
+      /*.then(() => {
+        const bd = secondaryApp.firestore();
+        bd.collection('usuarioComercio').doc(usuario.id).collection('productosCanjeados').doc(usuario.idDoc).delete();
+      })*/
+      .then(() => {
+        dispatch({ type: 'CANJE_ELIMINADO' });
+      })
+      .catch((error) => {
+        dispatch({ type: 'FALLO_ELIMINACION_CANJE', error });
+      });
+  };
+};
+
+

@@ -325,7 +325,94 @@ function ListaProveedores(props) {
                             </ListItemSecondaryAction>
                           </ListItem>
                         );
-                      }) : null}
+                      })
+                      : listaProveedores
+                        ? listaProveedores.map((item) => {
+                          return (
+                            <ListItem key={item.id}>
+                              <ListItemAvatar>
+                                <Avatar
+                                  variant="square"
+                                  src={require('../../../../Multimedia/Sistema-svg/price-tag (5).svg')}
+                                ></Avatar>
+                              </ListItemAvatar>
+
+                              <div className="elementoListaProm">
+                                <ListItemText
+                                  primary={
+                                    <React.Fragment>
+                                      <Typography
+                                        className={classes.inline}
+                                      >
+                                        {item.tipo}
+                                      </Typography>
+                                      {item.lista
+                                        ? item.lista.map((ite) => {
+                                          return (
+                                            <Chip
+                                              label={ite.nombre}
+                                              variant="outlined"
+                                              size="small"
+                                              style={{
+                                                margin:
+                                                  '0px 4px 4px 0px',
+                                              }}
+                                              onDelete={handleDelete}
+                                            />
+                                          );
+                                        })
+                                        : item.bancos.map((ite) => {
+                                          return (
+                                            <Chip
+                                              label={ite.nombre}
+                                              variant="outlined"
+                                              size="small"
+                                              style={{
+                                                margin:
+                                                  '0px 4px 4px 0px',
+                                              }}
+                                              onDelete={handleDelete}
+                                            />
+                                          );
+                                        })}
+                                    </React.Fragment>
+                                  }
+                                />
+                              </div>
+                              <ListItemSecondaryAction>
+                                <Tooltip title="Eliminar" arrow>
+                                  <IconButton
+                                    onClick={() => {
+                                      setEliminar(item.id);
+                                      setOpen(true);
+                                    }}
+                                    edge="end"
+                                    aria-label="Eliminar"
+                                  >
+                                    <DeleteIcon />
+                                  </IconButton>
+                                </Tooltip>
+                                <DialogComponent
+                                  open={open}
+                                  setOpen={setOpen}
+                                  handleClose={handleClose}
+                                  eliminar={eliminar}
+                                  setEliminar={setEliminar}
+                                  setEliminada={setEliminada}
+                                  setCurrentId={setCurrentId}
+                                  title={
+                                    '¿Estás seguro de eliminar el beneficio?'
+                                  }
+                                  text={
+                                    'Una vez que aceptes eliminar el beneficio, el misma no podrá ser recuperada.'
+                                  }
+                                  btnText={'Eliminar'}
+                                />
+                              </ListItemSecondaryAction>
+                            </ListItem>
+                          );
+                        })
+                        : null}
                 </List>
                 {eliminada ? (
                   <Snackbar

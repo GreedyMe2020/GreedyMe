@@ -34,6 +34,9 @@ const initState = {
   bancoEliminadoFalla: null,
   nombreTipoPromocionFalla: null,
   nombreTipoProveedorFalla: null,
+  canjeEliminado: null,
+  canjeModificado: null,
+  canjeFalla: null,
 };
 
 const adminReducer = (state = initState, action) => {
@@ -291,6 +294,32 @@ const adminReducer = (state = initState, action) => {
       return {
         ...state,
         puntoRetiroFalla: 'fallo el nuevo punto de retiro',
+      };
+
+    case 'CANJE_ELIMINADO':
+      console.log('Se eliminó el canje del perfil del usuario');
+      return {
+        ...state,
+        canjeEliminado: 'Se eliminó el canje del perfil del usuario',
+      };
+    case 'FALLO_ELIMINACION_CANJE':
+      console.log('falló modificación canje');
+      return {
+        ...state,
+        canjeFalla: 'falló modificación canje',
+      };
+
+    case 'CANJE_MODIFICADO':
+      console.log('Se modificó el canje del perfil del usuario');
+      return {
+        ...state,
+        canjeModificado: 'Se modificó el canje del perfil del usuario',
+      };
+    case 'FALLO_MODIFICACION_CANJE':
+      console.log('falló modificación canje');
+      return {
+        ...state,
+        canjeFalla: 'falló modificación canje',
       };
 
     default:

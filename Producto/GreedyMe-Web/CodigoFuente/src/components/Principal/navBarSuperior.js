@@ -10,11 +10,18 @@ export function NavBarSup({ appBar, seleccionado, setSeleccionado }) {
   return (
     <AppBar position="fixed" className={appBar}>
       <Toolbar className="nav-container">
-        <a id="titulo">
-          <h1 className="gre">gre</h1>
-          <h1 className="edy">edy</h1>
-          <h1 className="me">me</h1>
-        </a>
+        <div id="titulo">
+          <Link
+            to={'/'}
+            className="link subtitulo"
+            style={{ display: 'flex', flexDirection: 'row' }}
+          >
+            <h1 className="gre">gre</h1>
+            <h1 className="edy">edy</h1>
+            <h1 className="me">me</h1>
+          </Link>
+        </div>
+
         {/* <Notificaciones /> */}
         <Perfil
           seleccionado={seleccionado}
