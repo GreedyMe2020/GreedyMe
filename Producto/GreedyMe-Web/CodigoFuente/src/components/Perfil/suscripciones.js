@@ -145,9 +145,6 @@ function Suscripciones(props) {
                     'Estadísticas base',
                     '4 notificaciones por mes',
                     'Notificaciones a cientes favoritos',
-                    <Box lineHeight={1.75} m={1}>
-                      -
-                    </Box>,
                     ,
                     <Box lineHeight={1.75} m={1}>
                       -
@@ -191,9 +188,6 @@ function Suscripciones(props) {
                     'Estadísticas avanzadas',
                     '8 notificaciones por mes',
                     'Notificaciones a todos los usuarios',
-                    <Box lineHeight={1.75} m={1}>
-                      -
-                    </Box>,
                     'Figurar en búsquedas por geolocalización',
                     '-',
                     <Box lineHeight={1.7} m={1}>
@@ -235,7 +229,6 @@ function Suscripciones(props) {
                     'Estadísticas avanzadas',
                     '30 notificaciones por mes',
                     'Notificaciones a todos los usuarios',
-                    'Notificaciones programadas por fecha y hora',
                     'Figurar en búsquedas por geolocalización',
                     'Exportación de reportes estadísticos',
                     <Box lineHeight={1.75} m={1}>
