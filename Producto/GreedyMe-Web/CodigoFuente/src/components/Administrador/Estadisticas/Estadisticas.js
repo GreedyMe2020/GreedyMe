@@ -47,6 +47,7 @@ function Estadisticas(props) {
   const classes = useStyles();
   //Estado que contiene a los usuarios
   const [usuarios, setUsuarios] = React.useState(props.usuarios);
+
   //funciones que agrupan los usuarios por rubros y suscripciones
   const gruposRubrosOriginal = formatoRubros(usuarios);
   const gruposSuscripcionesOriginal = formatoSuscripciones(usuarios);
@@ -69,9 +70,11 @@ function Estadisticas(props) {
   const [gruposRubros, setGruposRubros] = React.useState(
     gruposRubrosOriginal
   );
+
   const [gruposSuscripciones, setGruposSuscripciones] = React.useState(
     gruposSuscripcionesOriginal
   );
+
   const temaCombo = createMuiTheme({
     overrides: {
       MuiInputBase: {
@@ -87,10 +90,13 @@ function Estadisticas(props) {
     window.print();
   };
 
-  const data = [{ x: 0, y: 0 }];
-
   const handleRefresh = () => {
     const gruposRubrosFiltro = formatoRubrosFiltro(usuarios, desdeReporte, hastaReporte);
+    setGruposRubros(gruposRubrosFiltro);
+  };
+
+  const handleTodo = () => {
+    const gruposRubrosFiltro = formatoRubros(usuarios);
     setGruposRubros(gruposRubrosFiltro);
   };
 
@@ -99,10 +105,6 @@ function Estadisticas(props) {
     setGruposSuscripciones(gruposSuscripcionesFiltro);
   };
 
-  const handleTodo = () => {
-    const gruposRubrosFiltro = formatoRubros(usuarios);
-    setGruposRubros(gruposRubrosFiltro);
-  };
 
   const handleTodo2 = () => {
     const gruposSuscripcionesFiltro = formatoSuscripciones(usuarios);
@@ -113,13 +115,6 @@ function Estadisticas(props) {
     <div>
       <div className="prom-title-container">
         <h1>Estadísticas</h1>
-      </div>
-      <div className="tittle-discount" style={{ margin: '0 5%' }}>
-        <div className="t-discount">
-          <p class="tittle-d">
-            Cantidad total de compras por beneficio
-          </p>
-        </div>
         <Button
           variant="contained"
           id="imprimir"
@@ -130,170 +125,184 @@ function Estadisticas(props) {
           Imprimir
         </Button>
       </div>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <ThemeProvider theme={temaCombo}>
-          <DatePicker
-            autoOk
-            disableToolbar
-            className="select"
-            inputVariant="outlined"
-            name="desdeReporte"
-            label="Fecha desde"
-            minDate={new Date('2020/01/01')}
-            maxDate={new Date()}
-            format="dd/MM/yyyy"
-            value={desdeReporte}
-            variant="inline"
-            onChange={(data) => handleDesdeReporte(data)}
-          />
-          <DatePicker
-            autoOk
-            disableToolbar
-            className="select"
-            inputVariant="outlined"
-            name="hastaReporte"
-            label="Fecha hasta"
-            minDate={desdeReporte}
-            maxDate={new Date()}
-            format="dd/MM/yyyy"
-            value={hastaReporte}
-            variant="inline"
-            onChange={(data) => handleHastaReporte(data)}
-          />
-        </ThemeProvider>
-      </MuiPickersUtilsProvider>
-      <div>
-        <Button
-          variant="outlined"
-          onClick={handleRefresh}
-          endIcon={<Refresh fontSize="medium" />}
-          id="actualizar-reporte"
-        >
-          Actualizar
-        </Button>
-      </div>
-      <div>
-        <Button
-          variant="outlined"
-          onClick={handleTodo}
-          endIcon={<Refresh fontSize="medium" />}
-          id="actualizar-reporte"
-        >
-          Mostrar todo
-        </Button>
-      </div>
+      
       <div className="container-discount">
-        <XYPlot width={900} height={300} xType="ordinal">
-          <VerticalGridLines />
-          <HorizontalGridLines />
-          <XAxis />
-          <YAxis />
-          <VerticalBarSeries
-            color="#262262"
-            data={
-              gruposRubros &&
-              Object.entries(gruposRubros).map((rubro) => {
-                return {
-                  x: rubro[0],
-                  y: rubro[1].length,
-                };
-              })
-            }
-          />
+        <div className="tittle-discount">
+          <div className="t-discount">
+            <p className="tittle-d">
+              Cantidad total de compras por beneficio
+            </p>
+          </div>
+          <div>
+            <Button
+              variant="outlined"
+              onClick={handleRefresh}
+              endIcon={<Refresh fontSize="medium" />}
+              id="actualizar-reporte"
+            >
+              Actualizar
+            </Button>
+          </div>
+        </div>
+        <div className="content-discount">
+          <form className="form-d" noValidate autoComplete="off">
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <ThemeProvider theme={temaCombo}>
+                <DatePicker
+                  autoOk
+                  disableToolbar
+                  className="select"
+                  inputVariant="outlined"
+                  name="desdeReporte"
+                  label="Fecha desde"
+                  minDate={new Date('2020/01/01')}
+                  maxDate={new Date()}
+                  format="dd/MM/yyyy"
+                  value={desdeReporte}
+                  variant="inline"
+                  onChange={(data) => handleDesdeReporte(data)}
+                />
+                <DatePicker
+                  autoOk
+                  disableToolbar
+                  className="select"
+                  inputVariant="outlined"
+                  name="hastaReporte"
+                  label="Fecha hasta"
+                  minDate={desdeReporte}
+                  maxDate={new Date()}
+                  format="dd/MM/yyyy"
+                  value={hastaReporte}
+                  variant="inline"
+                  onChange={(data) => handleHastaReporte(data)}
+                />
+              </ThemeProvider>
+            </MuiPickersUtilsProvider>
+            <Button
+              variant="outlined"
+              onClick={handleTodo}
+              id="actualizar-reporte"
+            >
+              Mostrar todo
+            </Button>
+          </form>
+          <div className="est-container">
+            <XYPlot width={900} height={300} xType="ordinal">
+              <VerticalGridLines />
+              <HorizontalGridLines />
+              <XAxis />
+              <YAxis />
+              <VerticalBarSeries
+                color="#262262"
+                data={
+                  gruposRubros &&
+                  Object.entries(gruposRubros).map((rubro) => {
+                    return {
+                      x: rubro[0],
+                      y: rubro[1].length,
+                    };
+                  })
+                }
+              />
 
-        </XYPlot>
-      </div>
-      <div
-        className="tittle-discount"
-        style={{ margin: '20px 5% 0' }}
-      >
-        <div className="t-discount">
-          <p class="tittle-d">
-            Cantidad de comercios por tipo de suscripción
-          </p>
+            </XYPlot>
+          </div>
         </div>
       </div>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <ThemeProvider theme={temaCombo}>
-          <DatePicker
-            autoOk
-            disableToolbar
-            className="select"
-            inputVariant="outlined"
-            name="desdeReporte"
-            label="Fecha desde"
-            minDate={new Date('2020/01/01')}
-            maxDate={new Date()}
-            format="dd/MM/yyyy"
-            value={desdeReporte2}
-            variant="inline"
-            onChange={(data) => handleDesdeReporte2(data)}
-          />
-          <DatePicker
-            autoOk
-            disableToolbar
-            className="select"
-            inputVariant="outlined"
-            name="hastaReporte"
-            label="Fecha hasta"
-            minDate={desdeReporte2}
-            maxDate={new Date()}
-            format="dd/MM/yyyy"
-            value={hastaReporte2}
-            variant="inline"
-            onChange={(data) => handleHastaReporte2(data)}
-          />
-        </ThemeProvider>
-      </MuiPickersUtilsProvider>
-      <div>
-        <Button
-          variant="outlined"
-          onClick={handleRefresh2}
-          endIcon={<Refresh fontSize="medium" />}
-          id="actualizar-reporte"
-        >
-          Actualizar
-        </Button>
-      </div>
-      <div>
-        <Button
-          variant="outlined"
-          onClick={handleTodo2}
-          endIcon={<Refresh fontSize="medium" />}
-          id="actualizar-reporte"
-        >
-          Mostrar todo
-        </Button>
-      </div>
+      
       <div className="container-discount">
-        <XYPlot width={880} height={300} xType="ordinal">
-          <VerticalGridLines />
-          <HorizontalGridLines />
-          <XAxis />
-          <YAxis />
+        <div>
+          <div className="tittle-discount">
+            <div className="t-discount">
+              <p className="tittle-d">
+              Cantidad de comercios por tipo de suscripción
+              </p>
+            </div>
+            <div>
+              <Button
+                variant="outlined"
+                onClick={handleRefresh2}
+                endIcon={<Refresh fontSize="medium" />}
+                id="actualizar-reporte"
+              >
+                Actualizar
+              </Button>
+            </div>
+          </div>
+          <div className="content-discount">
+            <form className="form-d" noValidate autoComplete="off">
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <ThemeProvider theme={temaCombo}>
+                  <DatePicker
+                    autoOk
+                    disableToolbar
+                    className="select"
+                    inputVariant="outlined"
+                    name="desdeReporte"
+                    label="Fecha desde"
+                    minDate={new Date('2020/01/01')}
+                    maxDate={new Date()}
+                    format="dd/MM/yyyy"
+                    value={desdeReporte2}
+                    variant="inline"
+                    onChange={(data) => handleDesdeReporte2(data)}
+                  />
+                  <DatePicker
+                    autoOk
+                    disableToolbar
+                    className="select"
+                    inputVariant="outlined"
+                    name="hastaReporte"
+                    label="Fecha hasta"
+                    minDate={desdeReporte2}
+                    maxDate={new Date()}
+                    format="dd/MM/yyyy"
+                    value={hastaReporte2}
+                    variant="inline"
+                    onChange={(data) => handleHastaReporte2(data)}
+                  />
+                </ThemeProvider>
+              </MuiPickersUtilsProvider>
+              <Button
+                variant="outlined"
+                onClick={handleTodo2}
+                id="actualizar-reporte"
+              >
+                Mostrar todo
+              </Button>
+            </form>
+            <div className="est-container">
+              <XYPlot width={880} height={300} xType="ordinal">
+                <VerticalGridLines />
+                <HorizontalGridLines />
+                <XAxis />
+                <YAxis />
 
-          <VerticalBarSeries
-            color="#262262"
-            data={
-              gruposSuscripciones &&
-              Object.entries(gruposSuscripciones).map(
-                (suscripcion) => {
-                  return {
-                    x:
-                      suscripcion[0] === '0'
-                        ? 'Plan Básico'
-                        : suscripcion[0] === '1'
-                          ? 'Plan Estándar'
-                          : suscripcion[0] === '2'
-                            ? 'Plan Premium'
-                            : null,
-                    y: suscripcion[1].length,
-                  };
-                },
-              )
-            }
-          />
-        </XYPlot>
+                <VerticalBarSeries
+                  color="#262262"
+                  data={
+                    gruposSuscripciones &&
+                    Object.entries(gruposSuscripciones).map(
+                      (suscripcion) => {
+                        return {
+                          x:
+                            suscripcion[0] === '0'
+                              ? 'Plan Básico'
+                              : suscripcion[0] === '1'
+                                ? 'Plan Estándar'
+                                : suscripcion[0] === '2'
+                                  ? 'Plan Premium'
+                                  : null,
+                          y: suscripcion[1].length,
+                        };
+                      },
+                    )
+                  }
+                />
+              </XYPlot>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
