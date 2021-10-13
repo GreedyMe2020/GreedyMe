@@ -11,6 +11,7 @@ import {
   TextValidator,
 } from 'react-material-ui-form-validator';
 import { cargarTipoProveedor } from '../../../redux/actions/adminActions';
+import { resetearValoresTipoProveedor } from '../../../redux/actions/adminActions';
 import Grid from '@material-ui/core/Grid';
 import Snackbar from '@material-ui/core/Snackbar';
 
@@ -47,6 +48,8 @@ function FormTipoProveedores(props) {
 
   //Estado para manejar el snackbar
   const [open, setOpen] = React.useState(false);
+  //Estado para manejar el snackbar 2
+  const [open2, setOpen2] = React.useState(false);
 
   const handleSubmit = (e) => {
     props.cargarTipoProveedor(formData);
@@ -66,6 +69,20 @@ function FormTipoProveedores(props) {
     }
     setOpen(false);
   };
+  //Funcion para cerrar el snackbar 2
+  const handleClose2 = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen2(false);
+  };
+
+  React.useEffect(() => {
+    if (props.nombreTipoProveedorFalla !== null) {
+      setOpen2(true);
+      props.resetearValoresTipoProveedor()
+    }
+  }, [props.nombreTipoProveedorFalla])
 
   const form = React.createRef();
   return (
@@ -110,6 +127,16 @@ function FormTipoProveedores(props) {
             ¡Se guardó el tipo de proveedor correctamente!
           </Alert>
         </Snackbar>
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          open={open2}
+          autoHideDuration={8000}
+          onClose={handleClose2}
+        >
+          <Alert onClose={handleClose2} severity="error">
+            El tipo de proveedor ya esta siendo utilizado.
+          </Alert>
+        </Snackbar>
       </ValidatorForm>
     </div>
   );
@@ -119,6 +146,7 @@ const mapStateToProps = (state) => {
   return {
     proveedores: state.firestore.ordered.proveedorServicio,
     tipoPromo: state.firestore.ordered.tipoPromocion,
+    nombreTipoProveedorFalla: state.admin.nombreTipoProveedorFalla,
   };
 };
 
@@ -126,6 +154,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     cargarTipoProveedor: (formData) =>
       dispatch(cargarTipoProveedor(formData)),
+    resetearValoresTipoProveedor: () => dispatch(resetearValoresTipoProveedor()),
   };
 };
 

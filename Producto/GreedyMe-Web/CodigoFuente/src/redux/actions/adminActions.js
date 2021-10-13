@@ -149,6 +149,17 @@ export const eliminarUsuarioComercio = (usuario) => {
 
 export const cargarPromocion = (formData) => {
   return (dispatch, getState, { getFirestore }) => {
+    const listaPromocion2 = [];
+    formData.lista.map((item) => {
+      if (
+        item.valor.toLowerCase() !== 'otro' &&
+        item.valor.toLowerCase() !== 'todas' &&
+        item.valor.toLowerCase() !== 'todos' &&
+        item.valor !== ''
+      ) {
+        listaPromocion2.push({ name: item.valor });
+      }
+    });
     //codigo asincrono
     const firestore = getFirestore();
     firestore
@@ -156,6 +167,12 @@ export const cargarPromocion = (formData) => {
       .doc(formData.id)
       .update({
         lista: formData.lista,
+      })
+    const bd = secondaryApp.firestore();
+    bd.collection('tipoPromocion')
+      .doc(formData.id)
+      .update({
+        lista: listaPromocion2
       })
       .then(() => {
         dispatch({ type: 'CARGAR_PROMOCION' });
@@ -165,15 +182,44 @@ export const cargarPromocion = (formData) => {
       });
   };
 };
+
 export const cargarTipoPromocion = (formData) => {
   return (dispatch, getState, { getFirestore }) => {
+    //consigo todas las promociones existentes
+    const promociones = getState().firestore.ordered.tipoPromocion;
+    //
+    const indice = _.findIndex(promociones, function (o) {
+      return o.tipo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") === formData.tipoPromocion.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    });
+
+    if (indice !== -1) {
+      dispatch({ type: 'FALLO_NOMBRE_TIPO_PROMOCION' });
+      throw 'error'
+    }
+
+    var caracteres =
+      'abcdefghijkmnpqrtuvwxyzABCDEFGHJKMNPQRTUVWXYZ2346789';
+    var identificacion = '';
+    for (var i = 0; i < 20; i++) {
+      identificacion += caracteres.charAt(
+        Math.floor(Math.random() * caracteres.length),
+      );
+    }
     //codigo asincrono
     const firestore = getFirestore();
     firestore
       .collection('tipoPromocion')
-      .doc()
+      .doc(identificacion)
       .set({
         tipo: formData.tipoPromocion,
+        lista: [],
+      })
+    const bd = secondaryApp.firestore();
+    bd
+      .collection('tipoPromocion')
+      .doc(identificacion)
+      .set({
+        name: formData.tipoPromocion,
         lista: [],
       })
       .then(() => {
@@ -192,11 +238,61 @@ export const eliminarTipoPromocion = (formData) => {
       .collection('tipoPromocion')
       .doc(formData.id)
       .delete()
+    const bd = secondaryApp.firestore();
+    bd
+      .collection('tipoPromocion')
+      .doc(formData.id)
+      .delete()
       .then(() => {
         dispatch({ type: 'TIPO_PROMOCION_ELIMINADO' });
       })
       .catch((error) => {
         dispatch({ type: 'FALLO_ELIMINACION_TIPO_PROMOCION', error });
+      });
+  };
+};
+
+export const eliminarPromocion = (promocion, idPromocion) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const promociones = getState().firestore.ordered.tipoPromocion;
+
+    const indiceACambiar = _.findIndex(promociones, function (o) {
+      return o.id === idPromocion;
+    });
+
+    const id = promociones[indiceACambiar].id;
+
+    const lista = promociones[indiceACambiar].lista;
+    const listaPromocionEliminado = lista.filter((item) => item.valor != promocion);
+    const listaPromocionEliminado2 = [];
+
+    listaPromocionEliminado.map((item) => {
+      if (
+        item.valor.toLowerCase() !== 'otro' &&
+        item.valor.toLowerCase() !== 'todas' &&
+        item.valor.toLowerCase() !== 'todos' &&
+        item.valor !== ''
+      ) {
+        listaPromocionEliminado2.push({ name: item.valor });
+      }
+    });
+
+    const firestore = getFirestore();
+    firestore.collection('tipoPromocion')
+      .doc(id)
+      .update({
+        lista: listaPromocionEliminado,
+      });
+    const bd = secondaryApp.firestore();
+    bd.collection('tipoPromocion')
+      .doc(id)
+      .update({ lista: listaPromocionEliminado2 })
+      .then(() => {
+        dispatch({ type: 'ELIMINAR_PROMOCION_ADM' });
+      })
+      .catch((error) => {
+        dispatch({ type: 'ERROR_ELIMINAR_PROMOCION', error });
       });
   };
 };
@@ -314,6 +410,22 @@ export const cargarBanco = (formData) => {
 
 export const cargarTipoProveedor = (formData) => {
   return (dispatch, getState, { getFirestore }) => {
+    //consigo todos los proveedores existentes
+    const proveedores = getState().firestore.ordered.proveedorServicio;
+    //
+    const indice = _.findIndex(proveedores, function (o) {
+      if (o.tipo) {
+        return o.tipo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") === formData.tipoProveedor.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      }
+    });
+    if (indice !== -1) {
+      dispatch({ type: 'FALLO_NOMBRE_TIPO_PROVEEDOR' });
+      throw 'error'
+    }
+    if (formData.tipoProveedor === 'Bancos' || formData.tipoProveedor === 'bancos') {
+      dispatch({ type: 'FALLO_NOMBRE_TIPO_PROVEEDOR' });
+      throw 'error'
+    }
     var caracteres =
       'abcdefghijkmnpqrtuvwxyzABCDEFGHJKMNPQRTUVWXYZ2346789';
     var identificacion = '';
@@ -367,9 +479,110 @@ export const eliminarTipoProveedor = (formData) => {
   };
 };
 
+export const eliminarProveedor = (proveedor, idProveedor) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const proveedores = getState().firestore.ordered
+      .proveedorServicio;
+
+    const indiceACambiar = _.findIndex(proveedores, function (o) {
+      return o.id === idProveedor;
+    });
+
+    const id = proveedores[indiceACambiar].id;
+
+    const lista = proveedores[indiceACambiar].lista;
+    const listaProveedorEliminado = lista.filter((item) => item.nombre != proveedor);
+    const listaProveedorEliminado2 = [];
+
+    listaProveedorEliminado.map((item) => {
+      if (
+        item.nombre.toLowerCase() !== 'otro' &&
+        item.nombre.toLowerCase() !== 'todas' &&
+        item.nombre.toLowerCase() !== 'todos' &&
+        item.nombre !== ''
+      ) {
+        listaProveedorEliminado2.push({ name: item.nombre });
+      }
+    });
+
+
+    const firestore = getFirestore();
+    firestore.collection('proveedorServicio').doc(id).update({
+      lista: listaProveedorEliminado,
+    });
+    const bd = secondaryApp.firestore();
+    bd.collection('proveedorServicio')
+      .doc(id)
+      .update({ lista: listaProveedorEliminado2 })
+      .then(() => {
+        dispatch({ type: 'ELIMINAR_PROVEEDOR' });
+      })
+      .catch((error) => {
+        dispatch({ type: 'ERROR_ELIMINAR_PROVEEDOR', error });
+      });
+  };
+};
+
+export const eliminarProveedorBanco = (banco) => {
+  return (dispatch, getState, { getFirestore }) => {
+    //codigo asincrono
+    const proveedores = getState().firestore.ordered.proveedorServicio;
+
+    const indiceACambiar = _.findIndex(proveedores, function (o) {
+      return o.id === 'ndbKpkm6GorM0g5kHNkF';
+    });
+
+    const lista = proveedores[indiceACambiar].bancos;
+
+    const listaProveedorEliminado = lista.filter((item) => item.nombre != banco);
+
+    const listaProveedorEliminado2 = [];
+    listaProveedorEliminado.map((item) => {
+      if (
+        item.nombre.toLowerCase() !== 'otro' &&
+        item.nombre.toLowerCase() !== 'todas' &&
+        item.nombre.toLowerCase() !== 'todos'
+      ) {
+        listaProveedorEliminado2.push({ name: item.nombre });
+      }
+    });
+
+    const firestore = getFirestore();
+    firestore
+      .collection('proveedorServicio')
+      .doc('ndbKpkm6GorM0g5kHNkF')
+      .update({
+        bancos: listaProveedorEliminado,
+      });
+    const bd = secondaryApp.firestore();
+    bd.collection('proveedorServicio')
+      .doc('ndbKpkm6GorM0g5kHNkF')
+      .update({ lista: listaProveedorEliminado2 })
+      .then(() => {
+        dispatch({ type: 'ELIMINAR_BANCO' });
+      })
+      .catch((error) => {
+        dispatch({ type: 'ERROR_ELIMINAR_BANCO', error });
+      });
+  };
+};
+
 export const resetearValoresCreacionComercio = () => {
   return (dispatch, getState, { getFirestore }) => {
     dispatch({ type: 'RESETEAR_VALORES_CREACION_COMERCIO' });
+  };
+};
+
+export const resetearValoresTipoPromocion = () => {
+  return (dispatch, getState, { getFirestore }) => {
+    dispatch({ type: 'RESETEAR_VALORES_TIPO_PROMOCION' });
+  };
+};
+
+export const resetearValoresTipoProveedor = () => {
+  return (dispatch, getState, { getFirestore }) => {
+    dispatch({ type: 'RESETEAR_VALORES_TIPO_PROVEEDOR' });
   };
 };
 

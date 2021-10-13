@@ -26,6 +26,14 @@ const initState = {
   puntoRetiro: null,
   puntoRetiroEliminado: null,
   puntoRetiroFalla: null,
+  proveedorEliminado: null,
+  proveedorEliminadoFalla: null,
+  promocionEliminada: null,
+  promocionEliminadaFalla: null,
+  bancoEliminado: null,
+  bancoEliminadoFalla: null,
+  nombreTipoPromocionFalla: null,
+  nombreTipoProveedorFalla: null,
   canjeEliminado: null,
   canjeModificado: null,
   canjeFalla: null,
@@ -86,12 +94,22 @@ const adminReducer = (state = initState, action) => {
       return {
         ...state,
         tipoPromo: 'Se creo un nuevo tipo promo ',
+        nombreTipoPromocionFalla: null,
+      };
+    case 'FALLO_NOMBRE_TIPO_PROMOCION':
+      console.log('fallo el nombre del tipo promocion');
+      return {
+        ...state,
+        nombreTipoPromocionFalla: 'fallo la creacion de usuario por cuit',
+        tipoPromo: null,
       };
     case 'ERROR_TIPO_PROMOCION':
       console.log('fallo el nuevo tipo');
       return {
         ...state,
         tipoPromoFalla: 'fallo la nueva tipo promo',
+        tipoPromo: null,
+        nombreTipoPromocionFalla: null,
       };
     case 'CARGAR_PROMOCION':
       console.log('se creo nueva promocion');
@@ -122,12 +140,24 @@ const adminReducer = (state = initState, action) => {
       return {
         ...state,
         tipoProveedor: 'Se creo una nueva promo ',
+        nombreTipoProveedorFalla: null,
+        tipoProveedorFalla: null,
       };
     case 'ERROR_TIPO_PROVEEDOR':
       console.log('fallo el nuevo tipo proveedor');
       return {
         ...state,
         tipoProveedorFalla: 'fallo la nueva promo',
+        tipoProveedor: null,
+        nombreTipoProveedorFalla: null,
+      };
+    case 'FALLO_NOMBRE_TIPO_PROVEEDOR':
+      console.log('fallo el nombre del tipo proveedor');
+      return {
+        ...state,
+        nombreTipoProveedorFalla: 'fallo el nombre del tipo proveedor',
+        tipoProveedorFalla: null,
+        tipoProveedor: null,
       };
     case 'TIPO_PROVEEDOR_ELIMINADO':
       console.log('se elimino el tipo proveedor');
@@ -154,6 +184,42 @@ const adminReducer = (state = initState, action) => {
         ...state,
         proveedorFalla: 'fallo la nueva proveedor',
       };
+    case 'ELIMINAR_PROVEEDOR':
+      console.log('se elimino el PROVEEDOR');
+      return {
+        ...state,
+        proveedorEliminado: 'Se elimino el proveedor ',
+      };
+    case 'ERROR_ELIMINAR_PROVEEDOR':
+      console.log('fallo la eliminacion del proveedor');
+      return {
+        ...state,
+        proveedorEliminadoFalla: 'fallo la eliminacion del proveedor',
+      };
+    case 'ELIMINAR_PROMOCION_ADM':
+      console.log('se elimino la PROMOCION');
+      return {
+        ...state,
+        promocionEliminada: 'Se elimino la promocion',
+      };
+    case 'ERROR_ELIMINAR_PROMOCION':
+      console.log('fallo eliminar la promocion');
+      return {
+        ...state,
+        promocionEliminadaFalla: 'fallo la eliminacion de la promocion',
+      };
+    case 'ELIMINAR_BANCO':
+      console.log('se elimino el BANCO');
+      return {
+        ...state,
+        bancoEliminado: 'Se elimino el banco',
+      };
+    case 'ERROR_ELIMINAR_BANCO':
+      console.log('fallo eliminar el banco');
+      return {
+        ...state,
+        bancoEliminadoFalla: 'fallo la eliminacion de el banco',
+      };
     case 'RESETEAR_VALORES_CREACION_COMERCIO':
       console.log('se resetearon');
       return {
@@ -161,6 +227,22 @@ const adminReducer = (state = initState, action) => {
         usuarioCreado: null,
         usuarioFalla: null,
         usuarioCuitFalla: null,
+      };
+    case 'RESETEAR_VALORES_TIPO_PROMOCION':
+      console.log('se resetearon');
+      return {
+        ...state,
+        tipoPromo: null,
+        tipoPromoFalla: null,
+        nombreTipoPromocionFalla: null,
+      };
+    case 'RESETEAR_VALORES_TIPO_PROVEEDOR':
+      console.log('se resetearon');
+      return {
+        ...state,
+        nombreTipoProveedorFalla: null,
+        tipoProveedorFalla: null,
+        tipoProveedor: null,
       };
     //PREMIOS
     case 'CARGAR_PREMIO':
