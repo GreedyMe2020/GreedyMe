@@ -101,7 +101,7 @@ function Estadisticas(props) {
   };
 
   const handleRefresh2 = () => {
-    const gruposSuscripcionesFiltro = formatoSuscripcionesFiltro(usuarios, desdeReporte, hastaReporte);
+    const gruposSuscripcionesFiltro = formatoSuscripcionesFiltro(usuarios, desdeReporte2, hastaReporte2);
     setGruposSuscripciones(gruposSuscripcionesFiltro);
   };
 
@@ -125,7 +125,7 @@ function Estadisticas(props) {
           Imprimir
         </Button>
       </div>
-      
+
       <div className="container-discount">
         <div className="tittle-discount">
           <div className="t-discount">
@@ -209,13 +209,13 @@ function Estadisticas(props) {
           </div>
         </div>
       </div>
-      
+
       <div className="container-discount">
         <div>
           <div className="tittle-discount">
             <div className="t-discount">
               <p className="tittle-d">
-              Cantidad de comercios por tipo de suscripción
+                Cantidad de comercios por tipo de suscripción
               </p>
             </div>
             <div>
