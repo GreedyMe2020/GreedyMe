@@ -85,12 +85,6 @@ export function Planes() {
             </IconButton>
           }
           contenido1="Acceso a una mayor variedad de estadísticas"
-          src2={
-            <IconButton id="btn" className={classes.root}>
-              <Check />
-            </IconButton>
-          }
-          contenido2="Programá tus notificaciones para una fecha y hora determinada"
           src3={
             <IconButton id="btn" className={classes.root}>
               <Check />

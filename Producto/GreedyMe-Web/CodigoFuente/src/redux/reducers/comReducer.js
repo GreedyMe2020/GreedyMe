@@ -140,18 +140,6 @@ const comReducer = (state = initState, action) => {
         ...state,
         errorActualizacionNotificaciones: 'Error al actualizar la notificacion'
       };
-    case "CAMBIO_CONTRASEÑA":
-      console.log("se subio la foto");
-      return {
-        ...state,
-        contraseña: "se cambio la contraseña",
-      };
-    case "ERROR_CONTRASEÑA":
-      console.log("no se subio la foto");
-      return {
-        ...state,
-        contraseñaError: "Ocurrio algun error al cambiar la contraseña",
-      };
     default:
       return state;
   }
