@@ -25,14 +25,14 @@ export const formatoRubrosFiltro = (usuarios, fechaInicio, fechaFin) => {
 }
 
 export const formatoSuscripcionesFiltro = (usuarios, fechaInicio, fechaFin) => {
-    const usuariosFiltrados = [];
+    const usuariosFiltrados2 = [];
     usuarios.forEach(usuario => {
         if (usuario.fechaCreacion.toDate() <= fechaFin &&
             usuario.fechaCreacion.toDate() >= fechaInicio) {
-            usuariosFiltrados.push(usuario)
+            usuariosFiltrados2.push(usuario);
         }
     });
-    const grupos = _.groupBy(usuariosFiltrados, n => n.tipoSuscripcion)
+    const grupos = _.groupBy(usuariosFiltrados2, n => n.tipoSuscripcion)
 
     return grupos
 }

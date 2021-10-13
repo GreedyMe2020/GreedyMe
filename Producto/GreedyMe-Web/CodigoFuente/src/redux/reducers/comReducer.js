@@ -15,6 +15,8 @@ const initState = {
   errorNotificacionesFav: null,
   actualizacionNotificacion: null,
   erroractualizacionNotificacion: null,
+  contraseña: null,
+  contraseñaError: null,
 };
 
 const comReducer = (state = initState, action) => {

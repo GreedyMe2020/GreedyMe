@@ -126,11 +126,11 @@ function ProgramarNotificaciones(props) {
               (promo.valueProveedor === 'Otro'
                 ? promo.otroProveedor
                 : promo.valueProveedor === 'Todos'
-                ? 'Todos los Bancos'
-                : promo.valueProveedor) +
+                  ? 'Todos los Bancos'
+                  : promo.valueProveedor) +
               ', ' +
               (promo.tipoProveedor === 'Tarjetas de crédito' ||
-              promo.tipoProveedor === 'Tarjetas de débito'
+                promo.tipoProveedor === 'Tarjetas de débito'
                 ? promo.otroProveedor + ' '
                 : '') +
               (promo.otroProveedor === 'Todas'
