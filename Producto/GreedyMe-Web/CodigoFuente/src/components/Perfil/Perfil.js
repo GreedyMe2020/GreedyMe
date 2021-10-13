@@ -35,8 +35,9 @@ import Geocode from "react-geocode";
 
 /* import { db } from "../firebase/config"; */
 const libraries = ["places"];
+
 const rubros = [];
-const rubro = () => {
+const getRubro = () => {
   const firestore = firebase.firestore();
   firestore
     .collection("rubros")
@@ -52,7 +53,8 @@ const rubro = () => {
       });
     });
 };
-rubro();
+
+getRubro();
 
 //seteo la API de google maps para que me tire las coordenadas de cierta direccion que le pase por parametro
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
@@ -74,6 +76,7 @@ function Alert(props) {
 }
 
 function Perfil(props) {
+
   const classes = useStyles();
 
   const [formData, setFormData] = React.useState({
@@ -86,6 +89,8 @@ function Perfil(props) {
     facebook: props.profile.facebook,
     direccion: props.profile.direccion,
   });
+
+  const [datosComercio, setDatosComercio] = React.useState({ nombreComercio: props.profile.nombreComercio, email: props.auth.email, cuit: props.profile.CUIT });
 
   const [ubicacion, setUbicacion] = React.useState({
     lat: null,
@@ -185,6 +190,18 @@ function Perfil(props) {
   useEffect(() => {
     //esto no corre en el primer render, se ejecuta luego del return
     formData.direccion ? getCoords() : null;
+    setFormData({
+      id: props.auth.uid,
+      web: props.profile.web,
+      sucursal: props.profile.sucursal,
+      rubro: props.profile.rubro,
+      telefono: props.profile.telefono,
+      instagram: props.profile.instagram,
+      facebook: props.profile.facebook,
+      direccion: props.profile.direccion
+    });
+    setDatosComercio({ nombreComercio: props.profile.nombreComercio, email: props.auth.email, cuit: props.profile.CUIT });
+
   }, []); //lista de dependencias de react, cosa de que se refresque el campo una vez y luego cada vez que se actualizan los elementos de la lista
 
   return (
@@ -199,7 +216,7 @@ function Perfil(props) {
                 fullWidth
                 id="outlined-disabled"
                 label="Nombre del comercio"
-                value={props.profile.nombreComercio}
+                value={datosComercio.nombreComercio}
                 variant="outlined"
                 name="usuario"
               />
@@ -210,7 +227,7 @@ function Perfil(props) {
                 label="Email"
                 fullWidth
                 disabled
-                value={props.auth.email}
+                value={datosComercio.email}
                 variant="outlined"
                 name="email"
               />
@@ -300,7 +317,7 @@ function Perfil(props) {
                   fullWidth
                   disabled
                   name="cuit"
-                  value={props.profile.CUIT}
+                  value={datosComercio.cuit}
                   label="CUIT"
                 />
               </Grid>
@@ -363,7 +380,7 @@ function Perfil(props) {
                   errorMessages={["*Este campo es obligatorio"]}
                 >
                   {rubros.map((option) => (
-                    <MenuItem key={option.nombre} value={option.nombre}>
+                    <MenuItem key={option.id} value={option.nombre}>
                       {option.nombre}
                     </MenuItem>
                   ))}

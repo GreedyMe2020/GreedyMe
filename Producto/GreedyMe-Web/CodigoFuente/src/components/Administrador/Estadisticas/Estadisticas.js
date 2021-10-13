@@ -115,8 +115,8 @@ function Estadisticas(props) {
   const handleRefresh2 = () => {
     const gruposSuscripcionesFiltro = formatoSuscripcionesFiltro(
       usuarios,
-      desdeReporte,
-      hastaReporte,
+      desdeReporte2,
+      hastaReporte2,
     );
     setGruposSuscripciones(gruposSuscripcionesFiltro);
   };

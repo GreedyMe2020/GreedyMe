@@ -191,8 +191,8 @@ function Suscripciones(props) {
                     'Figurar en búsquedas por geolocalización',
                     '-',
                     <Box lineHeight={1.7} m={1}>
-                    -
-                  </Box>,
+                      -
+                    </Box>,
                   ]}
                   style1="planes-title planes-estandar-1"
                   style2="planes-precio planes-estandar-2"
@@ -232,7 +232,7 @@ function Suscripciones(props) {
                     'Figurar en búsquedas por geolocalización',
                     'Exportación de reportes estadísticos',
                     <Box lineHeight={1.75} m={1}>
-                     Publicidad dentro de la aplicación
+                      Publicidad dentro de la aplicación
                     </Box>,
                   ]}
                   style1="planes-title planes-premuim-1"
