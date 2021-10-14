@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { Pie } from '@reactchartjs/react-chart.js';
 import _ from 'lodash';
 
-
 const anios = [
   {
     value: '2021',
@@ -58,28 +57,16 @@ function ExperienciaCompra(props) {
   const chartAtencionVendedor = (
     countMala,
     countRegular,
-    countBuena,
     countMuyBuena,
+    countBuena,
     countExcelente,
   ) => {
     setChartAtencionVendedor({
-      labels: ['Mala', 'Regular', 'Buena', 'Muy Buena', 'Excelente'],
+      labels: ['Mala', 'Regular', 'Muy Buena'],
       datasets: [
         {
-          data: [
-            countMala,
-            countRegular,
-            countBuena,
-            countMuyBuena,
-            countExcelente,
-          ],
-          backgroundColor: [
-            '#1e1b4d',
-            '#262262',
-            '#76b39d',
-            '#f7941e',
-            '#fd5f00',
-          ],
+          data: [countMala, countRegular, countMuyBuena],
+          backgroundColor: ['#262262', '#76b39d', '#f7941e'],
         },
       ],
     });
@@ -123,9 +110,7 @@ function ExperienciaCompra(props) {
   const handleRefresh = () => {
     let contadorMala = 0;
     let contadorRegular = 0;
-    let contadorBueno = 0;
     let contadorMuyBueno = 0;
-    let contadorExcelente = 0;
     let contadorEsperadoSi = 0;
     let contadorEsperadoNo = 0;
     let contadorBeneficioSi = 0;
@@ -140,12 +125,8 @@ function ExperienciaCompra(props) {
           contadorMala++;
         } else if (reseñas[i].atencionVendedor === 'regular') {
           contadorRegular++;
-        } else if (reseñas[i].atencionVendedor === 'buena') {
-          contadorBueno++;
         } else if (reseñas[i].atencionVendedor === 'muybuena') {
           contadorMuyBueno++;
-        } else if (reseñas[i].atencionVendedor === 'excelente') {
-          contadorExcelente++;
         }
         if (reseñas[i].coincideLoEsperado === 'si') {
           contadorEsperadoSi++;
@@ -163,9 +144,7 @@ function ExperienciaCompra(props) {
     chartAtencionVendedor(
       contadorMala,
       contadorRegular,
-      contadorBueno,
       contadorMuyBueno,
-      contadorExcelente,
     );
 
     chartCoincideLoEsperado(contadorEsperadoSi, contadorEsperadoNo);
@@ -185,9 +164,7 @@ function ExperienciaCompra(props) {
 
         let contadorMala = 0;
         let contadorRegular = 0;
-        let contadorBueno = 0;
         let contadorMuyBueno = 0;
-        let contadorExcelente = 0;
         let contadorEsperadoSi = 0;
         let contadorEsperadoNo = 0;
         let contadorBeneficioSi = 0;
@@ -206,12 +183,8 @@ function ExperienciaCompra(props) {
             contadorMala++;
           } else if (doc.data().atencionVendedor === 'regular') {
             contadorRegular++;
-          } else if (doc.data().atencionVendedor === 'buena') {
-            contadorBueno++;
           } else if (doc.data().atencionVendedor === 'muybuena') {
             contadorMuyBueno++;
-          } else if (doc.data().atencionVendedor === 'excelente') {
-            contadorExcelente++;
           }
           if (doc.data().coincideLoEsperado === 'si') {
             contadorEsperadoSi++;
@@ -228,9 +201,7 @@ function ExperienciaCompra(props) {
         chartAtencionVendedor(
           contadorMala,
           contadorRegular,
-          contadorBueno,
           contadorMuyBueno,
-          contadorExcelente,
         );
 
         chartCoincideLoEsperado(
@@ -293,35 +264,41 @@ function ExperienciaCompra(props) {
           </TextField>
         </form>
         <div className="est-container">
-          <Pie data={chartDataAtencionVendedor} options={{
-            title: {
-              display: true,
-              text: "Atención del vendedor",
-              fontSize: 35,
-              color: "black",
-            },
-          }} />
+          <Pie
+            data={chartDataAtencionVendedor}
+            options={{
+              title: {
+                display: true,
+                text: 'Atención del vendedor',
+                fontSize: 20,
+              },
+            }}
+          />
         </div>
         <div className="graphic-exp">
           <div className="est-exp">
-            <Pie data={chartDataCoincideEsperado} options={{
-              title: {
-                display: true,
-                text: "¿El Cupon coincide con lo esperado?",
-                fontSize: 17,
-                color: "black",
-              },
-            }} />
+            <Pie
+              data={chartDataCoincideEsperado}
+              options={{
+                title: {
+                  display: true,
+                  text: '¿El cupón coincide con lo esperado?',
+                  fontSize: 17,
+                },
+              }}
+            />
           </div>
           <div className="est-exp">
-            <Pie data={chartDataUtilizoBeneficio} options={{
-              title: {
-                display: true,
-                text: "¿El cliente pudo utilizar el beneficio?",
-                fontSize: 17,
-                color: "black",
-              },
-            }} />
+            <Pie
+              data={chartDataUtilizoBeneficio}
+              options={{
+                title: {
+                  display: true,
+                  text: '¿El cliente pudo utilizar el beneficio?',
+                  fontSize: 17,
+                },
+              }}
+            />
           </div>
         </div>
       </div>

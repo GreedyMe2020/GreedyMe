@@ -18,7 +18,12 @@ import {
 import Button from '@material-ui/core/Button';
 import Print from '@material-ui/icons/Print';
 import 'react-vis/dist/style.css';
-import { formatoRubros, formatoSuscripciones, formatoRubrosFiltro, formatoSuscripcionesFiltro } from './Funciones';
+import {
+  formatoRubros,
+  formatoSuscripciones,
+  formatoRubrosFiltro,
+  formatoSuscripcionesFiltro,
+} from './Funciones';
 import {
   MuiPickersUtilsProvider,
   DatePicker,
@@ -27,6 +32,8 @@ import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import Refresh from '@material-ui/icons/Refresh';
+import Visibility from '@material-ui/icons/Visibility';
+import Search from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
   demo: {
@@ -68,12 +75,13 @@ function Estadisticas(props) {
   );
 
   const [gruposRubros, setGruposRubros] = React.useState(
-    gruposRubrosOriginal
+    gruposRubrosOriginal,
   );
 
-  const [gruposSuscripciones, setGruposSuscripciones] = React.useState(
-    gruposSuscripcionesOriginal
-  );
+  const [
+    gruposSuscripciones,
+    setGruposSuscripciones,
+  ] = React.useState(gruposSuscripcionesOriginal);
 
   const temaCombo = createMuiTheme({
     overrides: {
@@ -91,7 +99,11 @@ function Estadisticas(props) {
   };
 
   const handleRefresh = () => {
-    const gruposRubrosFiltro = formatoRubrosFiltro(usuarios, desdeReporte, hastaReporte);
+    const gruposRubrosFiltro = formatoRubrosFiltro(
+      usuarios,
+      desdeReporte,
+      hastaReporte,
+    );
     setGruposRubros(gruposRubrosFiltro);
   };
 
@@ -101,10 +113,13 @@ function Estadisticas(props) {
   };
 
   const handleRefresh2 = () => {
-    const gruposSuscripcionesFiltro = formatoSuscripcionesFiltro(usuarios, desdeReporte2, hastaReporte2);
+    const gruposSuscripcionesFiltro = formatoSuscripcionesFiltro(
+      usuarios,
+      desdeReporte2,
+      hastaReporte2,
+    );
     setGruposSuscripciones(gruposSuscripcionesFiltro);
   };
-
 
   const handleTodo2 = () => {
     const gruposSuscripcionesFiltro = formatoSuscripciones(usuarios);
@@ -113,7 +128,11 @@ function Estadisticas(props) {
 
   return (
     <div>
-      <div className="prom-title-container">
+      <div
+        className="prom-title-container"
+        id="subtitulo-container"
+        style={{ marginTop: 35 }}
+      >
         <h1>Estadísticas</h1>
         <Button
           variant="contained"
@@ -130,18 +149,8 @@ function Estadisticas(props) {
         <div className="tittle-discount">
           <div className="t-discount">
             <p className="tittle-d">
-              Cantidad total de compras por beneficio
+              Cantidad total de comercios por rubro
             </p>
-          </div>
-          <div>
-            <Button
-              variant="outlined"
-              onClick={handleRefresh}
-              endIcon={<Refresh fontSize="medium" />}
-              id="actualizar-reporte"
-            >
-              Actualizar
-            </Button>
           </div>
         </div>
         <div className="content-discount">
@@ -179,11 +188,25 @@ function Estadisticas(props) {
               </ThemeProvider>
             </MuiPickersUtilsProvider>
             <Button
-              variant="outlined"
+              variant="contained"
+              onClick={handleRefresh}
+              endIcon={<Search fontSize="medium" />}
+              id="actualizar-reporte"
+              style={{ backgroundColor: '#76b39d', color: 'white' }}
+            >
+              Filtrar
+            </Button>
+            <Button
+              variant="contained"
               onClick={handleTodo}
               id="actualizar-reporte"
+              endIcon={<Visibility />}
+              style={{
+                backgroundColor: '#76b39d',
+                color: 'white',
+              }}
             >
-              Mostrar todo
+              Ver todo
             </Button>
           </form>
           <div className="est-container">
@@ -204,7 +227,6 @@ function Estadisticas(props) {
                   })
                 }
               />
-
             </XYPlot>
           </div>
         </div>
@@ -217,16 +239,6 @@ function Estadisticas(props) {
               <p className="tittle-d">
                 Cantidad de comercios por tipo de suscripción
               </p>
-            </div>
-            <div>
-              <Button
-                variant="outlined"
-                onClick={handleRefresh2}
-                endIcon={<Refresh fontSize="medium" />}
-                id="actualizar-reporte"
-              >
-                Actualizar
-              </Button>
             </div>
           </div>
           <div className="content-discount">
@@ -263,12 +275,27 @@ function Estadisticas(props) {
                   />
                 </ThemeProvider>
               </MuiPickersUtilsProvider>
+
               <Button
-                variant="outlined"
-                onClick={handleTodo2}
+                variant="contained"
+                onClick={handleRefresh}
+                endIcon={<Search fontSize="medium" />}
                 id="actualizar-reporte"
+                style={{ backgroundColor: '#76b39d', color: 'white' }}
               >
-                Mostrar todo
+                Filtrar
+              </Button>
+              <Button
+                variant="contained"
+                onClick={handleTodo}
+                id="actualizar-reporte"
+                endIcon={<Visibility />}
+                style={{
+                  backgroundColor: '#76b39d',
+                  color: 'white',
+                }}
+              >
+                Ver todo
               </Button>
             </form>
             <div className="est-container">
@@ -289,10 +316,10 @@ function Estadisticas(props) {
                             suscripcion[0] === '0'
                               ? 'Plan Básico'
                               : suscripcion[0] === '1'
-                                ? 'Plan Estándar'
-                                : suscripcion[0] === '2'
-                                  ? 'Plan Premium'
-                                  : null,
+                              ? 'Plan Estándar'
+                              : suscripcion[0] === '2'
+                              ? 'Plan Premium'
+                              : null,
                           y: suscripcion[1].length,
                         };
                       },
