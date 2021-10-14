@@ -149,7 +149,7 @@ function Estadisticas(props) {
         <div className="tittle-discount">
           <div className="t-discount">
             <p className="tittle-d">
-              Cantidad total de compras por beneficio
+              Cantidad total de comercios por rubro
             </p>
           </div>
         </div>
