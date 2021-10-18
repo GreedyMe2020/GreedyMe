@@ -62,7 +62,7 @@ function ExperienciaCompra(props) {
     countExcelente,
   ) => {
     setChartAtencionVendedor({
-      labels: ['Mala', 'Regular', 'Muy Buena'],
+      labels: ['Mala', 'Buena', 'Muy Buena'],
       datasets: [
         {
           data: [countMala, countRegular, countMuyBuena],
@@ -123,7 +123,7 @@ function ExperienciaCompra(props) {
         comentarios.push(reseñas[i].comentario);
         if (reseñas[i].atencionVendedor === 'mala') {
           contadorMala++;
-        } else if (reseñas[i].atencionVendedor === 'regular') {
+        } else if (reseñas[i].atencionVendedor === 'buena') {
           contadorRegular++;
         } else if (reseñas[i].atencionVendedor === 'muybuena') {
           contadorMuyBueno++;
@@ -181,7 +181,7 @@ function ExperienciaCompra(props) {
           comentarios.push(doc.data().comentario);
           if (doc.data().atencionVendedor === 'mala') {
             contadorMala++;
-          } else if (doc.data().atencionVendedor === 'regular') {
+          } else if (doc.data().atencionVendedor === 'buena') {
             contadorRegular++;
           } else if (doc.data().atencionVendedor === 'muybuena') {
             contadorMuyBueno++;
