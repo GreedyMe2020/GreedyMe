@@ -278,7 +278,7 @@ function Estadisticas(props) {
 
               <Button
                 variant="contained"
-                onClick={handleRefresh}
+                onClick={handleRefresh2}
                 endIcon={<Search fontSize="medium" />}
                 id="actualizar-reporte"
                 style={{ backgroundColor: '#76b39d', color: 'white' }}
@@ -287,7 +287,7 @@ function Estadisticas(props) {
               </Button>
               <Button
                 variant="contained"
-                onClick={handleTodo}
+                onClick={handleTodo2}
                 id="actualizar-reporte"
                 endIcon={<Visibility />}
                 style={{
@@ -316,10 +316,10 @@ function Estadisticas(props) {
                             suscripcion[0] === '0'
                               ? 'Plan Básico'
                               : suscripcion[0] === '1'
-                              ? 'Plan Estándar'
-                              : suscripcion[0] === '2'
-                              ? 'Plan Premium'
-                              : null,
+                                ? 'Plan Estándar'
+                                : suscripcion[0] === '2'
+                                  ? 'Plan Premium'
+                                  : null,
                           y: suscripcion[1].length,
                         };
                       },
