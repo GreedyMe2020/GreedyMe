@@ -52,6 +52,10 @@ const PaypalCheckoutButton = (props) => {
   useEffect(() => {
     window.paypal
       .Buttons({
+        style: {
+          layout: 'horizontal',
+          height: 36
+        },
         createOrder: (data, actions, err) => {
           return actions.order.create({
             intent: 'CAPTURE',
@@ -62,10 +66,6 @@ const PaypalCheckoutButton = (props) => {
                   currency_code: 'USD',
                   value: props.value,
                 },
-                payment_options: {
-                  allowed_payment_method: 'INSTANT_FUNDING_SOURCE',
-                },
-
                 no_shipping: 1,
               },
             ],
