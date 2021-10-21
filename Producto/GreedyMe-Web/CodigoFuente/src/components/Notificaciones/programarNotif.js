@@ -115,33 +115,35 @@ function ProgramarNotificaciones(props) {
         }));
         const beneficios = [];
         arrayPromociones.map((promo) => {
-          beneficios.push({
-            name:
-              promo.tipoPromo +
-              ' ' +
-              (promo.valuePromo === 'Otro'
-                ? promo.otraPromo
-                : promo.valuePromo) +
-              ' ' +
-              (promo.valueProveedor === 'Otro'
-                ? promo.otroProveedor
-                : promo.valueProveedor === 'Todos'
-                  ? 'Todos los Bancos'
-                  : promo.valueProveedor) +
-              ', ' +
-              (promo.tipoProveedor === 'Tarjetas de crédito' ||
-                promo.tipoProveedor === 'Tarjetas de débito'
-                ? promo.otroProveedor + ' '
-                : '') +
-              (promo.otroProveedor === 'Todas'
-                ? 'las Tarjetas '
-                : '') +
-              'válida desde el ' +
-              format(promo.desdeVigencia.toDate(), 'dd/MM/yyyy') +
-              ' hasta el ' +
-              format(promo.hastaVigencia.toDate(), 'dd/MM/yyyy') +
-              '.',
-          });
+          if (promo.visible === true && promo.hastaVigencia.toDate() > new Date()) {
+            beneficios.push({
+              name:
+                promo.tipoPromo +
+                ' ' +
+                (promo.valuePromo === 'Otro'
+                  ? promo.otraPromo
+                  : promo.valuePromo) +
+                ' ' +
+                (promo.valueProveedor === 'Otro'
+                  ? promo.otroProveedor
+                  : promo.valueProveedor === 'Todos'
+                    ? 'Todos los Bancos'
+                    : promo.valueProveedor) +
+                ', ' +
+                (promo.tipoProveedor === 'Tarjetas de crédito' ||
+                  promo.tipoProveedor === 'Tarjetas de débito'
+                  ? promo.otroProveedor + ' '
+                  : '') +
+                (promo.otroProveedor === 'Todas'
+                  ? 'las Tarjetas '
+                  : '') +
+                'válida desde el ' +
+                format(promo.desdeVigencia.toDate(), 'dd/MM/yyyy') +
+                ' hasta el ' +
+                format(promo.hastaVigencia.toDate(), 'dd/MM/yyyy') +
+                '.',
+            });
+          }
         });
         const opciones = beneficios.map((option) => {
           const firstLetter = option.name[0].toUpperCase();
