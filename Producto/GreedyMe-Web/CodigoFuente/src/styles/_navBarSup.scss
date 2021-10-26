@@ -23,8 +23,9 @@ $dark-orange-color: #fd5f00;
   background-color: $logo-blue-color;
 
   #titulo {
-    width: 90%;
-    margin: auto;
+    width: 75%;
+    margin-right: auto;
+    margin-left: 0px;
     padding: 1rem 0rem;
     display: flex;
     flex-flow: row wrap;
@@ -45,6 +46,13 @@ $dark-orange-color: #fd5f00;
     .me {
       color: $logo-orange-color;
     }
+  }
+
+  .greetings{
+    font-size: 1rem;
+    color: $grey-color;
+    margin-bottom: 0px;
+    padding: 12px;
   }
 }
 
