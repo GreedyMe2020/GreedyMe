@@ -129,10 +129,10 @@ function Suscripciones(props) {
         <Card className="cardPromo plan-container">
           <CardContent className="cardContentePromo">
             <div className="susc-title-container">
-              <h3>Compará los planes</h3>
+              <h3>Compará nuestros planes</h3>
               <p>
                 GreedyMe te brinda una comparación entre los
-                diferentes planes ofrecidos para que elijas el que mas
+                diferentes planes ofrecidos para que elijas el que más
                 se ajuste a tus necesidades.
               </p>
             </div>
@@ -144,7 +144,7 @@ function Suscripciones(props) {
                   text={[
                     'Estadísticas base',
                     '4 notificaciones por mes',
-                    'Notificaciones a cientes favoritos',
+                    'Notificaciones a clientes favoritos',
                     ,
                     <Box lineHeight={1.75} m={1}>
                       -

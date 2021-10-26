@@ -32,7 +32,7 @@ function PreguntasPerfil(props) {
           Una vez iniciada la sesión, en la sección superior derecha de la página principal encontraras un icono de una persona. Haciendo clic en él, seleccionas la sección Mi Perfil.
           Al ser redirigido a dicha sección encontraras un formulario con todos tus datos personales, debes tener en cuenta que algunos de ellos son editables mientras que otros no, así como también existen datos obligatorios y opcionales.
           Respecto a la información de inicio de sesión, podrás modificar la contraseña seleccionando la opción “Cambiar contraseña” así como también, la imagen de usuario, pudiendo cargar una nueva o eliminar la existente.
-          En la sección Información general, los campos editables son la sucursal, el sitio web, el usuario de Instagram y Facebook de tu comercio, el rubo, el teléfono y la dirección, siendo estos últimos tres, obligatorios.
+          En la sección Información general, los campos editables son la sucursal, el sitio web, el usuario de Instagram y Facebook de tu comercio, el rubro, el teléfono y la dirección, siendo estos últimos tres, obligatorios.
           Una vez realizados los cambios deseados, seleccionas la opción “Guardar cambios” y los mismos se actualizarán en la plataforma.
           "
         />
