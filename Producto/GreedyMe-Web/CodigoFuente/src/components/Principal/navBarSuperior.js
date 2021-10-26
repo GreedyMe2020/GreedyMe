@@ -6,9 +6,9 @@ import Perfil from '../Perfil';
 import { Link } from '@reach/router';
 import { connect } from 'react-redux';
 
-export function NavBarSup({ appBar, seleccionado, setSeleccionado }) {
+export function NavBarSup(props) {
   return (
-    <AppBar position="fixed" className={appBar}>
+    <AppBar position="fixed" className={props.appBar}>
       <Toolbar className="nav-container">
         <div id="titulo">
           <Link
@@ -23,9 +23,10 @@ export function NavBarSup({ appBar, seleccionado, setSeleccionado }) {
         </div>
 
         {/* <Notificaciones /> */}
+        <p className="greetings">¡Hola, {props.profile.nombreComercio}!</p>
         <Perfil
-          seleccionado={seleccionado}
-          setSeleccionado={setSeleccionado}
+          seleccionado={props.seleccionado}
+          setSeleccionado={props.setSeleccionado}
         />
       </Toolbar>
     </AppBar>
@@ -34,6 +35,7 @@ export function NavBarSup({ appBar, seleccionado, setSeleccionado }) {
 
 const mapStateToProps = (state) => {
   return {
+    profile: state.firebase.profile,
     auth: state.firebase.auth,
   };
 };
