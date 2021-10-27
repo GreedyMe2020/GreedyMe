@@ -30,8 +30,8 @@ function PreguntasBeneficios(props) {
           pregunta="Quiero cargar un beneficio nuevo"
           respuesta="Para cargar un beneficio nuevo, deberás dirigirte a la sección Mis beneficios desde la barra lateral de la pantalla.
           Una vez en dicha sección, seleccionas la opción “Nuevo Beneficio” que se encuentra en la esquina superior derecha de la misma. Se abrirá un formulario donde podrás registrar los datos de tu beneficio, como ser el tipo (promoción, descuento), el proveedor (tarjeta de crédito/debito, banco, club de beneficios, etc.), los días que aplica, el medio de pago con el que se aplica y alguna descripción opcional o aclaración.
-          Por último, al completar todos los datos, seleccionas la opción “Guardar beneficio” y el mismo podrá visualizarse en tu perfil y tablero de beneficios. Debés tener en cuenta que al momento de cargar un nuevo beneficio,
-          el mismo se cargará como Oculto en la aplicación. Para hacerlo visible para todos los usuarios, deberás hacer clic en ícono de ojo que se encuentra a la derecha hasta que éste no figure como tachado"
+          Por último, al completar todos los datos, seleccionas la opción “Cargar beneficio” y el mismo podrá visualizarse en tu perfil y tablero de beneficios. Debés tener en cuenta que al momento de cargar un nuevo beneficio,
+          el mismo se cargará como Oculto en la aplicación. Para hacerlo visible para todos los usuarios, deberás hacer clic en el ícono de ojo que se encuentra a la derecha hasta que éste no figure como tachado."
         />
         <AccordionPreguntas
           pregunta="No está el proveedor del beneficio que deseo registrar"
