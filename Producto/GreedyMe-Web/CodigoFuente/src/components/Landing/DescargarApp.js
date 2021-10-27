@@ -1,27 +1,27 @@
-import React from "react";
-import { Image } from "react-bootstrap";
+import React from 'react';
+import { Image } from 'react-bootstrap';
 
 export function DescargarApp() {
   return (
     <div className="descargaApp">
       <p className="textoApp">
-        Próximamente podrás descargarte la app en tu celular y empezar a
-        gestionar todos tus descuentos
+        Próximamente podrás descargarte la app en tu celular y empezar
+        a gestionar todos tus descuentos
       </p>
       <div className="contenedorCel">
         <Image
           className="imgCelular"
-          src={require("../../../Multimedia/Landing/Imagenes/celular1.png")}
+          src={require('../../../Multimedia/Landing/Imagenes/cel1.png')}
         />
       </div>
       <div className="contenedorDescarga">
         <Image
           className="icoApp"
-          src={require("../../../Multimedia/Landing/Imagenes/googleplay1.png")}
+          src={require('../../../Multimedia/Landing/Imagenes/googleplay1.png')}
         />
         <Image
           className="icoApp"
-          src={require("../../../Multimedia/Landing/Imagenes/appstore1.png")}
+          src={require('../../../Multimedia/Landing/Imagenes/appstore1.png')}
         />
       </div>
     </div>
