@@ -199,19 +199,6 @@ function Inicio(props) {
                   necesitas.
                 </p>
               </div>
-              <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                  <SearchIcon />
-                </div>
-                <InputBase
-                  placeholder="Preguntas…"
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                  inputProps={{ 'aria-label': 'search' }}
-                />
-              </div>
               <CardActions className="inicio-cont-boton">
                 <Typography color="textSecondary" gutterBottom>
                   <Link
